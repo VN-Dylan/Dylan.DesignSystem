@@ -1,0 +1,556 @@
+<title>Dylan Design System Blueprint</title>
+<meta name="description" content="Kế hoạch dựng lại Eyris admin template thành bộ design system React + Tailwind + SCSS có handbook." />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" />
+<style>
+  :root {
+    --ground: #f5f6f8;
+    --surface: #ffffff;
+    --surface-2: #fbfbfd;
+    --ink: #1b1e26;
+    --ink-soft: #565d6c;
+    --ink-faint: #8b93a3;
+    --hairline: #e4e7ee;
+    --hairline-strong: #d3d8e3;
+    --accent: #3350e0;
+    --accent-ink: #2338a8;
+    --accent-soft: #eef1fe;
+    --ok: #00925a;
+    --warn: #b7791f;
+    --crit: #d83a32;
+    --shadow: 0 1px 2px rgba(20,25,40,.05), 0 8px 24px -12px rgba(20,25,40,.12);
+    --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    --body: "IBM Plex Sans", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    --display: "Bricolage Grotesque", var(--body);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #0d0f13;
+      --surface: #14171d;
+      --surface-2: #171b22;
+      --ink: #e7e9ee;
+      --ink-soft: #a3abbb;
+      --ink-faint: #6d7688;
+      --hairline: #262c37;
+      --hairline-strong: #333b48;
+      --accent: #7b93ff;
+      --accent-ink: #a9b8ff;
+      --accent-soft: #1a2036;
+      --ok: #3fbf88;
+      --warn: #e2a94b;
+      --crit: #f06a63;
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 10px 30px -14px rgba(0,0,0,.6);
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #0d0f13;
+    --surface: #14171d;
+    --surface-2: #171b22;
+    --ink: #e7e9ee;
+    --ink-soft: #a3abbb;
+    --ink-faint: #6d7688;
+    --hairline: #262c37;
+    --hairline-strong: #333b48;
+    --accent: #7b93ff;
+    --accent-ink: #a9b8ff;
+    --accent-soft: #1a2036;
+    --ok: #3fbf88;
+    --warn: #e2a94b;
+    --crit: #f06a63;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 10px 30px -14px rgba(0,0,0,.6);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 16px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1060px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 56px); }
+
+  /* ---- masthead ---- */
+  header.top {
+    border-bottom: 1px solid var(--hairline);
+    background: linear-gradient(180deg, var(--surface), var(--ground));
+  }
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--accent-ink);
+  }
+  h1 {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(2rem, 4.6vw, 3.1rem);
+    line-height: 1.05;
+    letter-spacing: -.02em;
+    text-wrap: balance;
+    margin: .5rem 0 .6rem;
+  }
+  .lede { font-size: 1.12rem; color: var(--ink-soft); max-width: 62ch; margin: 0; }
+  .top-inner { padding: clamp(40px, 7vw, 72px) 0 34px; }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1px;
+    background: var(--hairline);
+    border: 1px solid var(--hairline);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-top: 32px;
+  }
+  .stat { background: var(--surface); padding: 16px 18px; }
+  .stat b {
+    font-family: var(--display);
+    font-size: 1.7rem;
+    font-weight: 700;
+    letter-spacing: -.02em;
+    font-variant-numeric: tabular-nums;
+    display: block;
+  }
+  .stat span { font-size: .82rem; color: var(--ink-faint); }
+
+  /* ---- layout ---- */
+  main { padding: 52px 0 80px; }
+  .section { margin-bottom: 60px; scroll-margin-top: 24px; }
+  .kicker {
+    display: flex; align-items: baseline; gap: 14px;
+    border-bottom: 1px solid var(--hairline);
+    padding-bottom: 10px; margin-bottom: 22px;
+  }
+  .kicker .n {
+    font-family: var(--mono); font-size: .8rem; color: var(--accent);
+    font-weight: 500;
+  }
+  h2 {
+    font-family: var(--display); font-weight: 700;
+    font-size: clamp(1.4rem, 2.6vw, 1.9rem);
+    letter-spacing: -.015em; margin: 0; line-height: 1.15;
+  }
+  h3 {
+    font-family: var(--display); font-weight: 600;
+    font-size: 1.16rem; margin: 30px 0 8px; letter-spacing: -.01em;
+  }
+  p { margin: 0 0 14px; max-width: 68ch; }
+  a { color: var(--accent-ink); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  strong { font-weight: 600; }
+  ul, ol { margin: 0 0 14px; padding-left: 1.25rem; max-width: 68ch; }
+  li { margin: 5px 0; }
+  code {
+    font-family: var(--mono); font-size: .86em;
+    background: var(--surface-2); border: 1px solid var(--hairline);
+    padding: .06em .38em; border-radius: 5px;
+  }
+
+  .card {
+    background: var(--surface); border: 1px solid var(--hairline);
+    border-radius: 12px; padding: 22px 24px; box-shadow: var(--shadow);
+  }
+  .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+
+  .decision { display: grid; gap: 2px; padding: 14px 0; border-bottom: 1px solid var(--hairline); }
+  .decision:last-child { border-bottom: 0; }
+  .decision dt { font-weight: 600; font-size: .95rem; }
+  .decision dd { margin: 0; color: var(--ink-soft); font-size: .92rem; }
+  .decision .pick { color: var(--accent-ink); font-family: var(--mono); font-size: .82rem; }
+
+  /* phases */
+  .phase { display: grid; grid-template-columns: 44px 1fr; gap: 20px; padding: 22px 0; border-top: 1px solid var(--hairline); }
+  .phase:first-of-type { border-top: 0; }
+  .phase .tag {
+    font-family: var(--mono); font-weight: 500; font-size: .95rem;
+    color: var(--accent); padding-top: 2px;
+  }
+  .phase h3 { margin: 0 0 6px; }
+  .phase .meta { font-family: var(--mono); font-size: .74rem; color: var(--ink-faint); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 8px; }
+  .phase ul { margin-bottom: 0; }
+
+  table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+  .scroller { overflow-x: auto; border: 1px solid var(--hairline); border-radius: 10px; }
+  th, td { text-align: left; padding: 9px 14px; border-bottom: 1px solid var(--hairline); vertical-align: top; }
+  th {
+    font-family: var(--mono); font-size: .72rem; text-transform: uppercase;
+    letter-spacing: .07em; color: var(--ink-faint); background: var(--surface-2);
+    position: sticky; top: 0;
+  }
+  tr:last-child td { border-bottom: 0; }
+  td code { background: transparent; border: 0; padding: 0; color: var(--ink-soft); }
+
+  .pill {
+    display: inline-block; font-family: var(--mono); font-size: .72rem;
+    padding: 2px 8px; border-radius: 999px; border: 1px solid var(--hairline-strong);
+    color: var(--ink-soft); background: var(--surface-2); white-space: nowrap;
+  }
+  .pill.a { color: var(--accent-ink); border-color: color-mix(in srgb, var(--accent) 35%, transparent); background: var(--accent-soft); }
+
+  .note {
+    border-left: 3px solid var(--warn); background: color-mix(in srgb, var(--warn) 8%, var(--surface));
+    padding: 14px 18px; border-radius: 0 8px 8px 0; margin: 18px 0; font-size: .93rem;
+  }
+  .note b { color: var(--warn); }
+
+  .toklist { font-family: var(--mono); font-size: .82rem; color: var(--ink-soft); line-height: 1.9; }
+  .sw { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: middle; border: 1px solid rgba(128,128,128,.3); }
+
+  footer { border-top: 1px solid var(--hairline); padding: 28px 0 60px; color: var(--ink-faint); font-size: .85rem; }
+
+  .toc { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 20px; }
+  .toc a { font-family: var(--mono); font-size: .8rem; color: var(--ink-soft); text-decoration: none; }
+  .toc a:hover { color: var(--accent-ink); }
+
+  @media (max-width: 620px) {
+    .phase { grid-template-columns: 1fr; gap: 6px; }
+    .top-inner { padding-top: 44px; }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html { scroll-behavior: smooth; }
+  }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+</style>
+
+<header class="top">
+  <div class="wrap top-inner">
+    <div class="eyebrow">Kế hoạch triển khai · v0.2 · 2026-08-31</div>
+    <h1>Dylan Design System Blueprint</h1>
+    <p class="lede">Dựng lại toàn bộ Eyris React Admin Template thành một bộ design system độc lập chạy trên <strong>React + Tailwind CSS v3 + SCSS + TypeScript</strong>, kèm handbook Storybook và <code>DESIGN.md</code>.</p>
+    <div class="toc">
+      <a href="#goal">01 Mục tiêu</a>
+      <a href="#decisions">02 Quyết định</a>
+      <a href="#arch">03 Kiến trúc</a>
+      <a href="#tokens">04 Token &amp; theming</a>
+      <a href="#phases">05 Các pha</a>
+      <a href="#tooling">06 Skill &amp; agent</a>
+      <a href="#codex">07 Quy trình codex</a>
+      <a href="#inventory">08 Danh mục component</a>
+      <a href="#risks">09 Rủi ro</a>
+      <a href="#next">10 Bước kế tiếp</a>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>42</b><span>base UI component</span></div>
+      <div class="stat"><b>42</b><span>composite / shared</span></div>
+      <div class="stat"><b>32</b><span>hook &amp; utility</span></div>
+      <div class="stat"><b>~50</b><span>trang app mẫu</span></div>
+      <div class="stat"><b>13</b><span>layout auth</span></div>
+      <div class="stat"><b>7</b><span>pha triển khai</span></div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="section" id="goal">
+    <div class="kicker"><span class="n">01</span><h2>Mục tiêu &amp; định nghĩa "hoàn thành"</h2></div>
+    <p>Sản phẩm cuối là một bộ design system hoàn chỉnh, tự chứa, không phụ thuộc thư viện UI bên ngoài — tái hiện đầy đủ kho component của site mẫu <a href="https://eyris-react.themenate.net">eyris-react.themenate.net</a> và có tài liệu hướng dẫn dùng.</p>
+    <div class="grid2">
+      <div class="card">
+        <h3 style="margin-top:0">Bàn giao</h3>
+        <ul>
+          <li><code>@dylan/tokens</code> — design token (màu, type, spacing, radius, shadow, z-index, motion) ở dạng SCSS + CSS variables + Tailwind preset.</li>
+          <li><code>@dylan/ui</code> — 42 base component + 42 composite component, mỗi cái có type, test, story.</li>
+          <li><code>@dylan/utils</code> — 16 hook + 15 hàm + 1 HOC.</li>
+          <li><code>apps/showcase</code> — dựng lại các trang app mẫu + 13 layout auth + landing.</li>
+          <li><strong>Handbook</strong>: Storybook (playground + autodocs mỗi component) đã deploy.</li>
+          <li><code>DESIGN.md</code> + <code>docs/</code>: nguyên tắc, bảng token, guideline dùng, accessibility, đóng góp.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0">Tiêu chí nghiệm thu</h3>
+        <ul>
+          <li>Mỗi component: khớp API (prop / type / default) với tài liệu Eyris, có story cho mọi biến thể chính, pass test, pass <code>axe</code> a11y.</li>
+          <li>Light + dark + RTL hoạt động qua token, không màu hard-code.</li>
+          <li>8 preset theme schema đổi được lúc chạy.</li>
+          <li>Tree-shakeable, mỗi component import lẻ được; bundle base &lt; ngưỡng đặt ra.</li>
+          <li><code>pnpm build</code>, <code>pnpm test</code>, <code>pnpm storybook:build</code>, lint, typecheck đều xanh trong CI.</li>
+          <li>Mọi trang mẫu render đúng, không lỗi console.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="decisions">
+    <div class="kicker"><span class="n">02</span><h2>Quyết định đã chốt</h2></div>
+    <dl>
+      <div class="decision"><dt>Ngôn ngữ &amp; CSS <span class="pick">TypeScript · Tailwind v3 · SCSS</span></dt><dd>Giống nền tảng Eyris (ổn định, hợp <code>@apply</code>). SCSS thay lớp <code>src/assets/styles</code> vốn là PostCSS/CSS thuần của Eyris. Tailwind lo utility &amp; layout; SCSS lo token, mixin, style component có ngữ nghĩa.</dd></div>
+      <div class="decision"><dt>Phạm vi <span class="pick">Full — component + trang mẫu</span></dt><dd>84 component + 32 util + handbook + dựng lại các trang app mẫu (sales, customers, projects, analytics, ai, crypto, hrm, accounts) và 13 layout auth.</dd></div>
+      <div class="decision"><dt>Handbook <span class="pick">Storybook 8 + DESIGN.md</span></dt><dd>Storybook cho playground tương tác, controls, autodocs từ TSDoc/props, addon a11y + theme + viewport. <code>DESIGN.md</code> và <code>docs/</code> cho phần triết lý &amp; guideline không thuộc về từng component.</dd></div>
+      <div class="decision"><dt>Thực thi <span class="pick">Claude điều phối · codex làm hàng loạt</span></dt><dd>Claude viết token, hạ tầng, và "5 component vàng" làm chuẩn; sau đó sinh spec cho từng nhóm và chạy <code>codex exec --dangerously-bypass-approvals-and-sandbox</code> theo batch; Claude review, sửa, gộp.</dd></div>
+      <div class="decision"><dt>Quản lý repo <span class="pick">pnpm workspace (monorepo)</span></dt><dd>Nhiều package nhỏ + <code>apps/showcase</code> + Storybook, dùng chung tooling. Changesets cho versioning.</dd></div>
+      <div class="decision"><dt>Tên package <span class="pick">@dylan-ds/*</span></dt><dd><code>@dylan-ds/tokens</code>, <code>@dylan-ds/ui</code>, <code>@dylan-ds/utils</code>, <code>@dylan-ds/icons</code>.</dd></div>
+      <div class="decision"><dt>i18n <span class="pick">Làm sau</span></dt><dd>Bản đầu dùng <code>useTranslation</code> stub + text tiếng Anh. Thêm <code>react-i18next</code> + locale (en/vi) ở pha sau.</dd></div>
+      <div class="decision"><dt>Storybook <span class="pick">Chạy local</span></dt><dd><code>pnpm storybook</code> ở máy, chưa deploy. CI vẫn build để chặn hồi quy.</dd></div>
+      <div class="decision"><dt>Icons <span class="pick">Wrap react-icons</span></dt><dd><code>@dylan-ds/icons</code> re-export react-icons + component <code>&lt;Icon&gt;</code>. Không tự vẽ bộ linear riêng.</dd></div>
+      <div class="decision"><dt>Nguồn tham chiếu <span class="pick">Bản crawl đã lưu</span></dt><dd>Đã crawl đầy đủ 84 trang doc component (demo source + bảng API) + 32 trang util + docs theming/folder-structure vào <code>eyris-crawl/</code>. Đây là spec đầu vào, không cần vào lại site cho phần lớn công việc.</dd></div>
+    </dl>
+    <div class="note"><b>Lưu ý bản quyền.</b> Eyris là template thương mại của ThemeNate. Kế hoạch này tái hiện lại (re-implement) component từ tài liệu công khai cho mục đích nội bộ của bạn, đặt trong thư mục riêng tư — <strong>không sao chép nguyên văn</strong> source của nhà cung cấp và không phân phối lại. Tên component/prop trùng để tương thích API là chấp nhận được; asset thương hiệu (logo "eyris", ảnh) sẽ thay bằng của Dylan.</div>
+  </section>
+
+  <section class="section" id="arch">
+    <div class="kicker"><span class="n">03</span><h2>Kiến trúc thư mục</h2></div>
+    <div class="scroller">
+<table>
+<tr><th>Đường dẫn</th><th>Vai trò</th></tr>
+<tr><td><code>packages/tokens/</code></td><td>Nguồn token duy nhất — <code>*.scss</code> partial + build ra CSS vars, JSON, và <code>tailwind-preset.ts</code>.</td></tr>
+<tr><td><code>packages/utils/</code></td><td>16 hook (<code>useResponsive</code>, <code>useThemeSchema</code>, <code>useDebounce</code>…), 15 hàm (<code>classNames</code>, <code>formatCurrency</code>, <code>wildCardSearch</code>…), HOC <code>withHeaderItem</code>.</td></tr>
+<tr><td><code>packages/ui/src/&lt;Component&gt;/</code></td><td>Mỗi component: <code>Component.tsx</code>, <code>Component.scss</code>, <code>types.ts</code>, <code>index.ts</code>, <code>Component.stories.tsx</code>, <code>Component.test.tsx</code>, <code>context.ts</code> (nếu compound).</td></tr>
+<tr><td><code>packages/ui/src/shared/</code></td><td>42 composite component (<code>DataTable</code>, <code>Chart</code>, <code>Wizard</code>, <code>RichTextEditor</code>…) — build trên base + thư viện thứ ba.</td></tr>
+<tr><td><code>packages/icons/</code></td><td>Wrapper <code>react-icons</code> + bộ icon "linear" riêng dạng component SVG.</td></tr>
+<tr><td><code>apps/showcase/</code></td><td>Vite + react-router. <code>components/layouts</code>, <code>components/template</code> (Header, SideNav, Footer), <code>views/</code> theo từng khu (sales, crypto…), <code>mock/</code> dữ liệu giả, <code>configs/</code> (navigation, routes, theme).</td></tr>
+<tr><td><code>apps/storybook/</code> hoặc <code>.storybook/</code></td><td>Cấu hình Storybook, theme switcher toolbar, dark-mode, a11y, docs MDX.</td></tr>
+<tr><td><code>docs/</code> + <code>DESIGN.md</code></td><td>Triết lý, anatomy hệ token, guideline dùng, bảng đối chiếu Eyris↔Dylan, hướng dẫn đóng góp.</td></tr>
+<tr><td><code>.claude/skills/</code>, <code>.claude/agents/</code></td><td>Skill &amp; agent riêng cho quy trình (xem mục 06).</td></tr>
+</table>
+    </div>
+    <h3>Nguyên tắc kỹ thuật</h3>
+    <ul>
+      <li><strong>Ranh giới package:</strong> <code>ui</code> phụ thuộc <code>tokens</code> + <code>utils</code> + <code>icons</code>; <code>utils</code> không phụ thuộc <code>ui</code>.</li>
+      <li><strong>Styling:</strong> Tailwind cho bố cục &amp; utility trong JSX; SCSS module (<code>Component.scss</code>) cho state phức tạp, animation, selector đặc thù — dùng <code>@apply</code> + <code>@use "@dylan/tokens"</code>. Class có ngữ nghĩa dạng <code>.dyl-btn</code>.</li>
+      <li><strong>Prop convention</strong> theo Eyris: <code>variant</code>, <code>size</code> (<code>xs|sm|md|lg</code>), <code>shape</code>, <code>disabled</code>, <code>loading</code>, <code>block</code>, <code>icon</code>, <code>className</code> nhận cả <code>string</code> lẫn <code>(state) =&gt; string</code>.</li>
+      <li><strong>Compound component</strong> qua context: <code>Avatar.Group</code>, <code>Tabs.TabList/TabNav/TabContent</code>, <code>Menu.MenuItem</code>, <code>Steps.Item</code>, <code>Carousel.Item</code>…</li>
+      <li><strong>Forwarding ref</strong> + spread props gốc cho mọi primitive.</li>
+    </ul>
+  </section>
+
+  <section class="section" id="tokens">
+    <div class="kicker"><span class="n">04</span><h2>Design token &amp; theming</h2></div>
+    <p>Chuyển hệ biến CSS của Eyris thành nguồn SCSS, rồi generate ra 3 đầu ra: CSS custom properties (runtime theming), Tailwind preset (utility), JSON (tài liệu + test).</p>
+    <div class="grid2">
+      <div class="card">
+        <h3 style="margin-top:0">Token nền (từ Eyris)</h3>
+        <div class="toklist">
+          <span class="sw" style="background:#286cf0"></span>--primary #286cf0<br/>
+          <span class="sw" style="background:#1f56c0"></span>--primary-deep #1f56c0<br/>
+          <span class="sw" style="background:#4c86f4"></span>--primary-mild #4c86f4<br/>
+          <span class="sw" style="background:#286cf01a"></span>--primary-subtle #286cf01a<br/>
+          <span class="sw" style="background:#00a85b"></span>--success #00a85b<br/>
+          <span class="sw" style="background:#f59e0b"></span>--warning #f59e0b<br/>
+          <span class="sw" style="background:#eb4137"></span>--error #eb4137<br/>
+          <span class="sw" style="background:#3380fa"></span>--info #3380fa<br/>
+          gray-50 #fafafa → gray-950 #0a0a0a (11 bậc)
+        </div>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0">Cơ chế theme</h3>
+        <ul>
+          <li>Dark mode = class <code>.dark</code> trên <code>&lt;html&gt;</code> (Tailwind <code>darkMode: 'class'</code>).</li>
+          <li>8 preset schema (<code>default, dark, green, purple, orange, cyan, gold, pink</code>) — mỗi cái override <code>primary / primaryDeep / primaryMild / primarySubtle / muted</code> cho light+dark.</li>
+          <li><code>useThemeSchema()</code> ghi biến vào <code>documentElement.style</code>; lưu <code>localStorage</code>; store Zustand (<code>mode</code>, <code>schema</code>, <code>layout</code>, <code>direction</code>).</li>
+          <li>RTL qua <code>dir</code> attribute + logical properties trong SCSS.</li>
+        </ul>
+      </div>
+    </div>
+    <h3>Token bổ sung cần chuẩn hoá</h3>
+    <p>Spacing scale, radius (<code>none / sm / DEFAULT / lg / xl / full</code> — Eyris card ~12px), shadow, typography scale (heading/body/label + weight), z-index layer (dropdown, sticky, drawer, dialog, popover, toast), motion (duration + easing), breakpoint. Ghi hết vào <code>DESIGN.md</code> kèm bảng.</p>
+  </section>
+
+  <section class="section" id="phases">
+    <div class="kicker"><span class="n">05</span><h2>Kế hoạch theo pha</h2></div>
+
+    <div class="phase">
+      <div class="tag">P0</div>
+      <div>
+        <h3>Scaffold &amp; hạ tầng</h3>
+        <div class="meta">Claude · 1 lượt · không dùng codex</div>
+        <ul>
+          <li>Khởi tạo <code>git</code>, pnpm workspace, cấu trúc package rỗng, TS project references.</li>
+          <li>Vite library mode cho <code>@dylan/ui</code>; Tailwind v3 + preset; pipeline SCSS (<code>sass</code>, <code>postcss</code>, <code>autoprefixer</code>).</li>
+          <li>Storybook 8 (Vite builder) + addon <code>a11y</code>, <code>themes</code>, <code>viewport</code>, autodocs.</li>
+          <li>Vitest + Testing Library + <code>jest-axe</code>; ESLint + Prettier; Changesets; GitHub Actions CI.</li>
+          <li><code>DESIGN.md</code> khung + <code>docs/</code> + copy bản crawl <code>eyris-crawl/</code> vào <code>docs/reference/</code>.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="tag">P1</div>
+      <div>
+        <h3>Foundations</h3>
+        <div class="meta">Claude · token + utils + 5 component vàng</div>
+        <ul>
+          <li><code>@dylan/tokens</code> đầy đủ: SCSS partial → CSS vars + Tailwind preset + JSON + <code>preset-theme-schema</code>.</li>
+          <li><code>@dylan/utils</code>: toàn bộ 32 hook/hàm/HOC (nhỏ, độc lập, có test).</li>
+          <li><strong>5 component vàng</strong> làm khuôn mẫu chuẩn cho codex: <code>Button</code>, <code>Input</code>, <code>Select</code>, <code>Dialog</code>, <code>Table</code> — đủ để bao mọi kiểu (primitive, form-control, portal/overlay, compound, data-heavy).</li>
+          <li>Chốt "recipe" file: cấu trúc thư mục, mẫu test, mẫu story, quy ước SCSS. Đây là input cho mọi batch codex.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="tag">P2</div>
+      <div>
+        <h3>Base UI component (37 còn lại)</h3>
+        <div class="meta">codex batch · Claude review từng nhóm</div>
+        <ul>
+          <li>Chia 5 nhóm theo phân loại Eyris: Common, Data Display, Forms, Feedback, Navigation.</li>
+          <li>Mỗi component: Claude sinh 1 spec (API table + danh sách demo + ghi chú hành vi từ crawl) → codex implement theo recipe → Claude review khớp API, sửa, chạy test/story.</li>
+          <li>Ưu tiên phụ thuộc: primitive trước (Typography, Grid, Icons) → form-control (<code>FormControl</code>, validation) → overlay (<code>Popover</code>, <code>Drawer</code>, <code>Toast</code>) → compound (<code>Tabs</code>, <code>Menu</code>, <code>Steps</code>).</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="tag">P3</div>
+      <div>
+        <h3>Composite / shared component (42)</h3>
+        <div class="meta">codex batch + tích hợp thư viện thứ ba</div>
+        <ul>
+          <li>Nhóm "thuần UI": <code>ActionLink</code>, <code>Divider</code>, <code>EmptyState</code>, <code>IconFrame</code>, <code>InfoBar</code>, <code>GrowShrinkTag</code>, <code>StatisticCard</code>, <code>Container</code>, <code>Affix</code>, <code>StickyRegion</code>, <code>Loading</code>, <code>Loaders</code>, <code>UsersAvatarGroup</code>, <code>NavToggle</code>, <code>ClockProgress</code>, <code>SegmentProgressBar</code>, <code>OverflowTabs</code>, <code>ToggleDrawer</code>, <code>ConfirmDialog</code>, <code>AuthorityCheck</code>.</li>
+          <li>Nhóm form nâng cao: <code>AutoComplete</code>, <code>DebounceInput</code>, <code>PasswordInput</code>, <code>PatternInput</code>, <code>NumericInput</code>, <code>NumericInputStepper</code>, <code>CustomFormatInput</code>, <code>OtpInput</code>, <code>SelectExtension</code>, <code>PopoverFilter</code>, <code>AdvancedFilterBuilder</code>, <code>ReactionEmojiPicker</code>.</li>
+          <li>Nhóm nặng (cần dependency): <code>DataTable</code> (TanStack Table), <code>Chart</code> (ApexCharts), <code>Histogram</code>, <code>FullCalendar</code>, <code>GanttChart</code>, <code>VectorMap</code> (jsvectormap), <code>RichTextEditor</code> (Tiptap), <code>SyntaxHighlighter</code> (Shiki/Prism), <code>Wizard</code>, <code>FileIcon</code>.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="tag">P4</div>
+      <div>
+        <h3>Layout + trang app mẫu</h3>
+        <div class="meta">codex batch · dữ liệu mock</div>
+        <ul>
+          <li>Template: <code>SideNav</code> (nhóm gập được, active accent), <code>Header</code> (collapse, search, notification, language, settings, user menu), <code>Footer</code>, các layout (<code>stackedSide</code>, blank, auth-simple/side/centred).</li>
+          <li>13 trang auth × {simple, side, centred}: sign-in, sign-up, forgot-password, reset-password, otp-verification. + <code>/landing</code>, <code>/others/access-denied</code>.</li>
+          <li>Các khu app: sales (7), customers (6), projects (7), analytics (5), ai (3), crypto (6), hrm (6), accounts (6) — dùng lại component library + mock data + charts.</li>
+          <li>Đây là "bằng chứng dùng được" cho design system, đồng thời là recipe usage cho handbook.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="tag">P5</div>
+      <div>
+        <h3>Handbook</h3>
+        <div class="meta">Claude chủ đạo</div>
+        <ul>
+          <li><code>DESIGN.md</code> hoàn chỉnh: triết lý, nguyên tắc, anatomy token (bảng đầy đủ), thang type/space/radius, quy tắc a11y, dark/RTL, đối chiếu Eyris↔Dylan, versioning.</li>
+          <li>Storybook: mỗi component có 1 trang autodocs (mô tả + props + demo mọi biến thể + "khi nào dùng / không dùng" + a11y notes), MDX foundation pages (Color, Typography, Spacing, Icons, Theming, Motion).</li>
+          <li><code>docs/</code>: Getting started, Installation, Contribution guide, "Anatomy of a component", Migration/mapping từ Eyris.</li>
+          <li>Deploy Storybook (GitHub Pages / static).</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="tag">P6</div>
+      <div>
+        <h3>QA &amp; hardening</h3>
+        <div class="meta">Claude + CI</div>
+        <ul>
+          <li>Rà a11y toàn bộ (axe trong test + Storybook addon), keyboard nav, focus trap cho overlay.</li>
+          <li>Visual regression (Storybook + ảnh chụp) light/dark/RTL.</li>
+          <li>Kiểm tra tree-shaking, kích thước bundle, không rò màu hard-code (script grep token).</li>
+          <li>Đối chiếu từng API table với crawl; điền bảng coverage trong <code>DESIGN.md</code>.</li>
+          <li>Dùng chrome-devtools MCP đối chiếu trực quan trang mẫu Dylan vs Eyris.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="tooling">
+    <div class="kicker"><span class="n">06</span><h2>Skill &amp; agent sẽ tạo</h2></div>
+    <div class="scroller">
+<table>
+<tr><th>Tên</th><th>Loại</th><th>Việc</th></tr>
+<tr><td><code>ds-component</code></td><td>skill</td><td>Sinh 1 component mới từ recipe + spec: tạo đủ file (tsx/scss/types/index/stories/test), theo prop convention, đăng ký export. Dùng khi làm thủ công hoặc chuẩn hoá output codex.</td></tr>
+<tr><td><code>ds-spec</code></td><td>skill</td><td>Đọc <code>eyris-crawl/&lt;name&gt;.json</code> → xuất spec Markdown chuẩn (API table, danh sách demo, hành vi, dependency, a11y) làm prompt cho codex.</td></tr>
+<tr><td><code>ds-review</code></td><td>skill</td><td>Đối chiếu component đã implement với spec: khớp prop/type/default, story đủ biến thể, test pass, axe pass, không màu hard-code. Trả checklist đạt/không.</td></tr>
+<tr><td><code>ds-codex-batch</code></td><td>skill</td><td>Chạy một nhóm: với mỗi component → ds-spec → gọi <code>codex exec</code> → ds-review → ghi trạng thái vào <code>PROGRESS.md</code>.</td></tr>
+<tr><td><code>ds-tokens</code></td><td>skill</td><td>Sync token: sửa SCSS nguồn → regenerate CSS vars + Tailwind preset + JSON + cập nhật bảng trong <code>DESIGN.md</code>.</td></tr>
+<tr><td><code>component-builder</code></td><td>agent</td><td>Subagent (Read/Edit/Write/Bash) thực thi một nhóm component song song từ spec — tự chạy test/story, tự sửa tới khi xanh.</td></tr>
+<tr><td><code>ds-auditor</code></td><td>agent</td><td>Subagent read-only rà toàn kho: coverage API, a11y, rò token, story thiếu — xuất báo cáo.</td></tr>
+</table>
+    </div>
+  </section>
+
+  <section class="section" id="codex">
+    <div class="kicker"><span class="n">07</span><h2>Quy trình dùng codex</h2></div>
+    <p>Claude giữ vai trò kiến trúc &amp; review; codex là "thợ nhân bản" theo khuôn đã chuẩn.</p>
+    <ol>
+      <li><strong>Chuẩn khuôn (một lần):</strong> Claude hoàn thiện 5 component vàng + <code>RECIPE.md</code> (cấu trúc file, mẫu test/story, quy ước SCSS/Tailwind, prop convention).</li>
+      <li><strong>Spec mỗi component:</strong> skill <code>ds-spec</code> đọc crawl JSON → Markdown gồm API table, danh sách demo cần cover, hành vi đặc biệt, dependency cho phép.</li>
+      <li><strong>Gọi codex:</strong> <code>codex exec --skip-git-repo-check --dangerously-bypass-approvals-and-sandbox -C packages/ui "&lt;RECIPE + SPEC + đường dẫn 5 mẫu&gt;"</code> — làm từng component hoặc nhóm 3–5 cái.</li>
+      <li><strong>Review:</strong> <code>ds-review</code> chấm; Claude sửa lệch API, lệch style, thiếu a11y; chạy <code>vitest run &lt;path&gt;</code> + build story.</li>
+      <li><strong>Chốt &amp; ghi:</strong> cập nhật <code>PROGRESS.md</code> (bảng 84 dòng: spec / impl / test / story / review), commit theo nhóm.</li>
+    </ol>
+    <div class="note"><b>Nguyên tắc.</b> Không để codex quyết định token, cấu trúc export, hay dependency mới. Mọi thư viện thứ ba do Claude chốt trước trong spec. Codex chỉ điền phần thân theo khuôn.</div>
+  </section>
+
+  <section class="section" id="inventory">
+    <div class="kicker"><span class="n">08</span><h2>Danh mục component</h2></div>
+
+    <h3>Base UI — 42 <span class="pill a">/ui-components</span></h3>
+    <div class="scroller">
+<table>
+<tr><th>Nhóm</th><th>Component</th></tr>
+<tr><td>Common</td><td><code>Button</code> · <code>Grid</code> · <code>Scroll</code> · <code>Typography</code> · <code>Icons</code></td></tr>
+<tr><td>Data Display</td><td><code>Avatar</code> (+Group) · <code>Badge</code> · <code>Calendar</code> · <code>Card</code> · <code>Carousel</code> · <code>Collapsible</code> · <code>Popover</code> · <code>Table</code> · <code>Tag</code> · <code>Timeline</code> · <code>Tooltip</code></td></tr>
+<tr><td>Forms</td><td><code>Checkbox</code> (+Group) · <code>DatePicker</code> · <code>FormControl</code> (Form/FormItem + validation) · <code>Input</code> · <code>InputGroup</code> · <code>MultiValueInput</code> · <code>Radio</code> (+Group) · <code>Segment</code> · <code>Select</code> · <code>Slider</code> (+Range) · <code>Switcher</code> · <code>TimeInput</code> · <code>Upload</code></td></tr>
+<tr><td>Feedback</td><td><code>ActionBar</code> · <code>Alert</code> · <code>Dialog</code> · <code>Drawer</code> · <code>Progress</code> · <code>Skeleton</code> · <code>Spinner</code> · <code>Toast</code> (toast API + Notification)</td></tr>
+<tr><td>Navigation</td><td><code>Dropdown</code> · <code>Menu</code> · <code>Pagination</code> · <code>Steps</code> · <code>Tabs</code></td></tr>
+</table>
+    </div>
+
+    <h3>Composite / shared — 42 <span class="pill a">/guide/shared-component-doc</span></h3>
+    <div class="scroller">
+<table>
+<tr><th>Loại</th><th>Component</th></tr>
+<tr><td>UI thuần</td><td><code>ActionLink</code> · <code>Affix</code> · <code>AuthorityCheck</code> · <code>ClockProgress</code> · <code>ConfirmDialog</code> · <code>Container</code> · <code>Divider</code> · <code>EmptyState</code> · <code>FileIcon</code> · <code>GrowShrinkTag</code> · <code>IconFrame</code> · <code>InfoBar</code> · <code>Loaders</code> · <code>Loading</code> · <code>NavToggle</code> · <code>OverflowTabs</code> · <code>SegmentProgressBar</code> · <code>StatisticCard</code> · <code>StickyRegion</code> · <code>ToggleDrawer</code> · <code>UsersAvatarGroup</code></td></tr>
+<tr><td>Form nâng cao</td><td><code>AdvancedFilterBuilder</code> · <code>AutoComplete</code> · <code>CustomFormatInput</code> · <code>DebounceInput</code> · <code>NumericInput</code> · <code>NumericInputStepper</code> · <code>OtpInput</code> · <code>PasswordInput</code> · <code>PatternInput</code> · <code>PopoverFilter</code> · <code>ReactionEmojiPicker</code> · <code>SelectExtension</code></td></tr>
+<tr><td>Nặng (dependency)</td><td><code>Chart</code> · <code>DataTable</code> · <code>FullCalendar</code> · <code>GanttChart</code> · <code>Histogram</code> · <code>RichTextEditor</code> · <code>SyntaxHighlighter</code> · <code>VectorMap</code> · <code>Wizard</code></td></tr>
+</table>
+    </div>
+
+    <h3>Utilities — 32 <span class="pill a">/guide/utils-doc</span></h3>
+    <div class="scroller">
+<table>
+<tr><th>Loại</th><th>Tên</th></tr>
+<tr><td>Hooks (16)</td><td><code>useAuth</code> · <code>useDarkMode</code> · <code>useDebounce</code> · <code>useDirection</code> · <code>useInterval</code> · <code>useLayout</code> · <code>useMenuActive</code> · <code>useRandomColor</code> · <code>useResponsive</code> · <code>useScrollTop</code> · <code>useTimeOutMessage</code> · <code>useTranslation</code> · <code>useThemeSchema</code> · <code>useDataTableState</code> · <code>useAppendQueryParams</code> · <code>useQueryParamPagingState</code></td></tr>
+<tr><td>Functions (15)</td><td><code>acronym</code> · <code>classNames</code> · <code>cookiesStorage</code> · <code>fileSizeUnit</code> · <code>isLastChild</code> · <code>paginate</code> · <code>sleep</code> · <code>sortBy</code> · <code>wildCardSearch</code> · <code>formatCurrency</code> · <code>formatCurrencyCompact</code> · <code>formatNumber</code> · <code>formatRelativeTime</code> · <code>getContrast</code> · <code>highlightSearchMatch</code></td></tr>
+<tr><td>HOC (1)</td><td><code>withHeaderItem</code></td></tr>
+</table>
+    </div>
+  </section>
+
+  <section class="section" id="risks">
+    <div class="kicker"><span class="n">09</span><h2>Rủi ro &amp; câu hỏi mở</h2></div>
+    <div class="scroller">
+<table>
+<tr><th>Vấn đề</th><th>Hướng xử lý</th></tr>
+<tr><td>Bản quyền template thương mại</td><td>Re-implement từ doc công khai, nội bộ, không phân phối lại, thay asset thương hiệu. Xác nhận với bạn trước khi public bất kỳ phần nào.</td></tr>
+<tr><td>Component nặng (DataTable, Chart, RichText, VectorMap, Gantt)</td><td>Chốt dependency cụ thể (TanStack Table, ApexCharts, Tiptap, jsvectormap…) trước. Chấp nhận API xấp xỉ, không 1:1 từng prop hiếm.</td></tr>
+<tr><td>Độ chính xác API so với Eyris</td><td>Một số prop hiếm không lộ hết trong doc. Coverage mục tiêu: 100% prop có trong bảng API đã crawl; prop nội bộ thì suy luận hợp lý.</td></tr>
+<tr><td>Codex tạo lệch chuẩn</td><td>Recipe cứng + <code>ds-review</code> gác cổng + Claude sửa tay. Không merge khi chưa pass checklist.</td></tr>
+<tr><td>SCSS ↔ Tailwind v3 <code>@apply</code></td><td>Quy ước: <code>@apply</code> chỉ trong <code>@layer components</code>; token qua <code>@use</code>; tránh phụ thuộc thứ tự import.</td></tr>
+<tr><td>Khối lượng (84 component + 50 trang)</td><td>Batch hoá, ưu tiên theo dependency, <code>PROGRESS.md</code> theo dõi. Có thể cắt trang app mẫu nếu bạn muốn giao sớm phần library.</td></tr>
+</table>
+    </div>
+    <h3>Đã chốt (2026-08-31)</h3>
+    <ul>
+      <li>Scope package: <code>@dylan-ds/*</code>.</li>
+      <li>i18n: làm sau — bản đầu dùng stub + tiếng Anh.</li>
+      <li>Storybook: chạy local, chưa deploy.</li>
+      <li>Icons: chỉ wrap <code>react-icons</code>, không vẽ bộ linear riêng.</li>
+    </ul>
+  </section>
+
+  <section class="section" id="next">
+    <div class="kicker"><span class="n">10</span><h2>Bước kế tiếp ngay</h2></div>
+    <ol>
+      <li>Bạn duyệt blueprint này (và trả lời 4 câu ở mục 09).</li>
+      <li>Claude chạy <strong>P0</strong>: scaffold monorepo, Tailwind+SCSS, Storybook, CI, <code>DESIGN.md</code> khung — commit đầu tiên.</li>
+      <li>Claude chạy <strong>P1</strong>: tokens + utils + 5 component vàng + <code>RECIPE.md</code> — điểm review lớn thứ 2.</li>
+      <li>Tạo skill/agent (mục 06), rồi khởi động batch codex cho P2.</li>
+    </ol>
+    <p style="color:var(--ink-faint); font-size:.9rem">Toàn bộ dữ liệu crawl (84 component + 32 util + docs theming) đã lưu và sẽ đưa vào <code>docs/reference/</code> ở P0.</p>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  Dylan Design System Blueprint · soạn từ khảo sát trực tiếp eyris-react.themenate.net qua Chrome DevTools MCP · 2026-08-31
+</footer>

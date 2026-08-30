@@ -1,0 +1,32 @@
+{
+  "name": "@dylan-ds/icons",
+  "version": "0.0.0",
+  "description": "Icon layer for the Dylan Design System — a thin wrapper over react-icons.",
+  "type": "module",
+  "license": "UNLICENSED",
+  "private": true,
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "vite build && tsc -b --emitDeclarationOnly",
+    "dev": "vite build --watch"
+  },
+  "dependencies": {
+    "react-icons": "5.4.0"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0"
+  },
+  "devDependencies": {
+    "typescript": "5.7.2",
+    "vite": "6.0.5"
+  }
+}

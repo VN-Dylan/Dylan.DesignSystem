@@ -1,0 +1,30 @@
+{
+  "name": "@dylan-ds/utils",
+  "version": "0.0.0",
+  "description": "Framework hooks and helpers for the Dylan Design System.",
+  "type": "module",
+  "license": "UNLICENSED",
+  "private": true,
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "vite build && tsc -b --emitDeclarationOnly",
+    "dev": "vite build --watch"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "typescript": "5.7.2",
+    "vite": "6.0.5"
+  }
+}

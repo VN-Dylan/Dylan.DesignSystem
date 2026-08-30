@@ -1,0 +1,43 @@
+// ---------------------------------------------------------------------------
+// Raw palette — the only place literal colour values live.
+// Derived from the Eyris template's CSS variable set, re-expressed as SCSS maps.
+// Consumers must reference semantic CSS custom properties, never these directly.
+// ---------------------------------------------------------------------------
+
+// Neutral ramp (cool-biased grey — chosen, not defaulted)
+$gray: (
+  50: #fafafa,
+  100: #f5f5f5,
+  200: #e5e5e5,
+  300: #d5d7da,
+  400: #a4a7ae,
+  500: #717680,
+  600: #535862,
+  700: #404040,
+  800: #262626,
+  900: #171717,
+  950: #0a0a0a,
+);
+
+// Brand blue
+$primary: (
+  base: #286cf0,
+  deep: #1f56c0,
+  mild: #4c86f4,
+  subtle: rgba(#286cf0, 0.1),
+);
+
+// Status hues
+$status: (
+  success: #00a85b,
+  success-subtle: rgba(#05eb76, 0.14),
+  error: #eb4137,
+  error-subtle: rgba(#eb4137, 0.1),
+  info: #3380fa,
+  info-subtle: rgba(#2a85ff, 0.1),
+  warning: #f59e0b,
+  warning-subtle: rgba(#ffd400, 0.27),
+);
+
+$white: #ffffff;
+$black: #000000;

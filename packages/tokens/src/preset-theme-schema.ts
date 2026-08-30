@@ -1,0 +1,48 @@
+/**
+ * The 8 preset colour schemas (ported from Eyris `preset-theme-schema.config`).
+ * Each schema overrides only the primary family + `muted` for light and dark.
+ * Apply at runtime by writing these onto `document.documentElement.style`
+ * (see `@dylan-ds/utils` → `useThemeSchema`).
+ */
+
+export type ThemeSchemaVariable =
+  | 'primary'
+  | 'primaryDeep'
+  | 'primaryMild'
+  | 'primarySubtle'
+  | 'muted'
+
+export type ThemeSchemaValue = Record<ThemeSchemaVariable, string>
+export type ThemeSchema = Record<'light' | 'dark', ThemeSchemaValue>
+
+const build = (primary: string, deep: string, mild: string, subtle: string): ThemeSchema => {
+  const value: ThemeSchemaValue = {
+    primary,
+    primaryDeep: deep,
+    primaryMild: mild,
+    primarySubtle: subtle,
+    muted: '#ffffff',
+  }
+  return { light: value, dark: value }
+}
+
+export const presetThemeSchema = {
+  default: build('#286cf0', '#1f56c0', '#4c86f4', 'rgba(40,108,240,0.1)'),
+  dark: build('#1f2937', '#111827', '#374151', 'rgba(31,41,55,0.12)'),
+  green: build('#0cbf7a', '#0a9962', '#3dcc95', 'rgba(12,191,122,0.1)'),
+  purple: build('#9d5cfb', '#7d3fe0', '#b483fc', 'rgba(157,92,251,0.1)'),
+  orange: build('#fb732c', '#e2591a', '#fc9257', 'rgba(251,115,44,0.1)'),
+  cyan: build('#07b9e7', '#0596bc', '#43cef0', 'rgba(7,185,231,0.1)'),
+  gold: build('#f3a027', '#d5841a', '#f6b757', 'rgba(243,160,39,0.1)'),
+  pink: build('#f93f90', '#dc1f72', '#fb6faf', 'rgba(249,63,144,0.1)'),
+} satisfies Record<string, ThemeSchema>
+
+export type ThemeSchemaName = keyof typeof presetThemeSchema
+
+/** Maps a schema value onto the CSS custom properties the tokens layer reads. */
+export const themeSchemaToCssVars = (value: ThemeSchemaValue): Record<string, string> => ({
+  '--dyl-primary': value.primary,
+  '--dyl-primary-deep': value.primaryDeep,
+  '--dyl-primary-mild': value.primaryMild,
+  '--dyl-primary-subtle': value.primarySubtle,
+})

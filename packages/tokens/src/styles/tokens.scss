@@ -1,0 +1,109 @@
+// ===========================================================================
+// @dylan-ds/tokens — CSS custom property surface
+//
+// This is the runtime contract. Every component styles itself through these
+// variables. Themes (dark mode, the 8 preset schemas) only re-declare them.
+//
+//   :root                      -> complete light palette
+//   :root.dark                 -> dark overrides (class strategy, Tailwind)
+//   [data-theme-schema="..."]  -> brand-hue overrides (see preset-theme-schema)
+// ===========================================================================
+
+@use 'sass:map';
+@use 'palette' as p;
+@use 'scales' as s;
+
+// --- helpers ---------------------------------------------------------------
+@mixin emit-map($prefix, $map) {
+  @each $key, $value in $map {
+    --#{$prefix}-#{$key}: #{$value};
+  }
+}
+
+:root {
+  color-scheme: light;
+
+  // Grey ramp (passthrough — semantic tokens below reference these)
+  @include emit-map('dyl-gray', p.$gray);
+
+  // Brand
+  --dyl-primary: #{map.get(p.$primary, base)};
+  --dyl-primary-deep: #{map.get(p.$primary, deep)};
+  --dyl-primary-mild: #{map.get(p.$primary, mild)};
+  --dyl-primary-subtle: #{map.get(p.$primary, subtle)};
+  --dyl-on-primary: #{p.$white};
+
+  // Status
+  --dyl-success: #{map.get(p.$status, success)};
+  --dyl-success-subtle: #{map.get(p.$status, success-subtle)};
+  --dyl-error: #{map.get(p.$status, error)};
+  --dyl-error-subtle: #{map.get(p.$status, error-subtle)};
+  --dyl-info: #{map.get(p.$status, info)};
+  --dyl-info-subtle: #{map.get(p.$status, info-subtle)};
+  --dyl-warning: #{map.get(p.$status, warning)};
+  --dyl-warning-subtle: #{map.get(p.$status, warning-subtle)};
+
+  // Semantic surfaces / text (light)
+  --dyl-bg: #{map.get(p.$gray, 100)};
+  --dyl-surface: #{p.$white};
+  --dyl-surface-raised: #{p.$white};
+  --dyl-surface-sunken: #{map.get(p.$gray, 50)};
+  --dyl-border: #{map.get(p.$gray, 200)};
+  --dyl-border-strong: #{map.get(p.$gray, 300)};
+  --dyl-text: #{map.get(p.$gray, 900)};
+  --dyl-text-muted: #{map.get(p.$gray, 500)};
+  --dyl-text-faint: #{map.get(p.$gray, 400)};
+  --dyl-text-inverted: #{p.$white};
+
+  // Elevation
+  --dyl-shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.06);
+  --dyl-shadow-md: 0 1px 2px rgba(16, 24, 40, 0.06), 0 8px 24px -12px rgba(16, 24, 40, 0.16);
+  --dyl-shadow-lg: 0 12px 32px -8px rgba(16, 24, 40, 0.22);
+  --dyl-ring: 0 0 0 3px var(--dyl-primary-subtle);
+
+  // Radius
+  @include emit-map('dyl-radius', s.$radius);
+
+  // Typography
+  --dyl-font-sans: #{map.get(s.$font-family, sans)};
+  --dyl-font-mono: #{map.get(s.$font-family, mono)};
+  @include emit-map('dyl-text-size', s.$font-size);
+  @include emit-map('dyl-weight', s.$font-weight);
+  @include emit-map('dyl-leading', s.$line-height);
+
+  // Z-index
+  @include emit-map('dyl-z', s.$z-index);
+
+  // Motion
+  @include emit-map('dyl-duration', s.$duration);
+  --dyl-ease-standard: #{map.get(s.$easing, standard)};
+  --dyl-ease-emphasized: #{map.get(s.$easing, emphasized)};
+  --dyl-ease-exit: #{map.get(s.$easing, exit)};
+}
+
+:root.dark {
+  color-scheme: dark;
+
+  --dyl-primary-subtle: #{rgba(#286cf0, 0.16)};
+  --dyl-on-primary: #{p.$white};
+
+  --dyl-success-subtle: #{rgba(#00a85b, 0.2)};
+  --dyl-error-subtle: #{rgba(#eb4137, 0.2)};
+  --dyl-info-subtle: #{rgba(#3380fa, 0.2)};
+  --dyl-warning-subtle: #{rgba(#f59e0b, 0.24)};
+
+  --dyl-bg: #{map.get(p.$gray, 950)};
+  --dyl-surface: #{map.get(p.$gray, 900)};
+  --dyl-surface-raised: #{map.get(p.$gray, 800)};
+  --dyl-surface-sunken: #{map.get(p.$gray, 950)};
+  --dyl-border: #{map.get(p.$gray, 800)};
+  --dyl-border-strong: #{map.get(p.$gray, 700)};
+  --dyl-text: #{map.get(p.$gray, 100)};
+  --dyl-text-muted: #{map.get(p.$gray, 400)};
+  --dyl-text-faint: #{map.get(p.$gray, 500)};
+  --dyl-text-inverted: #{map.get(p.$gray, 950)};
+
+  --dyl-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --dyl-shadow-md: 0 1px 2px rgba(0, 0, 0, 0.4), 0 10px 30px -14px rgba(0, 0, 0, 0.6);
+  --dyl-shadow-lg: 0 16px 40px -10px rgba(0, 0, 0, 0.7);
+}

@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "./dist/node-types",
+    "types": ["node"],
+    "lib": ["ES2023"],
+    "composite": true,
+    "noEmit": false
+  },
+  "include": ["vite.config.ts", "tailwind.config.ts", "postcss.config.js"]
+}

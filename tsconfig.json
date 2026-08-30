@@ -1,0 +1,10 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./packages/tokens" },
+    { "path": "./packages/utils" },
+    { "path": "./packages/icons" },
+    { "path": "./packages/ui" },
+    { "path": "./apps/showcase" }
+  ]
+}

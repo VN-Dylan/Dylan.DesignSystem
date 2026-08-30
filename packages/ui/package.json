@@ -1,0 +1,43 @@
+{
+  "name": "@dylan-ds/ui",
+  "version": "0.0.0",
+  "description": "React component library for the Dylan Design System.",
+  "type": "module",
+  "license": "UNLICENSED",
+  "private": true,
+  "sideEffects": [
+    "*.css",
+    "*.scss"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./styles.css": "./dist/styles.css"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "vite build && tsc -b --emitDeclarationOnly",
+    "dev": "vite build --watch"
+  },
+  "dependencies": {
+    "@dylan-ds/icons": "workspace:*",
+    "@dylan-ds/tokens": "workspace:*",
+    "@dylan-ds/utils": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "10.4.20",
+    "postcss": "8.4.49",
+    "sass": "1.83.0",
+    "tailwindcss": "3.4.17",
+    "typescript": "5.7.2",
+    "vite": "6.0.5"
+  }
+}

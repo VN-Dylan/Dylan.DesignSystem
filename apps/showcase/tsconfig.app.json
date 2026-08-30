@@ -1,0 +1,18 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "./dist/types",
+    "rootDir": "./src",
+    "types": ["vite/client"],
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "composite": true,
+    "noEmit": false
+  },
+  "references": [
+    { "path": "../../packages/ui" },
+    { "path": "../../packages/tokens" },
+    { "path": "../../packages/utils" },
+    { "path": "../../packages/icons" }
+  ],
+  "include": ["src"]
+}

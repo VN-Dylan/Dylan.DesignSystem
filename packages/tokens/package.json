@@ -1,0 +1,40 @@
+{
+  "name": "@dylan-ds/tokens",
+  "version": "0.0.0",
+  "description": "Design tokens for the Dylan Design System — SCSS source, CSS variables, Tailwind preset.",
+  "type": "module",
+  "license": "UNLICENSED",
+  "private": true,
+  "sideEffects": [
+    "*.css",
+    "*.scss"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./tailwind-preset": {
+      "types": "./dist/tailwind-preset.d.ts",
+      "default": "./dist/tailwind-preset.js"
+    },
+    "./css": "./dist/tokens.css",
+    "./scss": "./src/styles/tokens.scss",
+    "./scss/*": "./src/styles/*"
+  },
+  "files": [
+    "dist",
+    "src/styles"
+  ],
+  "scripts": {
+    "build": "pnpm build:css && pnpm build:ts",
+    "build:css": "sass src/styles/tokens.scss dist/tokens.css --no-source-map --style=expanded --load-path=src/styles",
+    "build:ts": "tsc -b",
+    "dev": "sass --watch src/styles/tokens.scss dist/tokens.css --load-path=src/styles"
+  },
+  "devDependencies": {
+    "sass": "1.83.0",
+    "tailwindcss": "3.4.17",
+    "typescript": "5.7.2"
+  }
+}

@@ -1,0 +1,116 @@
+// ---------------------------------------------------------------------------
+// Non-colour scales: spacing, radius, typography, shadow, z-index, motion.
+// Kept as SCSS maps so both the CSS-var emitter and tooling can consume them.
+// ---------------------------------------------------------------------------
+
+// 4px base spacing scale (matches Tailwind's default rhythm)
+$spacing: (
+  0: 0,
+  px: 1px,
+  0\.5: 0.125rem,
+  1: 0.25rem,
+  1\.5: 0.375rem,
+  2: 0.5rem,
+  2\.5: 0.625rem,
+  3: 0.75rem,
+  4: 1rem,
+  5: 1.25rem,
+  6: 1.5rem,
+  8: 2rem,
+  10: 2.5rem,
+  12: 3rem,
+  16: 4rem,
+  20: 5rem,
+  24: 6rem,
+);
+
+// Border radius — Eyris cards sit around 12px
+$radius: (
+  none: 0,
+  sm: 0.25rem,
+  base: 0.375rem,
+  md: 0.5rem,
+  lg: 0.75rem,
+  xl: 1rem,
+  '2xl': 1.5rem,
+  full: 9999px,
+);
+
+$font-family: (
+  sans: (
+    'Inter',
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    Roboto,
+    'Helvetica Neue',
+    Arial,
+    sans-serif,
+  ),
+  mono: (
+    'JetBrains Mono',
+    ui-monospace,
+    'SFMono-Regular',
+    Menlo,
+    Consolas,
+    monospace,
+  ),
+);
+
+$font-size: (
+  xs: 0.75rem,
+  sm: 0.875rem,
+  base: 1rem,
+  lg: 1.125rem,
+  xl: 1.25rem,
+  '2xl': 1.5rem,
+  '3xl': 1.875rem,
+  '4xl': 2.25rem,
+);
+
+$font-weight: (
+  normal: 400,
+  medium: 500,
+  semibold: 600,
+  bold: 700,
+);
+
+$line-height: (
+  none: 1,
+  tight: 1.25,
+  snug: 1.375,
+  normal: 1.5,
+  relaxed: 1.625,
+);
+
+$z-index: (
+  base: 0,
+  raised: 10,
+  dropdown: 1000,
+  sticky: 1010,
+  drawer: 1020,
+  dialog: 1030,
+  popover: 1040,
+  toast: 1050,
+  tooltip: 1060,
+);
+
+$duration: (
+  fast: 120ms,
+  base: 200ms,
+  slow: 320ms,
+);
+
+$easing: (
+  standard: cubic-bezier(0.2, 0, 0, 1),
+  emphasized: cubic-bezier(0.3, 0, 0, 1),
+  exit: cubic-bezier(0.4, 0, 1, 1),
+);
+
+$breakpoint: (
+  sm: 640px,
+  md: 768px,
+  lg: 1024px,
+  xl: 1280px,
+  '2xl': 1536px,
+);

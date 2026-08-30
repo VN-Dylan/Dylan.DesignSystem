@@ -1,0 +1,23 @@
+// Entry stylesheet for @dylan-ds/ui.
+// Ships as `@dylan-ds/ui/styles.css` — imported once by the consuming app.
+//
+// Layer order:
+//   1. token custom properties  (:root / .dark / schema overrides)
+//   2. tailwind base / components / utilities
+//   3. component semantic classes are colocated in each Component.scss and
+//      pulled in through the component's module import graph.
+
+@use '../../../tokens/src/styles/tokens';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: var(--dyl-bg);
+    color: var(--dyl-text);
+    font-family: var(--dyl-font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+}
