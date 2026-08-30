@@ -137,7 +137,7 @@ Legend: ☐ todo · ◑ in progress · ☑ done. Columns: spec · impl · test �
 
 | Phase | Scope | Status |
 | --- | --- | --- |
-| P0 | Scaffold & infra | ◑ |
+| P0 | Scaffold & infra | ☑ (commit 33afeda) |
 | P1 | Tokens + utils + golden 5 + RECIPE | ☐ |
 | P2 | 37 remaining base components | ☐ |
 | P3 | 42 composite components | ☐ |
