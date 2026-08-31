@@ -1,0 +1,46 @@
+.dyl-segment {
+  @apply inline-flex flex-wrap items-center gap-1 rounded-lg bg-surface-sunken p-1 text-content;
+
+  &__item {
+    @apply inline-flex select-none items-center justify-center rounded-md border border-transparent
+      bg-transparent font-medium text-content-muted transition duration-fast ease-standard;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary
+      focus-visible:ring-offset-2 focus-visible:ring-offset-surface;
+
+    &:hover:not(:disabled) {
+      @apply bg-surface text-content;
+    }
+
+    &[data-active] {
+      @apply bg-surface text-content shadow;
+    }
+
+    &[data-disabled] {
+      @apply cursor-not-allowed opacity-50;
+    }
+
+    &[data-size='xs'] {
+      @apply min-h-7 px-2 text-xs;
+    }
+
+    &[data-size='sm'] {
+      @apply min-h-8 px-3 text-sm;
+    }
+
+    &[data-size='md'] {
+      @apply min-h-10 px-4 text-sm;
+    }
+
+    &[data-size='lg'] {
+      @apply min-h-12 px-5 text-base;
+    }
+  }
+
+  &__item-shell {
+    @apply min-w-0;
+
+    &[data-disabled] {
+      @apply opacity-50;
+    }
+  }
+}

@@ -17,8 +17,32 @@ export type {
   ButtonClassNameState,
 } from './Button'
 
+export { Segment } from './Segment'
+export type {
+  SegmentProps,
+  SegmentItemProps,
+  SegmentItemRenderProps,
+  SegmentSelectionType,
+  SegmentSize,
+  SegmentValue,
+} from './Segment'
+
 export { Input } from './Input'
 export type { InputProps, InputSize } from './Input'
+
+export { Checkbox } from './Checkbox'
+export type {
+  CheckboxProps,
+  CheckboxGroupProps,
+  CheckboxValue,
+  CheckboxClassNameState,
+} from './Checkbox'
+
+export { Radio } from './Radio'
+export type { RadioProps, RadioGroupProps, RadioValue, RadioClassNameState } from './Radio'
+
+export { Switcher } from './Switcher'
+export type { SwitcherProps, SwitcherClassNameState } from './Switcher'
 
 export { Select } from './Select'
 export type { SelectProps, SelectMultiProps, SelectOption, SelectSize } from './Select'

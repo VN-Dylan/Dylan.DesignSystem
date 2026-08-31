@@ -1,0 +1,69 @@
+.dyl-radio-group {
+  @apply flex flex-wrap items-center gap-3 text-content;
+
+  &[data-vertical] {
+    @apply flex-col items-start;
+  }
+}
+
+.dyl-radio {
+  @apply inline-flex cursor-pointer select-none items-center gap-2 text-sm text-content;
+
+  &[data-vertical] {
+    @apply flex-col items-start;
+  }
+
+  &[data-disabled] {
+    @apply cursor-not-allowed opacity-60;
+  }
+
+  &__input {
+    @apply sr-only;
+  }
+
+  &__control {
+    @apply inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full border
+      border-border-strong bg-surface text-primary transition duration-fast ease-standard;
+  }
+
+  &__input:focus-visible + &__control {
+    @apply ring-2 ring-primary ring-offset-2 ring-offset-surface;
+  }
+
+  &__input:checked + &__control {
+    @apply border-current;
+  }
+
+  &__dot {
+    @apply h-2 w-2 scale-0 rounded-full bg-current transition duration-fast ease-standard;
+  }
+
+  &__input:checked + &__control &__dot {
+    @apply scale-100;
+  }
+
+  &__label {
+    @apply leading-normal;
+  }
+}
+
+.dyl-radio[data-color='success'],
+.dyl-radio-group[data-color='success'] .dyl-radio {
+  .dyl-radio__control {
+    @apply text-success;
+  }
+}
+
+.dyl-radio[data-color='warning'],
+.dyl-radio-group[data-color='warning'] .dyl-radio {
+  .dyl-radio__control {
+    @apply text-warning;
+  }
+}
+
+.dyl-radio[data-color='error'],
+.dyl-radio-group[data-color='error'] .dyl-radio {
+  .dyl-radio__control {
+    @apply text-error;
+  }
+}

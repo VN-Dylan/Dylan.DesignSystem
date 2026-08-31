@@ -1,0 +1,56 @@
+.dyl-switcher {
+  @apply inline-flex cursor-pointer select-none items-center text-content;
+
+  &[data-disabled],
+  &[data-readonly] {
+    @apply cursor-not-allowed opacity-60;
+  }
+
+  &__input {
+    @apply sr-only;
+  }
+
+  &__track {
+    @apply relative inline-flex h-7 w-12 shrink-0 items-center rounded-full bg-surface-sunken
+      text-primary-fg shadow-inner transition duration-fast ease-standard;
+  }
+
+  &__input:checked + &__track {
+    @apply bg-primary;
+  }
+
+  &__input:focus-visible + &__track {
+    @apply ring-2 ring-primary ring-offset-2 ring-offset-surface;
+  }
+
+  &__thumb {
+    @apply absolute left-0.5 inline-flex h-6 w-6 items-center justify-center rounded-full
+      bg-surface shadow transition duration-fast ease-standard;
+  }
+
+  &__input:checked + &__track &__thumb {
+    @apply translate-x-5;
+  }
+
+  &__content {
+    @apply flex w-full items-center justify-center px-2 text-xs font-semibold leading-none;
+  }
+
+  &__loader {
+    @apply absolute left-1/2 top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full
+      border-2 border-current border-r-transparent;
+    animation: dyl-switcher-spin var(--dyl-duration-base) linear infinite;
+  }
+}
+
+@keyframes dyl-switcher-spin {
+  to {
+    transform: translateX(-50%) translateY(-50%) rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dyl-switcher__loader {
+    animation-duration: var(--dyl-duration-slow);
+  }
+}

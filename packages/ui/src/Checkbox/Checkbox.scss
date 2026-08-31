@@ -1,0 +1,68 @@
+.dyl-checkbox-group {
+  @apply flex flex-wrap items-center gap-3 text-content;
+
+  &[data-vertical] {
+    @apply flex-col items-start;
+  }
+}
+
+.dyl-checkbox {
+  @apply inline-flex cursor-pointer select-none items-center gap-2 text-sm text-content;
+
+  &[data-disabled] {
+    @apply cursor-not-allowed opacity-60;
+  }
+
+  &__input {
+    @apply sr-only;
+  }
+
+  &__control {
+    @apply relative inline-flex h-4 w-4 shrink-0 items-center justify-center rounded border
+      border-border-strong bg-surface text-primary transition duration-fast ease-standard;
+  }
+
+  &__input:focus-visible + &__control {
+    @apply ring-2 ring-primary ring-offset-2 ring-offset-surface;
+  }
+
+  &__input:checked + &__control,
+  &[data-indeterminate] &__control {
+    @apply border-current bg-current;
+  }
+
+  &__input:checked + &__control::after {
+    @apply absolute block h-2 w-1 rotate-45 border-b-2 border-r-2 border-surface;
+    content: '';
+  }
+
+  &[data-indeterminate] &__control::before {
+    @apply absolute h-0.5 w-2 rounded-full bg-surface;
+    content: '';
+  }
+
+  &__label {
+    @apply leading-normal;
+  }
+}
+
+.dyl-checkbox[data-color='success'],
+.dyl-checkbox-group[data-color='success'] .dyl-checkbox {
+  .dyl-checkbox__control {
+    @apply text-success;
+  }
+}
+
+.dyl-checkbox[data-color='warning'],
+.dyl-checkbox-group[data-color='warning'] .dyl-checkbox {
+  .dyl-checkbox__control {
+    @apply text-warning;
+  }
+}
+
+.dyl-checkbox[data-color='error'],
+.dyl-checkbox-group[data-color='error'] .dyl-checkbox {
+  .dyl-checkbox__control {
+    @apply text-error;
+  }
+}
