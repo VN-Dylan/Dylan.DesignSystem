@@ -8,14 +8,14 @@
     "node": ">=20"
   },
   "scripts": {
-    "build": "rimraf \"packages/*/tsconfig.tsbuildinfo\" && pnpm -r --filter \"./packages/**\" build",
+    "build": "rimraf --glob \"packages/*/tsconfig.tsbuildinfo\" && pnpm -r --filter \"./packages/**\" build",
     "dev": "pnpm --filter @dylan-ds/showcase dev",
     "test": "vitest run",
     "test:watch": "vitest",
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "typecheck": "rimraf \"packages/*/tsconfig.tsbuildinfo\" \"apps/*/*.tsbuildinfo\" && tsc -b --pretty",
+    "typecheck": "rimraf --glob \"packages/*/tsconfig.tsbuildinfo\" \"apps/*/*.tsbuildinfo\" && tsc -b --pretty",
     "storybook": "storybook dev -p 6006 --config-dir .storybook",
     "storybook:build": "storybook build --config-dir .storybook -o storybook-static",
     "changeset": "changeset",

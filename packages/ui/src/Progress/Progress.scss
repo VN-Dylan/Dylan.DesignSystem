@@ -1,0 +1,48 @@
+.dyl-progress {
+  @apply flex w-full items-center gap-3 text-sm text-content;
+
+  &__line-trail {
+    @apply h-2 flex-1 overflow-hidden rounded-full bg-surface-sunken;
+  }
+
+  &__line-value {
+    @apply h-full rounded-full bg-primary transition-all duration-fast ease-standard;
+  }
+
+  &[data-size='sm'] &__line-trail {
+    @apply h-1.5;
+  }
+
+  &__line-info {
+    @apply min-w-10 text-right text-sm font-medium text-content-muted;
+  }
+
+  &__circle {
+    @apply relative grid aspect-square w-28 place-items-center;
+  }
+
+  &__svg {
+    @apply h-full w-full overflow-visible;
+  }
+
+  &__circle-trail {
+    @apply text-surface-sunken;
+    stroke: currentColor;
+  }
+
+  &__circle-value {
+    @apply text-primary transition-all duration-fast ease-standard;
+    stroke: currentColor;
+  }
+
+  &__circle-info {
+    @apply absolute inset-0 flex items-center justify-center text-sm font-semibold text-content;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dyl-progress__line-value,
+  .dyl-progress__circle-value {
+    @apply transition-none;
+  }
+}

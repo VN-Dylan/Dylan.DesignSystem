@@ -1,0 +1,20 @@
+.dyl-grid {
+  @apply grid gap-4;
+
+  &__item {
+    @apply grid min-h-12 place-content-center rounded-md bg-primary text-sm font-semibold text-primary-fg
+      shadow;
+  }
+
+  &__item--muted {
+    @apply bg-primary-subtle text-primary;
+  }
+
+  &__item--success {
+    @apply bg-success text-primary-fg;
+  }
+
+  &__item--info {
+    @apply bg-info text-primary-fg;
+  }
+}

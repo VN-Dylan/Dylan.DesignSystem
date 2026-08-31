@@ -1,0 +1,70 @@
+.dyl-scroll {
+  @apply relative overflow-hidden text-content;
+
+  &__viewport {
+    @apply h-full w-full outline-none;
+    scrollbar-color: var(--dyl-border-strong) transparent;
+    scrollbar-width: thin;
+
+    &::-webkit-scrollbar {
+      height: var(--dyl-scrollbar-size, auto);
+      width: var(--dyl-scrollbar-size, auto);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      @apply rounded-full bg-border-strong;
+    }
+
+    &::-webkit-scrollbar-track {
+      @apply bg-transparent;
+    }
+  }
+
+  &__content {
+    @apply min-w-full;
+  }
+
+  &[data-scrollbars='vertical'] &__viewport {
+    @apply overflow-x-hidden overflow-y-auto;
+  }
+
+  &[data-scrollbars='horizontal'] &__viewport {
+    @apply overflow-x-auto overflow-y-hidden;
+  }
+
+  &[data-scrollbars='both'] &__viewport {
+    @apply overflow-auto;
+  }
+
+  &[data-offset-scrollbars] &__viewport {
+    @apply p-2;
+  }
+
+  &[data-edge-shadow] &__viewport {
+    @apply shadow-inner;
+  }
+
+  &[data-type='never'] &__viewport {
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      @apply hidden;
+    }
+  }
+
+  &[data-type='hover']:not(:hover):not([data-scrolling]) &__viewport {
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      @apply hidden;
+    }
+  }
+
+  &--flex-size {
+    @apply flex min-h-0 flex-1 flex-col;
+  }
+
+  &--flex-size &__viewport {
+    @apply min-h-0 flex-1;
+  }
+}

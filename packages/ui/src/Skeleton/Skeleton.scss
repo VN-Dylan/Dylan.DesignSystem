@@ -1,0 +1,28 @@
+.dyl-skeleton {
+  @apply inline-block min-h-4 w-full rounded-md bg-surface-sunken align-middle;
+
+  &[data-variant='circle'] {
+    @apply h-10 w-10 rounded-full;
+  }
+
+  &[data-animation] {
+    @apply relative overflow-hidden;
+
+    &::after {
+      @apply absolute inset-0 -translate-x-full bg-primary-subtle content-[''];
+      animation: dyl-skeleton-wave var(--dyl-duration-slow) var(--dyl-ease-standard) infinite;
+    }
+  }
+}
+
+@keyframes dyl-skeleton-wave {
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dyl-skeleton[data-animation]::after {
+    animation: none;
+  }
+}
