@@ -26,7 +26,8 @@
   "dependencies": {
     "@dylan-ds/icons": "workspace:*",
     "@dylan-ds/tokens": "workspace:*",
-    "@dylan-ds/utils": "workspace:*"
+    "@dylan-ds/utils": "workspace:*",
+    "@floating-ui/react": "0.27.3"
   },
   "peerDependencies": {
     "react": "^18.2.0",

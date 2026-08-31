@@ -70,6 +70,10 @@ Rules:
 7. **Overlays** (Dialog, Drawer, Popover, Tooltip, Dropdown, Toast) render
    through `<Portal>`, trap focus with `useFocusTrap` when modal, close on Esc /
    outside-click (both configurable), and honour `prefers-reduced-motion`.
+   **Anchored** overlays (Popover, Tooltip, Dropdown, Select menu) position with
+   `@floating-ui/react` (`useFloating` + `offset`/`flip`/`shift`/`autoUpdate`,
+   `useRole`/`useDismiss`/`useInteractions`) — it is an allowed dependency of
+   `@dylan-ds/ui`.
 
 ## Styling
 

@@ -21,7 +21,7 @@ export default defineConfig({
     cssCodeSplit: false,
     sourcemap: true,
     rollupOptions: {
-      external: ['react', 'react-dom', 'react/jsx-runtime', 'react-icons'],
+      external: ['react', 'react-dom', 'react/jsx-runtime', 'react-icons', /^@floating-ui\//],
       output: {
         preserveModules: false,
       },
