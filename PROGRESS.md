@@ -141,7 +141,7 @@ Legend: ☐ todo · ◑ in progress · ☑ done · — n/a. Columns: spec · imp
 | P1 | Tokens + 24 utils + golden 5 + RECIPE | ☑ |
 | P2 | Base components (41/41, icons n/a) | ☑ |
 | P3 | 42 composite components | ☑ 42/42 |
-| P4 | Layouts + example app + auth | ◑ C1–C4 done |
+| P4 | Layouts + example app + auth | ◑ C1–C5 done |
 | P5 | Handbook | ☐ |
 | P6 | QA & hardening | ☐ |
 
@@ -153,7 +153,7 @@ Legend: ☐ todo · ◑ in progress · ☑ done · — n/a. Columns: spec · imp
 | C2 | `sales` area — dashboard, products (DataTable), product/new, product/:id, orders, order/new, order/:id; + `mock/sales.ts`, shared `KpiCard`/`ChartCard`/`StatusTag`, `SHOWCASE-RECIPE.md` | ☑ |
 | C3 | `projects` area — dashboard, list, :id, scrumboard, timeline (GanttChart), tasks, settings; + `mock/projects.ts` | ☑ |
 | C4 | `analytics` (dashboard, forecast, revenue, subscriptions, reports) + `crypto` (dashboard, market, coin/:sym, spot, assets, kyc); + `mock/analytics.ts`, `mock/crypto.ts` | ☑ |
-| C5 | `customers` + `hrm` areas | ☐ |
+| C5 | `customers` (dashboard, list, :id/overview, leads, lead/:id/overview, helpdesk) + `hrm` (dashboard, employees, attendance, payroll, leaves, announcements); + `mock/customers.ts`, `mock/hrm.ts` | ☑ |
 | C6 | `ai` + `accounts` areas | ☐ |
 | C7 | mock data consolidation, polish pass, Eyris visual diff | ☐ |
 

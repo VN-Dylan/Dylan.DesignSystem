@@ -20,6 +20,8 @@ import { salesRoutes } from '@/views/sales/salesRoutes'
 import { projectsRoutes } from '@/views/projects/projectsRoutes'
 import { analyticsRoutes } from '@/views/analytics/analyticsRoutes'
 import { cryptoRoutes } from '@/views/crypto/cryptoRoutes'
+import { customersRoutes } from '@/views/customers/customersRoutes'
+import { hrmRoutes } from '@/views/hrm/hrmRoutes'
 
 /**
  * App screens for areas not yet built as real views, area → [path, title].
@@ -27,26 +29,10 @@ import { cryptoRoutes } from '@/views/crypto/cryptoRoutes'
  * point the area moves to its own `*Routes` module (see `salesRoutes`).
  */
 const APP_AREAS: Record<string, [string, string][]> = {
-  customers: [
-    ['/customers/dashboard', 'Customers dashboard'],
-    ['/customers/list', 'Customer list'],
-    ['/customers/:id/overview', 'Customer overview'],
-    ['/customers/leads', 'Leads'],
-    ['/customers/leads/:id/overview', 'Lead overview'],
-    ['/customers/helpdesk', 'Helpdesk'],
-  ],
   ai: [
     ['/ai/chat', 'AI chat'],
     ['/ai/image', 'AI image'],
     ['/ai/writer', 'AI writer'],
-  ],
-  hrm: [
-    ['/hrm/dashboard', 'HRM dashboard'],
-    ['/hrm/employees', 'Employees'],
-    ['/hrm/attendance', 'Attendance'],
-    ['/hrm/payroll', 'Payroll'],
-    ['/hrm/leaves', 'Leaves'],
-    ['/hrm/announcements', 'Announcements'],
   ],
   accounts: [
     ['/accounts/settings/profile', 'Account settings'],
@@ -105,6 +91,8 @@ export const routes: RouteObject[] = [
       ...projectsRoutes,
       ...analyticsRoutes,
       ...cryptoRoutes,
+      ...customersRoutes,
+      ...hrmRoutes,
       ...appAreaRoutes,
       {
         path: '/accounts/users',
