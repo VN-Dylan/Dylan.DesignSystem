@@ -1,0 +1,41 @@
+.dyl-date-picker {
+  &__popover {
+    @apply max-w-none p-2;
+  }
+
+  &__calendar {
+    @apply border-0 p-0 shadow-none;
+  }
+
+  &__suffix {
+    @apply inline-flex shrink-0 items-center gap-1;
+  }
+
+  &__affix {
+    @apply inline-flex shrink-0 items-center text-content-muted;
+  }
+
+  &__clear,
+  &__ok {
+    @apply inline-flex items-center justify-center rounded-md text-content-muted transition-colors
+      duration-fast ease-standard hover:bg-surface-sunken hover:text-content;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary
+      focus-visible:ring-offset-2 focus-visible:ring-offset-surface;
+  }
+
+  &__clear {
+    @apply h-5 min-w-5 px-1;
+  }
+
+  &__datetime {
+    @apply flex flex-col gap-3;
+  }
+
+  &__time {
+    @apply flex items-center gap-2 border-t border-border pt-3;
+  }
+
+  &__ok {
+    @apply h-10 px-3 font-medium text-primary;
+  }
+}

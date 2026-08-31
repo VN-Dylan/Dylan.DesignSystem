@@ -1,0 +1,88 @@
+.dyl-calendar {
+  @apply grid w-max max-w-full gap-4 rounded-lg border border-border bg-surface p-3 text-sm
+    text-content shadow-sm;
+  grid-template-columns: repeat(var(--dyl-calendar-view-count), minmax(0, 1fr));
+
+  &__panel {
+    @apply min-w-64;
+  }
+
+  &__header {
+    @apply mb-2 grid grid-cols-[theme(spacing.8)_1fr_theme(spacing.8)] items-center gap-2;
+  }
+
+  &__nav,
+  &__label {
+    @apply inline-flex items-center justify-center rounded-md text-content transition-colors
+      duration-fast ease-standard hover:bg-surface-sunken;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary
+      focus-visible:ring-offset-2 focus-visible:ring-offset-surface;
+  }
+
+  &__nav,
+  &__nav-spacer {
+    @apply h-8 w-8;
+  }
+
+  &__label {
+    @apply h-8 px-2 font-medium;
+
+    &[data-disabled] {
+      @apply cursor-default hover:bg-transparent;
+    }
+  }
+
+  &__weekdays,
+  &__grid {
+    @apply grid grid-cols-7 gap-1;
+  }
+
+  &__weekdays {
+    @apply mb-1;
+  }
+
+  &__weekday {
+    @apply flex h-8 items-center justify-center text-xs font-medium text-content-muted;
+  }
+
+  &__day {
+    @apply flex h-9 w-9 items-center justify-center rounded-md text-sm leading-none
+      text-content transition-colors duration-fast ease-standard;
+    @apply hover:bg-surface-sunken focus-visible:outline-none focus-visible:ring-2
+      focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-surface;
+
+    &[data-out-of-month] {
+      @apply text-content-faint;
+    }
+
+    &[data-weekend]:not([data-selected]):not([data-selected-in-range]) {
+      @apply text-content-muted;
+    }
+
+    &[data-in-range] {
+      @apply rounded-none bg-primary-subtle text-primary;
+    }
+
+    &[data-selected],
+    &[data-selected-in-range] {
+      @apply bg-primary text-primary-fg;
+    }
+
+    &[data-first-in-range] {
+      @apply rounded-l-md rounded-r-none;
+    }
+
+    &[data-last-in-range] {
+      @apply rounded-l-none rounded-r-md;
+    }
+
+    &:disabled,
+    &[data-disabled] {
+      @apply cursor-not-allowed text-content-faint hover:bg-transparent;
+    }
+
+    &[data-hidden] {
+      @apply pointer-events-none invisible;
+    }
+  }
+}

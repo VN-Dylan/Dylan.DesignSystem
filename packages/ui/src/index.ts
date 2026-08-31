@@ -47,6 +47,18 @@ export type { SwitcherProps, SwitcherClassNameState } from './Switcher'
 export { Select } from './Select'
 export type { SelectProps, SelectMultiProps, SelectOption, SelectSize } from './Select'
 
+export { DatePicker } from './DatePicker'
+export type {
+  DatePickerProps,
+  DatePickerRangeProps,
+  DateTimepickerProps,
+  DatePickerValue,
+  DatePickerRangeValue,
+  DatePickerLabelFormat,
+  DatePickerContextValue,
+  DatePickerInputStyle,
+} from './DatePicker'
+
 export { Dialog } from './Dialog'
 export type { DialogProps } from './Dialog'
 
@@ -100,6 +112,21 @@ export type {
   TableHeadCellProps,
   TableCellProps,
 } from './Table'
+
+export { Calendar, RangeCalendar } from './Calendar'
+export type {
+  CalendarProps,
+  RangeCalendarProps,
+  CalendarValue,
+  CalendarRangeValue,
+  CalendarView,
+  CalendarFirstDayOfWeek,
+  CalendarDayModifiers,
+  CalendarDayClassName,
+  CalendarDayStyle,
+  CalendarRangeMatcher,
+  CalendarRenderDay,
+} from './Calendar'
 
 export { Spinner } from './Spinner'
 export type { SpinnerProps, SpinnerSize, SpinnerIndicator, SpinnerClassNameState } from './Spinner'
