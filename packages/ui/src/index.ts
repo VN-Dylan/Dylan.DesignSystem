@@ -38,6 +38,24 @@ export type {
 export { Spinner } from './Spinner'
 export type { SpinnerProps, SpinnerSize, SpinnerIndicator, SpinnerClassNameState } from './Spinner'
 
+export { Avatar } from './Avatar'
+export type {
+  AvatarProps,
+  AvatarShape,
+  AvatarSize,
+  AvatarGroupProps,
+  AvatarOmittedAvatarTooltipProps,
+} from './Avatar'
+
+export { Badge } from './Badge'
+export type { BadgeProps } from './Badge'
+
+export { Alert } from './Alert'
+export type { AlertProps, AlertType } from './Alert'
+
+export { Card } from './Card'
+export type { CardProps, CardHeaderConfig, CardFooterConfig } from './Card'
+
 export { Typography } from './Typography'
 export type { TypographyProps } from './Typography'
 

@@ -1,0 +1,26 @@
+.dyl-badge {
+  @apply relative inline-flex shrink-0 align-middle leading-none;
+
+  &__child {
+    @apply inline-flex;
+  }
+
+  &__inner {
+    @apply absolute right-0 top-0 inline-flex min-h-5 min-w-5 translate-x-1/2
+      -translate-y-1/2 items-center justify-center rounded-full bg-error px-1 text-xs
+      font-semibold leading-none text-primary-fg;
+
+    &[data-dot] {
+      @apply min-h-0 min-w-0 p-0;
+      @apply h-2 w-2;
+    }
+  }
+
+  &[data-inline] {
+    @apply items-center;
+  }
+
+  &[data-inline] &__inner {
+    @apply static translate-x-0 translate-y-0;
+  }
+}

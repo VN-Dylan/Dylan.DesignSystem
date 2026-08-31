@@ -1,0 +1,61 @@
+.dyl-card {
+  @apply overflow-hidden rounded-lg bg-surface text-content shadow-sm transition-shadow duration-fast
+    ease-standard;
+
+  &[data-bordered] {
+    @apply border border-border shadow-none;
+  }
+
+  &[data-clickable] {
+    @apply cursor-pointer hover:shadow-md;
+  }
+
+  &[role='button'] {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary
+      focus-visible:ring-offset-2 focus-visible:ring-offset-surface;
+  }
+
+  &__header,
+  &__footer {
+    @apply px-5 py-4;
+  }
+
+  &__header {
+    @apply flex items-center justify-between gap-3 font-semibold;
+
+    &[data-bordered] {
+      @apply border-b border-border;
+    }
+  }
+
+  &__header-content,
+  &__header-extra {
+    @apply min-w-0;
+  }
+
+  &__header-content {
+    @apply truncate;
+  }
+
+  &__header-extra {
+    @apply shrink-0 text-sm font-normal text-content-muted;
+  }
+
+  &__body {
+    @apply p-5;
+  }
+
+  &__footer {
+    @apply text-sm text-content-muted;
+
+    &[data-bordered] {
+      @apply border-t border-border;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dyl-card {
+    @apply transition-none;
+  }
+}

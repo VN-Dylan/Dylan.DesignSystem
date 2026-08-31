@@ -1,0 +1,75 @@
+.dyl-avatar {
+  @apply inline-flex shrink-0 select-none items-center justify-center overflow-hidden border
+    border-border bg-surface-sunken font-semibold leading-none text-content-muted;
+
+  &[data-size='sm'] {
+    @apply h-8 w-8 text-xs;
+  }
+
+  &[data-size='md'] {
+    @apply h-10 w-10 text-sm;
+  }
+
+  &[data-size='lg'] {
+    @apply h-12 w-12 text-base;
+  }
+
+  &[data-shape='rounded-sm'] {
+    @apply rounded-sm;
+  }
+
+  &[data-shape='square'] {
+    @apply rounded-none;
+  }
+
+  &[data-shape='circle'] {
+    @apply rounded-full;
+  }
+
+  &__img {
+    @apply h-full w-full object-cover;
+  }
+
+  &__icon,
+  &__text {
+    @apply inline-flex h-full w-full items-center justify-center;
+  }
+
+  &__icon {
+    @apply text-[1.25em];
+  }
+
+  &__text {
+    @apply truncate px-1 uppercase;
+  }
+
+  &--omitted {
+    @apply cursor-pointer bg-surface text-content transition duration-fast ease-standard;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary
+      focus-visible:ring-offset-2 focus-visible:ring-offset-surface;
+
+    &:hover {
+      @apply border-border-strong bg-surface-sunken;
+    }
+  }
+}
+
+.dyl-avatar-group {
+  @apply inline-flex items-center;
+
+  &__item,
+  &__tooltip {
+    @apply inline-flex shrink-0;
+  }
+
+  &[data-chained] &__item + &__item,
+  &[data-chained] &__tooltip + &__item,
+  &[data-chained] &__item + &__tooltip,
+  &[data-chained] &__tooltip + &__tooltip {
+    @apply -ml-2;
+  }
+
+  &[data-chained] .dyl-avatar {
+    @apply ring-2 ring-surface;
+  }
+}
