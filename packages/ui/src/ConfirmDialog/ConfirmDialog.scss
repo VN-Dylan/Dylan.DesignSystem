@@ -1,0 +1,55 @@
+.dyl-confirm-dialog {
+  @apply flex items-start gap-4;
+
+  &__panel .dyl-dialog__body {
+    @apply p-0;
+  }
+
+  &__icon {
+    @apply inline-flex shrink-0 text-3xl;
+  }
+
+  &[data-type='info'] &__icon {
+    @apply text-info;
+  }
+
+  &[data-type='success'] &__icon {
+    @apply text-success;
+  }
+
+  &[data-type='warning'] &__icon {
+    @apply text-warning;
+  }
+
+  &[data-type='danger'] &__icon {
+    @apply text-error;
+  }
+
+  &__content {
+    @apply min-w-0 flex-1;
+  }
+
+  &__title {
+    @apply pr-8 text-lg font-semibold text-content;
+  }
+
+  &__body {
+    @apply mt-2 text-sm text-content-muted;
+  }
+
+  &__actions {
+    @apply mt-6 flex justify-end gap-2;
+  }
+
+  &[data-type='success'] &__confirm {
+    @apply border-success bg-success text-primary-fg hover:brightness-95;
+  }
+
+  &[data-type='warning'] &__confirm {
+    @apply border-warning bg-warning text-primary-fg hover:brightness-95;
+  }
+
+  &[data-type='danger'] &__confirm {
+    @apply border-error bg-error text-primary-fg hover:brightness-95;
+  }
+}

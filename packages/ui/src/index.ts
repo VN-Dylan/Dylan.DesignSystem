@@ -27,8 +27,14 @@ export type {
   SegmentValue,
 } from './Segment'
 
+export { SegmentProgressBar } from './SegmentProgressBar'
+export type { SegmentProgressBarProps } from './SegmentProgressBar'
+
 export { Input } from './Input'
 export type { InputProps, InputSize } from './Input'
+
+export { DebounceInput } from './DebounceInput'
+export type { DebounceInputProps, DebounceInputChangeEvent } from './DebounceInput'
 
 export { Checkbox } from './Checkbox'
 export type {
@@ -61,6 +67,9 @@ export type {
 
 export { Dialog } from './Dialog'
 export type { DialogProps } from './Dialog'
+
+export { ConfirmDialog } from './ConfirmDialog'
+export type { ConfirmDialogProps, ConfirmDialogType } from './ConfirmDialog'
 
 export { Popover } from './Popover'
 export type { PopoverProps, PopoverPlacement, PopoverTrigger } from './Popover'
@@ -164,6 +173,9 @@ export type { ContainerProps } from './Container'
 export { Affix } from './Affix'
 export type { AffixProps } from './Affix'
 
+export { AuthorityCheck } from './AuthorityCheck'
+export type { AuthorityCheckProps, AuthorityRole } from './AuthorityCheck'
+
 export { StickyRegion } from './StickyRegion'
 export type { StickyRegionProps } from './StickyRegion'
 
@@ -182,6 +194,9 @@ export type {
   AvatarOmittedAvatarTooltipProps,
 } from './Avatar'
 
+export { UsersAvatarGroup } from './UsersAvatarGroup'
+export type { UsersAvatarGroupProps, UserDataObject } from './UsersAvatarGroup'
+
 export { Badge } from './Badge'
 export type { BadgeProps } from './Badge'
 
@@ -190,6 +205,9 @@ export type { AlertProps, AlertType } from './Alert'
 
 export { Card } from './Card'
 export type { CardProps, CardHeaderConfig, CardFooterConfig } from './Card'
+
+export { StatisticCard } from './StatisticCard'
+export type { StatisticCardProps } from './StatisticCard'
 
 export { Typography } from './Typography'
 export type { TypographyProps } from './Typography'

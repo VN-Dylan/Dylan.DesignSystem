@@ -1,0 +1,36 @@
+.dyl-statistic-card {
+  @apply overflow-hidden rounded-lg border border-border bg-surface text-content shadow-sm;
+
+  &[data-inset] {
+    @apply bg-surface-sunken shadow-none;
+  }
+
+  &__header,
+  &__footer {
+    @apply px-5 py-4 text-sm text-content-muted;
+  }
+
+  &__header {
+    @apply border-b border-border;
+  }
+
+  &__body {
+    @apply p-5;
+  }
+
+  &__footer {
+    @apply border-t border-border;
+  }
+
+  &[data-inset] &__body {
+    @apply m-2 rounded-md bg-surface;
+  }
+
+  &[data-inset] &__header {
+    @apply border-b-0 pb-2;
+  }
+
+  &[data-inset] &__footer {
+    @apply border-t-0 pt-2;
+  }
+}

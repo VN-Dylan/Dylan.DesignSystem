@@ -1,0 +1,14 @@
+.dyl-segment-progress-bar {
+  @apply flex w-full items-center;
+
+  &__segment {
+    @apply min-w-1 flex-1 rounded-full bg-surface-sunken transition-colors duration-fast
+      ease-standard;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dyl-segment-progress-bar__segment {
+    @apply transition-none;
+  }
+}
