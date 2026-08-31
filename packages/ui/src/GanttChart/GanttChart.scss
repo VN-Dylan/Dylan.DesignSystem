@@ -1,0 +1,52 @@
+.dyl-gantt {
+  @apply w-full overflow-x-auto rounded-lg border border-border bg-surface text-sm;
+
+  --dyl-gantt-name-width: 10rem;
+
+  &__head,
+  &__row {
+    @apply grid items-stretch;
+    grid-template-columns: var(--dyl-gantt-name-width) 1fr;
+  }
+
+  &__head {
+    @apply border-b border-border bg-surface-sunken;
+  }
+
+  &__corner {
+    @apply flex items-center px-3 py-2 font-semibold text-content-muted;
+  }
+
+  &__axis {
+    @apply flex;
+  }
+
+  &__tick {
+    @apply flex-1 border-l border-border px-2 py-2 text-xs text-content-faint;
+  }
+
+  &__row {
+    @apply border-b border-border last:border-b-0;
+  }
+
+  &__name {
+    @apply flex items-center truncate px-3 py-2 text-content;
+  }
+
+  &__track {
+    @apply relative py-2;
+  }
+
+  &__bar {
+    @apply absolute inset-y-1 flex items-center overflow-hidden rounded bg-primary-subtle
+      text-xs text-primary;
+  }
+
+  &__bar-progress {
+    @apply absolute inset-y-0 left-0 bg-primary;
+  }
+
+  &__bar-label {
+    @apply relative z-10 truncate px-2 font-medium text-content;
+  }
+}

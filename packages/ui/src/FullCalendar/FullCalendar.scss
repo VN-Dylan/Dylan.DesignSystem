@@ -1,0 +1,54 @@
+.dyl-full-calendar {
+  @apply flex flex-col gap-3 rounded-lg border border-border bg-surface p-4 text-sm;
+
+  &__header {
+    @apply flex items-center justify-between;
+  }
+
+  &__title {
+    @apply text-base font-semibold text-content;
+  }
+
+  &__nav {
+    @apply flex items-center gap-2;
+  }
+
+  &__weekdays,
+  &__week {
+    @apply grid grid-cols-7;
+  }
+
+  &__weekdays span {
+    @apply px-2 py-1 text-center text-xs font-medium uppercase tracking-wide text-content-faint;
+  }
+
+  &__day {
+    @apply flex min-h-24 flex-col items-stretch gap-1 border border-border p-1 text-left
+      align-top transition-colors hover:bg-surface-sunken;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary;
+
+    &[data-outside] {
+      @apply bg-surface-sunken text-content-faint;
+    }
+  }
+
+  &__date {
+    @apply inline-flex h-6 w-6 items-center justify-center self-start rounded-full text-xs;
+  }
+
+  &__day[data-today] &__date {
+    @apply bg-primary font-semibold text-primary-fg;
+  }
+
+  &__events {
+    @apply flex flex-col gap-0.5;
+  }
+
+  &__event {
+    @apply truncate rounded px-1 py-0.5 text-[0.7rem] font-medium text-primary-fg;
+  }
+
+  &__more {
+    @apply px-1 text-[0.7rem] text-content-muted;
+  }
+}

@@ -33,3 +33,8 @@ if (!window.ResizeObserver) {
     disconnect() {}
   }
 }
+
+// jsdom lacks elementFromPoint — ProseMirror (RichTextEditor) calls it on pointer events.
+if (!document.elementFromPoint) {
+  document.elementFromPoint = () => null
+}

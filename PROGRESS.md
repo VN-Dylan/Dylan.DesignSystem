@@ -1,8 +1,8 @@
-| `histogram` | ☑ || `chart` | ☑ || `data-table` | ☑ || `wizard` | ☑ || `file-icon` | ☑ || `advanced-filter-builder` | ☑ || `reaction-emoji-picker` | ☑ || `overflow-tabs` | ☑ || `popover-filter` | ☑ || `select-extension` | ☑ || `auto-complete` | ☑ || `otp-input` | ☑ || `custom-format-input` | ☑ || `numeric-input-stepper` | ☑ || `numeric-input` | ☑ || `pattern-input` | ☑ || `password-input` | ☑ || `debounce-input` | ☑ || `confirm-dialog` | ☑ || `authority-check` | ☑ || `segment-progress-bar` | ☑ || `users-avatar-group` | ☑ || `statistic-card` | ☑ || `clock-progress` | ☑ || `loaders` | ☑ || `loading` | ☑ || `toggle-drawer` | ☑ || `nav-toggle` | ☑ || `sticky-region` | ☑ || `affix` | ☑ || `container` | ☑ || `grow-shrink-tag` | ☑ || `empty-state` | ☑ || `info-bar` | ☑ || `icon-frame` | ☑ || `action-link` | ☑ || `divider` | ☑ || `date-picker` | ☑ || `calendar` | ☑ || `upload` | ☑ || `form-control` | ☑ || `carousel` | ☑ || `timeline` | ☑ |# PROGRESS.md — build tracker
+# PROGRESS.md — build tracker
 
 Legend: ☐ todo · ◑ in progress · ☑ done · — n/a. Columns: spec · impl · test · story · review.
 
-## Base UI components — 35/43 (icons = n/a)
+## Base UI components — 41/41 (icons = n/a)
 
 | Component | done | notes |
 | --- | :-: | --- |
@@ -11,16 +11,16 @@ Legend: ☐ todo · ◑ in progress · ☑ done · — n/a. Columns: spec · imp
 | `avatar` | ☑ |  |
 | `badge` | ☑ |  |
 | `button` | ☑ |  |
-| `calendar` | ☐ |  |
+| `calendar` | ☑ | full month/year picker views + exotic label-format props still stubbed |
 | `cards` | ☑ |  |
-| `carousel` | ☐ |  |
+| `carousel` | ☑ |  |
 | `checkbox` | ☑ |  |
 | `collapsible` | ☑ |  |
-| `date-picker` | ☐ |  |
+| `date-picker` | ☑ | see calendar note |
 | `dialog` | ☑ |  |
 | `drawer` | ☑ |  |
 | `dropdown` | ☑ |  |
-| `form-control` | ☐ |  |
+| `form-control` | ☑ |  |
 | `grid` | ☑ |  |
 | `icons` | — | n/a — @dylan-ds/icons |
 | `input` | ☑ |  |
@@ -43,58 +43,58 @@ Legend: ☐ todo · ◑ in progress · ☑ done · — n/a. Columns: spec · imp
 | `tabs` | ☑ |  |
 | `tag` | ☑ |  |
 | `time-input` | ☑ |  |
-| `timeline` | ☐ |  |
+| `timeline` | ☑ |  |
 | `toast` | ☑ |  |
 | `tooltip` | ☑ |  |
 | `typography` | ☑ |  |
-| `upload` | ☐ |  |
+| `upload` | ☑ |  |
 
-## Composite / shared components — 0/42
+## Composite / shared components — 42/42
 
-| Component | done |
-| --- | :-: |
-| `action-link` | ☐ |
-| `advanced-filter-builder` | ☐ |
-| `affix` | ☐ |
-| `authority-check` | ☐ |
-| `auto-complete` | ☐ |
-| `chart` | ☐ |
-| `clock-progress` | ☐ |
-| `confirm-dialog` | ☐ |
-| `container` | ☐ |
-| `custom-format-input` | ☐ |
-| `data-table` | ☐ |
-| `debounce-input` | ☐ |
-| `divider` | ☐ |
-| `empty-state` | ☐ |
-| `file-icon` | ☐ |
-| `full-calendar` | ☐ |
-| `gantt-chart` | ☐ |
-| `grow-shrink-tag` | ☐ |
-| `histogram` | ☐ |
-| `icon-frame` | ☐ |
-| `info-bar` | ☐ |
-| `loaders` | ☐ |
-| `loading` | ☐ |
-| `nav-toggle` | ☐ |
-| `numeric-input` | ☐ |
-| `numeric-input-stepper` | ☐ |
-| `otp-input` | ☐ |
-| `overflow-tabs` | ☐ |
-| `password-input` | ☐ |
-| `pattern-input` | ☐ |
-| `popover-filter` | ☐ |
-| `reaction-emoji-picker` | ☐ |
-| `rich-text-editor` | ☐ |
-| `segment-progress-bar` | ☐ |
-| `select-extension` | ☐ |
-| `statistic-card` | ☐ |
-| `sticky-region` | ☐ |
-| `syntax-highlighter` | ☐ |
-| `toggle-drawer` | ☐ |
-| `users-avatar-group` | ☐ |
-| `vector-map` | ☐ |
-| `wizard` | ☐ |
+| Component | done | notes |
+| --- | :-: | --- |
+| `action-link` | ☑ |  |
+| `advanced-filter-builder` | ☑ |  |
+| `affix` | ☑ |  |
+| `authority-check` | ☑ |  |
+| `auto-complete` | ☑ |  |
+| `chart` | ☑ | apexcharts (external) |
+| `clock-progress` | ☑ |  |
+| `confirm-dialog` | ☑ |  |
+| `container` | ☑ |  |
+| `custom-format-input` | ☑ |  |
+| `data-table` | ☑ | @tanstack/react-table (external) |
+| `debounce-input` | ☑ |  |
+| `divider` | ☑ |  |
+| `empty-state` | ☑ |  |
+| `file-icon` | ☑ |  |
+| `full-calendar` | ☑ | dependency-free month view; week/day/list + drag not included |
+| `gantt-chart` | ☑ | dependency-free |
+| `grow-shrink-tag` | ☑ |  |
+| `histogram` | ☑ |  |
+| `icon-frame` | ☑ |  |
+| `info-bar` | ☑ |  |
+| `loaders` | ☑ |  |
+| `loading` | ☑ |  |
+| `nav-toggle` | ☑ |  |
+| `numeric-input` | ☑ |  |
+| `numeric-input-stepper` | ☑ |  |
+| `otp-input` | ☑ |  |
+| `overflow-tabs` | ☑ |  |
+| `password-input` | ☑ |  |
+| `pattern-input` | ☑ |  |
+| `popover-filter` | ☑ |  |
+| `reaction-emoji-picker` | ☑ |  |
+| `rich-text-editor` | ☑ | Tiptap / @tiptap/* (external) |
+| `segment-progress-bar` | ☑ |  |
+| `select-extension` | ☑ |  |
+| `statistic-card` | ☑ |  |
+| `sticky-region` | ☑ |  |
+| `syntax-highlighter` | ☑ | react-syntax-highlighter (external); PrismLight + registered common grammars |
+| `toggle-drawer` | ☑ |  |
+| `users-avatar-group` | ☑ |  |
+| `vector-map` | ☑ | jsvectormap (external) |
+| `wizard` | ☑ |  |
 
 ## Utilities — 24/32 (+1 stub, 7 deferred)
 
@@ -140,7 +140,7 @@ Legend: ☐ todo · ◑ in progress · ☑ done · — n/a. Columns: spec · imp
 | P0 | Scaffold & infra | ☑ |
 | P1 | Tokens + 24 utils + golden 5 + RECIPE | ☑ |
 | P2 | Base components (41/41, icons n/a) | ☑ |
-| P3 | 42 composite components | ◑ 37/42 |
+| P3 | 42 composite components | ☑ 42/42 |
 | P4 | Layouts + example app + auth | ☐ |
 | P5 | Handbook | ☐ |
 | P6 | QA & hardening | ☐ |
@@ -150,3 +150,5 @@ Legend: ☐ todo · ◑ in progress · ☑ done · — n/a. Columns: spec · imp
 - Token alpha channels (`bg-primary/40`).
 - Select/menu overlays could adopt @floating-ui (currently Select uses absolute pos).
 - 7 app-coupled utils → showcase/DataTable (P3/P4).
+- Calendar/DatePicker: full month/year picker views + exotic label-format props.
+- `packages/ui` bundle is ~800 kB (vendor libs are external); revisit code-splitting at P6.

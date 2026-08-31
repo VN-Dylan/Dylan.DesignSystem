@@ -368,3 +368,18 @@ export type { ChartProps, ChartType } from './Chart'
 
 export { Histogram } from './Histogram'
 export type { HistogramProps } from './Histogram'
+
+export { SyntaxHighlighter } from './SyntaxHighlighter'
+export type { SyntaxHighlighterProps } from './SyntaxHighlighter'
+
+export { GanttChart } from './GanttChart'
+export type { GanttChartProps, GanttTask } from './GanttChart'
+
+export { RichTextEditor } from './RichTextEditor'
+export type { RichTextEditorProps } from './RichTextEditor'
+
+export { VectorMap } from './VectorMap'
+export type { VectorMapProps } from './VectorMap'
+
+export { FullCalendar } from './FullCalendar'
+export type { FullCalendarProps, CalendarEvent } from './FullCalendar'

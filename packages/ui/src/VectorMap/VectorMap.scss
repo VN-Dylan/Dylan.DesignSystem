@@ -1,0 +1,16 @@
+.dyl-vector-map {
+  @apply w-full;
+
+  &__canvas {
+    @apply h-full w-full;
+  }
+
+  .jvm-zoom-btn {
+    @apply flex h-6 w-6 items-center justify-center rounded border border-border bg-surface
+      text-content-muted;
+  }
+
+  .jvm-tooltip {
+    @apply rounded-md border border-border bg-surface-raised px-2 py-1 text-xs text-content shadow-lg;
+  }
+}

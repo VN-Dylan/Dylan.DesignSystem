@@ -29,7 +29,11 @@
     "@dylan-ds/utils": "workspace:*",
     "@floating-ui/react": "0.27.3",
     "@tanstack/react-table": "8.20.6",
+    "@tiptap/pm": "2.10.3",
+    "@tiptap/react": "2.10.3",
+    "@tiptap/starter-kit": "2.10.3",
     "apexcharts": "4.3.0",
+    "jsvectormap": "1.6.0",
     "react-apexcharts": "1.7.0",
     "react-syntax-highlighter": "15.6.1"
   },

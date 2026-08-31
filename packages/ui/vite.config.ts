@@ -32,6 +32,9 @@ export default defineConfig({
         'react-apexcharts',
         'react-syntax-highlighter',
         /^react-syntax-highlighter\//,
+        /^@tiptap\//,
+        'jsvectormap',
+        /^jsvectormap\//,
       ],
       output: {
         preserveModules: false,
