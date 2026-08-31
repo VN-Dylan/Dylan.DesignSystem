@@ -1,0 +1,27 @@
+.dyl-spinner {
+  @apply inline-flex shrink-0 items-center justify-center leading-none text-content;
+
+  &__indicator {
+    @apply inline-flex h-full w-full items-center justify-center;
+  }
+
+  &__indicator svg {
+    @apply block h-full w-full;
+  }
+
+  &[data-spining] &__indicator {
+    animation: dyl-spinner-spin var(--dyl-duration-base) linear infinite;
+  }
+}
+
+@keyframes dyl-spinner-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dyl-spinner[data-spining] .dyl-spinner__indicator {
+    animation-duration: var(--dyl-duration-slow);
+  }
+}

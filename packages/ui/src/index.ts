@@ -34,3 +34,11 @@ export type {
   TableHeadCellProps,
   TableCellProps,
 } from './Table'
+
+export { Spinner } from './Spinner'
+export type {
+  SpinnerProps,
+  SpinnerSize,
+  SpinnerIndicator,
+  SpinnerClassNameState,
+} from './Spinner'

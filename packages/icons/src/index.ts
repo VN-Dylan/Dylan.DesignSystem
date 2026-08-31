@@ -6,3 +6,4 @@ export type { IconType } from 'react-icons'
 // closest to the Eyris "linear" look.
 export * as TbIcons from 'react-icons/tb'
 export * as HiIcons from 'react-icons/hi2'
+export * as CgIcons from 'react-icons/cg'
