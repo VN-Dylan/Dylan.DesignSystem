@@ -18,6 +18,8 @@ import {
 } from '@/views/auth/authViews'
 import { salesRoutes } from '@/views/sales/salesRoutes'
 import { projectsRoutes } from '@/views/projects/projectsRoutes'
+import { analyticsRoutes } from '@/views/analytics/analyticsRoutes'
+import { cryptoRoutes } from '@/views/crypto/cryptoRoutes'
 
 /**
  * App screens for areas not yet built as real views, area → [path, title].
@@ -33,25 +35,10 @@ const APP_AREAS: Record<string, [string, string][]> = {
     ['/customers/leads/:id/overview', 'Lead overview'],
     ['/customers/helpdesk', 'Helpdesk'],
   ],
-  analytics: [
-    ['/analytics/dashboard', 'Analytics dashboard'],
-    ['/analytics/forecast', 'Forecast'],
-    ['/analytics/revenue', 'Revenue'],
-    ['/analytics/subscriptions', 'Subscriptions'],
-    ['/analytics/reports', 'Reports'],
-  ],
   ai: [
     ['/ai/chat', 'AI chat'],
     ['/ai/image', 'AI image'],
     ['/ai/writer', 'AI writer'],
-  ],
-  crypto: [
-    ['/crypto/dashboard', 'Crypto dashboard'],
-    ['/crypto/market', 'Market'],
-    ['/crypto/coin/:sym', 'Coin detail'],
-    ['/crypto/spot', 'Spot trade'],
-    ['/crypto/assets', 'Assets'],
-    ['/crypto/kyc', 'KYC'],
   ],
   hrm: [
     ['/hrm/dashboard', 'HRM dashboard'],
@@ -116,6 +103,8 @@ export const routes: RouteObject[] = [
       { path: '/others/access-denied', element: <AccessDeniedView /> },
       ...salesRoutes,
       ...projectsRoutes,
+      ...analyticsRoutes,
+      ...cryptoRoutes,
       ...appAreaRoutes,
       {
         path: '/accounts/users',

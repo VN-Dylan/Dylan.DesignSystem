@@ -141,7 +141,7 @@ Legend: ☐ todo · ◑ in progress · ☑ done · — n/a. Columns: spec · imp
 | P1 | Tokens + 24 utils + golden 5 + RECIPE | ☑ |
 | P2 | Base components (41/41, icons n/a) | ☑ |
 | P3 | 42 composite components | ☑ 42/42 |
-| P4 | Layouts + example app + auth | ◑ C1–C3 done |
+| P4 | Layouts + example app + auth | ◑ C1–C4 done |
 | P5 | Handbook | ☐ |
 | P6 | QA & hardening | ☐ |
 
@@ -152,7 +152,7 @@ Legend: ☐ todo · ◑ in progress · ☑ done · — n/a. Columns: spec · imp
 | C1 | Foundation: router + layouts (App/Blank/Auth) + template chrome (SideNav/Header/Footer/UserDropdown/ThemeConfigDrawer) + theme & auth stores (zustand) + app-coupled hooks (useAuth/useLayout/useMenuActive/useThemeBootstrap) + navigation/routes config + landing + access-denied + 404 + 13 auth screens (5 forms × simple/side/split) + component gallery | ☑ |
 | C2 | `sales` area — dashboard, products (DataTable), product/new, product/:id, orders, order/new, order/:id; + `mock/sales.ts`, shared `KpiCard`/`ChartCard`/`StatusTag`, `SHOWCASE-RECIPE.md` | ☑ |
 | C3 | `projects` area — dashboard, list, :id, scrumboard, timeline (GanttChart), tasks, settings; + `mock/projects.ts` | ☑ |
-| C4 | `analytics` + `crypto` areas | ☐ |
+| C4 | `analytics` (dashboard, forecast, revenue, subscriptions, reports) + `crypto` (dashboard, market, coin/:sym, spot, assets, kyc); + `mock/analytics.ts`, `mock/crypto.ts` | ☑ |
 | C5 | `customers` + `hrm` areas | ☐ |
 | C6 | `ai` + `accounts` areas | ☐ |
 | C7 | mock data consolidation, polish pass, Eyris visual diff | ☐ |
@@ -161,7 +161,7 @@ Unbuilt areas are routed via `PagePlaceholder` (`APP_AREAS` in `routes.config.ts
 
 P4 follow-ups: `mock` `order.total` vs detail's subtotal+tax is inconsistent (decide pre/post-tax semantics in C7); DataTable has no row-click prop → views use `onClick` event delegation on a wrapper div; `Select`/`Segment` width must be constrained by a wrapper (component `width:100%` beats utility classes); DataTable's "Rows per page" `<select>` has no name/label association (P6 a11y).
 
-fix(ui) shipped during P4: Chart got a token-derived multi-colour palette (C2); Progress circle variant rotated its `<g>` via CSS transform around the SVG origin → ring flew off / oversized — now `rotate(deg 50 50)` SVG attr (C3); Select's filter `<input>` got `name`/`type`/`autoComplete` (C3).
+fix(ui) shipped during P4: Chart got a token-derived multi-colour palette (C2); Progress circle variant rotated its `<g>` via CSS transform around the SVG origin → ring flew off / oversized — now `rotate(deg 50 50)` SVG attr (C3); Select's filter `<input>` got `name`/`type`/`autoComplete` (C3); VectorMap choropleth was black — jsvectormap 1.6 only has an ordinal (lookup) scale, not numeric, so the ramp is now interpolated in-component (border→primary per normalised value) and fed as a code→hex map (C4).
 
 ## Follow-ups
 
