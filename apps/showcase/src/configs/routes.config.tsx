@@ -8,7 +8,6 @@ import { LandingView } from '@/views/landing/LandingView'
 import { AccessDeniedView } from '@/views/others/AccessDeniedView'
 import { NotFoundView } from '@/views/others/NotFoundView'
 import { ComponentGalleryView } from '@/views/_dev/ComponentGalleryView'
-import { PagePlaceholder } from '@/views/_shared/PagePlaceholder'
 import {
   ForgotPasswordView,
   OtpVerificationView,
@@ -22,34 +21,8 @@ import { analyticsRoutes } from '@/views/analytics/analyticsRoutes'
 import { cryptoRoutes } from '@/views/crypto/cryptoRoutes'
 import { customersRoutes } from '@/views/customers/customersRoutes'
 import { hrmRoutes } from '@/views/hrm/hrmRoutes'
-
-/**
- * App screens for areas not yet built as real views, area → [path, title].
- * Each still renders <PagePlaceholder> until its P4 area batch lands, at which
- * point the area moves to its own `*Routes` module (see `salesRoutes`).
- */
-const APP_AREAS: Record<string, [string, string][]> = {
-  ai: [
-    ['/ai/chat', 'AI chat'],
-    ['/ai/image', 'AI image'],
-    ['/ai/writer', 'AI writer'],
-  ],
-  accounts: [
-    ['/accounts/settings/profile', 'Account settings'],
-    ['/accounts/activity', 'Activity log'],
-    ['/accounts/referrals', 'Referrals'],
-    ['/accounts/pricing', 'Pricing'],
-    ['/accounts/invoice', 'Invoice'],
-    // '/accounts/users' is added separately below with an admin authority guard.
-  ],
-}
-
-const appAreaRoutes: RouteObject[] = Object.entries(APP_AREAS).flatMap(([area, pages]) =>
-  pages.map(([path, title]) => ({
-    path,
-    element: <PagePlaceholder title={title} area={area} />,
-  })),
-)
+import { aiRoutes } from '@/views/ai/aiRoutes'
+import { accountsRoutes } from '@/views/accounts/accountsRoutes'
 
 const authScreens: [string, ReactNode][] = [
   ['sign-in', <SignInView />],
@@ -93,15 +66,8 @@ export const routes: RouteObject[] = [
       ...cryptoRoutes,
       ...customersRoutes,
       ...hrmRoutes,
-      ...appAreaRoutes,
-      {
-        path: '/accounts/users',
-        element: (
-          <ProtectedRoute authority={['admin']}>
-            <PagePlaceholder title="Users" area="accounts" />
-          </ProtectedRoute>
-        ),
-      },
+      ...aiRoutes,
+      ...accountsRoutes,
     ],
   },
   { path: '/home', element: <Navigate to="/sales/dashboard" replace /> },
