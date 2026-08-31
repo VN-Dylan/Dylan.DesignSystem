@@ -185,7 +185,6 @@ export type {
   CollapsibleContentProps,
 } from './Collapsible'
 
-
 export { Drawer } from './Drawer'
 export type { DrawerProps, DrawerPlacement } from './Drawer'
 
@@ -200,3 +199,23 @@ export type {
   ToastOptions,
   ToastEntry,
 } from './Toast'
+
+export { Timeline } from './Timeline'
+export type { TimelineProps, TimelineItemProps } from './Timeline'
+
+export { Form } from './FormControl'
+export type { FormProps, FormItemProps, FormLayout, FormSize } from './FormControl'
+
+export { Carousel } from './Carousel'
+export type {
+  CarouselProps,
+  CarouselContentProps,
+  CarouselItemProps,
+  CarouselControlProps,
+  CarouselApi,
+  CarouselOptions,
+  CarouselOrientation,
+} from './Carousel'
+
+export { Upload } from './Upload'
+export type { UploadProps } from './Upload'

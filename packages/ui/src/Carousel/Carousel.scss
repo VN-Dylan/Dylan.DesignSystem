@@ -1,0 +1,29 @@
+.dyl-carousel {
+  @apply relative;
+
+  &__viewport {
+    @apply overflow-hidden rounded-lg;
+  }
+
+  &__track {
+    @apply flex transition-transform duration-slow ease-emphasized;
+  }
+
+  &[data-orientation='vertical'] &__track {
+    @apply h-64 flex-col;
+  }
+
+  &__item {
+    @apply min-w-0 shrink-0 grow-0 basis-full;
+  }
+
+  &[data-orientation='vertical'] &__item {
+    @apply basis-full;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dyl-carousel__track {
+    @apply transition-none;
+  }
+}

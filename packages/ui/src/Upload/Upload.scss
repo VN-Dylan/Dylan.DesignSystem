@@ -1,0 +1,59 @@
+.dyl-upload {
+  @apply flex flex-col gap-2;
+
+  &[data-disabled] {
+    @apply opacity-60;
+  }
+
+  &__input {
+    @apply sr-only;
+  }
+
+  &__trigger {
+    @apply inline-flex w-fit items-center gap-2 rounded-md border border-border bg-surface
+      px-4 py-2 text-sm font-medium text-content transition-colors hover:border-border-strong;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary
+      focus-visible:ring-offset-2 focus-visible:ring-offset-surface;
+  }
+
+  &__dropzone {
+    @apply flex flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed
+      border-border bg-surface-sunken px-6 py-10 text-center text-sm text-content-muted
+      transition-colors;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary;
+
+    &[data-drag-over] {
+      @apply border-primary bg-primary-subtle text-primary;
+    }
+
+    &-icon {
+      @apply text-2xl text-content-faint;
+    }
+  }
+
+  &__tip {
+    @apply text-xs text-content-muted;
+  }
+
+  &__list {
+    @apply flex flex-col gap-1;
+  }
+
+  &__file {
+    @apply flex items-center gap-2 rounded-md border border-border bg-surface px-3 py-2 text-sm;
+  }
+
+  &__file-name {
+    @apply min-w-0 flex-1 truncate text-content;
+  }
+
+  &__file-size {
+    @apply shrink-0 text-xs text-content-muted;
+  }
+
+  &__file-remove {
+    @apply shrink-0 rounded p-1 text-content-muted transition-colors hover:bg-surface-sunken
+      hover:text-content;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary;
+  }
+}
