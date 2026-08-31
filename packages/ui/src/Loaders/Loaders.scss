@@ -1,0 +1,45 @@
+.dyl-media-skeleton {
+  @apply flex w-full max-w-md items-start gap-3;
+
+  &__avatar {
+    @apply shrink-0;
+  }
+
+  &__content {
+    @apply flex min-w-0 flex-1 flex-col gap-3;
+  }
+
+  &__title {
+    @apply w-2/5;
+  }
+
+  &__text {
+    @apply w-full;
+  }
+}
+
+.dyl-table-row-skeleton {
+  &__cell {
+    @apply border-b border-border px-4 py-3;
+  }
+
+  &__media {
+    @apply flex items-center gap-3;
+  }
+
+  &__avatar {
+    @apply h-8 w-8 shrink-0;
+  }
+
+  &__line {
+    @apply min-w-16;
+  }
+}
+
+.dyl-text-block-skeleton {
+  @apply flex w-full max-w-md flex-col gap-3;
+
+  &__title {
+    @apply mb-1;
+  }
+}

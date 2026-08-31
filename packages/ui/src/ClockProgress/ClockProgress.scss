@@ -1,0 +1,15 @@
+.dyl-clock-progress {
+  @apply relative inline-flex shrink-0 items-center justify-center rounded-full bg-surface-sunken;
+  background: conic-gradient(
+    var(--dyl-primary) var(--dyl-clock-progress-angle),
+    var(--dyl-surface-sunken) 0
+  );
+
+  &::after {
+    @apply absolute inset-1/4 rounded-full bg-surface content-[''];
+  }
+
+  &[data-complete]::after {
+    @apply bg-primary-subtle;
+  }
+}

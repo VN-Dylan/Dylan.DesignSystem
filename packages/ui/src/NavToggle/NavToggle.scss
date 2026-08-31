@@ -1,0 +1,19 @@
+.dyl-nav-toggle {
+  @apply inline-flex h-5 w-5 flex-col items-center justify-center gap-1 text-current;
+
+  &__line {
+    @apply h-0.5 w-5 rounded-full bg-current transition duration-fast ease-standard;
+  }
+
+  &[data-toggled] &__line:nth-child(1) {
+    @apply translate-y-1.5 rotate-45;
+  }
+
+  &[data-toggled] &__line:nth-child(2) {
+    @apply opacity-0;
+  }
+
+  &[data-toggled] &__line:nth-child(3) {
+    @apply -translate-y-1.5 -rotate-45;
+  }
+}

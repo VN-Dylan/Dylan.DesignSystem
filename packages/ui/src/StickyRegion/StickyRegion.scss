@@ -1,0 +1,7 @@
+.dyl-sticky-region {
+  @apply sticky transition-shadow ease-standard;
+
+  &[data-sticky][data-shadow] {
+    @apply shadow-md;
+  }
+}

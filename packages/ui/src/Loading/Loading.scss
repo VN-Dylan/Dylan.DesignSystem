@@ -1,0 +1,12 @@
+.dyl-loading {
+  @apply relative block;
+
+  &[data-loading] {
+    @apply min-h-10;
+  }
+
+  &__indicator {
+    @apply absolute inset-0 flex items-center justify-center rounded-md bg-surface-raised
+      text-primary shadow-sm;
+  }
+}
