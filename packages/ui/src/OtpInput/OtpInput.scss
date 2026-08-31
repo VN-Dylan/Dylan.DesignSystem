@@ -1,0 +1,22 @@
+.dyl-otp-input {
+  @apply flex items-center gap-2;
+
+  &[data-disabled] {
+    @apply opacity-70;
+  }
+
+  &__field {
+    @apply h-10 w-10 rounded-md border border-border bg-surface text-center text-sm font-medium
+      text-content transition duration-fast placeholder:text-content-faint;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary
+      focus-visible:ring-offset-2 focus-visible:ring-offset-surface;
+
+    &[aria-invalid='true'] {
+      @apply border-error focus-visible:ring-error;
+    }
+
+    &:disabled {
+      @apply cursor-not-allowed bg-surface-sunken;
+    }
+  }
+}

@@ -1,0 +1,23 @@
+.dyl-numeric-input-stepper {
+  @apply inline-flex shrink-0 flex-col overflow-hidden rounded-md border border-border bg-surface
+    text-content-muted;
+
+  &[data-disabled] {
+    @apply opacity-60;
+  }
+
+  &__button {
+    @apply inline-flex h-4 w-6 items-center justify-center text-xs transition-colors
+      duration-fast hover:bg-surface-sunken hover:text-content;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary
+      focus-visible:ring-offset-1 focus-visible:ring-offset-surface;
+
+    &:disabled {
+      @apply cursor-not-allowed text-content-faint hover:bg-transparent hover:text-content-faint;
+    }
+
+    & + & {
+      @apply border-t border-border;
+    }
+  }
+}

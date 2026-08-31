@@ -1,4 +1,4 @@
-| `debounce-input` | ☑ || `confirm-dialog` | ☑ || `authority-check` | ☑ || `segment-progress-bar` | ☑ || `users-avatar-group` | ☑ || `statistic-card` | ☑ || `clock-progress` | ☑ || `loaders` | ☑ || `loading` | ☑ || `toggle-drawer` | ☑ || `nav-toggle` | ☑ || `sticky-region` | ☑ || `affix` | ☑ || `container` | ☑ || `grow-shrink-tag` | ☑ || `empty-state` | ☑ || `info-bar` | ☑ || `icon-frame` | ☑ || `action-link` | ☑ || `divider` | ☑ || `date-picker` | ☑ || `calendar` | ☑ || `upload` | ☑ || `form-control` | ☑ || `carousel` | ☑ || `timeline` | ☑ |# PROGRESS.md — build tracker
+| `otp-input` | ☑ || `custom-format-input` | ☑ || `numeric-input-stepper` | ☑ || `numeric-input` | ☑ || `pattern-input` | ☑ || `password-input` | ☑ || `debounce-input` | ☑ || `confirm-dialog` | ☑ || `authority-check` | ☑ || `segment-progress-bar` | ☑ || `users-avatar-group` | ☑ || `statistic-card` | ☑ || `clock-progress` | ☑ || `loaders` | ☑ || `loading` | ☑ || `toggle-drawer` | ☑ || `nav-toggle` | ☑ || `sticky-region` | ☑ || `affix` | ☑ || `container` | ☑ || `grow-shrink-tag` | ☑ || `empty-state` | ☑ || `info-bar` | ☑ || `icon-frame` | ☑ || `action-link` | ☑ || `divider` | ☑ || `date-picker` | ☑ || `calendar` | ☑ || `upload` | ☑ || `form-control` | ☑ || `carousel` | ☑ || `timeline` | ☑ |# PROGRESS.md — build tracker
 
 Legend: ☐ todo · ◑ in progress · ☑ done · — n/a. Columns: spec · impl · test · story · review.
 
@@ -140,7 +140,7 @@ Legend: ☐ todo · ◑ in progress · ☑ done · — n/a. Columns: spec · imp
 | P0 | Scaffold & infra | ☑ |
 | P1 | Tokens + 24 utils + golden 5 + RECIPE | ☑ |
 | P2 | Base components (41/41, icons n/a) | ☑ |
-| P3 | 42 composite components | ◑ 20/42 |
+| P3 | 42 composite components | ◑ 26/42 |
 | P4 | Layouts + example app + auth | ☐ |
 | P5 | Handbook | ☐ |
 | P6 | QA & hardening | ☐ |

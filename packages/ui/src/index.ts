@@ -36,6 +36,24 @@ export type { InputProps, InputSize } from './Input'
 export { DebounceInput } from './DebounceInput'
 export type { DebounceInputProps, DebounceInputChangeEvent } from './DebounceInput'
 
+export { PasswordInput } from './PasswordInput'
+export type { PasswordInputProps } from './PasswordInput'
+
+export { PatternInput } from './PatternInput'
+export type { PatternInputProps } from './PatternInput'
+
+export { NumericInput } from './NumericInput'
+export type { NumericInputProps, NumericInputThousandsGroupStyle } from './NumericInput'
+
+export { NumericInputStepper } from './NumericInputStepper'
+export type { NumericInputStepperProps } from './NumericInputStepper'
+
+export { CustomFormatInput } from './CustomFormatInput'
+export type { CustomFormatInputProps, NumberFormatValue } from './CustomFormatInput'
+
+export { OtpInput } from './OtpInput'
+export type { OtpInputProps } from './OtpInput'
+
 export { Checkbox } from './Checkbox'
 export type {
   CheckboxProps,
