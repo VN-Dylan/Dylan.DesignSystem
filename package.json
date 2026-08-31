@@ -8,7 +8,7 @@
     "node": ">=20"
   },
   "scripts": {
-    "build": "rimraf --glob \"packages/*/tsconfig.tsbuildinfo\" && pnpm -r --filter \"./packages/**\" build",
+    "build": "rimraf --glob \"packages/*/tsconfig.tsbuildinfo\" \"packages/*/dist\" && pnpm -r --filter \"./packages/**\" build && tsc -b",
     "dev": "pnpm --filter @dylan-ds/showcase dev",
     "test": "vitest run",
     "test:watch": "vitest",

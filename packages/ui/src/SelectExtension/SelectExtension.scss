@@ -1,0 +1,24 @@
+.dyl-select-ext-input,
+.dyl-select-ext-option {
+  @apply flex min-w-0 items-center gap-2 text-content;
+
+  &__prefix {
+    @apply inline-flex shrink-0 items-center justify-center text-content-muted;
+  }
+
+  &__label {
+    @apply min-w-0 flex-1 truncate;
+  }
+}
+
+.dyl-select-ext-option {
+  @apply w-full;
+
+  &[data-selected] {
+    @apply font-medium text-primary;
+  }
+
+  &__check {
+    @apply ml-auto inline-flex shrink-0 items-center justify-center text-primary;
+  }
+}

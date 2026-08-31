@@ -1,0 +1,39 @@
+.dyl-autocomplete {
+  @apply relative w-full;
+
+  &__input {
+    @apply w-full;
+  }
+
+  &__menu {
+    @apply z-dropdown min-w-56 overflow-hidden rounded-md border border-border bg-surface-raised
+      text-sm text-content shadow-lg outline-none;
+    animation: dyl-autocomplete-in var(--dyl-duration-fast) var(--dyl-ease-standard);
+  }
+
+  &__list {
+    @apply max-h-60 overflow-y-auto py-1;
+  }
+
+  &__option {
+    @apply cursor-pointer px-3 py-2 transition-colors duration-fast ease-standard;
+
+    &:hover,
+    &[data-active] {
+      @apply bg-surface-sunken;
+    }
+  }
+}
+
+@keyframes dyl-autocomplete-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.25rem) scale(0.98);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dyl-autocomplete__menu {
+    animation: none;
+  }
+}

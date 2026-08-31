@@ -324,3 +324,13 @@ export type {
 
 export { Upload } from './Upload'
 export type { UploadProps } from './Upload'
+
+export { AutoComplete } from './AutoComplete'
+export type { AutoCompleteProps, AutoCompleteClassNameState } from './AutoComplete'
+
+export { SelectExtension, SelectInputWithPrefix, SelectOptionWithPrefix } from './SelectExtension'
+export type {
+  SelectExtensionProps,
+  SelectInputWithPrefixProps,
+  SelectOptionWithPrefixProps,
+} from './SelectExtension'
