@@ -1,0 +1,31 @@
+.dyl-file-icon {
+  @apply inline-flex items-center justify-center leading-none text-content-muted;
+
+  &[data-kind='image'] {
+    @apply text-info;
+  }
+  &[data-kind='video'] {
+    @apply text-primary;
+  }
+  &[data-kind='audio'] {
+    @apply text-primary-mild;
+  }
+  &[data-kind='pdf'] {
+    @apply text-error;
+  }
+  &[data-kind='doc'] {
+    @apply text-info;
+  }
+  &[data-kind='sheet'] {
+    @apply text-success;
+  }
+  &[data-kind='slides'] {
+    @apply text-warning;
+  }
+  &[data-kind='archive'] {
+    @apply text-content-muted;
+  }
+  &[data-kind='code'] {
+    @apply text-primary;
+  }
+}

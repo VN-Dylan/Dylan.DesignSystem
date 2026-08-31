@@ -353,3 +353,18 @@ export type {
   FilterCombinator,
   FilterOperator,
 } from './AdvancedFilterBuilder'
+
+export { FileIcon } from './FileIcon'
+export type { FileIconProps } from './FileIcon'
+
+export { Wizard } from './Wizard'
+export type { WizardProps, WizardStep } from './Wizard'
+
+export { DataTable } from './DataTable'
+export type { DataTableProps, DataTablePagingData, DataTableSort, ColumnDef } from './DataTable'
+
+export { Chart } from './Chart'
+export type { ChartProps, ChartType } from './Chart'
+
+export { Histogram } from './Histogram'
+export type { HistogramProps } from './Histogram'

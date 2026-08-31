@@ -1,0 +1,11 @@
+.dyl-chart {
+  @apply w-full text-sm;
+
+  .apexcharts-tooltip {
+    @apply rounded-md border border-border bg-surface-raised text-content shadow-lg;
+  }
+
+  .apexcharts-tooltip-title {
+    @apply border-border bg-surface-sunken;
+  }
+}

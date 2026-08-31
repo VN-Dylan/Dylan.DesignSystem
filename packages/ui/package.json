@@ -27,13 +27,18 @@
     "@dylan-ds/icons": "workspace:*",
     "@dylan-ds/tokens": "workspace:*",
     "@dylan-ds/utils": "workspace:*",
-    "@floating-ui/react": "0.27.3"
+    "@floating-ui/react": "0.27.3",
+    "@tanstack/react-table": "8.20.6",
+    "apexcharts": "4.3.0",
+    "react-apexcharts": "1.7.0",
+    "react-syntax-highlighter": "15.6.1"
   },
   "peerDependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@types/react-syntax-highlighter": "15.5.13",
     "@vitejs/plugin-react": "4.3.4",
     "autoprefixer": "10.4.20",
     "postcss": "8.4.49",

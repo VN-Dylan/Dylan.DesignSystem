@@ -1,0 +1,36 @@
+.dyl-data-table {
+  @apply relative;
+
+  &[data-loading] {
+    @apply pointer-events-none;
+  }
+
+  &__select-cell {
+    @apply w-10;
+  }
+
+  &__empty {
+    @apply py-10 text-center text-content-faint;
+  }
+
+  &__overlay {
+    @apply absolute inset-0 flex items-start justify-center pt-16 text-primary;
+    background-color: color-mix(in srgb, var(--dyl-surface) 65%, transparent);
+  }
+
+  &__footer {
+    @apply mt-3 flex flex-wrap items-center justify-between gap-3 text-sm text-content-muted;
+  }
+
+  &__page-size {
+    @apply flex items-center gap-2;
+
+    select {
+      @apply rounded-md border border-border bg-surface px-2 py-1 text-content;
+    }
+  }
+
+  &__count {
+    @apply tabular-nums;
+  }
+}

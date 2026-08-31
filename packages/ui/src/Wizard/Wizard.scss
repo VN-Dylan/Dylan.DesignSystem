@@ -1,0 +1,24 @@
+.dyl-wizard {
+  @apply flex flex-col gap-6;
+
+  &__panel {
+    @apply min-h-24 rounded-lg border border-border bg-surface p-4 text-sm text-content;
+  }
+
+  &__actions {
+    @apply flex items-center gap-2;
+  }
+
+  &__spacer {
+    @apply flex-1;
+  }
+
+  &[data-vertical] {
+    @apply grid gap-6;
+    grid-template-columns: 12rem 1fr;
+
+    .dyl-wizard__actions {
+      grid-column: 2;
+    }
+  }
+}
