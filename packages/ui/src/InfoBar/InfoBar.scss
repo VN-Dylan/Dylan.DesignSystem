@@ -1,0 +1,31 @@
+.dyl-info-bar {
+  @apply inline-flex items-end gap-1 align-middle;
+
+  &__bar {
+    @apply w-1.5 rounded-sm bg-surface-sunken;
+  }
+
+  &__bar[data-index='1'] {
+    @apply h-1/3;
+  }
+
+  &__bar[data-index='2'] {
+    @apply h-2/3;
+  }
+
+  &__bar[data-index='3'] {
+    @apply h-full;
+  }
+
+  &[data-level='low'] &__bar[data-active] {
+    @apply bg-error;
+  }
+
+  &[data-level='medium'] &__bar[data-active] {
+    @apply bg-warning;
+  }
+
+  &[data-level='high'] &__bar[data-active] {
+    @apply bg-success;
+  }
+}

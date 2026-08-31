@@ -131,6 +131,30 @@ export type {
 export { Spinner } from './Spinner'
 export type { SpinnerProps, SpinnerSize, SpinnerIndicator, SpinnerClassNameState } from './Spinner'
 
+export { Divider } from './Divider'
+export type { DividerProps, DividerOrientation } from './Divider'
+
+export { ActionLink } from './ActionLink'
+export type { ActionLinkProps, ActionLinkLocation, ActionLinkTo } from './ActionLink'
+
+export { IconFrame } from './IconFrame'
+export type { IconFrameProps, IconFrameVariant } from './IconFrame'
+
+export { InfoBar } from './InfoBar'
+export type { InfoBarProps, InfoBarLevel } from './InfoBar'
+
+export { EmptyState } from './EmptyState'
+export type { EmptyStateProps, EmptyStateVariant } from './EmptyState'
+
+export { GrowShrinkTag } from './GrowShrinkTag'
+export type { GrowShrinkTagProps } from './GrowShrinkTag'
+
+export { Container } from './Container'
+export type { ContainerProps } from './Container'
+
+export { Affix } from './Affix'
+export type { AffixProps } from './Affix'
+
 export { Avatar } from './Avatar'
 export type {
   AvatarProps,

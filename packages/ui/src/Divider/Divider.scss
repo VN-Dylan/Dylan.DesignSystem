@@ -1,0 +1,11 @@
+.dyl-divider {
+  @apply shrink-0 border-border;
+
+  &[data-orientation='horizontal'] {
+    @apply my-4 w-full border-t;
+  }
+
+  &[data-orientation='vertical'] {
+    @apply mx-4 h-full self-stretch border-l;
+  }
+}

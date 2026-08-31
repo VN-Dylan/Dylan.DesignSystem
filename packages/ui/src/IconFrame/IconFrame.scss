@@ -1,0 +1,28 @@
+.dyl-icon-frame {
+  @apply relative inline-flex shrink-0 items-center justify-center rounded-lg border
+    border-border bg-surface text-content shadow-sm;
+
+  &__layer {
+    @apply pointer-events-none absolute inset-1 hidden rounded-md bg-primary-subtle;
+  }
+
+  &__content {
+    @apply relative inline-flex items-center justify-center leading-none;
+  }
+
+  &__content svg {
+    @apply block;
+  }
+
+  &[data-variant='thick'] {
+    @apply border-2 border-border-strong bg-surface-sunken;
+  }
+
+  &[data-variant='layered'] {
+    @apply border-primary bg-surface-raised text-primary;
+  }
+
+  &[data-variant='layered'] &__layer {
+    @apply block;
+  }
+}

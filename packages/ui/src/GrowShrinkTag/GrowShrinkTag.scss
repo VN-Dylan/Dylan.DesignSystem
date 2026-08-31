@@ -1,0 +1,25 @@
+.dyl-grow-shrink-tag {
+  @apply inline-flex max-w-full items-center gap-1 rounded-md border px-2 py-1 text-xs
+    font-medium leading-none;
+
+  &[data-trend='grow'] {
+    @apply border-success bg-success-subtle text-success;
+  }
+
+  &[data-trend='shrink'] {
+    @apply border-error bg-error-subtle text-error;
+  }
+
+  &[data-trend='neutral'] {
+    @apply border-border bg-surface-sunken text-content-muted;
+  }
+
+  &__icon,
+  &__affix {
+    @apply inline-flex shrink-0 items-center;
+  }
+
+  &__value {
+    @apply truncate;
+  }
+}
