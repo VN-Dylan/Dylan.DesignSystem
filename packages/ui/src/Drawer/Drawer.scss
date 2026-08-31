@@ -1,0 +1,83 @@
+.dyl-drawer {
+  &__overlay {
+    @apply fixed inset-0 flex bg-overlay;
+    z-index: var(--dyl-z-drawer);
+    animation: dyl-drawer-fade var(--dyl-duration-fast) var(--dyl-ease-standard);
+  }
+
+  &__panel {
+    @apply flex max-h-full max-w-full flex-col overflow-hidden bg-surface text-content shadow-lg;
+
+    &[data-placement='right'] {
+      @apply ml-auto h-full;
+      animation: dyl-drawer-in-right var(--dyl-duration-base) var(--dyl-ease-emphasized);
+    }
+    &[data-placement='left'] {
+      @apply mr-auto h-full;
+      animation: dyl-drawer-in-left var(--dyl-duration-base) var(--dyl-ease-emphasized);
+    }
+    &[data-placement='top'] {
+      @apply mb-auto w-full;
+      animation: dyl-drawer-in-top var(--dyl-duration-base) var(--dyl-ease-emphasized);
+    }
+    &[data-placement='bottom'] {
+      @apply mt-auto w-full;
+      animation: dyl-drawer-in-bottom var(--dyl-duration-base) var(--dyl-ease-emphasized);
+    }
+  }
+
+  &__header {
+    @apply flex shrink-0 items-center justify-between gap-3 border-b border-border px-5 py-4;
+  }
+
+  &__title {
+    @apply text-base font-semibold text-content;
+  }
+
+  &__close {
+    @apply inline-flex h-8 w-8 items-center justify-center rounded-md text-content-muted
+      transition-colors hover:bg-surface-sunken hover:text-content;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary;
+  }
+
+  &__body {
+    @apply flex-1 overflow-y-auto p-5;
+  }
+
+  &__footer {
+    @apply shrink-0 border-t border-border px-5 py-4;
+  }
+}
+
+@keyframes dyl-drawer-fade {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes dyl-drawer-in-right {
+  from {
+    transform: translateX(100%);
+  }
+}
+@keyframes dyl-drawer-in-left {
+  from {
+    transform: translateX(-100%);
+  }
+}
+@keyframes dyl-drawer-in-top {
+  from {
+    transform: translateY(-100%);
+  }
+}
+@keyframes dyl-drawer-in-bottom {
+  from {
+    transform: translateY(100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dyl-drawer__overlay,
+  .dyl-drawer__panel {
+    animation: none;
+  }
+}

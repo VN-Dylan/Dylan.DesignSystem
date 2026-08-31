@@ -1,0 +1,22 @@
+.dyl-collapsible {
+  @apply w-full;
+
+  &__trigger {
+    @apply flex w-full items-center justify-between gap-2 py-3 text-left text-sm font-medium
+      text-content transition-colors;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary
+      focus-visible:ring-offset-2 focus-visible:ring-offset-surface;
+  }
+
+  &__content {
+    @apply text-sm text-content-muted;
+
+    &[data-overflow-hidden] {
+      @apply overflow-hidden;
+    }
+  }
+
+  &__inner {
+    @apply pb-3;
+  }
+}
