@@ -17,6 +17,7 @@ import {
   SignUpView,
 } from '@/views/auth/authViews'
 import { salesRoutes } from '@/views/sales/salesRoutes'
+import { projectsRoutes } from '@/views/projects/projectsRoutes'
 
 /**
  * App screens for areas not yet built as real views, area → [path, title].
@@ -31,15 +32,6 @@ const APP_AREAS: Record<string, [string, string][]> = {
     ['/customers/leads', 'Leads'],
     ['/customers/leads/:id/overview', 'Lead overview'],
     ['/customers/helpdesk', 'Helpdesk'],
-  ],
-  projects: [
-    ['/projects/dashboard', 'Projects dashboard'],
-    ['/projects/list', 'Project list'],
-    ['/projects/:id', 'Project detail'],
-    ['/projects/scrumboard', 'Scrum board'],
-    ['/projects/timeline', 'Project timeline'],
-    ['/projects/tasks', 'Tasks'],
-    ['/projects/settings', 'Project settings'],
   ],
   analytics: [
     ['/analytics/dashboard', 'Analytics dashboard'],
@@ -123,6 +115,7 @@ export const routes: RouteObject[] = [
       { path: '/dev/components', element: <ComponentGalleryView /> },
       { path: '/others/access-denied', element: <AccessDeniedView /> },
       ...salesRoutes,
+      ...projectsRoutes,
       ...appAreaRoutes,
       {
         path: '/accounts/users',

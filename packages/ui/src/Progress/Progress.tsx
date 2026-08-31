@@ -47,9 +47,9 @@ export const Progress = forwardRef<HTMLDivElement, ProgressProps>(function Progr
   const visibleLength = circumference * (visibleDegree / 360)
   const hiddenLength = circumference - visibleLength
   const progressOffset = visibleLength * (1 - value / 100)
-  const circleTransform = {
-    transform: `rotate(${rotationByGapPosition[gapPosition]}deg)`,
-  } satisfies CSSProperties
+  // SVG transform attribute (not CSS) so rotation pivots on the circle centre,
+  // not the SVG origin.
+  const circleRotation = `rotate(${rotationByGapPosition[gapPosition]} 50 50)`
 
   return (
     <div
@@ -67,7 +67,7 @@ export const Progress = forwardRef<HTMLDivElement, ProgressProps>(function Progr
       {variant === 'circle' ? (
         <div className="dyl-progress__circle" style={circleStyle}>
           <svg className="dyl-progress__svg" viewBox="0 0 100 100" aria-hidden>
-            <g style={circleTransform}>
+            <g transform={circleRotation}>
               <circle
                 className={classNames('dyl-progress__circle-trail', trailClass)}
                 cx="50"

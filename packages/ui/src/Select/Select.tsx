@@ -187,6 +187,9 @@ const SelectBase = forwardRef<HTMLDivElement, InternalProps>(function SelectBase
           {isSearchable && (
             <input
               ref={searchRef}
+              type="text"
+              name="select-filter"
+              autoComplete="off"
               className="dyl-select__search"
               placeholder="Search…"
               aria-label="Filter options"
