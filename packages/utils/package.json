@@ -19,11 +19,15 @@
     "build": "vite build && tsc -b --emitDeclarationOnly",
     "dev": "vite build --watch"
   },
+  "dependencies": {
+    "@dylan-ds/tokens": "workspace:*"
+  },
   "peerDependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@vitejs/plugin-react": "4.3.4",
     "typescript": "5.7.2",
     "vite": "6.0.5"
   }
