@@ -1,4 +1,4 @@
-| `cards` | ☑ | ☑ | ☑ | ☑ | ☑ | codex B2 || `alert` | ☑ | ☑ | ☑ | ☑ | ☑ | codex B2 || `badge` | ☑ | ☑ | ☑ | ☑ | ☑ | codex B2 || `avatar` | ☑ | ☑ | ☑ | ☑ | ☑ | codex B2 || `progress` | ☑ | ☑ | ☑ | ☑ | ☑ | codex B1/pilot || `skeleton` | ☑ | ☑ | ☑ | ☑ | ☑ | codex B1/pilot || `tag` | ☑ | ☑ | ☑ | ☑ | ☑ | codex B1/pilot || `scroll` | ☑ | ☑ | ☑ | ☑ | ☑ | codex B1/pilot || `grid` | ☑ | ☑ | ☑ | ☑ | ☑ | codex B1/pilot || `typography` | ☑ | ☑ | ☑ | ☑ | ☑ | codex B1/pilot || `spinner` | ☑ | ☑ | ☑ | ☑ | ☑ | codex B1/pilot |# PROGRESS.md — build tracker
+| `dropdown` | ☑ | ☑ | ☑ | ☑ | ☑ | codex B3 || `tooltip` | ☑ | ☑ | ☑ | ☑ | ☑ | codex B3 || `popover` | ☑ | ☑ | ☑ | ☑ | ☑ | codex B3 || `cards` | ☑ | ☑ | ☑ | ☑ | ☑ | codex B2 || `alert` | ☑ | ☑ | ☑ | ☑ | ☑ | codex B2 || `badge` | ☑ | ☑ | ☑ | ☑ | ☑ | codex B2 || `avatar` | ☑ | ☑ | ☑ | ☑ | ☑ | codex B2 || `progress` | ☑ | ☑ | ☑ | ☑ | ☑ | codex B1/pilot || `skeleton` | ☑ | ☑ | ☑ | ☑ | ☑ | codex B1/pilot || `tag` | ☑ | ☑ | ☑ | ☑ | ☑ | codex B1/pilot || `scroll` | ☑ | ☑ | ☑ | ☑ | ☑ | codex B1/pilot || `grid` | ☑ | ☑ | ☑ | ☑ | ☑ | codex B1/pilot || `typography` | ☑ | ☑ | ☑ | ☑ | ☑ | codex B1/pilot || `spinner` | ☑ | ☑ | ☑ | ☑ | ☑ | codex B1/pilot |# PROGRESS.md — build tracker
 
 Legend: ☐ todo · ◑ in progress · ☑ done · — n/a. Columns: spec · impl · test · story · review.
 
@@ -139,7 +139,7 @@ Legend: ☐ todo · ◑ in progress · ☑ done · — n/a. Columns: spec · imp
 | --- | --- | --- |
 | P0 | Scaffold & infra | ☑ (33afeda) |
 | P1 | Tokens + 26 utils + golden 5 + RECIPE | ☑ |
-| P2 | 36 remaining base components (codex batch) | ◑ 16/41 |
+| P2 | 36 remaining base components (codex batch) | ◑ 19/41 |
 | P3 | 42 composite components | ☐ |
 | P4 | Layouts + example app + auth | ☐ |
 | P5 | Handbook (Storybook + DESIGN.md) | ☐ |

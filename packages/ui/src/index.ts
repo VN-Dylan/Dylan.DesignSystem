@@ -26,6 +26,23 @@ export type { SelectProps, SelectMultiProps, SelectOption, SelectSize } from './
 export { Dialog } from './Dialog'
 export type { DialogProps } from './Dialog'
 
+export { Popover } from './Popover'
+export type { PopoverProps, PopoverPlacement, PopoverTrigger } from './Popover'
+
+export { Tooltip } from './Tooltip'
+export type { TooltipProps, TooltipPlacement } from './Tooltip'
+
+export { Dropdown } from './Dropdown'
+export type {
+  DropdownProps,
+  DropdownItemProps,
+  DropdownMenuProps,
+  DropdownContextMenuProps,
+  DropdownTrigger,
+  DropdownPlacement,
+  DropdownItemVariant,
+} from './Dropdown'
+
 export { Table } from './Table'
 export type {
   TableProps,

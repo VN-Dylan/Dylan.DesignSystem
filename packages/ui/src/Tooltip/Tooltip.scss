@@ -1,0 +1,22 @@
+.dyl-tooltip__wrapper {
+  @apply inline-flex;
+}
+
+.dyl-tooltip {
+  @apply z-tooltip max-w-xs rounded-md bg-content px-2 py-1 text-xs font-medium
+    leading-normal text-content-inverted shadow-sm;
+  animation: dyl-tooltip-in var(--dyl-duration-fast) var(--dyl-ease-standard);
+}
+
+@keyframes dyl-tooltip-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dyl-tooltip {
+    animation: none;
+  }
+}
