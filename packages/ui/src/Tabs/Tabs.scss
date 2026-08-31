@@ -1,0 +1,51 @@
+.dyl-tabs {
+  @apply w-full text-content;
+
+  &__list {
+    @apply flex flex-wrap items-center gap-1 border-b border-border;
+  }
+
+  &__nav {
+    @apply inline-flex min-h-10 select-none items-center justify-center gap-2 rounded-t-md
+      border-b-2 border-transparent px-4 text-sm font-medium text-content-muted
+      transition-colors duration-fast ease-standard;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary
+      focus-visible:ring-offset-2 focus-visible:ring-offset-surface;
+
+    &:hover:not(:disabled) {
+      @apply bg-surface-sunken text-content;
+    }
+
+    &[data-active] {
+      @apply border-primary text-primary;
+    }
+
+    &[data-disabled] {
+      @apply cursor-not-allowed text-content-faint;
+    }
+  }
+
+  &__icon {
+    @apply inline-flex shrink-0 text-base;
+  }
+
+  &__label {
+    @apply truncate;
+  }
+
+  &__content {
+    @apply p-4 text-sm leading-normal text-content;
+  }
+
+  &[data-variant='pill'] &__list {
+    @apply gap-2 border-b-0;
+  }
+
+  &[data-variant='pill'] &__nav {
+    @apply rounded-full border-b-0 bg-transparent;
+
+    &[data-active] {
+      @apply bg-primary text-primary-fg;
+    }
+  }
+}

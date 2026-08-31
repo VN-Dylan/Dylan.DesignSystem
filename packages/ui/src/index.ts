@@ -43,6 +43,31 @@ export type {
   DropdownItemVariant,
 } from './Dropdown'
 
+export { Menu } from './Menu'
+export type {
+  MenuProps,
+  MenuVariant,
+  MenuItemHeight,
+  MenuCollapseProps,
+  MenuGroupProps,
+  MenuItemProps,
+} from './Menu'
+
+export { Tabs } from './Tabs'
+export type {
+  TabsProps,
+  TabsVariant,
+  TabsTabListProps,
+  TabsTabNavProps,
+  TabsTabContentProps,
+} from './Tabs'
+
+export { Steps } from './Steps'
+export type { StepsProps, StepsItemProps, StepsStatus } from './Steps'
+
+export { Pagination } from './Pagination'
+export type { PaginationProps } from './Pagination'
+
 export { Table } from './Table'
 export type {
   TableProps,

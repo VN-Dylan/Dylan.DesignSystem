@@ -1,0 +1,115 @@
+.dyl-menu {
+  @apply flex w-full flex-col gap-1 rounded-md p-1 text-sm text-content;
+
+  &[data-variant='light'] {
+    @apply bg-surface;
+  }
+
+  &[data-variant='dark'] {
+    @apply bg-content text-surface;
+  }
+
+  &[data-variant='themed'] {
+    @apply bg-primary text-primary-fg;
+  }
+
+  &[data-variant='transparent'] {
+    @apply bg-transparent;
+  }
+
+  &__item,
+  &__collapse-trigger {
+    @apply flex w-full select-none items-center gap-2 rounded-md px-3 text-left leading-normal
+      transition-colors duration-fast ease-standard;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary
+      focus-visible:ring-offset-2 focus-visible:ring-offset-surface;
+  }
+
+  &__item {
+    @apply cursor-pointer;
+
+    &:hover {
+      @apply bg-surface-sunken;
+    }
+
+    &[data-active] {
+      @apply bg-primary-subtle font-medium text-primary;
+    }
+
+    &[data-disabled] {
+      @apply cursor-not-allowed text-content-faint hover:bg-transparent;
+    }
+  }
+
+  &__collapse-trigger {
+    @apply cursor-pointer border-0 bg-transparent text-content;
+
+    &:hover {
+      @apply bg-surface-sunken;
+    }
+
+    &[data-active] {
+      @apply bg-primary-subtle font-medium text-primary;
+    }
+  }
+
+  &[data-variant='dark'] &__item,
+  &[data-variant='dark'] &__collapse-trigger,
+  &[data-variant='themed'] &__item,
+  &[data-variant='themed'] &__collapse-trigger {
+    @apply text-inherit hover:brightness-110;
+  }
+
+  &[data-variant='dark'] &__item[data-active],
+  &[data-variant='dark'] &__collapse-trigger[data-active],
+  &[data-variant='themed'] &__item[data-active],
+  &[data-variant='themed'] &__collapse-trigger[data-active] {
+    @apply bg-surface font-medium text-primary;
+  }
+
+  &__label {
+    @apply min-w-0 flex-1 truncate;
+  }
+
+  &__indicator {
+    @apply h-1.5 w-1.5 shrink-0 rounded-full bg-current;
+  }
+
+  &__caret {
+    @apply inline-flex shrink-0 text-content-muted transition-transform duration-fast;
+  }
+
+  &__collapse[data-expanded] > &__collapse-trigger &__caret {
+    @apply rotate-90;
+  }
+
+  &__collapse-content {
+    @apply flex flex-col gap-1;
+
+    &[data-indent] {
+      @apply pl-4;
+    }
+  }
+
+  &__group {
+    @apply flex flex-col gap-1;
+  }
+
+  &__group-label {
+    @apply px-3 py-2 text-xs font-semibold uppercase tracking-wide text-content-muted;
+  }
+
+  &[data-side-collapsed] {
+    @apply items-stretch;
+  }
+
+  &[data-side-collapsed] &__item,
+  &[data-side-collapsed] &__collapse-trigger {
+    @apply justify-center px-2;
+  }
+
+  &[data-side-collapsed] &__group-label,
+  &[data-side-collapsed] &__caret {
+    @apply hidden;
+  }
+}
