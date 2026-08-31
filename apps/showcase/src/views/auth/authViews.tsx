@@ -12,11 +12,7 @@ function AuthHead({ title, subtitle }: { title: string; subtitle?: ReactNode }) 
   )
 }
 
-function Field({
-  label,
-  name,
-  ...props
-}: { label: string } & ComponentProps<typeof Input>) {
+function Field({ label, name, ...props }: { label: string } & ComponentProps<typeof Input>) {
   const fieldName = name ?? label.toLowerCase().replace(/\s+/g, '-')
   return (
     <label className="block space-y-1.5">
@@ -40,7 +36,12 @@ export function SignInView() {
     <form className="space-y-5" onSubmit={onSubmit}>
       <AuthHead title="Welcome back" subtitle="Sign in to continue to your workspace." />
       <Field label="Email" type="email" defaultValue="dylan@dylan-ds.dev" autoComplete="email" />
-      <Field label="Password" type="password" defaultValue="password" autoComplete="current-password" />
+      <Field
+        label="Password"
+        type="password"
+        defaultValue="password"
+        autoComplete="current-password"
+      />
       <div className="flex items-center justify-between">
         <Checkbox defaultChecked>Remember me</Checkbox>
         <Link to="/auth/forgot-password" className="text-sm text-primary hover:underline">
@@ -68,9 +69,7 @@ export function SignUpView() {
       <Field label="Full name" autoComplete="name" />
       <Field label="Email" type="email" autoComplete="email" />
       <Field label="Password" type="password" autoComplete="new-password" />
-      <Checkbox defaultChecked>
-        I agree to the terms of service and privacy policy
-      </Checkbox>
+      <Checkbox defaultChecked>I agree to the terms of service and privacy policy</Checkbox>
       <Button type="submit" variant="solid" block>
         Create account
       </Button>

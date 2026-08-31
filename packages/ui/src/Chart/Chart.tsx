@@ -45,6 +45,17 @@ export function Chart({
     const primary = readVar('--dyl-primary', '#286cf0')
     const grid = readVar('--dyl-border', '#e5e5e5')
     const text = readVar('--dyl-text-muted', '#717680')
+    // Categorical palette for multi-series / donut / pie charts. Single-series
+    // charts just use the first entry (primary).
+    const palette = [
+      primary,
+      readVar('--dyl-primary-mild', '#4c86f4'),
+      readVar('--dyl-info', '#3380fa'),
+      readVar('--dyl-success', '#00a85b'),
+      readVar('--dyl-warning', '#f59e0b'),
+      readVar('--dyl-primary-deep', '#1f56c0'),
+      readVar('--dyl-error', '#eb4137'),
+    ]
     const base: ApexOptions = {
       chart: {
         type,
@@ -53,7 +64,7 @@ export function Chart({
         foreColor: text,
         animations: { enabled: false },
       },
-      colors: [primary],
+      colors: palette,
       stroke: { curve: 'smooth', width: type === 'line' ? 2 : 1 },
       grid: { borderColor: grid, strokeDashArray: 4 },
       dataLabels: { enabled: false },

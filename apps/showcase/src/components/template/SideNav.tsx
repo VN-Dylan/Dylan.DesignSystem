@@ -55,7 +55,9 @@ export function SideNav({ collapsed = false }: SideNavProps) {
                   isActive={activeKey === group.key}
                   onSelect={() => go(group.path)}
                 >
-                  {group.icon && <Icon as={group.icon} size={18} className="mr-2 inline shrink-0" />}
+                  {group.icon && (
+                    <Icon as={group.icon} size={18} className="mr-2 inline shrink-0" />
+                  )}
                   {group.title}
                 </Menu.MenuItem>
               )

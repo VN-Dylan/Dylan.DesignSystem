@@ -16,18 +16,14 @@ import {
   SignInView,
   SignUpView,
 } from '@/views/auth/authViews'
+import { salesRoutes } from '@/views/sales/salesRoutes'
 
-/** Routed app screens, area → [path, title]. Filled in by later P4 batches. */
+/**
+ * App screens for areas not yet built as real views, area → [path, title].
+ * Each still renders <PagePlaceholder> until its P4 area batch lands, at which
+ * point the area moves to its own `*Routes` module (see `salesRoutes`).
+ */
 const APP_AREAS: Record<string, [string, string][]> = {
-  sales: [
-    ['/sales/dashboard', 'Sales dashboard'],
-    ['/sales/products', 'Products'],
-    ['/sales/products/new', 'New product'],
-    ['/sales/products/:id', 'Product detail'],
-    ['/sales/orders', 'Orders'],
-    ['/sales/orders/new', 'New order'],
-    ['/sales/orders/:id', 'Order detail'],
-  ],
   customers: [
     ['/customers/dashboard', 'Customers dashboard'],
     ['/customers/list', 'Customer list'],
@@ -126,6 +122,7 @@ export const routes: RouteObject[] = [
     children: [
       { path: '/dev/components', element: <ComponentGalleryView /> },
       { path: '/others/access-denied', element: <AccessDeniedView /> },
+      ...salesRoutes,
       ...appAreaRoutes,
       {
         path: '/accounts/users',

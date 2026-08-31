@@ -15,9 +15,17 @@
     "@dylan-ds/tokens": "workspace:*",
     "@dylan-ds/ui": "workspace:*",
     "@dylan-ds/utils": "workspace:*",
+    "@tanstack/react-table": "8.20.6",
+    "@tiptap/pm": "2.10.3",
+    "@tiptap/react": "2.10.3",
+    "@tiptap/starter-kit": "2.10.3",
+    "apexcharts": "4.3.0",
+    "jsvectormap": "1.6.0",
     "react": "18.3.1",
+    "react-apexcharts": "1.7.0",
     "react-dom": "18.3.1",
     "react-router-dom": "6.28.1",
+    "react-syntax-highlighter": "15.6.1",
     "zustand": "5.0.2"
   },
   "devDependencies": {
