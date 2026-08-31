@@ -1,0 +1,57 @@
+.dyl-multi-value-input {
+  @apply flex w-full cursor-text flex-wrap items-center gap-1 rounded-md border border-border
+    bg-surface text-content transition duration-fast ease-standard;
+  @apply focus-within:border-primary focus-within:ring-2 focus-within:ring-primary
+    focus-within:ring-offset-1 focus-within:ring-offset-surface;
+
+  &[data-size='sm'] {
+    @apply min-h-8 px-2 py-1 text-sm;
+  }
+
+  &[data-size='md'] {
+    @apply min-h-10 px-2.5 py-1.5 text-sm;
+  }
+
+  &[data-size='lg'] {
+    @apply min-h-12 px-3 py-2 text-base;
+  }
+
+  &[data-invalid] {
+    @apply border-error focus-within:border-error focus-within:ring-error;
+  }
+
+  &[data-disabled],
+  &[data-readonly] {
+    @apply bg-surface-sunken;
+  }
+
+  &[data-disabled] {
+    @apply cursor-not-allowed opacity-70;
+  }
+
+  &__tag {
+    @apply inline-flex max-w-full items-center gap-1 rounded-md border border-border
+      bg-surface-sunken px-2 py-1 text-sm font-medium text-content;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary
+      focus-visible:ring-offset-1 focus-visible:ring-offset-surface;
+
+    &[data-active] {
+      @apply border-primary bg-primary-subtle text-primary;
+    }
+  }
+
+  &__tag-label {
+    @apply truncate;
+  }
+
+  &__remove {
+    @apply inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full
+      text-content-muted transition-colors hover:bg-surface hover:text-content;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary;
+  }
+
+  &__field {
+    @apply min-w-24 flex-1 border-0 bg-transparent p-0 text-inherit outline-none
+      placeholder:text-content-faint disabled:cursor-not-allowed;
+  }
+}

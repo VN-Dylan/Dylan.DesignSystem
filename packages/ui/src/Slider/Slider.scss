@@ -1,0 +1,64 @@
+.dyl-slider {
+  @apply w-full py-5 text-content;
+
+  &[data-disabled] {
+    @apply opacity-60;
+  }
+
+  &__track {
+    @apply relative h-2 rounded-full bg-surface-sunken;
+  }
+
+  &__bar {
+    @apply absolute inset-y-0 rounded-full bg-primary;
+    left: var(--dyl-slider-start);
+    right: calc(100% - var(--dyl-slider-end));
+  }
+
+  &__thumb {
+    @apply absolute top-1/2 flex h-5 w-5 -translate-x-1/2 -translate-y-1/2 items-center
+      justify-center rounded-full border border-primary bg-surface shadow;
+    left: var(--dyl-slider-thumb);
+    z-index: var(--dyl-z-sticky);
+  }
+
+  &__tooltip {
+    @apply absolute bottom-full mb-2 whitespace-nowrap rounded-md bg-content px-2 py-1 text-xs
+      font-medium text-surface shadow;
+  }
+
+  &__input {
+    @apply absolute inset-x-0 top-1/2 h-8 w-full -translate-y-1/2 cursor-pointer opacity-0;
+    z-index: var(--dyl-z-sticky);
+
+    &:disabled {
+      @apply cursor-not-allowed;
+    }
+
+    &:focus-visible + .dyl-slider__thumb,
+    &:focus-visible {
+      @apply outline-none;
+    }
+  }
+
+  &__marks {
+    @apply relative mt-3 h-8 text-xs text-content-muted;
+  }
+
+  &__mark {
+    @apply absolute top-0 flex -translate-x-1/2 flex-col items-center gap-1;
+    left: var(--dyl-slider-mark);
+
+    &[data-filled] {
+      @apply text-primary;
+    }
+  }
+
+  &__mark-dot {
+    @apply h-2 w-2 rounded-full border border-current bg-surface;
+  }
+
+  &__mark-label {
+    @apply whitespace-nowrap;
+  }
+}

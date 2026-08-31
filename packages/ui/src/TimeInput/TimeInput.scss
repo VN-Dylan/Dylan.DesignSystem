@@ -1,0 +1,84 @@
+.dyl-time-input,
+.dyl-time-input-range {
+  @apply inline-flex w-full items-center gap-2 rounded-md border border-border bg-surface
+    text-content transition duration-fast ease-standard;
+  @apply focus-within:border-primary focus-within:ring-2 focus-within:ring-primary
+    focus-within:ring-offset-1 focus-within:ring-offset-surface;
+
+  &[data-size='sm'] {
+    @apply min-h-8 px-2.5 text-sm;
+  }
+
+  &[data-size='md'] {
+    @apply min-h-10 px-3 text-sm;
+  }
+
+  &[data-size='lg'] {
+    @apply min-h-12 px-4 text-base;
+  }
+
+  &[data-invalid] {
+    @apply border-error focus-within:border-error focus-within:ring-error;
+  }
+
+  &[data-disabled] {
+    @apply cursor-not-allowed bg-surface-sunken opacity-70;
+  }
+}
+
+.dyl-time-input {
+  &__fields {
+    @apply inline-flex flex-1 items-center gap-1;
+  }
+
+  &__field {
+    @apply w-8 rounded-sm border-0 bg-transparent p-0 text-center text-inherit outline-none
+      placeholder:text-content-faint disabled:cursor-not-allowed;
+    @apply focus-visible:ring-2 focus-visible:ring-primary;
+  }
+
+  &[data-format='12'] &__field {
+    @apply w-7;
+  }
+
+  &__period {
+    @apply rounded-sm border-0 bg-transparent p-0 text-sm text-content outline-none
+      disabled:cursor-not-allowed;
+    @apply focus-visible:ring-2 focus-visible:ring-primary;
+  }
+
+  &__separator {
+    @apply text-content-muted;
+  }
+
+  &__affix {
+    @apply inline-flex shrink-0 items-center text-content-muted;
+  }
+
+  &__clear {
+    @apply inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full
+      text-content-muted transition-colors hover:bg-surface-sunken hover:text-content;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary;
+  }
+
+  &--range-field {
+    @apply min-w-0 flex-1 border-0 bg-transparent p-0 shadow-none;
+
+    &:focus-within {
+      @apply border-transparent ring-0 ring-offset-0;
+    }
+  }
+}
+
+.dyl-time-input-range {
+  &__separator,
+  &__affix {
+    @apply inline-flex shrink-0 items-center text-content-muted;
+  }
+
+  &__clear {
+    @apply inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full
+      text-content-muted transition-colors hover:bg-surface-sunken hover:text-content;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary;
+  }
+}

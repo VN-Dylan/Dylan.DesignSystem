@@ -1,0 +1,91 @@
+.dyl-input-group {
+  @apply flex w-full items-stretch text-content;
+
+  & > * {
+    @apply shrink-0 rounded-none;
+  }
+
+  & > .dyl-input,
+  & > .dyl-select,
+  & > input,
+  & > select {
+    @apply min-w-0 flex-1;
+  }
+
+  & > :first-child,
+  & > :first-child .dyl-select__trigger {
+    @apply rounded-l-md;
+  }
+
+  & > :last-child,
+  & > :last-child .dyl-select__trigger {
+    @apply rounded-r-md;
+  }
+
+  & > :not(:first-child),
+  & > :not(:first-child) .dyl-select__trigger {
+    @apply border-l-0;
+  }
+
+  &[data-size='sm'] {
+    @apply text-sm;
+
+    & > .dyl-input,
+    & > .dyl-select .dyl-select__trigger,
+    & > .dyl-btn,
+    & > .dyl-input-group__addon {
+      @apply min-h-8 px-2.5 text-sm;
+    }
+
+    & > .dyl-btn {
+      @apply h-8;
+    }
+  }
+
+  &[data-size='md'] {
+    @apply text-sm;
+
+    & > .dyl-input,
+    & > .dyl-select .dyl-select__trigger,
+    & > .dyl-btn,
+    & > .dyl-input-group__addon {
+      @apply min-h-10 px-3 text-sm;
+    }
+
+    & > .dyl-btn {
+      @apply h-10;
+    }
+  }
+
+  &[data-size='lg'] {
+    @apply text-base;
+
+    & > .dyl-input,
+    & > .dyl-select .dyl-select__trigger,
+    & > .dyl-btn,
+    & > .dyl-input-group__addon {
+      @apply min-h-12 px-4 text-base;
+    }
+
+    & > .dyl-btn {
+      @apply h-12;
+    }
+  }
+
+  &__addon {
+    @apply inline-flex items-center justify-center whitespace-nowrap border border-border
+      bg-surface-sunken px-3 text-sm text-content-muted;
+
+    &[data-size='sm'] {
+      @apply min-h-8 px-2.5 text-sm;
+    }
+
+    &[data-size='md'] {
+      @apply min-h-10 px-3 text-sm;
+    }
+
+    &[data-size='lg'] {
+      @apply min-h-12 px-4 text-base;
+    }
+  }
+}
