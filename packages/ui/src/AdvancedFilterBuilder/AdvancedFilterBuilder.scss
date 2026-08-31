@@ -1,0 +1,28 @@
+.dyl-filter-builder {
+  @apply flex flex-col gap-3 rounded-lg border border-border bg-surface p-4 text-sm;
+
+  &__header {
+    @apply flex items-center gap-2;
+  }
+
+  &__label {
+    @apply text-content-muted;
+  }
+
+  &__rules {
+    @apply flex flex-col gap-2;
+  }
+
+  &__rule {
+    @apply grid items-center gap-2;
+    grid-template-columns: minmax(8rem, 1fr) minmax(6rem, auto) minmax(8rem, 1fr) auto;
+  }
+
+  &__actions {
+    @apply flex items-center gap-2;
+  }
+
+  &__spacer {
+    @apply flex-1;
+  }
+}

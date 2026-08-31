@@ -1,0 +1,25 @@
+.dyl-popover-filter {
+  @apply flex flex-col gap-2 text-sm;
+
+  &__title {
+    @apply text-xs font-semibold uppercase tracking-wide text-content-muted;
+  }
+
+  &__count {
+    @apply ml-1.5 inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-primary
+      px-1 text-[0.65rem] font-semibold text-primary-fg;
+  }
+
+  &__list {
+    @apply flex max-h-56 flex-col gap-1.5 overflow-y-auto;
+  }
+
+  &__empty {
+    @apply py-4 text-center text-content-faint;
+  }
+
+  &__reset {
+    @apply self-start text-xs font-medium text-primary disabled:text-content-faint;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary;
+  }
+}

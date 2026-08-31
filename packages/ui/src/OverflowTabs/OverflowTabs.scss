@@ -1,0 +1,35 @@
+.dyl-overflow-tabs {
+  @apply flex flex-col gap-3;
+
+  &__strip {
+    @apply flex items-center gap-1 overflow-hidden border-b border-border;
+  }
+
+  &__tab {
+    @apply shrink-0 whitespace-nowrap border-b-2 border-transparent px-3 py-2 text-sm
+      font-medium text-content-muted transition-colors hover:text-content;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary;
+
+    &[data-active] {
+      @apply border-primary text-primary;
+    }
+
+    &:disabled {
+      @apply cursor-not-allowed opacity-50;
+    }
+  }
+
+  &__more {
+    @apply ml-auto shrink-0;
+  }
+
+  &__more-button {
+    @apply inline-flex items-center gap-1 px-3 py-2 text-sm font-medium text-content-muted
+      hover:text-content;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary;
+  }
+
+  &__panel {
+    @apply text-sm text-content;
+  }
+}

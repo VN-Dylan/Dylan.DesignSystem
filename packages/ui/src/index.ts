@@ -334,3 +334,22 @@ export type {
   SelectInputWithPrefixProps,
   SelectOptionWithPrefixProps,
 } from './SelectExtension'
+
+export { PopoverFilter } from './PopoverFilter'
+export type { PopoverFilterProps, PopoverFilterOption } from './PopoverFilter'
+
+export { OverflowTabs } from './OverflowTabs'
+export type { OverflowTabsProps, OverflowTabItem } from './OverflowTabs'
+
+export { ReactionEmojiPicker } from './ReactionEmojiPicker'
+export type { ReactionEmojiPickerProps } from './ReactionEmojiPicker'
+
+export { AdvancedFilterBuilder } from './AdvancedFilterBuilder'
+export type {
+  AdvancedFilterBuilderProps,
+  FilterFieldDef,
+  FilterRule,
+  FilterQuery,
+  FilterCombinator,
+  FilterOperator,
+} from './AdvancedFilterBuilder'
