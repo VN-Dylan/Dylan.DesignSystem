@@ -1,0 +1,43 @@
+.dyl-dialog {
+  &__overlay {
+    @apply fixed inset-0 flex items-center justify-center bg-overlay p-4;
+    z-index: var(--dyl-z-dialog);
+    animation: dyl-dialog-fade var(--dyl-duration-fast) var(--dyl-ease-standard);
+  }
+
+  &__panel {
+    @apply relative flex max-h-[calc(100vh-2rem)] w-full max-w-[calc(100vw-2rem)] flex-col
+      overflow-hidden rounded-lg bg-surface text-content shadow-lg;
+    animation: dyl-dialog-pop var(--dyl-duration-base) var(--dyl-ease-emphasized);
+  }
+
+  &__close {
+    @apply absolute right-3 top-3 inline-flex h-8 w-8 items-center justify-center rounded-md
+      text-content-muted transition-colors hover:bg-surface-sunken hover:text-content;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary;
+  }
+
+  &__body {
+    @apply overflow-y-auto p-6;
+  }
+}
+
+@keyframes dyl-dialog-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes dyl-dialog-pop {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dyl-dialog__overlay,
+  .dyl-dialog__panel {
+    animation: none;
+  }
+}

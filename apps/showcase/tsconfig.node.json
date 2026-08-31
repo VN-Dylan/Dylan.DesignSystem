@@ -5,7 +5,8 @@
     "types": ["node"],
     "lib": ["ES2023"],
     "composite": true,
-    "noEmit": false
+    "noEmit": false,
+    "emitDeclarationOnly": true
   },
   "include": ["vite.config.ts", "tailwind.config.ts", "postcss.config.js"]
 }

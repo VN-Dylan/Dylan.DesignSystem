@@ -1,0 +1,97 @@
+.dyl-select {
+  @apply relative w-full text-sm text-content;
+
+  &__trigger {
+    @apply flex w-full items-center gap-2 rounded-md border border-border bg-surface
+      text-left text-content transition duration-fast ease-standard;
+    @apply focus-visible:outline-none focus-visible:border-primary focus-visible:ring-2
+      focus-visible:ring-primary focus-visible:ring-offset-1 focus-visible:ring-offset-surface;
+  }
+
+  &[data-size='sm'] .dyl-select__trigger {
+    @apply min-h-8 px-2.5 text-sm;
+  }
+  &[data-size='md'] .dyl-select__trigger {
+    @apply min-h-10 px-3 text-sm;
+  }
+  &[data-size='lg'] .dyl-select__trigger {
+    @apply min-h-12 px-4 text-base;
+  }
+
+  &[data-invalid] .dyl-select__trigger {
+    @apply border-error focus-visible:border-error focus-visible:ring-error;
+  }
+  &[data-disabled] .dyl-select__trigger {
+    @apply cursor-not-allowed bg-surface-sunken opacity-70;
+  }
+
+  &__value {
+    @apply flex-1 truncate;
+
+    &--placeholder {
+      @apply text-content-faint;
+    }
+  }
+
+  &__clear {
+    @apply flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-content-muted
+      hover:bg-surface-sunken hover:text-content;
+  }
+
+  &__caret {
+    @apply shrink-0 text-xs text-content-muted transition-transform;
+  }
+  &[data-open] &__caret {
+    @apply rotate-180;
+  }
+
+  &__menu {
+    @apply absolute left-0 right-0 top-[calc(100%+4px)] overflow-hidden rounded-md border
+      border-border bg-surface-raised shadow-lg;
+    z-index: var(--dyl-z-dropdown);
+    animation: dyl-select-in var(--dyl-duration-fast) var(--dyl-ease-standard);
+  }
+
+  &__search {
+    @apply w-full border-b border-border bg-transparent px-3 py-2 text-sm outline-none
+      placeholder:text-content-faint;
+  }
+
+  &__list {
+    @apply max-h-60 overflow-y-auto py-1;
+  }
+
+  &__option {
+    @apply flex cursor-pointer items-center gap-2 px-3 py-2 text-sm text-content;
+
+    &[data-active] {
+      @apply bg-surface-sunken;
+    }
+    &[data-selected] {
+      @apply font-medium text-primary;
+    }
+    &[aria-disabled='true'] {
+      @apply cursor-not-allowed text-content-faint;
+    }
+  }
+
+  &__checkbox {
+    @apply flex h-4 w-4 items-center justify-center rounded border border-border-strong text-[0.65rem] text-primary;
+  }
+
+  &__empty {
+    @apply px-3 py-6 text-center text-sm text-content-faint;
+  }
+}
+
+@keyframes dyl-select-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dyl-select__menu {
+    animation: none;
+  }
+}

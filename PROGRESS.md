@@ -1,6 +1,6 @@
 # PROGRESS.md — build tracker
 
-Legend: ☐ todo · ◑ in progress · ☑ done. Columns: spec · impl · test · story · review.
+Legend: ☐ todo · ◑ in progress · ☑ done · — n/a. Columns: spec · impl · test · story · review.
 
 ## Base UI components (42)
 
@@ -10,20 +10,20 @@ Legend: ☐ todo · ◑ in progress · ☑ done. Columns: spec · impl · test �
 | `alert` | ☐ | ☐ | ☐ | ☐ | ☐ | |
 | `avatar` | ☐ | ☐ | ☐ | ☐ | ☐ | |
 | `badge` | ☐ | ☐ | ☐ | ☐ | ☐ | |
-| `button` | ☐ | ☐ | ☐ | ☐ | ☐ | |
+| `button` | ☑ | ☑ | ☑ | ☑ | ☑ | golden reference (P1) |
 | `calendar` | ☐ | ☐ | ☐ | ☐ | ☐ | |
 | `cards` | ☐ | ☐ | ☐ | ☐ | ☐ | |
 | `carousel` | ☐ | ☐ | ☐ | ☐ | ☐ | |
 | `checkbox` | ☐ | ☐ | ☐ | ☐ | ☐ | |
 | `collapsible` | ☐ | ☐ | ☐ | ☐ | ☐ | |
 | `date-picker` | ☐ | ☐ | ☐ | ☐ | ☐ | |
-| `dialog` | ☐ | ☐ | ☐ | ☐ | ☐ | |
+| `dialog` | ☑ | ☑ | ☑ | ☑ | ☑ | golden reference (P1) |
 | `drawer` | ☐ | ☐ | ☐ | ☐ | ☐ | |
 | `dropdown` | ☐ | ☐ | ☐ | ☐ | ☐ | |
 | `form-control` | ☐ | ☐ | ☐ | ☐ | ☐ | |
 | `grid` | ☐ | ☐ | ☐ | ☐ | ☐ | |
 | `icons` | ☐ | ☐ | ☐ | ☐ | ☐ | |
-| `input` | ☐ | ☐ | ☐ | ☐ | ☐ | |
+| `input` | ☑ | ☑ | ☑ | ☑ | ☑ | golden reference (P1) |
 | `input-group` | ☐ | ☐ | ☐ | ☐ | ☐ | |
 | `menu` | ☐ | ☐ | ☐ | ☐ | ☐ | |
 | `multi-value-input` | ☐ | ☐ | ☐ | ☐ | ☐ | |
@@ -33,13 +33,13 @@ Legend: ☐ todo · ◑ in progress · ☑ done. Columns: spec · impl · test �
 | `radio` | ☐ | ☐ | ☐ | ☐ | ☐ | |
 | `scroll` | ☐ | ☐ | ☐ | ☐ | ☐ | |
 | `segment` | ☐ | ☐ | ☐ | ☐ | ☐ | |
-| `select` | ☐ | ☐ | ☐ | ☐ | ☐ | |
+| `select` | ☑ | ☑ | ☑ | ☑ | ☑ | golden reference (P1) |
 | `skeleton` | ☐ | ☐ | ☐ | ☐ | ☐ | |
 | `slider` | ☐ | ☐ | ☐ | ☐ | ☐ | |
 | `spinner` | ☐ | ☐ | ☐ | ☐ | ☐ | |
 | `steps` | ☐ | ☐ | ☐ | ☐ | ☐ | |
 | `switcher` | ☐ | ☐ | ☐ | ☐ | ☐ | |
-| `table` | ☐ | ☐ | ☐ | ☐ | ☐ | |
+| `table` | ☑ | ☑ | ☑ | ☑ | ☑ | golden reference (P1) |
 | `tabs` | ☐ | ☐ | ☐ | ☐ | ☐ | |
 | `tag` | ☐ | ☐ | ☐ | ☐ | ☐ | |
 | `time-input` | ☐ | ☐ | ☐ | ☐ | ☐ | |
@@ -100,47 +100,53 @@ Legend: ☐ todo · ◑ in progress · ☑ done. Columns: spec · impl · test �
 
 | Utility | spec | impl | test | notes |
 | --- | :-: | :-: | :-: | --- |
-| `acronym` | ☐ | ☐ | ☐ | |
-| `classNames` | ☐ | ☐ | ☐ | |
-| `cookies-storage` | ☐ | ☐ | ☐ | |
-| `file-size-unit` | ☐ | ☐ | ☐ | |
-| `format-currency` | ☐ | ☐ | ☐ | |
-| `format-currency-compact` | ☐ | ☐ | ☐ | |
-| `format-number` | ☐ | ☐ | ☐ | |
-| `format-relative-time` | ☐ | ☐ | ☐ | |
-| `get-contrast` | ☐ | ☐ | ☐ | |
-| `highlight-search-match` | ☐ | ☐ | ☐ | |
-| `is-last-child` | ☐ | ☐ | ☐ | |
-| `paginate` | ☐ | ☐ | ☐ | |
-| `sleep` | ☐ | ☐ | ☐ | |
-| `sort-by` | ☐ | ☐ | ☐ | |
-| `use-append-query-params` | ☐ | ☐ | ☐ | |
-| `use-auth` | ☐ | ☐ | ☐ | |
-| `use-dark-mode` | ☐ | ☐ | ☐ | |
-| `use-data-table-state` | ☐ | ☐ | ☐ | |
-| `use-debounce` | ☐ | ☐ | ☐ | |
-| `use-direction` | ☐ | ☐ | ☐ | |
-| `use-interval` | ☐ | ☐ | ☐ | |
-| `use-layout` | ☐ | ☐ | ☐ | |
-| `use-menu-active` | ☐ | ☐ | ☐ | |
-| `use-query-param-paging-state` | ☐ | ☐ | ☐ | |
-| `use-random-color` | ☐ | ☐ | ☐ | |
-| `use-responsive` | ☐ | ☐ | ☐ | |
-| `use-scroll-top` | ☐ | ☐ | ☐ | |
-| `use-theme-schema` | ☐ | ☐ | ☐ | |
-| `use-time-out-message` | ☐ | ☐ | ☐ | |
-| `use-translation` | ☐ | ☐ | ☐ | |
-| `wild-card-search` | ☐ | ☐ | ☐ | |
-| `with-header-item` | ☐ | ☐ | ☐ | |
+| `acronym` | ☑ | ☑ | ☑ | |
+| `classNames` | ☑ | ☑ | ☑ | |
+| `cookies-storage` | ☑ | ☑ | ☑ | |
+| `file-size-unit` | ☑ | ☑ | ☑ | |
+| `format-currency` | ☑ | ☑ | ☑ | |
+| `format-currency-compact` | ☑ | ☑ | ☑ | |
+| `format-number` | ☑ | ☑ | ☑ | |
+| `format-relative-time` | ☑ | ☑ | ☑ | |
+| `get-contrast` | ☑ | ☑ | ☑ | |
+| `highlight-search-match` | ☑ | ☑ | ☑ | |
+| `is-last-child` | ☑ | ☑ | ☑ | |
+| `paginate` | ☑ | ☑ | ☑ | |
+| `sleep` | ☑ | ☑ | ☑ | |
+| `sort-by` | ☑ | ☑ | ☑ | |
+| `use-append-query-params` | — | — | — | app-coupled — deferred to owner (P3/P4) |
+| `use-auth` | — | — | — | app-coupled — deferred to owner (P3/P4) |
+| `use-dark-mode` | ☑ | ☑ | ☑ | |
+| `use-data-table-state` | — | — | — | app-coupled — deferred to owner (P3/P4) |
+| `use-debounce` | ☑ | ☑ | ☑ | |
+| `use-direction` | ☑ | ☑ | ☑ | |
+| `use-interval` | ☑ | ☑ | ☑ | |
+| `use-layout` | — | — | — | app-coupled — deferred to owner (P3/P4) |
+| `use-menu-active` | — | — | — | app-coupled — deferred to owner (P3/P4) |
+| `use-query-param-paging-state` | — | — | — | app-coupled — deferred to owner (P3/P4) |
+| `use-random-color` | ☑ | ☑ | ☑ | |
+| `use-responsive` | ☑ | ☑ | ☑ | |
+| `use-scroll-top` | ☑ | ☑ | ☑ | |
+| `use-theme-schema` | ☑ | ☑ | ☑ | |
+| `use-time-out-message` | ☑ | ☑ | ☑ | |
+| `use-translation` | ☑ | ☑ | — | stub — i18n deferred |
+| `wild-card-search` | ☑ | ☑ | ☑ | |
+| `with-header-item` | — | — | — | app-coupled — deferred to owner (P3/P4) |
 
 ## Phases
 
 | Phase | Scope | Status |
 | --- | --- | --- |
-| P0 | Scaffold & infra | ☑ (commit 33afeda) |
-| P1 | Tokens + utils + golden 5 + RECIPE | ☐ |
-| P2 | 37 remaining base components | ☐ |
+| P0 | Scaffold & infra | ☑ (33afeda) |
+| P1 | Tokens + 26 utils + golden 5 + RECIPE | ☑ |
+| P2 | 37 remaining base components (codex batch) | ☐ |
 | P3 | 42 composite components | ☐ |
 | P4 | Layouts + example app + auth | ☐ |
 | P5 | Handbook (Storybook + DESIGN.md) | ☐ |
 | P6 | QA & hardening | ☐ |
+
+## Follow-ups
+
+- **Token alpha channels** — add `<alpha-value>` RGB-triple vars for primary/gray so `bg-primary/40` works. Decide before P2, or keep the `*-subtle` / `brightness-*` workaround.
+- **useDataTableState / useAppendQueryParams / useQueryParamPagingState** — build with DataTable (P3) / showcase (P4).
+- **useAuth / useLayout / useMenuActive / withHeaderItem** — build in showcase template layer (P4).

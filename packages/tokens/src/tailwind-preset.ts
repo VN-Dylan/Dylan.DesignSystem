@@ -14,6 +14,7 @@ export const dylanPreset = {
       colors: {
         // semantic
         bg: 'var(--dyl-bg)',
+        overlay: 'var(--dyl-overlay)',
         surface: {
           DEFAULT: 'var(--dyl-surface)',
           raised: 'var(--dyl-surface-raised)',

@@ -4,7 +4,8 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "types": ["node"],
-    "lib": ["ES2022", "DOM", "DOM.Iterable"]
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "emitDeclarationOnly": true
   },
   "references": [{ "path": "../tokens" }, { "path": "../utils" }, { "path": "../icons" }],
   "include": ["src/**/*.ts", "src/**/*.tsx"],

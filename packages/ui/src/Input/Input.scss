@@ -1,0 +1,46 @@
+.dyl-input {
+  @apply flex w-full items-center gap-2 rounded-md border border-border bg-surface
+    text-content transition duration-fast ease-standard;
+  @apply focus-within:border-primary focus-within:ring-2 focus-within:ring-primary
+    focus-within:ring-offset-1 focus-within:ring-offset-surface;
+
+  &[data-size='sm'] {
+    @apply min-h-8 px-2.5 text-sm;
+  }
+  &[data-size='md'] {
+    @apply min-h-10 px-3 text-sm;
+  }
+  &[data-size='lg'] {
+    @apply min-h-12 px-4 text-base;
+  }
+
+  &[data-textarea] {
+    @apply items-start py-2;
+  }
+
+  &[data-invalid] {
+    @apply border-error focus-within:border-error focus-within:ring-error;
+  }
+
+  &[data-disabled] {
+    @apply cursor-not-allowed bg-surface-sunken opacity-70;
+  }
+
+  &__field {
+    @apply w-full flex-1 border-0 bg-transparent p-0 text-inherit outline-none
+      placeholder:text-content-faint;
+    @apply disabled:cursor-not-allowed;
+
+    &--unstyled {
+      @apply w-full bg-transparent outline-none;
+    }
+  }
+
+  textarea.dyl-input__field {
+    @apply resize-y py-1 leading-normal;
+  }
+
+  &__affix {
+    @apply flex shrink-0 items-center text-content-muted;
+  }
+}

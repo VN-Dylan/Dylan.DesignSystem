@@ -6,7 +6,8 @@
     "types": ["vite/client"],
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "composite": true,
-    "noEmit": false
+    "noEmit": false,
+    "emitDeclarationOnly": true
   },
   "references": [
     { "path": "../../packages/ui" },

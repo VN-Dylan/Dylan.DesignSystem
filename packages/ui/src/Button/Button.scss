@@ -1,0 +1,136 @@
+.dyl-btn {
+  @apply inline-flex select-none items-center justify-center gap-2 whitespace-nowrap
+    border border-transparent font-medium leading-none transition
+    duration-fast ease-standard;
+  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary
+    focus-visible:ring-offset-2 focus-visible:ring-offset-surface;
+
+  &:disabled {
+    @apply cursor-not-allowed opacity-60;
+  }
+
+  /* --- size --- */
+  &[data-size='xs'] {
+    @apply h-7 px-2.5 text-xs;
+  }
+  &[data-size='sm'] {
+    @apply h-8 px-3 text-sm;
+  }
+  &[data-size='md'] {
+    @apply h-10 px-4 text-sm;
+  }
+  &[data-size='lg'] {
+    @apply h-12 px-5 text-base;
+  }
+
+  /* --- shape --- */
+  &[data-shape='round'] {
+    @apply rounded-md;
+  }
+  &[data-shape='none'] {
+    @apply rounded-none;
+  }
+  &[data-shape='circle'] {
+    @apply rounded-full;
+  }
+
+  /* icon-only: square/round footprint, no horizontal padding */
+  &[data-icon-only] {
+    @apply px-0;
+
+    &[data-size='xs'] {
+      @apply w-7;
+    }
+    &[data-size='sm'] {
+      @apply w-8;
+    }
+    &[data-size='md'] {
+      @apply w-10;
+    }
+    &[data-size='lg'] {
+      @apply w-12;
+    }
+  }
+
+  /* --- variant: default (outlined) --- */
+  &[data-variant='default'] {
+    @apply border-border bg-surface text-content;
+    &:hover:not(:disabled) {
+      @apply border-border-strong bg-surface-sunken;
+    }
+    &[data-active] {
+      @apply bg-surface-sunken;
+    }
+  }
+
+  /* --- variant: solid --- */
+  &[data-variant='solid'] {
+    @apply bg-primary text-primary-fg;
+    &:hover:not(:disabled) {
+      @apply bg-primary-mild;
+    }
+    &[data-active] {
+      @apply bg-primary-deep;
+    }
+  }
+
+  /* --- variant: subtle (tinted) --- */
+  &[data-variant='subtle'] {
+    @apply bg-primary-subtle text-primary;
+    &:hover:not(:disabled) {
+      @apply bg-primary-subtle brightness-95;
+    }
+  }
+
+  /* --- variant: plain (ghost) --- */
+  &[data-variant='plain'] {
+    @apply bg-transparent text-content;
+    &:hover:not(:disabled) {
+      @apply bg-surface-sunken;
+    }
+    &[data-active] {
+      @apply bg-surface-sunken;
+    }
+  }
+
+  /* --- variant: link --- */
+  &[data-variant='link'] {
+    @apply h-auto bg-transparent px-0 text-primary underline-offset-4;
+    &:hover:not(:disabled) {
+      @apply underline;
+    }
+  }
+
+  &--block {
+    @apply flex w-full;
+  }
+
+  &--feedback:active:not(:disabled) {
+    @apply scale-[0.97];
+  }
+
+  &__label {
+    @apply truncate;
+  }
+
+  &__icon,
+  &__spinner {
+    @apply inline-flex shrink-0 items-center justify-center text-[1.15em];
+  }
+
+  &__spinner svg {
+    animation: dyl-btn-spin 0.7s linear infinite;
+  }
+}
+
+@keyframes dyl-btn-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dyl-btn__spinner svg {
+    animation-duration: 1.6s;
+  }
+}
