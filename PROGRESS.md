@@ -141,14 +141,29 @@ Legend: ☐ todo · ◑ in progress · ☑ done · — n/a. Columns: spec · imp
 | P1 | Tokens + 24 utils + golden 5 + RECIPE | ☑ |
 | P2 | Base components (41/41, icons n/a) | ☑ |
 | P3 | 42 composite components | ☑ 42/42 |
-| P4 | Layouts + example app + auth | ☐ |
+| P4 | Layouts + example app + auth | ◑ C1 done |
 | P5 | Handbook | ☐ |
 | P6 | QA & hardening | ☐ |
+
+## P4 — showcase app (`apps/showcase`)
+
+| Batch | Scope | Status |
+| --- | --- | --- |
+| C1 | Foundation: router + layouts (App/Blank/Auth) + template chrome (SideNav/Header/Footer/UserDropdown/ThemeConfigDrawer) + theme & auth stores (zustand) + app-coupled hooks (useAuth/useLayout/useMenuActive/useThemeBootstrap) + navigation/routes config + landing + access-denied + 404 + 13 auth screens (5 forms × simple/side/split) + component gallery | ☑ |
+| C2 | `sales` area — dashboard, products (DataTable), product/new, product/:id, orders, order/new, order/:id | ☐ |
+| C3 | `projects` area — dashboard, list, :id, scrumboard, timeline, tasks, settings | ☐ |
+| C4 | `analytics` + `crypto` areas | ☐ |
+| C5 | `customers` + `hrm` areas | ☐ |
+| C6 | `ai` + `accounts` areas | ☐ |
+| C7 | mock data consolidation, polish pass, Eyris visual diff | ☐ |
+
+App screens are routed now via `PagePlaceholder`; each area batch replaces the placeholders with real views + mock data. Execution: Claude wrote C1; area batches C2–C6 go to codex from per-area specs.
 
 ## Follow-ups
 
 - Token alpha channels (`bg-primary/40`).
 - Select/menu overlays could adopt @floating-ui (currently Select uses absolute pos).
-- 7 app-coupled utils → showcase/DataTable (P3/P4).
+- `Select` has no `name`/`inputId` passthrough — add for forms (P6).
+- 4 app-coupled utils still deferred (useDataTableState / useAppendQueryParams / useQueryParamPagingState / withHeaderItem) — land with DataTable-heavy P4 area batches.
 - Calendar/DatePicker: full month/year picker views + exotic label-format props.
 - `packages/ui` bundle is ~800 kB (vendor libs are external); revisit code-splitting at P6.

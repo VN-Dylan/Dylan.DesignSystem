@@ -1,0 +1,142 @@
+import type { ReactNode } from 'react'
+import { Navigate, type RouteObject } from 'react-router-dom'
+import { AppLayout } from '@/components/layouts/AppLayout'
+import { BlankLayout } from '@/components/layouts/BlankLayout'
+import { AuthLayout, type AuthLayoutVariant } from '@/components/layouts/AuthLayout'
+import { ProtectedRoute } from '@/components/route/ProtectedRoute'
+import { LandingView } from '@/views/landing/LandingView'
+import { AccessDeniedView } from '@/views/others/AccessDeniedView'
+import { NotFoundView } from '@/views/others/NotFoundView'
+import { ComponentGalleryView } from '@/views/_dev/ComponentGalleryView'
+import { PagePlaceholder } from '@/views/_shared/PagePlaceholder'
+import {
+  ForgotPasswordView,
+  OtpVerificationView,
+  ResetPasswordView,
+  SignInView,
+  SignUpView,
+} from '@/views/auth/authViews'
+
+/** Routed app screens, area → [path, title]. Filled in by later P4 batches. */
+const APP_AREAS: Record<string, [string, string][]> = {
+  sales: [
+    ['/sales/dashboard', 'Sales dashboard'],
+    ['/sales/products', 'Products'],
+    ['/sales/products/new', 'New product'],
+    ['/sales/products/:id', 'Product detail'],
+    ['/sales/orders', 'Orders'],
+    ['/sales/orders/new', 'New order'],
+    ['/sales/orders/:id', 'Order detail'],
+  ],
+  customers: [
+    ['/customers/dashboard', 'Customers dashboard'],
+    ['/customers/list', 'Customer list'],
+    ['/customers/:id/overview', 'Customer overview'],
+    ['/customers/leads', 'Leads'],
+    ['/customers/leads/:id/overview', 'Lead overview'],
+    ['/customers/helpdesk', 'Helpdesk'],
+  ],
+  projects: [
+    ['/projects/dashboard', 'Projects dashboard'],
+    ['/projects/list', 'Project list'],
+    ['/projects/:id', 'Project detail'],
+    ['/projects/scrumboard', 'Scrum board'],
+    ['/projects/timeline', 'Project timeline'],
+    ['/projects/tasks', 'Tasks'],
+    ['/projects/settings', 'Project settings'],
+  ],
+  analytics: [
+    ['/analytics/dashboard', 'Analytics dashboard'],
+    ['/analytics/forecast', 'Forecast'],
+    ['/analytics/revenue', 'Revenue'],
+    ['/analytics/subscriptions', 'Subscriptions'],
+    ['/analytics/reports', 'Reports'],
+  ],
+  ai: [
+    ['/ai/chat', 'AI chat'],
+    ['/ai/image', 'AI image'],
+    ['/ai/writer', 'AI writer'],
+  ],
+  crypto: [
+    ['/crypto/dashboard', 'Crypto dashboard'],
+    ['/crypto/market', 'Market'],
+    ['/crypto/coin/:sym', 'Coin detail'],
+    ['/crypto/spot', 'Spot trade'],
+    ['/crypto/assets', 'Assets'],
+    ['/crypto/kyc', 'KYC'],
+  ],
+  hrm: [
+    ['/hrm/dashboard', 'HRM dashboard'],
+    ['/hrm/employees', 'Employees'],
+    ['/hrm/attendance', 'Attendance'],
+    ['/hrm/payroll', 'Payroll'],
+    ['/hrm/leaves', 'Leaves'],
+    ['/hrm/announcements', 'Announcements'],
+  ],
+  accounts: [
+    ['/accounts/settings/profile', 'Account settings'],
+    ['/accounts/activity', 'Activity log'],
+    ['/accounts/referrals', 'Referrals'],
+    ['/accounts/pricing', 'Pricing'],
+    ['/accounts/invoice', 'Invoice'],
+    // '/accounts/users' is added separately below with an admin authority guard.
+  ],
+}
+
+const appAreaRoutes: RouteObject[] = Object.entries(APP_AREAS).flatMap(([area, pages]) =>
+  pages.map(([path, title]) => ({
+    path,
+    element: <PagePlaceholder title={title} area={area} />,
+  })),
+)
+
+const authScreens: [string, ReactNode][] = [
+  ['sign-in', <SignInView />],
+  ['sign-up', <SignUpView />],
+  ['forgot-password', <ForgotPasswordView />],
+  ['reset-password', <ResetPasswordView />],
+  ['otp-verification', <OtpVerificationView />],
+]
+
+const AUTH_VARIANTS: AuthLayoutVariant[] = ['split', 'simple', 'side']
+
+const authRoutes: RouteObject[] = authScreens.flatMap(([slug, element]) =>
+  AUTH_VARIANTS.map((variant) => ({
+    // primary route uses `split`; the others get a `/simple` / `/side` suffix
+    path: variant === 'split' ? `/auth/${slug}` : `/auth/${slug}/${variant}`,
+    element: <AuthLayout variant={variant}>{element}</AuthLayout>,
+  })),
+)
+
+export const routes: RouteObject[] = [
+  {
+    element: <BlankLayout />,
+    children: [
+      { path: '/', element: <LandingView /> },
+      { path: '/landing', element: <LandingView /> },
+      ...authRoutes,
+    ],
+  },
+  {
+    element: (
+      <ProtectedRoute>
+        <AppLayout />
+      </ProtectedRoute>
+    ),
+    children: [
+      { path: '/dev/components', element: <ComponentGalleryView /> },
+      { path: '/others/access-denied', element: <AccessDeniedView /> },
+      ...appAreaRoutes,
+      {
+        path: '/accounts/users',
+        element: (
+          <ProtectedRoute authority={['admin']}>
+            <PagePlaceholder title="Users" area="accounts" />
+          </ProtectedRoute>
+        ),
+      },
+    ],
+  },
+  { path: '/home', element: <Navigate to="/sales/dashboard" replace /> },
+  { path: '*', element: <NotFoundView /> },
+]

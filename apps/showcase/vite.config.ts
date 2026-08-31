@@ -8,6 +8,7 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
+      '@': resolve(__dirname, 'src'),
       '@dylan-ds/ui': resolve(root, 'packages/ui/src/index.ts'),
       '@dylan-ds/tokens/tailwind-preset': resolve(root, 'packages/tokens/src/tailwind-preset.ts'),
       '@dylan-ds/tokens': resolve(root, 'packages/tokens/src/index.ts'),
