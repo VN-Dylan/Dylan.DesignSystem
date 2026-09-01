@@ -269,12 +269,20 @@ Done:
   Storybook build (dev happened to paper over it). Now imports `React` and the
   decorator is authored with `React.createElement`.
 
+## Post-P6 follow-up sweep (2026-09-01)
+
+- **Table / URL utils ported** into `@dylan-ds/utils` (History-API based, router-free):
+  `useAppendQueryParams`, `useQueryParamPagingState`, `useDataTableState`,
+  `withHeaderItem`. Utilities 24/32 → 28/32.
+- **`Select` moved to `@floating-ui`** — trigger-anchored, portalled, `flip`/`shift`/
+  width-match middleware, `useDismiss` replaces the manual document listener.
+  Matches the `AutoComplete` pattern.
+
 ## Follow-ups
 
 - CI-gated visual regression: needs a fixed-render environment (the Playwright
   Docker image, or Chromatic). Today's pixel baselines are Windows-local; CI runs
   the cross-platform smoke variant only.
 - Token alpha channels (`bg-primary/40`).
-- Select/menu overlays could adopt @floating-ui (currently Select uses absolute pos).
 - `useAuth` / `useLayout` / `useMenuActive` stay in `apps/showcase` (auth store / layout config / nav tree coupling).
 - Calendar/DatePicker: full month/year picker views + exotic label-format props.

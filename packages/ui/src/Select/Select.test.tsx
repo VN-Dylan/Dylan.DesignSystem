@@ -82,6 +82,21 @@ describe('Select', () => {
     const { container } = render(<Select options={options} aria-label="Category" isSearchable />)
     expect(await axe(container)).toHaveNoViolations()
     await userEvent.click(screen.getByRole('button', { name: 'Category' }))
-    expect(await axe(container)).toHaveNoViolations()
+    // the menu is portalled to <body>; assert against the menu subtree
+    const menu = screen.getByRole('listbox').closest('.dyl-select__menu') as HTMLElement
+    expect(await axe(menu)).toHaveNoViolations()
+  })
+
+  it('closes on an outside click (useDismiss)', async () => {
+    render(
+      <div>
+        <Select options={options} aria-label="Category" />
+        <button type="button">outside</button>
+      </div>,
+    )
+    await userEvent.click(screen.getByRole('button', { name: 'Category' }))
+    expect(screen.getByRole('listbox')).toBeInTheDocument()
+    await userEvent.click(screen.getByRole('button', { name: 'outside' }))
+    expect(screen.queryByRole('listbox')).not.toBeInTheDocument()
   })
 })

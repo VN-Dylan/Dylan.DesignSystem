@@ -45,9 +45,10 @@
     @apply rotate-180;
   }
 
+  // Positioned by @floating-ui (portalled to <body>); only paint styles here.
   &__menu {
-    @apply absolute inset-x-0 top-[calc(100%+4px)] overflow-hidden rounded-md border
-      border-border bg-surface-raised shadow-lg;
+    @apply overflow-hidden rounded-md border border-border bg-surface-raised text-sm
+      text-content shadow-lg outline-none;
     z-index: var(--dyl-z-dropdown);
     animation: dyl-select-in var(--dyl-duration-fast) var(--dyl-ease-standard);
   }
@@ -87,7 +88,6 @@
 @keyframes dyl-select-in {
   from {
     opacity: 0;
-    transform: translateY(-4px);
   }
 }
 @media (prefers-reduced-motion: reduce) {

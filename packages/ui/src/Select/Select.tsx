@@ -1,5 +1,13 @@
 import { forwardRef, useEffect, useId, useMemo, useRef, useState, type KeyboardEvent } from 'react'
+import {
+  size as sizeMiddleware,
+  useDismiss,
+  useFloating,
+  useInteractions,
+} from '@floating-ui/react'
 import { classNames, useControllableState } from '@dylan-ds/utils'
+import { Portal } from '../_internal/Portal'
+import { floatingAutoUpdate, getFloatingMiddleware } from '../_internal/floatingRuntime'
 import type { SelectMultiProps, SelectOption, SelectProps } from './types'
 import './Select.scss'
 
@@ -64,8 +72,24 @@ const SelectBase = forwardRef<HTMLDivElement, InternalProps>(function SelectBase
   const [query, setQuery] = useState('')
   const [activeIndex, setActiveIndex] = useState(0)
 
-  const rootRef = useRef<HTMLDivElement>(null)
   const searchRef = useRef<HTMLInputElement>(null)
+
+  const { refs, floatingStyles, context } = useFloating({
+    open,
+    onOpenChange: setOpen,
+    placement: 'bottom-start',
+    whileElementsMounted: floatingAutoUpdate,
+    middleware: [
+      ...getFloatingMiddleware(4),
+      sizeMiddleware({
+        apply({ rects, elements }) {
+          elements.floating.style.minWidth = `${rects.reference.width}px`
+        },
+      }),
+    ],
+  })
+  const dismiss = useDismiss(context)
+  const { getFloatingProps } = useInteractions([dismiss])
 
   const selectedList = asArray(selected)
   const selectedValues = new Set(selectedList.map((o) => o.value))
@@ -75,15 +99,6 @@ const SelectBase = forwardRef<HTMLDivElement, InternalProps>(function SelectBase
     const q = query.toLowerCase()
     return options.filter((o) => o.label.toLowerCase().includes(q))
   }, [options, query])
-
-  useEffect(() => {
-    if (!open) return
-    const onDocClick = (e: MouseEvent) => {
-      if (!rootRef.current?.contains(e.target as Node)) setOpen(false)
-    }
-    document.addEventListener('mousedown', onDocClick)
-    return () => document.removeEventListener('mousedown', onDocClick)
-  }, [open])
 
   useEffect(() => {
     if (open && isSearchable) searchRef.current?.focus()
@@ -138,7 +153,7 @@ const SelectBase = forwardRef<HTMLDivElement, InternalProps>(function SelectBase
 
   return (
     <div
-      ref={ref ?? rootRef}
+      ref={ref}
       className={classNames('dyl-select', className)}
       data-size={size}
       data-open={open || undefined}
@@ -154,6 +169,7 @@ const SelectBase = forwardRef<HTMLDivElement, InternalProps>(function SelectBase
           ))
         ))}
       <button
+        ref={refs.setReference}
         type="button"
         className="dyl-select__trigger"
         aria-haspopup="listbox"
@@ -193,62 +209,70 @@ const SelectBase = forwardRef<HTMLDivElement, InternalProps>(function SelectBase
       </button>
 
       {open && (
-        <div className="dyl-select__menu">
-          {isSearchable && (
-            <input
-              ref={searchRef}
-              type="text"
-              name="select-filter"
-              autoComplete="off"
-              className="dyl-select__search"
-              placeholder="Search…"
-              aria-label="Filter options"
-              value={query}
-              onChange={(e) => {
-                setQuery(e.target.value)
-                setActiveIndex(0)
-              }}
-              onKeyDown={onKeyDown}
-            />
-          )}
-          <ul
-            id={listboxId}
-            role="listbox"
-            aria-label={ariaLabel ?? placeholder}
-            aria-multiselectable={multiple}
-            className="dyl-select__list"
+        <Portal>
+          <div
+            ref={refs.setFloating}
+            className="dyl-select__menu"
+            data-size={size}
+            style={floatingStyles}
+            {...getFloatingProps()}
           >
-            {isLoading ? (
-              <li className="dyl-select__empty">Loading…</li>
-            ) : filtered.length === 0 ? (
-              <li className="dyl-select__empty">{noOptionsMessage}</li>
-            ) : (
-              filtered.map((option, index) => {
-                const isSelected = selectedValues.has(option.value)
-                return (
-                  <li
-                    key={option.value}
-                    role="option"
-                    aria-selected={isSelected}
-                    aria-disabled={option.disabled || undefined}
-                    className="dyl-select__option"
-                    data-active={index === activeIndex || undefined}
-                    data-selected={isSelected || undefined}
-                    onMouseEnter={() => setActiveIndex(index)}
-                    onClick={() => commit(option)}
-                  >
-                    {multiple && (
-                      <span className="dyl-select__checkbox" aria-hidden>
-                        {isSelected ? '✓' : ''}
-                      </span>
-                    )}
-                    {option.label}
-                  </li>
-                )
-              })
+            {isSearchable && (
+              <input
+                ref={searchRef}
+                type="text"
+                name="select-filter"
+                autoComplete="off"
+                className="dyl-select__search"
+                placeholder="Search…"
+                aria-label="Filter options"
+                value={query}
+                onChange={(e) => {
+                  setQuery(e.target.value)
+                  setActiveIndex(0)
+                }}
+                onKeyDown={onKeyDown}
+              />
             )}
-          </ul>
-        </div>
+            <ul
+              id={listboxId}
+              role="listbox"
+              aria-label={ariaLabel ?? placeholder}
+              aria-multiselectable={multiple}
+              className="dyl-select__list"
+            >
+              {isLoading ? (
+                <li className="dyl-select__empty">Loading…</li>
+              ) : filtered.length === 0 ? (
+                <li className="dyl-select__empty">{noOptionsMessage}</li>
+              ) : (
+                filtered.map((option, index) => {
+                  const isSelected = selectedValues.has(option.value)
+                  return (
+                    <li
+                      key={option.value}
+                      role="option"
+                      aria-selected={isSelected}
+                      aria-disabled={option.disabled || undefined}
+                      className="dyl-select__option"
+                      data-active={index === activeIndex || undefined}
+                      data-selected={isSelected || undefined}
+                      onMouseEnter={() => setActiveIndex(index)}
+                      onClick={() => commit(option)}
+                    >
+                      {multiple && (
+                        <span className="dyl-select__checkbox" aria-hidden>
+                          {isSelected ? '✓' : ''}
+                        </span>
+                      )}
+                      {option.label}
+                    </li>
+                  )
+                })
+              )}
+            </ul>
+          </div>
+        </Portal>
       )}
     </div>
   )
