@@ -247,6 +247,15 @@ Done so far:
   offset/transition knobs), `Upload` (no `fileListClass`/`fileItemClass`),
   `Input` (native events pass straight through).
 
+Still open:
+- **Pixel visual-regression (light/dark/RTL).** Needs a real browser
+  (Playwright / `@storybook/test-runner`, or Chromatic) — not wired, since
+  Storybook is local-only and Playwright isn't in the toolchain here. Current
+  visual verification: the manual chrome-devtools sweep of all ~62 showcase
+  screens + auth + dark mode (P4 C7), plus the Storybook theme + **Direction**
+  toolbars for on-demand light/dark/RTL review. Decision pending on whether to
+  add the browser toolchain.
+
 ## Follow-ups
 
 - Token alpha channels (`bg-primary/40`).
