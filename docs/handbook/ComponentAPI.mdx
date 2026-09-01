@@ -1,0 +1,99 @@
+import { Meta, Markdown } from '@storybook/blocks'
+
+<Meta title="Handbook/Component API" />
+
+# Component API conventions
+
+Learn these once; they hold for all 84 components.
+
+---
+
+## Common props
+
+<Markdown>{`
+| Prop | Values | Notes |
+| --- | --- | --- |
+| \`variant\` | \`solid\` · \`plain\` · \`default\` · … | Per-component set; surfaced as \`data-variant\`. |
+| \`size\` | \`xs\` · \`sm\` · \`md\` · \`lg\` | Input / Select use \`sm\` · \`md\` · \`lg\`. |
+| \`shape\` | \`round\` · \`circle\` · \`none\` | Where it applies (Button, Avatar, Tag). |
+| \`disabled\` · \`loading\` · \`block\` | boolean | \`loading\` shows a spinner and blocks interaction. |
+| \`icon\` | \`ReactNode\` | Plus \`iconAlignment\` where the component supports it. |
+| \`active\` · \`invalid\` | boolean | Surfaced as \`data-active\` / \`data-invalid\`. |
+| \`className\` | \`string\` or \`(state) => string\` | The callback form receives interaction state — see \`Button\`. |
+`}</Markdown>
+
+Every primitive **forwards `ref`** to its main DOM node and **spreads native
+props** onto it.
+
+## Variants are `data-*` attributes
+
+Not class permutations. The DOM node carries `data-variant="solid"`,
+`data-size="md"`, `data-invalid`, … and the SCSS targets them:
+
+```scss
+.dyl-button {
+  &[data-variant='solid'] {
+    @apply bg-primary text-primary-fg;
+  }
+  &[data-size='sm'] {
+    @apply h-8 px-3 text-sm;
+  }
+  &[data-invalid] {
+    @apply ring-2 ring-error;
+  }
+}
+```
+
+This keeps the class list stable and makes state inspectable in devtools.
+
+## Compound components
+
+Parts hang off the root and share state through a context:
+
+```tsx
+export const Tabs = Object.assign(TabsRoot, {
+  TabList: TabsList,
+  TabNav: TabsNav,
+  TabContent: TabsContent,
+})
+```
+
+```tsx
+<Tabs defaultValue="overview">
+  <Tabs.TabList>
+    <Tabs.TabNav value="overview">Overview</Tabs.TabNav>
+    <Tabs.TabNav value="activity">Activity</Tabs.TabNav>
+  </Tabs.TabList>
+  <Tabs.TabContent value="overview">…</Tabs.TabContent>
+</Tabs>
+```
+
+Compound sets in the system: `Avatar.Group`, `Checkbox.Group`, `Radio.Group`,
+`Carousel.Content/Item`, `Collapsible.Trigger/Content`,
+`Tabs.TabList/TabNav/TabContent`, `Menu.MenuCollapse/MenuItem`, `Steps.Item`,
+`Slider.Range`, `Timeline.Item`, `InputGroup.Addon`, `Table.THead/TBody/Tr/Th/Td`,
+`Select.Multi`.
+
+## Controlled / uncontrolled
+
+Through `useControllableState` from `@dylan-ds/utils`:
+
+```tsx
+<Select value={value} onChange={setValue} />        // controlled
+<Select defaultValue="draft" onChange={handle} />   // uncontrolled
+```
+
+## Overlays
+
+Dialog, Drawer, Popover, Tooltip, Dropdown and Toast render through `<Portal>`,
+honour `prefers-reduced-motion`, and close on `Esc` / outside-click (both
+configurable). Modal ones trap focus. Anchored ones position with
+`@floating-ui/react`.
+
+## Charts, tables, editors
+
+A few components wrap a vendor library but keep it **external** (a peer
+dependency of the consuming app, not bundled): `Chart` (ApexCharts), `DataTable`
+(`@tanstack/react-table`), `RichTextEditor` (Tiptap), `SyntaxHighlighter`
+(`react-syntax-highlighter`), `VectorMap` (jsvectormap). `FullCalendar` and
+`GanttChart` are dependency-free re-implementations.

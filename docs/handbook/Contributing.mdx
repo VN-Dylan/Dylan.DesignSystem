@@ -1,0 +1,80 @@
+import { Meta } from '@storybook/blocks'
+
+<Meta title="Handbook/Contributing" />
+
+# Contributing a component
+
+The full contract is `RECIPE.md` at the repo root. This is the shape of it.
+
+---
+
+## The golden five
+
+Every component is built by matching one of the five reference components in
+`packages/ui/src/`:
+
+**Button · Input · Select · Dialog · Table**
+
+They were finalised in P1 and cover the whole surface — a plain primitive, a
+form control, an anchored-overlay control, a modal overlay, and a compound.
+
+## File layout
+
+```
+packages/ui/src/<Name>/
+  <Name>.tsx          component; forwardRef; imports './<Name>.scss'
+  <Name>.scss         semantic styling
+  types.ts            public prop types — <Name>Props etc., exported
+  context.ts          only if compound
+  <Name>.stories.tsx  one story per Eyris demo; meta.tags: ['autodocs']
+  <Name>.test.tsx     behaviour + one axe() assertion
+  index.ts            re-exports component + types
+```
+
+Then add the export (component + `export type`) to `packages/ui/src/index.ts`.
+Shared building blocks live in `packages/ui/src/_internal/` — add to them rather
+than reinventing.
+
+## The five rules
+
+1. **`forwardRef` always**, to the primary DOM node; spread `...rest` onto it.
+2. **Variants are `data-*`**, styled via `&[data-variant='…']`.
+3. **`className` merge** with `classNames` from `@dylan-ds/utils`; support the
+   `(state) => string` callback form where the component has interaction state.
+4. **Prop names & defaults follow Eyris** — `docs/reference/eyris-crawl/<name>.json`
+   is the API-table source.
+5. **Controlled / uncontrolled** via `useControllableState`.
+
+## Styling
+
+- **Tailwind via `@apply` inside the `.scss`** — no `@layer` wrapper (the entry
+  `styles/index.scss` owns the layers).
+- Dart Sass nesting, BEM-ish names: `.dyl-x`, `.dyl-x__part`, state via
+  `&[data-*]`.
+- **No literal design values.** Colours / radii / shadows / durations come from
+  the preset (`bg-primary`, `rounded-lg`, `duration-fast`) or `var(--dyl-*)`.
+  A hex / rgb / px literal fails review.
+- Keyframes and media queries go at the bottom of the file, outside selectors.
+
+## Stories & tests
+
+- `title: '<Group>/<Name>'` — group is the Eyris category. `tags: ['autodocs']`
+  on meta; the prop table comes from TSDoc on `types.ts`.
+- One story per Eyris demo section, plus a `Playground` for prop-heavy
+  components. Interactive demos wrap in a local `Demo` component, not hooks in
+  `render`.
+- Tests cover each variant's observable behaviour, assert `ref` forwarding, use
+  fake timers for debounce/timeout, and **end with an `axe()` assertion**.
+
+## Verify
+
+```bash
+pnpm --filter @dylan-ds/ui exec vite build
+pnpm test -- <Name>
+pnpm lint && pnpm format:check
+```
+
+## Versioning
+
+Changesets. All `@dylan-ds/*` packages version in lockstep (`fixed`). Even a
+docs-only change to a package needs a patch changeset.

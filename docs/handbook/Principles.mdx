@@ -1,0 +1,75 @@
+import { Meta } from '@storybook/blocks'
+
+<Meta title="Handbook/Principles" />
+
+# Principles
+
+Five rules. Every other decision in the system is downstream of one of them.
+
+---
+
+## 1. Token-first
+
+No component contains a literal colour, radius, shadow or duration. Everything
+resolves through a CSS custom property, so themes are a **runtime** concern, not
+a rebuild.
+
+```scss
+// ✗ never
+.dyl-badge {
+  background: #eef2ff;
+  border-radius: 6px;
+}
+
+// ✓ always — via the Tailwind preset or var(--dyl-*)
+.dyl-badge {
+  @apply rounded-base bg-primary-subtle;
+}
+```
+
+A hex / rgb / px literal in `packages/ui/src/**/*.{tsx,scss}` fails review. The
+handful of things the preset doesn't map (z-index, keyframes, the overlay scrim)
+use `var(--dyl-*)` directly.
+
+## 2. Composition over configuration
+
+Compound components and `className` overrides beat prop explosions.
+
+```tsx
+// A prop for every arrangement doesn't scale.
+<Menu items={…} collapsibleGroups activeKey="…" indent={2} />
+
+// Composition does.
+<Menu>
+  <Menu.MenuCollapse label="Reports">
+    <Menu.MenuItem eventKey="daily">Daily</Menu.MenuItem>
+  </Menu.MenuCollapse>
+</Menu>
+```
+
+Compound parts hang off the root (`Table.THead`, `Select.Multi`, `Tabs.TabList`)
+and share state through a context defined in the component's `context.ts`.
+
+## 3. Accessible by default
+
+Keyboard operability, focus management, correct roles and `axe` cleanliness are
+**acceptance criteria, not follow-ups**. Every component test ends with:
+
+```ts
+expect(await axe(container)).toHaveNoViolations()
+```
+
+Modal overlays render through a `<Portal>`, set `role="dialog"` +
+`aria-modal="true"`, and trap focus (restoring it on close). Interactive
+non-`<button>` elements always carry an accessible name.
+
+## 4. Both themes, always
+
+Light, dark and RTL are designed **together**. A change that only works in one
+mode is unfinished. The same rule applies to the 8 preset brand schemas — they
+are just another set of `--dyl-*` overrides.
+
+## 5. Small surface, sharp edges
+
+Each component ships types, tests, a story and an autodoc page. Props follow
+Eyris names and defaults. **If it is not documented, it does not exist.**

@@ -142,7 +142,7 @@ Legend: ☐ todo · ◑ in progress · ☑ done · — n/a. Columns: spec · imp
 | P2 | Base components (41/41, icons n/a) | ☑ |
 | P3 | 42 composite components | ☑ 42/42 |
 | P4 | Layouts + example app + auth | ☑ C1–C7 done |
-| P5 | Handbook | ◑ |
+| P5 | Handbook | ◑ 8 Storybook MDX pages drafted (`docs/handbook/*`) |
 | P6 | QA & hardening | ☐ |
 
 ## P4 — showcase app (`apps/showcase`)
@@ -168,6 +168,23 @@ fix(ui) shipped during P4: Chart got a token-derived multi-colour palette (C2); 
 fix(ui) shipped during C7 (Eyris visual sweep): `Table`/`DataTable` sort indicator was literal `▲▼` text → `TbArrowsSort`/`TbArrowUp`/`TbArrowDown` icons; `Chart` reworked to Eyris style (faint horizontal-only gridlines, no axis border/ticks, light area-fill gradient), **now re-reads its token colours on runtime theme change** via a `MutationObserver` on `<html>` (was baking in light-mode grid/text colours → bright gridlines in dark mode), thins dense category axes (`tickAmount` when >12 categories), interleaved the categorical palette so donuts/multi-line aren't three blues, theme-aware tooltip. Showcase: sticky `Header` used `bg-surface/95` (opacity modifier on a themed var = invalid colour → transparent header, charts bled through) → solid `bg-surface`.
 
 C7 mock consolidation: sales order totals (above); analytics MRR/active-accounts/ARPU derived from `subscriptions` (were hardcoded + disagreed between Revenue and Subscriptions screens); crypto `portfolioValue`/`portfolioCost`/`allocation` derived from `holdings` (dashboard $128,940 hardcode disagreed with Assets $164,445); **`mock/team.ts` = canonical 10-person staff roster** — `account.teamMembers` / `hrm.employees` / `projects.team` / `account.profile` now spread `personFields(key)` instead of re-listing name/email/avatar; 6 customer avatars that collided with staff avatars given distinct ids; the customer named "Grace Mensah" (also an internal new-hire — confusing) renamed to "Kwame Boateng". Still open: string-name refs (report owner / image author / task-assignee label) use literals rather than `personName(key)`.
+
+## P5 — Handbook (`docs/handbook/*.mdx`)
+
+Browsable "why" docs, wired into Storybook (`Handbook/*`, ordered via
+`preview.tsx` `storySort`). 8 pages: Introduction · Principles · Design Tokens
+(live `--dyl-*` swatches that follow the theme toolbar) · Theming & Modes ·
+Accessibility · Component API · Contributing · Eyris Mapping. Drawn from
+`DESIGN.md` + `RECIPE.md`; `DESIGN.md` §8 now points here.
+
+Notes: `remark-gfm` is not in Storybook 8.4's addon-docs MDX pipeline and the
+documented config hook doesn't take, so tables use the `<Markdown>` block from
+`@storybook/blocks` (renders GFM). Swatch components are inline `export const`
+in the MDX (a `docs/**/*.tsx` helper compiles to classic `React.createElement`
+because no tsconfig covers `docs/`).
+
+Remaining: DESIGN.md §3/§5/§7 could each get a fuller page; per-component
+"when to use X vs Y" guidance; a schema-switcher demo on the Theming page.
 
 ## Follow-ups
 

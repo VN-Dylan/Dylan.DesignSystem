@@ -9,6 +9,30 @@ const preview: Preview = {
     },
     backgrounds: { disable: true },
     a11y: { test: 'error' },
+    options: {
+      storySort: {
+        order: [
+          'Handbook',
+          [
+            'Introduction',
+            'Principles',
+            'Design Tokens',
+            'Theming & Modes',
+            'Accessibility',
+            'Component API',
+            'Contributing',
+            'Eyris Mapping',
+          ],
+          'Common',
+          'Data Display',
+          'Forms',
+          'Feedback',
+          'Navigation',
+          'Primitives',
+          'Composite',
+        ],
+      },
+    },
   },
   decorators: [
     withThemeByClassName({

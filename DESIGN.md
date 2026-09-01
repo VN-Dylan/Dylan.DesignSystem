@@ -1,8 +1,9 @@
 # Dylan Design System — DESIGN.md
 
-> Status: **skeleton (P0)**. Sections marked _TBD_ are filled in P1 (tokens) and
-> P5 (handbook). This file is the single source of truth for _why_ the system
-> looks and behaves as it does; per-component usage lives in Storybook.
+> This file is the single source of truth for _why_ the system looks and behaves
+> as it does; per-component usage lives in Storybook. The **Handbook** section of
+> Storybook (`docs/handbook/*`) is the browsable, example-backed version of this
+> document.
 
 ---
 
@@ -159,8 +160,12 @@ Full details and the file layout: [`RECIPE.md`](./RECIPE.md).
 
 ## 8. Eyris ↔ Dylan mapping
 
-_TBD (P6)._ Table of every Eyris component/prop and its Dylan equivalent,
-including deliberate deviations.
+The system reproduces the Eyris component surface 1:1 by name; the import alias
+is the only expected change. The **Handbook → Eyris Mapping** page in Storybook
+(`docs/handbook/EyrisMapping.mdx`) records coverage and every deliberate
+deviation — `Button` has no `asChild`, `FullCalendar`/`GanttChart` are
+dependency-free, 7 app-coupled utilities live in the showcase, the opacity
+modifier is unsupported, etc.
 
 ## 9. Versioning
 

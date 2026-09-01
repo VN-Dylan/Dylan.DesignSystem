@@ -1,0 +1,54 @@
+import { Meta, Markdown } from '@storybook/blocks'
+
+<Meta title="Handbook/Introduction" />
+
+# Dylan Design System
+
+A production-oriented React component system. It reproduces the **component
+surface of the Eyris admin template** — 42 base components, 42 composite
+components, 32 utilities — as an independent, self-contained library with **no
+external UI-kit dependency**, built on React 18, Tailwind CSS v3, SCSS and
+TypeScript.
+
+It is an **internal** system. Component and prop names mirror Eyris for API
+familiarity; all brand assets, copy and visual identity are Dylan's own.
+
+---
+
+## What's in the box
+
+<Markdown>{`
+| Package | Depends on | What it is |
+| --- | --- | --- |
+| \`@dylan-ds/tokens\` | — | CSS custom properties, a Tailwind preset, and TS constants. The runtime contract. |
+| \`@dylan-ds/utils\` | React (peer only) | 24 framework hooks + formatting helpers ported from the Eyris utility surface. |
+| \`@dylan-ds/icons\` | \`react-icons\` | A single entry point for the house icon set (Tabler — thin, geometric). |
+| \`@dylan-ds/ui\` | tokens · utils · icons | 84 components, each with types, tests, a Storybook story and an autodoc page. |
+| \`apps/showcase\` | ui · tokens · utils · icons | ~62 example screens rebuilding the Eyris demo app on the system. Not published. |
+`}</Markdown>
+
+```
+@dylan-ds/tokens  ──►  @dylan-ds/ui  ──►  apps/showcase
+@dylan-ds/utils   ──►  (also used by the showcase & this Storybook)
+@dylan-ds/icons   ──►
+```
+
+## Where documentation lives
+
+- **This handbook** (`Handbook/*`) — the _why_: principles, tokens, theming,
+  accessibility, API conventions, the Eyris mapping.
+- **Component pages** (`Common/*`, `Data Display/*`, `Forms/*`, `Feedback/*`,
+  `Navigation/*`, `Primitives/*`, `Composite/*`) — the _how_: one autodoc page
+  per component, a story per Eyris demo, a prop table generated from TSDoc.
+- `DESIGN.md` (repo root) — the single source of truth this handbook is drawn
+  from. `RECIPE.md` — the contract every component is built to.
+
+## Reading order
+
+1. **Principles** — the five rules everything else follows from.
+2. **Design Tokens** — the values. Nothing in the system is a literal.
+3. **Theming & Modes** — light / dark / RTL / 8 brand schemas, all at runtime.
+4. **Accessibility** — the baseline, and why it's an acceptance criterion.
+5. **Component API** — the shapes you'll see on every component.
+6. **Contributing** — how a new component gets built.
+7. **Eyris Mapping** — the Eyris ↔ Dylan map, including the deliberate deviations.

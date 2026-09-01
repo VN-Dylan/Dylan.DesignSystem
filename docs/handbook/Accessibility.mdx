@@ -1,0 +1,58 @@
+import { Meta } from '@storybook/blocks'
+
+<Meta title="Handbook/Accessibility" />
+
+# Accessibility
+
+Not a review stage — an **acceptance criterion**. A component is not done until
+its keyboard, focus, role and `axe` behaviour is correct.
+
+---
+
+## The baseline every component meets
+
+- **Visible focus.** `:focus-visible` shows a ring:
+  `ring-2 ring-primary ring-offset-2 ring-offset-surface`. Never removed, never
+  `outline: none` without a replacement.
+- **Keyboard operable.** Every interaction has a keyboard path — arrow keys for
+  composite widgets (Menu, Tabs, Segment, Select), `Esc` to dismiss overlays,
+  `Enter` / `Space` to activate.
+- **Correct roles & names.** Interactive non-`<button>` elements carry an
+  accessible name (`aria-label` or an associated `<label>`). Axe's
+  `button-name` and `aria-input-field-name` rules must pass.
+- **Reduced motion.** `@media (prefers-reduced-motion: reduce)` slows or
+  disables every animation and transition.
+
+## Modal overlays
+
+Dialog, Drawer, and confirm flows render through `<Portal>` and:
+
+- set `role="dialog"` + `aria-modal="true"`
+- trap focus with `_internal/useFocusTrap` while open
+- restore focus to the trigger on close
+- close on `Esc` and outside-click (both configurable)
+
+Anchored overlays (Popover, Tooltip, Dropdown, the Select menu) position with
+`@floating-ui/react` and wire `useRole` / `useDismiss` / `useInteractions` so
+roles and dismissal come for free.
+
+## How it's enforced
+
+Every component test file ends with:
+
+```ts
+import { axe } from 'jest-axe'
+// …
+expect(await axe(container)).toHaveNoViolations()
+```
+
+Storybook runs the **a11y addon in `error` mode** (`.storybook/preview.tsx`) —
+a violation fails the story, not just warns.
+
+## Known gaps (tracked)
+
+- `DataTable`'s "Rows per page" `<select>` has no programmatic label
+  association yet.
+- A few composite widgets could tighten their `aria-activedescendant` wiring.
+
+Both are on the P6 (QA & hardening) list.

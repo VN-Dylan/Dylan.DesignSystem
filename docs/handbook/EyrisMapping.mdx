@@ -1,0 +1,69 @@
+import { Meta, Markdown } from '@storybook/blocks'
+
+<Meta title="Handbook/Eyris Mapping" />
+
+# Eyris ↔ Dylan
+
+The system reproduces the Eyris component surface **1:1 by name**. An Eyris
+`<Button variant="solid" />` is a Dylan `<Button variant="solid" />`. The import
+alias changes from `@/components/ui/<Name>` to `@dylan-ds/ui`; everything else is
+meant to feel identical.
+
+This page records where that is **deliberately not** true.
+
+---
+
+## Coverage
+
+<Markdown>{`
+| Eyris group | Count | Dylan |
+| --- | --- | --- |
+| Base UI components | 42 | 41 built + \`icons\` → the separate \`@dylan-ds/icons\` package |
+| Composite / shared components | 42 | 42 built |
+| Utilities | 32 | 24 built + 1 stub + 7 deferred (see below) |
+| Preset theme schemas | 8 | 8 (\`default, dark, green, purple, orange, cyan, gold, pink\`) |
+| Example app screens | ~62 | ~62 rebuilt in \`apps/showcase\` |
+`}</Markdown>
+
+## Deliberate deviations
+
+### Components
+
+<Markdown>{`
+| Component | Deviation | Why |
+| --- | --- | --- |
+| \`Button\` | no \`asChild\` / polymorphic \`as\` | Keeps the ref + \`data-*\` contract simple. Navigate with an \`onClick\` handler that calls \`navigate\`. |
+| \`Calendar\` · \`DatePicker\` | month/year picker sub-views and some label-format props are stubbed | Out of scope for the internal use cases; the day grid is complete. |
+| \`FullCalendar\` | dependency-free **month view only** — no week/day/list views, no drag | Avoids a heavy calendar dependency. |
+| \`GanttChart\` | dependency-free re-implementation | Same reason. Bars, progress fill, a shared date axis. |
+| \`VectorMap\` | choropleth ramp is interpolated **in-component** and fed as a code→hex map | jsvectormap 1.6 only ships an ordinal (lookup) scale, not a numeric one. |
+| \`DataTable\` | no \`onRowClick\` prop | Views delegate a click on a wrapping element; a first-class prop is a follow-up. |
+| \`Select\` · \`Segment\` | width must be constrained by a wrapper element | The component sets \`width: 100%\`, which beats a utility class on the component itself. |
+| \`Chart\` | grid / palette / tooltip are Eyris-styled and theme-reactive rather than ApexCharts defaults | Faint horizontal-only gridlines, an interleaved categorical palette, and a \`MutationObserver\` that re-reads tokens on theme change. |
+`}</Markdown>
+
+### Utilities
+
+7 utilities are **app-coupled** and live in `apps/showcase/src/utils` rather
+than `@dylan-ds/utils`, because they depend on the router / auth / layout store:
+
+`useAuth` · `useLayout` · `useMenuActive` · `useAppendQueryParams` ·
+`useDataTableState` · `useQueryParamPagingState` · `withHeaderItem`
+
+`useTranslation` ships as a **stub** (returns the key) — i18n wiring is the
+consuming app's job.
+
+### Styling
+
+<Markdown>{`
+| Eyris | Dylan | Note |
+| --- | --- | --- |
+| \`bg-primary/40\` opacity modifier | not supported | Themed colours are \`var(--dyl-*)\`, not channel triples. Use \`primary-subtle\` / \`overlay\` / \`brightness-*\`. \`<alpha-value>\` channel vars are a tracked follow-up. |
+| brand identity, copy, logo | Dylan's own | The system mirrors the API, not the visual identity. |
+`}</Markdown>
+
+## Bundle
+
+`@dylan-ds/ui` is ~800 kB with the vendor libraries kept **external** (ApexCharts,
+TanStack Table, Tiptap, jsvectormap, react-syntax-highlighter are peer deps of
+the consuming app). Code-splitting is a P6 item.

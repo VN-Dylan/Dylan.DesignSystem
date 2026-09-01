@@ -1,0 +1,94 @@
+import { Meta, Markdown } from '@storybook/blocks'
+
+<Meta title="Handbook/Theming & Modes" />
+
+# Theming & Modes
+
+Three independent axes, all resolved at **runtime** by rewriting `--dyl-*`
+custom properties — never by rebuilding CSS.
+
+<Markdown>{`
+| Axis | Mechanism | Persists to |
+| --- | --- | --- |
+| Colour mode | \`.dark\` class on \`<html>\` (Tailwind \`darkMode: 'class'\`) | \`localStorage\` |
+| Brand schema | \`data-theme-schema\` + inline CSS variables on \`<html>\` | \`localStorage\` |
+| Direction | \`dir\` attribute + CSS logical properties | \`localStorage\` |
+`}</Markdown>
+
+Use the Storybook toolbar (top) to flip light / dark — every component page and
+every swatch in **Design Tokens** re-reads the live values.
+
+---
+
+## Dark mode
+
+`:root.dark` re-declares the semantic surface / text tokens and the status
+`*-subtle` tints (which become alpha overlays instead of flat colours). Brand
+hues stay put. In a consuming app:
+
+```ts
+import { useDarkMode } from '@dylan-ds/utils'
+
+const { isDark, toggle } = useDarkMode() // toggles `.dark`, persists
+```
+
+Or manually:
+
+```ts
+document.documentElement.classList.toggle('dark', isDark)
+```
+
+## Preset brand schemas
+
+Eight schemas ported from Eyris — `default`, `dark`, `green`, `purple`,
+`orange`, `cyan`, `gold`, `pink`. Each overrides only the **primary family**
+(`primary`, `primary-deep`, `primary-mild`, `primary-subtle`, `on-primary`) for
+both light and dark.
+
+```ts
+import { useThemeSchema } from '@dylan-ds/utils'
+useThemeSchema('green', 'light') // writes vars to <html>, persists
+
+// or the token layer directly:
+import { presetThemeSchema, themeSchemaToCssVars } from '@dylan-ds/tokens'
+const vars = themeSchemaToCssVars(presetThemeSchema.green.light)
+Object.entries(vars).forEach(([k, v]) => document.documentElement.style.setProperty(k, v))
+```
+
+The showcase app owns the higher-level theme _store_ (zustand) that ties these
+together; the packages only expose the primitives.
+
+## RTL
+
+```ts
+import { useDirection } from '@dylan-ds/utils'
+const { direction, toggle } = useDirection() // sets dir="rtl" on <html>
+```
+
+Component SCSS uses **logical properties** (`margin-inline-start`,
+`inset-inline`, `border-start-*`) rather than left/right, so layout mirrors with
+no per-component work.
+
+## Applying the system in a consuming app
+
+```ts
+// 1. tokens as CSS vars + the component styles
+import '@dylan-ds/tokens/css'
+import '@dylan-ds/ui/styles.css'
+```
+
+```ts
+// 2. the Tailwind preset, so utility classes resolve
+import { dylanPreset } from '@dylan-ds/tokens/tailwind-preset'
+export default {
+  presets: [dylanPreset],
+  content: ['./src/**/*.{ts,tsx}', './node_modules/@dylan-ds/ui/dist/**/*.js'],
+}
+```
+
+## Charts follow the theme too
+
+`<Chart>` reads its colours, gridlines and tooltip theme straight from the live
+`--dyl-*` values and re-reads them (via a `MutationObserver` on `<html>`) when
+the mode or schema changes — so a dashboard stays on-brand in every theme with
+no per-chart configuration.
