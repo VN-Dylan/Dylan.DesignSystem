@@ -136,6 +136,14 @@ export const MultipleSelection: Story = {
   },
 }
 
+export const MonthPickerView: Story = {
+  args: { defaultMonth: new Date(2026, 5, 15), defaultView: 'month' },
+}
+
+export const YearPickerView: Story = {
+  args: { defaultMonth: new Date(2026, 5, 15), defaultView: 'year' },
+}
+
 export const CalendarStory: Story = {}
 
 export const RangeCalendarStory: Story = {

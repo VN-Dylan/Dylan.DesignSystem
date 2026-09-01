@@ -85,4 +85,20 @@
       @apply pointer-events-none invisible;
     }
   }
+
+  // Month / year picker grids (header label → date → month → year)
+  &__cell-grid {
+    @apply grid grid-cols-3 gap-1 py-1;
+  }
+
+  &__cell {
+    @apply flex h-12 items-center justify-center rounded-md text-sm text-content
+      transition-colors duration-fast ease-standard;
+    @apply hover:bg-surface-sunken focus-visible:outline-none focus-visible:ring-2
+      focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-surface;
+
+    &[data-selected] {
+      @apply bg-primary text-primary-fg;
+    }
+  }
 }

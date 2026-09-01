@@ -103,6 +103,16 @@ describe('DatePicker', () => {
     expect(ref).toHaveBeenCalledWith(expect.any(HTMLInputElement))
   })
 
+  it('opens straight into the month picker view via defaultView', async () => {
+    render(<DatePicker aria-label="Booking date" defaultMonth={september} defaultView="month" />)
+    await userEvent.click(screen.getByLabelText('Booking date'))
+
+    const dialog = await screen.findByRole('dialog')
+    expect(within(dialog).getByRole('button', { name: '2026' })).toBeInTheDocument()
+    await userEvent.click(within(dialog).getByRole('button', { name: 'Dec' }))
+    expect(within(dialog).getByRole('button', { name: 'December 2026' })).toBeInTheDocument()
+  })
+
   it('has no axe violations', async () => {
     const { baseElement } = render(
       <main>

@@ -11,7 +11,7 @@ Legend: ☐ todo · ◑ in progress · ☑ done · — n/a. Columns: spec · imp
 | `avatar` | ☑ |  |
 | `badge` | ☑ |  |
 | `button` | ☑ |  |
-| `calendar` | ☑ | full month/year picker views + exotic label-format props still stubbed |
+| `calendar` | ☑ | month/year picker views shipped; exotic label-format props still stubbed |
 | `cards` | ☑ |  |
 | `carousel` | ☑ |  |
 | `checkbox` | ☑ |  |
@@ -287,10 +287,22 @@ Done:
   modifier is given, so existing utilities (`bg-primary`, `text-content`, …)
   render byte-for-byte the same colour as before.
 
+- **Calendar/DatePicker month/year picker views.** The header label
+  (`enableHeaderLabel`) now cycles date → month → year; each view is its own
+  12-cell grid (`GRID_SIZE`/`GRID_COLS`) with a roving tab stop + arrow/Home/End
+  nav (`createGridKeyDownHandler`, generalized from the day-grid handler,
+  RTL-aware). Prev/next page by month/year/12-years depending on the active
+  view (`useCalendarNav`, shared by `Calendar` and `RangeCalendar`). Picking a
+  month drops to date view for that month; picking a year drops to month view
+  for that year. Multi-panel (`dateViewCount > 1`) accounts for each panel's
+  month offset when resolving a pick. `defaultView` flows through
+  `DatePicker`/`DatePickerRange`/`DateTimepicker` unchanged. +8 tests.
+  Still stubbed: `labelFormat`/`monthLabelFormat`/`yearLabelFormat`.
+
 ## Follow-ups
 
 - CI-gated visual regression: needs a fixed-render environment (the Playwright
   Docker image, or Chromatic). Today's pixel baselines are Windows-local; CI runs
   the cross-platform smoke variant only.
 - `useAuth` / `useLayout` / `useMenuActive` stay in `apps/showcase` (auth store / layout config / nav tree coupling).
-- Calendar/DatePicker: full month/year picker views + exotic label-format props.
+- Calendar/DatePicker: exotic label-format props (`labelFormat`/`monthLabelFormat`/`yearLabelFormat`).
