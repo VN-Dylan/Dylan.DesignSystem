@@ -4,6 +4,8 @@
 // Consumers must reference semantic CSS custom properties, never these directly.
 // ---------------------------------------------------------------------------
 
+@use 'sass:color';
+
 // Neutral ramp (cool-biased grey — chosen, not defaulted)
 $gray: (
   50: #fafafa,
@@ -41,3 +43,11 @@ $status: (
 
 $white: #ffffff;
 $black: #000000;
+
+// Space-separated R G B channel triplet, for Tailwind's `<alpha-value>` alpha
+// modifier (`bg-primary/40`). The solid hex above stays the source of truth;
+// this is derived from it. See tailwind-preset.ts `withAlpha`.
+@function to-channel($color) {
+  @return #{color.channel($color, 'red', $space: rgb)}
+    #{color.channel($color, 'green', $space: rgb)} #{color.channel($color, 'blue', $space: rgb)};
+}

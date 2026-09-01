@@ -277,12 +277,20 @@ Done:
 - **`Select` moved to `@floating-ui`** — trigger-anchored, portalled, `flip`/`shift`/
   width-match middleware, `useDismiss` replaces the manual document listener.
   Matches the `AutoComplete` pattern.
+- **Token alpha channels.** `primary`/`success`/`error`/`info`/`warning`/`content`/`gray`
+  each gained a `--dyl-*-channel` R G B triplet (`to-channel()` in `_palette.scss`,
+  `emit-map-with-channels`); the Tailwind preset routes those through
+  `rgb(var(...) / <alpha-value>)` (`withAlpha`), so `bg-primary/40` etc. now work.
+  `surface`/`border`/`bg`/`overlay` stay solid-only. Runtime schema switching
+  (`useThemeSchema`) derives the same triplet from its hex so `/NN` doesn't freeze
+  on the default hue after a schema change. `<alpha-value>` defaults to `1` when no
+  modifier is given, so existing utilities (`bg-primary`, `text-content`, …)
+  render byte-for-byte the same colour as before.
 
 ## Follow-ups
 
 - CI-gated visual regression: needs a fixed-render environment (the Playwright
   Docker image, or Chromatic). Today's pixel baselines are Windows-local; CI runs
   the cross-platform smoke variant only.
-- Token alpha channels (`bg-primary/40`).
 - `useAuth` / `useLayout` / `useMenuActive` stay in `apps/showcase` (auth store / layout config / nav tree coupling).
 - Calendar/DatePicker: full month/year picker views + exotic label-format props.

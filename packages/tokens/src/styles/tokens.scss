@@ -20,30 +20,47 @@
   }
 }
 
+// Same, plus a `-channel` R G B triplet per key (see `to-channel` /
+// `withAlpha`) — used for colour maps consumers may want an alpha modifier on.
+@mixin emit-map-with-channels($prefix, $map) {
+  @each $key, $value in $map {
+    --#{$prefix}-#{$key}: #{$value};
+    --#{$prefix}-#{$key}-channel: #{p.to-channel($value)};
+  }
+}
+
 :root {
   color-scheme: light;
 
   // Grey ramp (passthrough — semantic tokens below reference these)
-  @include emit-map('dyl-gray', p.$gray);
+  @include emit-map-with-channels('dyl-gray', p.$gray);
 
-  // Brand
+  // Brand — `-channel` triplets power the Tailwind alpha modifier (`bg-primary/40`)
   --dyl-primary: #{map.get(p.$primary, base)};
+  --dyl-primary-channel: #{p.to-channel(map.get(p.$primary, base))};
   --dyl-primary-deep: #{map.get(p.$primary, deep)};
+  --dyl-primary-deep-channel: #{p.to-channel(map.get(p.$primary, deep))};
   --dyl-primary-mild: #{map.get(p.$primary, mild)};
+  --dyl-primary-mild-channel: #{p.to-channel(map.get(p.$primary, mild))};
   --dyl-primary-subtle: #{map.get(p.$primary, subtle)};
   --dyl-on-primary: #{p.$white};
 
   // Status
   --dyl-success: #{map.get(p.$status, success)};
+  --dyl-success-channel: #{p.to-channel(map.get(p.$status, success))};
   --dyl-success-subtle: #{map.get(p.$status, success-subtle)};
   --dyl-error: #{map.get(p.$status, error)};
+  --dyl-error-channel: #{p.to-channel(map.get(p.$status, error))};
   --dyl-error-subtle: #{map.get(p.$status, error-subtle)};
   --dyl-info: #{map.get(p.$status, info)};
+  --dyl-info-channel: #{p.to-channel(map.get(p.$status, info))};
   --dyl-info-subtle: #{map.get(p.$status, info-subtle)};
   --dyl-warning: #{map.get(p.$status, warning)};
+  --dyl-warning-channel: #{p.to-channel(map.get(p.$status, warning))};
   --dyl-warning-subtle: #{map.get(p.$status, warning-subtle)};
 
-  // Semantic surfaces / text (light)
+  // Semantic surfaces / text (light) — text gets a `-channel` triplet too,
+  // redeclared under `.dark` below since it (unlike primary/status) changes.
   --dyl-bg: #{map.get(p.$gray, 100)};
   --dyl-surface: #{p.$white};
   --dyl-surface-raised: #{p.$white};
@@ -51,8 +68,11 @@
   --dyl-border: #{map.get(p.$gray, 200)};
   --dyl-border-strong: #{map.get(p.$gray, 300)};
   --dyl-text: #{map.get(p.$gray, 900)};
+  --dyl-text-channel: #{p.to-channel(map.get(p.$gray, 900))};
   --dyl-text-muted: #{map.get(p.$gray, 500)};
+  --dyl-text-muted-channel: #{p.to-channel(map.get(p.$gray, 500))};
   --dyl-text-faint: #{map.get(p.$gray, 400)};
+  --dyl-text-faint-channel: #{p.to-channel(map.get(p.$gray, 400))};
   --dyl-text-inverted: #{p.$white};
 
   // Scrim behind modals / drawers
@@ -102,8 +122,11 @@
   --dyl-border: #{map.get(p.$gray, 800)};
   --dyl-border-strong: #{map.get(p.$gray, 700)};
   --dyl-text: #{map.get(p.$gray, 100)};
+  --dyl-text-channel: #{p.to-channel(map.get(p.$gray, 100))};
   --dyl-text-muted: #{map.get(p.$gray, 400)};
+  --dyl-text-muted-channel: #{p.to-channel(map.get(p.$gray, 400))};
   --dyl-text-faint: #{map.get(p.$gray, 500)};
+  --dyl-text-faint-channel: #{p.to-channel(map.get(p.$gray, 500))};
   --dyl-text-inverted: #{map.get(p.$gray, 950)};
 
   --dyl-overlay: rgba(0, 0, 0, 0.6);

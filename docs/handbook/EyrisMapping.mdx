@@ -78,7 +78,7 @@ consuming app's job.
 <Markdown>{`
 | Eyris | Dylan | Note |
 | --- | --- | --- |
-| \`bg-primary/40\` opacity modifier | not supported | Themed colours are \`var(--dyl-*)\`, not channel triples. Use \`primary-subtle\` / \`overlay\` / \`brightness-*\`. \`<alpha-value>\` channel vars are a tracked follow-up. |
+| \`bg-primary/40\` opacity modifier | supported on \`primary\` / \`success\` / \`error\` / \`info\` / \`warning\` / \`content\` / \`gray\` | Those colours ship a \`--dyl-*-channel\` R G B triplet and resolve through \`rgb(var(...) / <alpha-value>)\`. \`surface\` / \`border\` / \`bg\` / \`overlay\` stay solid-only — use \`-subtle\`, \`overlay\`, or \`brightness-*\` there. |
 | brand identity, copy, logo | Dylan's own | The system mirrors the API, not the visual identity. |
 `}</Markdown>
 

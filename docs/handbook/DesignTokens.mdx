@@ -187,9 +187,38 @@ Z-index is a fixed ladder so overlays never fight: `dropdown 1000` · `sticky
 
 ---
 
-## Known limitation — the opacity modifier
+## The opacity modifier
 
-Themed colours resolve to `var(--dyl-*)`, **not** channel triples, so
-`bg-primary/40` does not work. Use a dedicated token (`primary-subtle`,
-`overlay`) or `brightness-*`. Adding `<alpha-value>` channel variables to the
-palette is a tracked follow-up.
+`primary` / `success` / `error` / `info` / `warning` / `content` / `gray` each
+ship a `--dyl-*-channel` R G B triplet alongside the solid hex, so those
+resolve through Tailwind's `rgb(var(...) / <alpha-value>)` pattern and support
+`/NN` (`bg-primary/40`, `text-content/60`, …). `surface` / `border` / `bg` /
+`overlay` stay solid-only — reach for `-subtle`, `overlay`, or `brightness-*`
+there instead.
+
+export const AlphaStrip = () => (
+  <div style={{ display: 'flex', gap: '0.5rem', margin: '1rem 0' }}>
+    {[100, 80, 60, 40, 20].map((pct) => (
+      <div
+        key={pct}
+        style={{
+          flex: 1,
+          height: 56,
+          borderRadius: '0.5rem',
+          display: 'grid',
+          placeItems: 'center',
+          fontSize: '0.75rem',
+          color: 'var(--dyl-on-primary)',
+          background: `rgb(var(--dyl-primary-channel) / ${pct}%)`,
+          boxShadow: 'inset 0 0 0 1px var(--dyl-border)',
+        }}
+      >
+        /{pct}
+      </div>
+    ))}
+  </div>
+)
+
+`bg-primary/100` … `bg-primary/20`, live:
+
+<AlphaStrip />

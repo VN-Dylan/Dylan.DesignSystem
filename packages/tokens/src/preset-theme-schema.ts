@@ -15,6 +15,19 @@ export type ThemeSchemaVariable =
 export type ThemeSchemaValue = Record<ThemeSchemaVariable, string>
 export type ThemeSchema = Record<'light' | 'dark', ThemeSchemaValue>
 
+/**
+ * `#rrggbb` → `"r g b"`, matching the tokens layer's `to-channel()` Sass
+ * function. Feeds the `--dyl-primary*-channel` vars the Tailwind alpha
+ * modifier (`bg-primary/40`) reads — applying a schema at runtime must keep
+ * those in sync with the hex value, or `/NN` freezes on the default hue.
+ */
+const hexToChannel = (hex: string): string => {
+  const match = /^#?([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i.exec(hex)
+  if (!match) return '0 0 0'
+  const [, r, g, b] = match
+  return [r, g, b].map((h) => parseInt(h!, 16)).join(' ')
+}
+
 const build = (primary: string, deep: string, mild: string, subtle: string): ThemeSchema => {
   const value: ThemeSchemaValue = {
     primary,
@@ -42,7 +55,10 @@ export type ThemeSchemaName = keyof typeof presetThemeSchema
 /** Maps a schema value onto the CSS custom properties the tokens layer reads. */
 export const themeSchemaToCssVars = (value: ThemeSchemaValue): Record<string, string> => ({
   '--dyl-primary': value.primary,
+  '--dyl-primary-channel': hexToChannel(value.primary),
   '--dyl-primary-deep': value.primaryDeep,
+  '--dyl-primary-deep-channel': hexToChannel(value.primaryDeep),
   '--dyl-primary-mild': value.primaryMild,
+  '--dyl-primary-mild-channel': hexToChannel(value.primaryMild),
   '--dyl-primary-subtle': value.primarySubtle,
 })

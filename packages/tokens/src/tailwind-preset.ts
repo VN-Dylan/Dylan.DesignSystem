@@ -6,7 +6,16 @@ import type { Config } from 'tailwindcss'
  * Every colour resolves to a CSS custom property declared by
  * `@dylan-ds/tokens/css`, so utilities stay theme-reactive (dark mode +
  * preset schemas) without regenerating CSS.
+ *
+ * A handful of colours (brand, status, body text, grey ramp) additionally
+ * ship a `--dyl-*-channel` R G B triplet, so those go through `withAlpha` —
+ * Tailwind's documented `rgb(var(...) / <alpha-value>)` pattern — and support
+ * the `/NN` opacity modifier (`bg-primary/40`). Colours without a channel
+ * variable (surface, border, bg, overlay) resolve to the plain custom
+ * property and do **not** support an opacity modifier; use the `-subtle`
+ * step, `overlay`, or a `brightness-*` utility instead.
  */
+const withAlpha = (channelVar: string) => `rgb(var(${channelVar}) / <alpha-value>)`
 export const dylanPreset = {
   darkMode: 'class',
   theme: {
@@ -25,34 +34,40 @@ export const dylanPreset = {
           strong: 'var(--dyl-border-strong)',
         },
         content: {
-          DEFAULT: 'var(--dyl-text)',
-          muted: 'var(--dyl-text-muted)',
-          faint: 'var(--dyl-text-faint)',
+          DEFAULT: withAlpha('--dyl-text-channel'),
+          muted: withAlpha('--dyl-text-muted-channel'),
+          faint: withAlpha('--dyl-text-faint-channel'),
           inverted: 'var(--dyl-text-inverted)',
         },
         primary: {
-          DEFAULT: 'var(--dyl-primary)',
-          deep: 'var(--dyl-primary-deep)',
-          mild: 'var(--dyl-primary-mild)',
+          DEFAULT: withAlpha('--dyl-primary-channel'),
+          deep: withAlpha('--dyl-primary-deep-channel'),
+          mild: withAlpha('--dyl-primary-mild-channel'),
           subtle: 'var(--dyl-primary-subtle)',
           fg: 'var(--dyl-on-primary)',
         },
-        success: { DEFAULT: 'var(--dyl-success)', subtle: 'var(--dyl-success-subtle)' },
-        error: { DEFAULT: 'var(--dyl-error)', subtle: 'var(--dyl-error-subtle)' },
-        info: { DEFAULT: 'var(--dyl-info)', subtle: 'var(--dyl-info-subtle)' },
-        warning: { DEFAULT: 'var(--dyl-warning)', subtle: 'var(--dyl-warning-subtle)' },
+        success: {
+          DEFAULT: withAlpha('--dyl-success-channel'),
+          subtle: 'var(--dyl-success-subtle)',
+        },
+        error: { DEFAULT: withAlpha('--dyl-error-channel'), subtle: 'var(--dyl-error-subtle)' },
+        info: { DEFAULT: withAlpha('--dyl-info-channel'), subtle: 'var(--dyl-info-subtle)' },
+        warning: {
+          DEFAULT: withAlpha('--dyl-warning-channel'),
+          subtle: 'var(--dyl-warning-subtle)',
+        },
         gray: {
-          50: 'var(--dyl-gray-50)',
-          100: 'var(--dyl-gray-100)',
-          200: 'var(--dyl-gray-200)',
-          300: 'var(--dyl-gray-300)',
-          400: 'var(--dyl-gray-400)',
-          500: 'var(--dyl-gray-500)',
-          600: 'var(--dyl-gray-600)',
-          700: 'var(--dyl-gray-700)',
-          800: 'var(--dyl-gray-800)',
-          900: 'var(--dyl-gray-900)',
-          950: 'var(--dyl-gray-950)',
+          50: withAlpha('--dyl-gray-50-channel'),
+          100: withAlpha('--dyl-gray-100-channel'),
+          200: withAlpha('--dyl-gray-200-channel'),
+          300: withAlpha('--dyl-gray-300-channel'),
+          400: withAlpha('--dyl-gray-400-channel'),
+          500: withAlpha('--dyl-gray-500-channel'),
+          600: withAlpha('--dyl-gray-600-channel'),
+          700: withAlpha('--dyl-gray-700-channel'),
+          800: withAlpha('--dyl-gray-800-channel'),
+          900: withAlpha('--dyl-gray-900-channel'),
+          950: withAlpha('--dyl-gray-950-channel'),
         },
       },
       borderRadius: {
