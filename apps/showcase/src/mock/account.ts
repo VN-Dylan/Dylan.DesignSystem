@@ -2,15 +2,15 @@
  * Mock data for the `accounts` showcase area. Static and deterministic.
  */
 
+import { person, personFields } from './team'
+
 export const profile = {
-  name: 'Dylan Carter',
-  title: 'Engineering Lead',
-  email: 'dylan@dylan-ds.dev',
+  ...personFields('dylan-carter'),
+  title: person('dylan-carter').title,
   phone: '+1 202 555 0142',
   timezone: 'America/New_York',
   language: 'English (US)',
   location: 'Remote — US East',
-  avatar: 'https://i.pravatar.cc/160?img=12',
   bio: 'Building the Dylan Design System. Interested in tokens, accessibility and making component APIs boring in the best way.',
 }
 
@@ -311,54 +311,42 @@ export interface TeamMember {
 export const teamMembers: TeamMember[] = [
   {
     id: 'u-01',
-    name: 'Dylan Carter',
-    email: 'dylan@dylan-ds.dev',
-    avatar: 'https://i.pravatar.cc/96?img=12',
+    ...personFields('dylan-carter'),
     role: 'Owner',
     status: 'active',
     lastActive: '2026-08-31T08:41:00Z',
   },
   {
     id: 'u-02',
-    name: 'Emma Novak',
-    email: 'emma@dylan-ds.dev',
-    avatar: 'https://i.pravatar.cc/96?img=24',
+    ...personFields('emma-novak'),
     role: 'Admin',
     status: 'active',
     lastActive: '2026-08-31T07:55:00Z',
   },
   {
     id: 'u-03',
-    name: 'Aisha Rahman',
-    email: 'aisha@dylan-ds.dev',
-    avatar: 'https://i.pravatar.cc/96?img=45',
+    ...personFields('aisha-rahman'),
     role: 'Member',
     status: 'active',
     lastActive: '2026-08-30T18:22:00Z',
   },
   {
     id: 'u-04',
-    name: 'Ben Ortiz',
-    email: 'ben@dylan-ds.dev',
-    avatar: 'https://i.pravatar.cc/96?img=15',
+    ...personFields('ben-ortiz'),
     role: 'Member',
     status: 'active',
     lastActive: '2026-08-30T21:40:00Z',
   },
   {
     id: 'u-05',
-    name: 'Henrik Alván',
-    email: 'henrik@dylan-ds.dev',
-    avatar: 'https://i.pravatar.cc/96?img=52',
+    ...personFields('henrik-alvan'),
     role: 'Billing',
     status: 'active',
     lastActive: '2026-08-29T09:12:00Z',
   },
   {
     id: 'u-06',
-    name: 'Grace Mensah',
-    email: 'grace@dylan-ds.dev',
-    avatar: 'https://i.pravatar.cc/96?img=20',
+    ...personFields('grace-mensah'),
     role: 'Support',
     status: 'invited',
     lastActive: '—',

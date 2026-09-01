@@ -34,7 +34,7 @@ const priorityOptions: SelectOption[] = [
   { label: 'High', value: 'high' },
   { label: 'Urgent', value: 'urgent' },
 ]
-const defaultPageSize = 10
+const defaultPageSize = 8
 
 const compareTasks = (sort: DataTableSort) => (a: Task, b: Task) => {
   const direction = sort.order === 'desc' ? -1 : 1
@@ -233,7 +233,7 @@ export function ProjectTasksView() {
             columns={columns}
             data={pageRows}
             pagingData={{ pageIndex, pageSize, total: sortedTasks.length }}
-            pageSizeOptions={[10, 20, 30]}
+            pageSizeOptions={[8, 16, 24]}
             onPaginationChange={setPageIndex}
             onPageSizeChange={setPageSize}
             onSort={handleSort}

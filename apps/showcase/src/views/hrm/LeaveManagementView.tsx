@@ -88,7 +88,7 @@ export function LeaveManagementView() {
         id: 'dates',
         header: 'Dates',
         enableSorting: false,
-        cell: ({ row }) => `${fmtDate(row.original.from)} -> ${fmtDate(row.original.to)}`,
+        cell: ({ row }) => `${fmtDate(row.original.from)} – ${fmtDate(row.original.to)}`,
       },
       {
         accessorKey: 'days',

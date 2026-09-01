@@ -81,7 +81,7 @@ export function ProjectTimelineView() {
             <div className="min-w-0">
               <p className="font-medium text-content">{milestone.name}</p>
               <p className="text-sm text-content-muted">
-                {formatDate(milestone.start)} - {formatDate(milestone.end)}
+                {formatDate(milestone.start)} – {formatDate(milestone.end)}
               </p>
             </div>
             <p className="text-sm text-content-muted">{milestone.progress}% complete</p>

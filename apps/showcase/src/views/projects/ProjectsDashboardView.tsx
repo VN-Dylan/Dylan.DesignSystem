@@ -58,7 +58,6 @@ export function ProjectsDashboardView() {
           label="Hours logged"
           value={projectKpis.hoursLogged.toLocaleString('en-US')}
           delta={9.4}
-          spark={projectKpis.velocity}
           icon={<Icon as={TbIcons.TbClock} size={18} />}
         />
       </div>

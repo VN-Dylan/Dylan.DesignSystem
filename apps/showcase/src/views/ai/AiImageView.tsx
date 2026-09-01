@@ -119,7 +119,7 @@ export function AiImageView() {
                 <span>Ratio {image.ratio}</span>
                 <span>Seed {image.seed}</span>
                 <span className="col-span-2">
-                  {image.createdBy} - {fmtDate(image.createdAt)}
+                  {image.createdBy} · {fmtDate(image.createdAt)}
                 </span>
               </div>
             </div>

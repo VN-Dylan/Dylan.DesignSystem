@@ -9,6 +9,37 @@ import { useAuth } from '@/utils/hooks/useAuth'
 const CANNED_REPLY =
   'This is a mock assistant — no model is called. In the real app your prompt would stream back here. Try one of the suggested prompts to see a longer example.'
 
+/** Render the light markdown used in canned replies: `**bold**` and `- ` bullets. */
+function ChatText({ text }: { text: string }) {
+  const renderInline = (line: string) =>
+    line.split(/(\*\*[^*]+\*\*)/g).map((segment, index) =>
+      segment.startsWith('**') && segment.endsWith('**') ? (
+        <strong key={index} className="font-semibold">
+          {segment.slice(2, -2)}
+        </strong>
+      ) : (
+        <span key={index}>{segment}</span>
+      ),
+    )
+
+  return (
+    <div className="space-y-1.5">
+      {text.split('\n').map((line, index) => {
+        if (line.trim() === '') return <div key={index} className="h-1" aria-hidden />
+        if (line.startsWith('- ')) {
+          return (
+            <p key={index} className="flex gap-2">
+              <span aria-hidden>•</span>
+              <span>{renderInline(line.slice(2))}</span>
+            </p>
+          )
+        }
+        return <p key={index}>{renderInline(line)}</p>
+      })}
+    </div>
+  )
+}
+
 /**
  * AI chat workspace — the reference screen for the ai area: a conversation
  * list, a message thread and a composer. Replies are canned.
@@ -92,13 +123,13 @@ export function AiChatView() {
                   <Avatar size="sm" shape="circle" src={user?.avatar} alt={user?.name} />
                 )}
                 <div
-                  className={`max-w-[80%] whitespace-pre-wrap rounded-lg px-3 py-2 text-sm ${
+                  className={`max-w-[80%] rounded-lg px-3 py-2 text-sm ${
                     m.role === 'user'
                       ? 'bg-primary text-primary-fg'
                       : 'bg-surface-sunken text-content'
                   }`}
                 >
-                  {m.content}
+                  <ChatText text={m.content} />
                 </div>
               </div>
             ))}

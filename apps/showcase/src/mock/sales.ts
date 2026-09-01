@@ -28,11 +28,24 @@ export interface Order {
   customer: string
   email: string
   date: string
-  total: number
   status: 'paid' | 'pending' | 'refunded' | 'cancelled'
   payment: 'card' | 'paypal' | 'transfer'
   items: OrderItem[]
 }
+
+/** Sales tax applied to every order, as a fraction of the line-item subtotal. */
+export const TAX_RATE = 0.1
+
+/** Line-item subtotal, before tax. */
+export const orderSubtotal = (order: Order) =>
+  order.items.reduce((sum, item) => sum + item.price * item.qty, 0)
+
+/** Tax charged on an order, rounded to whole currency units. */
+export const orderTax = (order: Order) => Math.round(orderSubtotal(order) * TAX_RATE)
+
+/** Grand total an order is billed at — subtotal + tax. Single source of truth
+ * for every screen that shows an order "total". */
+export const orderTotal = (order: Order) => orderSubtotal(order) + orderTax(order)
 
 export const products: Product[] = [
   {
@@ -176,7 +189,6 @@ export const orders: Order[] = [
     customer: 'Mara Whitfield',
     email: 'mara@example.com',
     date: '2026-08-28',
-    total: 666,
     status: 'paid',
     payment: 'card',
     items: [
@@ -192,7 +204,6 @@ export const orders: Order[] = [
     customer: 'Devin Alvarez',
     email: 'devin@example.com',
     date: '2026-08-28',
-    total: 249,
     status: 'pending',
     payment: 'paypal',
     items: [{ productId: 'p-03', name: 'Nimbus ANC Headphones', qty: 1, price: 249 }],
@@ -203,7 +214,6 @@ export const orders: Order[] = [
     customer: 'Priya Nair',
     email: 'priya@example.com',
     date: '2026-08-27',
-    total: 334,
     status: 'paid',
     payment: 'card',
     items: [
@@ -218,7 +228,6 @@ export const orders: Order[] = [
     customer: 'Sam Okafor',
     email: 'sam@example.com',
     date: '2026-08-27',
-    total: 189,
     status: 'refunded',
     payment: 'transfer',
     items: [{ productId: 'p-08', name: 'Carry Weekender Duffel', qty: 1, price: 189 }],
@@ -229,7 +238,6 @@ export const orders: Order[] = [
     customer: 'Elise Fontaine',
     email: 'elise@example.com',
     date: '2026-08-26',
-    total: 936,
     status: 'paid',
     payment: 'card',
     items: [{ productId: 'p-11', name: 'Aurora Chrono Watch — Gold', qty: 2, price: 468 }],
@@ -240,7 +248,6 @@ export const orders: Order[] = [
     customer: 'Tobias Lindqvist',
     email: 'tobias@example.com',
     date: '2026-08-26',
-    total: 78,
     status: 'cancelled',
     payment: 'paypal',
     items: [
@@ -254,7 +261,6 @@ export const orders: Order[] = [
     customer: 'Hannah Cole',
     email: 'hannah@example.com',
     date: '2026-08-25',
-    total: 447,
     status: 'paid',
     payment: 'card',
     items: [{ productId: 'p-04', name: 'Echo Buds Pro', qty: 3, price: 149 }],
@@ -265,7 +271,6 @@ export const orders: Order[] = [
     customer: 'Marco Bianchi',
     email: 'marco@example.com',
     date: '2026-08-25',
-    total: 205,
     status: 'pending',
     payment: 'transfer',
     items: [{ productId: 'p-12', name: 'Legacy Field Watch', qty: 1, price: 205 }],
@@ -276,7 +281,6 @@ export const orders: Order[] = [
     customer: 'Yuki Tanaka',
     email: 'yuki@example.com',
     date: '2026-08-24',
-    total: 1245,
     status: 'paid',
     payment: 'card',
     items: [{ productId: 'p-03', name: 'Nimbus ANC Headphones', qty: 5, price: 249 }],
@@ -284,10 +288,9 @@ export const orders: Order[] = [
   {
     id: 'o-1010',
     ref: '#NT-1010',
-    customer: 'Grace Mensah',
-    email: 'grace@example.com',
+    customer: 'Kwame Boateng',
+    email: 'kwame@example.com',
     date: '2026-08-24',
-    total: 164,
     status: 'paid',
     payment: 'paypal',
     items: [

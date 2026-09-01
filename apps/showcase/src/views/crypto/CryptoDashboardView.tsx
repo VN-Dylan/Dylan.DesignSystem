@@ -5,7 +5,14 @@ import { formatCurrency } from '@dylan-ds/utils'
 import { PageHeader } from '@/components/shared/PageHeader'
 import { KpiCard } from '@/components/shared/KpiCard'
 import { ChartCard } from '@/components/shared/ChartCard'
-import { allocation, coins, portfolioKpis, recentTrades, usersByRegion } from '@/mock/crypto'
+import {
+  allocation,
+  coins,
+  portfolioKpis,
+  portfolioValue,
+  recentTrades,
+  usersByRegion,
+} from '@/mock/crypto'
 import { formatCompactUsd, formatPrice } from './cryptoConstants'
 
 /**
@@ -28,9 +35,8 @@ export function CryptoDashboardView() {
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <KpiCard
           label="Portfolio value"
-          value={formatCurrency(portfolioKpis.totalValue.value)}
+          value={formatCurrency(portfolioValue)}
           delta={portfolioKpis.totalValue.delta}
-          spark={portfolioKpis.totalValue.spark}
           icon={<Icon as={TbIcons.TbWallet} size={18} />}
         />
         <KpiCard
@@ -41,12 +47,14 @@ export function CryptoDashboardView() {
         />
         <KpiCard
           label="Best performer"
-          value={portfolioKpis.bestPerformer}
+          value={portfolioKpis.bestPerformer.symbol}
+          delta={portfolioKpis.bestPerformer.delta}
           icon={<Icon as={TbIcons.TbArrowUpRight} size={18} />}
         />
         <KpiCard
           label="Worst performer"
-          value={portfolioKpis.worstPerformer}
+          value={portfolioKpis.worstPerformer.symbol}
+          delta={portfolioKpis.worstPerformer.delta}
           icon={<Icon as={TbIcons.TbArrowDownRight} size={18} />}
         />
       </div>

@@ -6,7 +6,7 @@ import { Icon, TbIcons } from '@dylan-ds/icons'
 import { formatCurrency, formatRelativeTime } from '@dylan-ds/utils'
 import { PageHeader } from '@/components/shared/PageHeader'
 import { StatusTag } from '@/components/shared/StatusTag'
-import { orders, type Order } from '@/mock/sales'
+import { orders, orderTotal, type Order } from '@/mock/sales'
 import {
   formatPayment,
   orderStatusOptions,
@@ -23,7 +23,7 @@ const pageSize = 8
 const compareOrders = (sort: DataTableSort) => (a: Order, b: Order) => {
   const direction = sort.order === 'desc' ? -1 : 1
   if (sort.key === 'date') return a.date.localeCompare(b.date) * direction
-  if (sort.key === 'total') return (a.total - b.total) * direction
+  if (sort.key === 'total') return (orderTotal(a) - orderTotal(b)) * direction
   return 0
 }
 
@@ -94,9 +94,10 @@ export function OrderListView() {
         cell: ({ row }) => row.original.items.length,
       },
       {
-        accessorKey: 'total',
+        id: 'total',
+        accessorFn: (order) => orderTotal(order),
         header: 'Total',
-        cell: ({ row }) => formatCurrency(row.original.total),
+        cell: ({ row }) => formatCurrency(orderTotal(row.original)),
       },
       {
         accessorKey: 'payment',

@@ -118,8 +118,8 @@ export const getCoin = (symbol: string) =>
 export const portfolioKpis = {
   totalValue: { value: 128_940, delta: 4.6, spark: [118, 121, 119, 124, 126, 125, 129] },
   pnl24h: { value: 3_210, delta: 2.55 },
-  bestPerformer: 'DOGE',
-  worstPerformer: 'XRP',
+  bestPerformer: { symbol: 'DOGE', delta: 12.4 },
+  worstPerformer: { symbol: 'XRP', delta: -7.8 },
 }
 
 export interface Holding {
@@ -135,12 +135,21 @@ export const holdings: Holding[] = [
   { symbol: 'DOGE', amount: 45_000, costBasis: 0.08 },
 ]
 
-export const allocation = [
-  { label: 'BTC', value: 66 },
-  { label: 'ETH', value: 24 },
-  { label: 'SOL', value: 7 },
-  { label: 'DOGE', value: 3 },
-]
+/** Current market value of a holding — single source of truth for every
+ * portfolio figure (dashboard KPI + assets screen). */
+export const holdingValue = (holding: Holding) =>
+  holding.amount * (getCoin(holding.symbol)?.price ?? 0)
+
+export const portfolioValue = holdings.reduce((sum, holding) => sum + holdingValue(holding), 0)
+export const portfolioCost = holdings.reduce(
+  (sum, holding) => sum + holding.amount * holding.costBasis,
+  0,
+)
+export const portfolioPnl = portfolioValue - portfolioCost
+
+export const allocation = holdings
+  .map((holding) => ({ label: holding.symbol, value: Math.round(holdingValue(holding)) }))
+  .sort((a, b) => b.value - a.value)
 
 export interface Trade {
   id: string

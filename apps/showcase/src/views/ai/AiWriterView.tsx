@@ -26,7 +26,7 @@ export function AiWriterView() {
 
   useEffect(() => {
     setTitle(activeDraft.title)
-    setText([activeDraft.excerpt, activeDraft.excerpt, activeDraft.excerpt].join('\n\n'))
+    setText(activeDraft.body)
   }, [activeDraft])
 
   const wordCount = useMemo(() => text.trim().split(/\s+/).filter(Boolean).length, [text])
@@ -43,12 +43,15 @@ export function AiWriterView() {
           <ul className="space-y-1">
             {drafts.map((draft) => (
               <li key={draft.id}>
-                <Button
-                  block
-                  variant={draft.id === activeId ? 'subtle' : 'plain'}
+                <button
+                  type="button"
                   onClick={() => setActiveId(draft.id)}
                   aria-current={draft.id === activeId}
-                  className="h-auto justify-start px-3 py-2 text-left [&_.dyl-btn__label]:w-full [&_.dyl-btn__label]:overflow-visible [&_.dyl-btn__label]:text-clip [&_.dyl-btn__label]:whitespace-normal"
+                  className={`w-full rounded-md px-3 py-2 text-left transition ${
+                    draft.id === activeId
+                      ? 'bg-primary-subtle text-primary'
+                      : 'text-content-muted hover:bg-surface-sunken'
+                  }`}
                 >
                   <span className="block truncate text-sm font-medium">{draft.title}</span>
                   <span className="mt-1 flex flex-wrap items-center gap-2 text-xs">
@@ -58,7 +61,7 @@ export function AiWriterView() {
                   <span className="mt-1 block text-xs text-content-faint">
                     {fmtDate(draft.updated)}
                   </span>
-                </Button>
+                </button>
               </li>
             ))}
           </ul>
@@ -101,7 +104,7 @@ export function AiWriterView() {
           />
           <div className="flex flex-wrap items-center justify-between gap-3 text-sm text-content-muted">
             <span>
-              {wordCount} words - {tone.value} tone
+              {wordCount} words · {tone.value} tone
             </span>
             <Button variant="solid" icon={<Icon as={TbIcons.TbDeviceFloppy} size={16} />}>
               Save draft

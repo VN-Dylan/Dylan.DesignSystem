@@ -211,9 +211,19 @@ export const subscriptions: Subscription[] = [
   },
 ]
 
+/** Accounts currently billing — the basis for every MRR / account figure. */
+export const activeSubscriptions = subscriptions.filter(
+  (subscription) => subscription.status === 'active',
+)
+export const totalMrr = activeSubscriptions.reduce((sum, subscription) => sum + subscription.mrr, 0)
+export const activeAccountCount = activeSubscriptions.length
+/** Average revenue per active account. */
+export const arpu = activeAccountCount ? Math.round(totalMrr / activeAccountCount) : 0
+
+/** Period-over-period deltas + metrics that aren't derivable from the account list. */
 export const subscriptionKpis = {
-  mrr: { value: 21_338, delta: 6.7 },
-  activeAccounts: { value: 8, delta: 2 },
+  mrrDelta: 6.7,
+  activeAccountsDelta: 2,
   churnRate: { value: 2.4, delta: -0.3 },
   netRevenueRetention: { value: 112, delta: 3 },
 }

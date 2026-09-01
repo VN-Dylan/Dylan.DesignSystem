@@ -74,7 +74,7 @@ export function ReferralsView() {
                 </Table.Td>
                 <Table.Td>
                   <StatusTag tone={refereeStatusTone[referee.status]}>
-                    {referee.status === 'signed-up' ? 'signed up' : referee.status}
+                    {referee.status === 'signed-up' ? 'Signed up' : referee.status}
                   </StatusTag>
                 </Table.Td>
                 <Table.Td>{formatCurrency(referee.reward)}</Table.Td>

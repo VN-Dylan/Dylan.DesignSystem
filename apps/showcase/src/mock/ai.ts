@@ -153,6 +153,8 @@ export interface Draft {
   words: number
   updated: string
   excerpt: string
+  /** Full draft body, paragraphs separated by blank lines. */
+  body: string
 }
 
 export const drafts: Draft[] = [
@@ -164,6 +166,11 @@ export const drafts: Draft[] = [
     updated: '2026-08-31',
     excerpt:
       'After six phases of work, the Dylan Design System reaches its first internal milestone…',
+    body: [
+      'After six phases of work, the Dylan Design System reaches its first internal milestone: 84 components, 32 utilities and a runtime theming layer, all rebuilt from the ground up with no external UI-kit dependency.',
+      'Every primitive ships with types, tests, a Storybook page and an autodoc entry. Light, dark and RTL are designed together — a change that only works in one mode is treated as unfinished.',
+      'Next up is the handbook and a QA hardening pass. Feedback on the component API and the token names is welcome in #design-system before we cut the first tagged release.',
+    ].join('\n\n'),
   },
   {
     id: 'd-02',
@@ -172,6 +179,11 @@ export const drafts: Draft[] = [
     words: 320,
     updated: '2026-08-28',
     excerpt: 'This quarter we shipped runtime theming, a full component library and…',
+    body: [
+      'This quarter we shipped runtime theming with eight preset colour schemas, a full component library and a showcase app that rebuilds every example screen on the new system.',
+      'Data tables now support server-driven paging and sorting, and charts pick their colours and grid straight from the design tokens so they stay on-brand in every theme.',
+      'As always, reply to this email with anything you would like to see next — we read every response.',
+    ].join('\n\n'),
   },
   {
     id: 'd-03',
@@ -180,6 +192,11 @@ export const drafts: Draft[] = [
     words: 910,
     updated: '2026-08-22',
     excerpt: 'Every component follows the RECIPE. Start by reading the golden five…',
+    body: [
+      'Every component follows the RECIPE. Start by reading the golden five — Button, Input, Card, Dialog and Table — to see the file layout, the SCSS conventions and how state flows through context.',
+      'Create the component directory with the standard file set: the component, its types, tests, a story and an autodoc page. Tests end with an axe assertion; stories cover every variant and size.',
+      'Open a changeset with your PR. All @dylan-ds/* packages version in lockstep, so even a docs-only change needs a patch entry.',
+    ].join('\n\n'),
   },
 ]
 

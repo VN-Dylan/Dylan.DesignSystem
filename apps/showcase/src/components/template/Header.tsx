@@ -10,7 +10,7 @@ export function Header() {
   const setConfigOpen = useThemeStore((s) => s.setConfigOpen)
 
   return (
-    <header className="sticky top-0 z-sticky flex h-16 items-center gap-2 border-b border-border bg-surface/95 px-4 backdrop-blur">
+    <header className="sticky top-0 z-sticky flex h-16 items-center gap-2 border-b border-border bg-surface px-4">
       <Button
         size="sm"
         shape="circle"

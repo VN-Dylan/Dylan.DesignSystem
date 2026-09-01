@@ -4,7 +4,7 @@ import { Icon, TbIcons } from '@dylan-ds/icons'
 import { formatCurrency, formatRelativeTime } from '@dylan-ds/utils'
 import { PageHeader } from '@/components/shared/PageHeader'
 import { StatusTag } from '@/components/shared/StatusTag'
-import { getOrder } from '@/mock/sales'
+import { getOrder, orderSubtotal, orderTax, orderTotal } from '@/mock/sales'
 import { formatPayment, orderStatusTone } from './salesConstants'
 
 /** Sales order detail screen with line items, customer, payment and timeline cards. */
@@ -29,9 +29,9 @@ export function OrderDetailView() {
     )
   }
 
-  const subtotal = order.items.reduce((sum, item) => sum + item.price * item.qty, 0)
-  const tax = subtotal * 0.1
-  const total = subtotal + tax
+  const subtotal = orderSubtotal(order)
+  const tax = orderTax(order)
+  const total = orderTotal(order)
 
   return (
     <div className="space-y-6">

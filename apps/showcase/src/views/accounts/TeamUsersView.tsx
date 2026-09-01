@@ -18,7 +18,7 @@ const roleOptions: SelectOption[] = [
   { label: 'Billing', value: 'Billing' },
 ]
 const inviteRoleOptions = roleOptions.filter((option) => option.value !== 'all')
-const pageSize = 6
+const pageSize = 8
 
 const formatLastActive = (value: string) =>
   value === '\u2014' ? '\u2014' : formatRelativeTime(value)
@@ -164,7 +164,7 @@ export function TeamUsersView() {
           columns={columns}
           data={pageRows}
           pagingData={{ pageIndex, pageSize, total: sortedMembers.length }}
-          pageSizeOptions={[6, 12, 18]}
+          pageSizeOptions={[8, 16, 24]}
           onPaginationChange={setPageIndex}
           onSort={handleSort}
           emptyMessage="No team members match the current filters."

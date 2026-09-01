@@ -67,7 +67,7 @@ export function AnnouncementsView() {
                 <p className="mt-1 text-sm leading-6 text-content-muted">{announcement.body}</p>
               </div>
               <p className="text-xs text-content-faint">
-                {announcement.author} - {formatRelativeTime(announcement.date)}
+                {announcement.author} · {formatRelativeTime(announcement.date)}
               </p>
             </Card>
           ))}

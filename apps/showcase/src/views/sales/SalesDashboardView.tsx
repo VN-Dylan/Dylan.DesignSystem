@@ -6,7 +6,14 @@ import { PageHeader } from '@/components/shared/PageHeader'
 import { KpiCard } from '@/components/shared/KpiCard'
 import { ChartCard } from '@/components/shared/ChartCard'
 import { StatusTag } from '@/components/shared/StatusTag'
-import { recentOrders, revenueByMonth, salesByCategory, salesKpis, topProducts } from '@/mock/sales'
+import {
+  orderTotal,
+  recentOrders,
+  revenueByMonth,
+  salesByCategory,
+  salesKpis,
+  topProducts,
+} from '@/mock/sales'
 
 const ORDER_TONE = {
   paid: 'success',
@@ -165,7 +172,7 @@ export function SalesDashboardView() {
                 >
                   <Table.Td>{o.ref}</Table.Td>
                   <Table.Td>{o.customer}</Table.Td>
-                  <Table.Td>{formatCurrency(o.total)}</Table.Td>
+                  <Table.Td>{formatCurrency(orderTotal(o))}</Table.Td>
                   <Table.Td>
                     <StatusTag tone={ORDER_TONE[o.status]}>{o.status}</StatusTag>
                   </Table.Td>

@@ -49,7 +49,13 @@ export function PayrollView() {
         height={280}
         categories={chartRuns.map((run) => run.period)}
         series={[{ name: 'Net pay', data: chartRuns.map((run) => run.net) }]}
-        options={{ plotOptions: { bar: { borderRadius: 4, columnWidth: '45%' } } }}
+        options={{
+          plotOptions: { bar: { borderRadius: 4, columnWidth: '40%' } },
+          yaxis: {
+            labels: { formatter: (value: number) => `$${Math.round(value / 1000)}k` },
+          },
+          tooltip: { y: { formatter: (value: number) => formatCurrency(value) } },
+        }}
       />
 
       <Card bordered header={{ content: 'Payroll runs', bordered: true }} bodyClass="p-0">

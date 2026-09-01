@@ -5,7 +5,7 @@ import { formatCurrency, formatNumber } from '@dylan-ds/utils'
 import { PageHeader } from '@/components/shared/PageHeader'
 import { KpiCard } from '@/components/shared/KpiCard'
 import { ChartCard } from '@/components/shared/ChartCard'
-import { getCoin, holdings } from '@/mock/crypto'
+import { getCoin, holdings, portfolioCost, portfolioPnl, portfolioValue } from '@/mock/crypto'
 import { formatPrice } from './cryptoConstants'
 
 /** Crypto asset holdings screen with allocation, value and unrealised P&L. */
@@ -24,9 +24,9 @@ export function AssetsView() {
         .filter((holding) => holding.coin != null),
     [],
   )
-  const totalValue = holdingRows.reduce((sum, holding) => sum + holding.value, 0)
-  const totalCost = holdingRows.reduce((sum, holding) => sum + holding.cost, 0)
-  const pnl = totalValue - totalCost
+  const totalValue = portfolioValue
+  const totalCost = portfolioCost
+  const pnl = portfolioPnl
   const pnlPercent = totalCost > 0 ? (pnl / totalCost) * 100 : 0
 
   return (

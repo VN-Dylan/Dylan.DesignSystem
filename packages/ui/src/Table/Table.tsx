@@ -1,5 +1,6 @@
 import { forwardRef } from 'react'
 import { classNames } from '@dylan-ds/utils'
+import { Icon, TbIcons } from '@dylan-ds/icons'
 import type {
   TableCellProps,
   TableHeadCellProps,
@@ -50,13 +51,21 @@ const Th = forwardRef<HTMLTableCellElement, TableHeadCellProps>(function Th(
       {sortable ? (
         <button type="button" className="dyl-table__sorter" onClick={onSort}>
           <span>{children}</span>
-          <span
-            className="dyl-table__sorter-icon"
-            data-direction={sortDirection || 'none'}
+          <Icon
+            as={
+              sortDirection === 'asc'
+                ? TbIcons.TbArrowUp
+                : sortDirection === 'desc'
+                  ? TbIcons.TbArrowDown
+                  : TbIcons.TbArrowsSort
+            }
+            size={14}
+            className={classNames(
+              'dyl-table__sorter-icon',
+              sortDirection && 'dyl-table__sorter-icon--active',
+            )}
             aria-hidden
-          >
-            ▲▼
-          </span>
+          />
         </button>
       ) : (
         children

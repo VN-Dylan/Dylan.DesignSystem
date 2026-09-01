@@ -15,7 +15,7 @@ const features = [
     body: 'Light / dark / RTL and 8 preset colour schemas, all driven by CSS variables.',
   },
   {
-    icon: TbIcons.TbToolsKitchen2,
+    icon: TbIcons.TbTools,
     title: '32 utilities',
     body: 'Framework hooks and formatting helpers ported from the Eyris utility surface.',
   },

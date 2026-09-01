@@ -6,7 +6,13 @@ import { formatCurrency, formatNumber } from '@dylan-ds/utils'
 import { PageHeader } from '@/components/shared/PageHeader'
 import { KpiCard } from '@/components/shared/KpiCard'
 import { StatusTag } from '@/components/shared/StatusTag'
-import { subscriptionKpis, subscriptions, type Subscription } from '@/mock/analytics'
+import {
+  activeAccountCount,
+  subscriptionKpis,
+  subscriptions,
+  totalMrr,
+  type Subscription,
+} from '@/mock/analytics'
 import { planTone, subscriptionStatusLabel, subscriptionStatusTone } from './analyticsConstants'
 
 const allPlanOption = { label: 'All plans', value: 'all' }
@@ -144,14 +150,14 @@ export function SubscriptionsView() {
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <KpiCard
           label="MRR"
-          value={formatCurrency(subscriptionKpis.mrr.value)}
-          delta={subscriptionKpis.mrr.delta}
+          value={formatCurrency(totalMrr)}
+          delta={subscriptionKpis.mrrDelta}
           icon={<Icon as={TbIcons.TbCurrencyDollar} size={18} />}
         />
         <KpiCard
           label="Active accounts"
-          value={subscriptionKpis.activeAccounts.value}
-          delta={subscriptionKpis.activeAccounts.delta}
+          value={activeAccountCount}
+          delta={subscriptionKpis.activeAccountsDelta}
           icon={<Icon as={TbIcons.TbBuildingStore} size={18} />}
         />
         <KpiCard

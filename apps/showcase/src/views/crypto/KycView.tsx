@@ -1,4 +1,4 @@
-import { Button, Card, Input, Steps, Table } from '@dylan-ds/ui'
+import { Button, Card, Input, Steps, Table, Upload } from '@dylan-ds/ui'
 import { Icon, TbIcons } from '@dylan-ds/icons'
 import { PageHeader } from '@/components/shared/PageHeader'
 import { StatusTag } from '@/components/shared/StatusTag'
@@ -52,9 +52,14 @@ export function KycView() {
               <StatusTag tone={kycStatusTone[step.status]}>{kycStatusLabel[step.status]}</StatusTag>
             </div>
             {step.status === 'active' && (
-              <div className="grid gap-3 xl:grid-cols-[minmax(12rem,1fr)_minmax(12rem,1fr)_auto]">
+              <div className="grid items-start gap-3 xl:grid-cols-[minmax(12rem,1fr)_minmax(12rem,1fr)_auto]">
                 <Input placeholder="Document reference" aria-label="Document reference" />
-                <Input type="file" aria-label="Upload proof" />
+                <Upload
+                  multiple={false}
+                  uploadLimit={1}
+                  accept="image/*,.pdf"
+                  tip="PNG, JPG or PDF up to 5MB."
+                />
                 <Button variant="solid" icon={<Icon as={TbIcons.TbUpload} size={16} />}>
                   Submit
                 </Button>

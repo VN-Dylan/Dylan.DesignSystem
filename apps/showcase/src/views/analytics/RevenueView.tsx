@@ -6,10 +6,18 @@ import { PageHeader } from '@/components/shared/PageHeader'
 import { KpiCard } from '@/components/shared/KpiCard'
 import { ChartCard } from '@/components/shared/ChartCard'
 import { StatusTag } from '@/components/shared/StatusTag'
-import { analyticsKpis, months, revenueSeries, subscriptions, type Plan } from '@/mock/analytics'
+import {
+  activeAccountCount,
+  arpu,
+  months,
+  revenueSeries,
+  subscriptions,
+  totalMrr,
+  type Plan,
+} from '@/mock/analytics'
 import { planTone, subscriptionStatusLabel, subscriptionStatusTone } from './analyticsConstants'
 
-const formatKCurrency = (value: number) => `$${value}k`
+const formatKCurrency = (value: number) => `$${value.toLocaleString('en-US')}k`
 
 /** Revenue analysis screen with actuals, plan mix and account MRR. */
 export function RevenueView() {
@@ -41,22 +49,19 @@ export function RevenueView() {
           icon={<Icon as={TbIcons.TbCurrencyDollar} size={18} />}
         />
         <KpiCard
-          label="Visitors"
-          value={formatNumber(analyticsKpis.visitors.value, 1)}
-          delta={analyticsKpis.visitors.delta}
-          icon={<Icon as={TbIcons.TbUsers} size={18} />}
+          label="Monthly recurring revenue"
+          value={formatCurrency(totalMrr)}
+          icon={<Icon as={TbIcons.TbReceipt2} size={18} />}
         />
         <KpiCard
-          label="Pageviews"
-          value={formatNumber(analyticsKpis.pageviews.value, 1)}
-          delta={analyticsKpis.pageviews.delta}
-          icon={<Icon as={TbIcons.TbEye} size={18} />}
+          label="Active accounts"
+          value={formatNumber(activeAccountCount, 0)}
+          icon={<Icon as={TbIcons.TbBuildingStore} size={18} />}
         />
         <KpiCard
-          label="Avg. session"
-          value={analyticsKpis.avgSession.value}
-          delta={analyticsKpis.avgSession.delta}
-          icon={<Icon as={TbIcons.TbClock} size={18} />}
+          label="ARPU"
+          value={formatCurrency(arpu)}
+          icon={<Icon as={TbIcons.TbUserDollar} size={18} />}
         />
       </div>
 

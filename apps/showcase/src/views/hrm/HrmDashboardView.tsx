@@ -49,7 +49,6 @@ export function HrmDashboardView() {
           label="Headcount"
           value={hrmKpis.headcount.value}
           delta={4.8}
-          spark={hrmKpis.headcountTrend}
           icon={<Icon as={TbIcons.TbUsersGroup} size={18} />}
         />
         <KpiCard

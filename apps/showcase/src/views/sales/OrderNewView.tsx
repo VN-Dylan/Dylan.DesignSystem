@@ -4,7 +4,7 @@ import { Button, Card, Input, Segment, Select } from '@dylan-ds/ui'
 import { Icon, TbIcons } from '@dylan-ds/icons'
 import { formatCurrency } from '@dylan-ds/utils'
 import { PageHeader } from '@/components/shared/PageHeader'
-import { products, type Order } from '@/mock/sales'
+import { products, TAX_RATE, type Order } from '@/mock/sales'
 
 interface LineItem {
   id: string
@@ -43,7 +43,7 @@ export function OrderNewView() {
       const product = products.find((candidate) => candidate.id === item.productId)
       return sum + (product?.price ?? 0) * item.qty
     }, 0)
-    const tax = subtotal * 0.1
+    const tax = Math.round(subtotal * TAX_RATE)
     return { subtotal, tax, total: subtotal + tax }
   }, [lineItems])
 

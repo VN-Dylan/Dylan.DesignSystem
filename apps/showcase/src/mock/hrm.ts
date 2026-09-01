@@ -2,6 +2,8 @@
  * Mock data for the `hrm` showcase area. Static and deterministic.
  */
 
+import { personFields } from './team'
+
 export type EmployeeStatus = 'active' | 'on-leave' | 'probation' | 'notice'
 export type LeaveType = 'annual' | 'sick' | 'unpaid' | 'parental'
 export type LeaveStatus = 'pending' | 'approved' | 'rejected'
@@ -24,11 +26,9 @@ export interface Employee {
 export const employees: Employee[] = [
   {
     id: 'e-01',
-    name: 'Dylan Carter',
-    avatar: 'https://i.pravatar.cc/96?img=12',
+    ...personFields('dylan-carter'),
     role: 'Engineering Lead',
     department: 'Engineering',
-    email: 'dylan@dylan-ds.dev',
     location: 'Remote',
     status: 'active',
     joined: '2023-04-03',
@@ -37,11 +37,9 @@ export const employees: Employee[] = [
   },
   {
     id: 'e-02',
-    name: 'Aisha Rahman',
-    avatar: 'https://i.pravatar.cc/96?img=45',
+    ...personFields('aisha-rahman'),
     role: 'Senior Product Designer',
     department: 'Design',
-    email: 'aisha@dylan-ds.dev',
     location: 'London, UK',
     status: 'active',
     joined: '2023-07-17',
@@ -50,11 +48,9 @@ export const employees: Employee[] = [
   },
   {
     id: 'e-03',
-    name: 'Ben Ortiz',
-    avatar: 'https://i.pravatar.cc/96?img=15',
+    ...personFields('ben-ortiz'),
     role: 'Frontend Engineer',
     department: 'Engineering',
-    email: 'ben@dylan-ds.dev',
     location: 'Austin, US',
     status: 'active',
     joined: '2024-01-22',
@@ -63,11 +59,9 @@ export const employees: Employee[] = [
   },
   {
     id: 'e-04',
-    name: 'Chloe Kim',
-    avatar: 'https://i.pravatar.cc/96?img=32',
+    ...personFields('chloe-kim'),
     role: 'Backend Engineer',
     department: 'Engineering',
-    email: 'chloe@dylan-ds.dev',
     location: 'Seoul, KR',
     status: 'on-leave',
     joined: '2024-03-11',
@@ -76,11 +70,9 @@ export const employees: Employee[] = [
   },
   {
     id: 'e-05',
-    name: 'Diego Santos',
-    avatar: 'https://i.pravatar.cc/96?img=68',
+    ...personFields('diego-santos'),
     role: 'QA Engineer',
     department: 'Engineering',
-    email: 'diego@dylan-ds.dev',
     location: 'São Paulo, BR',
     status: 'active',
     joined: '2024-09-02',
@@ -89,11 +81,9 @@ export const employees: Employee[] = [
   },
   {
     id: 'e-06',
-    name: 'Emma Novak',
-    avatar: 'https://i.pravatar.cc/96?img=24',
+    ...personFields('emma-novak'),
     role: 'Head of Product',
     department: 'Product',
-    email: 'emma@dylan-ds.dev',
     location: 'Remote',
     status: 'active',
     joined: '2022-11-14',
@@ -102,11 +92,9 @@ export const employees: Employee[] = [
   },
   {
     id: 'e-07',
-    name: 'Farid Haddad',
-    avatar: 'https://i.pravatar.cc/96?img=59',
+    ...personFields('farid-haddad'),
     role: 'Account Executive',
     department: 'Sales',
-    email: 'farid@dylan-ds.dev',
     location: 'Dubai, AE',
     status: 'active',
     joined: '2025-02-03',
@@ -115,11 +103,9 @@ export const employees: Employee[] = [
   },
   {
     id: 'e-08',
-    name: 'Grace Mensah',
-    avatar: 'https://i.pravatar.cc/96?img=20',
+    ...personFields('grace-mensah'),
     role: 'Support Specialist',
     department: 'Support',
-    email: 'grace@dylan-ds.dev',
     location: 'Accra, GH',
     status: 'probation',
     joined: '2026-07-01',
@@ -128,11 +114,9 @@ export const employees: Employee[] = [
   },
   {
     id: 'e-09',
-    name: 'Henrik Alván',
-    avatar: 'https://i.pravatar.cc/96?img=52',
+    ...personFields('henrik-alvan'),
     role: 'People Operations',
     department: 'People',
-    email: 'henrik@dylan-ds.dev',
     location: 'Stockholm, SE',
     status: 'active',
     joined: '2024-05-20',
@@ -141,11 +125,9 @@ export const employees: Employee[] = [
   },
   {
     id: 'e-10',
-    name: 'Ivy Chen',
-    avatar: 'https://i.pravatar.cc/96?img=41',
+    ...personFields('ivy-chen'),
     role: 'Product Designer',
     department: 'Design',
-    email: 'ivy@dylan-ds.dev',
     location: 'Vancouver, CA',
     status: 'notice',
     joined: '2024-08-08',

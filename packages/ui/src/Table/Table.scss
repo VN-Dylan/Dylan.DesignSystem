@@ -47,12 +47,9 @@
   }
 
   &__sorter-icon {
-    @apply text-[0.55rem] leading-none tracking-tighter text-content-faint;
+    @apply shrink-0 text-content-faint transition-colors duration-fast;
 
-    &[data-direction='asc'] {
-      @apply text-primary;
-    }
-    &[data-direction='desc'] {
+    &--active {
       @apply text-primary;
     }
   }

@@ -48,7 +48,6 @@ export function CustomersDashboardView() {
           label="Total customers"
           value={formatNumber(customerKpis.total.value, 1)}
           delta={customerKpis.total.delta}
-          spark={customerKpis.newThisMonth}
           icon={<Icon as={TbIcons.TbUsers} size={18} />}
         />
         <KpiCard

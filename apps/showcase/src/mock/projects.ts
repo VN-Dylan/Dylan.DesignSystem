@@ -2,6 +2,8 @@
  * Mock data for the `projects` showcase area. Static and deterministic.
  */
 
+import { personFields } from './team'
+
 export type ProjectStatus = 'on-track' | 'at-risk' | 'delayed' | 'completed'
 export type TaskStatus = 'backlog' | 'in-progress' | 'review' | 'done'
 export type TaskPriority = 'low' | 'medium' | 'high' | 'urgent'
@@ -52,12 +54,12 @@ export interface Milestone {
 }
 
 export const team: TeamMember[] = [
-  { id: 't-01', name: 'Dylan Carter', avatar: 'https://i.pravatar.cc/96?img=12', role: 'Lead' },
-  { id: 't-02', name: 'Aisha Rahman', avatar: 'https://i.pravatar.cc/96?img=45', role: 'Design' },
-  { id: 't-03', name: 'Ben Ortiz', avatar: 'https://i.pravatar.cc/96?img=15', role: 'Frontend' },
-  { id: 't-04', name: 'Chloe Kim', avatar: 'https://i.pravatar.cc/96?img=32', role: 'Backend' },
-  { id: 't-05', name: 'Diego Santos', avatar: 'https://i.pravatar.cc/96?img=68', role: 'QA' },
-  { id: 't-06', name: 'Emma Novak', avatar: 'https://i.pravatar.cc/96?img=24', role: 'PM' },
+  { id: 't-01', ...personFields('dylan-carter'), role: 'Lead' },
+  { id: 't-02', ...personFields('aisha-rahman'), role: 'Design' },
+  { id: 't-03', ...personFields('ben-ortiz'), role: 'Frontend' },
+  { id: 't-04', ...personFields('chloe-kim'), role: 'Backend' },
+  { id: 't-05', ...personFields('diego-santos'), role: 'QA' },
+  { id: 't-06', ...personFields('emma-novak'), role: 'PM' },
 ]
 
 export const getMember = (id: string) => team.find((m) => m.id === id)

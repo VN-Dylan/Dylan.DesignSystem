@@ -76,7 +76,7 @@ export function ActivityLogView() {
               </div>
               <p className="mt-1 text-sm text-content-muted">{entry.detail}</p>
               <p className="mt-1 text-xs text-content-faint">
-                {entry.device} - {entry.ip} - {formatRelativeTime(entry.at)}
+                {entry.device} · {entry.ip} · {formatRelativeTime(entry.at)}
               </p>
             </Timeline.Item>
           ))}
