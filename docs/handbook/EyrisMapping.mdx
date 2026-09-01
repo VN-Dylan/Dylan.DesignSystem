@@ -20,7 +20,7 @@ This page records where that is **deliberately not** true.
 | --- | --- | --- |
 | Base UI components | 42 | 41 built + \`icons\` → the separate \`@dylan-ds/icons\` package |
 | Composite / shared components | 42 | 42 built |
-| Utilities | 32 | 24 built + 1 stub + 7 deferred (see below) |
+| Utilities | 32 | 28 built + 1 stub + 3 app-coupled (in \`apps/showcase\`) |
 | Preset theme schemas | 8 | 8 (\`default, dark, green, purple, orange, cyan, gold, pink\`) |
 | Example app screens | ~62 | ~62 rebuilt in \`apps/showcase\` |
 `}</Markdown>
@@ -53,11 +53,22 @@ on an unlisted gap. 38 base components, 433 props.
 
 ### Utilities
 
-7 utilities are **app-coupled** and live in `apps/showcase/src/utils` rather
-than `@dylan-ds/utils`, because they depend on the router / auth / layout store:
+3 utilities are **app-coupled** and live in `apps/showcase/src/utils` rather
+than `@dylan-ds/utils`, because they depend on the auth store / layout config /
+navigation tree: `useAuth` · `useLayout` · `useMenuActive`.
 
-`useAuth` · `useLayout` · `useMenuActive` · `useAppendQueryParams` ·
-`useDataTableState` · `useQueryParamPagingState` · `withHeaderItem`
+The table / URL hooks **are** in `@dylan-ds/utils`, re-implemented against the
+History API so they carry no router dependency (Eyris binds them to
+react-router):
+
+<Markdown>{`
+| Hook | Purpose |
+| --- | --- |
+| \`useAppendQueryParams\` | Merge / override / clear URL query params; \`replace\` for no history entry. |
+| \`useQueryParamPagingState\` | Read a \`DataTable\`'s page / size / sort / query out of the URL; \`filterState\` collects the rest. |
+| \`useDataTableState\` | Local paging + sort + selected-row state with handlers shaped for the \`DataTable\` props. |
+| \`withHeaderItem\` | HOC — wrap a component as a \`role="button"\`, keyboard-operable header-bar item. |
+`}</Markdown>
 
 `useTranslation` ships as a **stub** (returns the key) — i18n wiring is the
 consuming app's job.

@@ -96,7 +96,7 @@ Legend: ☐ todo · ◑ in progress · ☑ done · — n/a. Columns: spec · imp
 | `vector-map` | ☑ | jsvectormap (external) |
 | `wizard` | ☑ |  |
 
-## Utilities — 24/32 (+1 stub, 7 deferred)
+## Utilities — 28/32 (+1 stub, 3 app-coupled → showcase)
 
 | Utility | status |
 | --- | :-: |
@@ -114,16 +114,16 @@ Legend: ☐ todo · ◑ in progress · ☑ done · — n/a. Columns: spec · imp
 | `paginate` | ☑ |
 | `sleep` | ☑ |
 | `sort-by` | ☑ |
-| `use-append-query-params` | — deferred |
-| `use-auth` | — deferred |
+| `use-append-query-params` | ☑ (History API, router-free) |
+| `use-auth` | — app-coupled → showcase |
 | `use-dark-mode` | ☑ |
-| `use-data-table-state` | — deferred |
+| `use-data-table-state` | ☑ |
 | `use-debounce` | ☑ |
 | `use-direction` | ☑ |
 | `use-interval` | ☑ |
-| `use-layout` | — deferred |
-| `use-menu-active` | — deferred |
-| `use-query-param-paging-state` | — deferred |
+| `use-layout` | — app-coupled → showcase |
+| `use-menu-active` | — app-coupled → showcase |
+| `use-query-param-paging-state` | ☑ (History API, router-free) |
 | `use-random-color` | ☑ |
 | `use-responsive` | ☑ |
 | `use-scroll-top` | ☑ |
@@ -131,7 +131,7 @@ Legend: ☐ todo · ◑ in progress · ☑ done · — n/a. Columns: spec · imp
 | `use-time-out-message` | ☑ |
 | `use-translation` | ☑ stub |
 | `wild-card-search` | ☑ |
-| `with-header-item` | — deferred |
+| `with-header-item` | ☑ (HOC) |
 
 ## Phases
 
@@ -276,5 +276,5 @@ Done:
   the cross-platform smoke variant only.
 - Token alpha channels (`bg-primary/40`).
 - Select/menu overlays could adopt @floating-ui (currently Select uses absolute pos).
-- 4 app-coupled utils still deferred (useDataTableState / useAppendQueryParams / useQueryParamPagingState / withHeaderItem) — land with DataTable-heavy P4 area batches.
+- `useAuth` / `useLayout` / `useMenuActive` stay in `apps/showcase` (auth store / layout config / nav tree coupling).
 - Calendar/DatePicker: full month/year picker views + exotic label-format props.

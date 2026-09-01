@@ -1,10 +1,13 @@
 // @dylan-ds/utils — framework hooks and helpers.
 //
-// Ported from the Eyris `@/utils` surface. Six app-coupled hooks
-// (useAuth, useLayout, useMenuActive, useDataTableState,
-// useAppendQueryParams, useQueryParamPagingState) are intentionally NOT here —
-// they depend on the app's router / store / navigation config and live with
-// their owner (showcase app, or the DataTable component). See PROGRESS.md.
+// Ported from the Eyris `@/utils` surface. Three app-coupled hooks
+// (useAuth, useLayout, useMenuActive) are intentionally NOT here — they depend
+// on the app's auth store / layout config / navigation tree and live in the
+// showcase app. See PROGRESS.md.
+//
+// The table / URL hooks below are Eyris-coupled to react-router in the vendor
+// template; ours drive the History API directly so they carry no router
+// dependency.
 
 // --- functions ---
 export { classNames, type ClassValue } from './functions/classNames'
@@ -44,3 +47,15 @@ export {
   useControllableState,
   type UseControllableStateOptions,
 } from './hooks/useControllableState'
+export {
+  useAppendQueryParams,
+  type AppendQueryParamsOptions,
+  type UseAppendQueryParamsResult,
+} from './hooks/useAppendQueryParams'
+export {
+  useQueryParamPagingState,
+  type TableQueries,
+  type SortOrder,
+} from './hooks/useQueryParamPagingState'
+export { useDataTableState, type UseDataTableStateResult } from './hooks/useDataTableState'
+export { withHeaderItem, type WithHeaderItemProps } from './hooks/withHeaderItem'
