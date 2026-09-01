@@ -92,7 +92,7 @@ export function AnalyticsDashboardView() {
               {countries.slice(0, 6).map((c) => (
                 <Table.Tr key={c.code}>
                   <Table.Td>{c.name}</Table.Td>
-                  <Table.Td className="text-right">{formatNumber(c.sessions, 1)}</Table.Td>
+                  <Table.Td className="text-end">{formatNumber(c.sessions, 1)}</Table.Td>
                 </Table.Tr>
               ))}
             </Table.TBody>

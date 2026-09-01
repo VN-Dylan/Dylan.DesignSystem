@@ -77,7 +77,7 @@ export function SpotTradeView() {
                 className="relative overflow-hidden rounded-md px-2 py-1"
               >
                 <span
-                  className="absolute inset-y-1 right-0 rounded bg-error-subtle"
+                  className="absolute inset-y-1 end-0 rounded bg-error-subtle"
                   style={{ width }}
                 />
                 <div className="relative flex justify-between text-sm">
@@ -98,7 +98,7 @@ export function SpotTradeView() {
                 className="relative overflow-hidden rounded-md px-2 py-1"
               >
                 <span
-                  className="absolute inset-y-1 right-0 rounded bg-success-subtle"
+                  className="absolute inset-y-1 end-0 rounded bg-success-subtle"
                   style={{ width }}
                 />
                 <div className="relative flex justify-between text-sm">

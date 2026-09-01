@@ -140,8 +140,9 @@ or `presetThemeSchema` + `themeSchemaToCssVars` from `@dylan-ds/tokens`.
   `aria-modal="true"`, and trap focus with `_internal/useFocusTrap` — moves focus
   in on open (deferred until the portal node mounts), cycles Tab / Shift-Tab, and
   restores focus to the opener on close.
-- Roving-tabindex composites (`Tabs`, `Segment`) move focus with the arrow keys +
-  Home/End; single-select groups move the selection with focus.
+- Roving-tabindex composites (`Tabs`, `Segment`, the `Calendar` day grid) expose
+  one tab stop and move focus with the arrow keys + Home/End; single-select
+  groups move the selection with focus.
 - `@media (prefers-reduced-motion: reduce)` slows or disables every animation.
 - Every component test asserts `expect(await axe(container)).toHaveNoViolations()`.
 - Interactive non-`<button>` elements carry an accessible name (axe

@@ -85,7 +85,7 @@ export function InvoiceView() {
             </div>
             <div className="flex justify-between gap-3">
               <span className="text-content-muted">Bill to</span>
-              <span className="text-right font-medium text-content">{selectedInvoice.billTo}</span>
+              <span className="text-end font-medium text-content">{selectedInvoice.billTo}</span>
             </div>
             <div className="flex justify-between gap-3">
               <span className="text-content-muted">Issued</span>

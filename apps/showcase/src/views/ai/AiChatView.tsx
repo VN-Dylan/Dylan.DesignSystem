@@ -92,7 +92,7 @@ export function AiChatView() {
                   type="button"
                   onClick={() => setActiveId(c.id)}
                   aria-current={c.id === activeId}
-                  className={`w-full rounded-md px-3 py-2 text-left text-sm transition ${
+                  className={`w-full rounded-md px-3 py-2 text-start text-sm transition ${
                     c.id === activeId
                       ? 'bg-primary-subtle text-primary'
                       : 'text-content-muted hover:bg-surface-sunken'

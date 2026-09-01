@@ -67,6 +67,28 @@ describe('Calendar', () => {
     expect(onChange).toHaveBeenLastCalledWith([new Date(2026, 8, 8), new Date(2026, 8, 12)])
   })
 
+  it('gives one day a tab stop and roves focus with the arrow keys', async () => {
+    const user = userEvent.setup()
+    render(<Calendar defaultMonth={september} value={new Date(2026, 8, 10)} />)
+
+    const selected = screen.getByRole('button', { name: 'September 10, 2026' })
+    expect(selected).toHaveAttribute('tabindex', '0')
+    expect(screen.getByRole('button', { name: 'September 11, 2026' })).toHaveAttribute(
+      'tabindex',
+      '-1',
+    )
+
+    selected.focus()
+    await user.keyboard('{ArrowRight}')
+    expect(screen.getByRole('button', { name: 'September 11, 2026' })).toHaveFocus()
+
+    await user.keyboard('{ArrowDown}')
+    expect(screen.getByRole('button', { name: 'September 18, 2026' })).toHaveFocus()
+
+    await user.keyboard('{ArrowUp}{ArrowLeft}')
+    expect(screen.getByRole('button', { name: 'September 10, 2026' })).toHaveFocus()
+  })
+
   it('has no axe violations', async () => {
     const { container } = render(
       <RangeCalendar

@@ -228,8 +228,14 @@ Done so far:
     focus only). +2 tests.
   - `Tabs` already had full arrow/Home/End roving + roving tabindex — +2 tests
     to lock it in.
-  - Known gap (documented in EyrisMapping): `Calendar` day grid has no roving
-    arrow-key nav — each day is a tab stop.
+  - `Calendar` day grid: added a roving tab stop (selected day → today → first of
+    month) + Arrow/Home/End navigation, RTL-aware. +1 test.
+- **Showcase RTL sweep:** 6 remaining physical-direction utils in view screens
+  (`text-left`/`text-right`/`right-0` in AI writer/chat, analytics table, invoice,
+  spot-trade depth bars) → logical. Showcase already wires `direction` end-to-end
+  (themeStore + ThemeConfigDrawer + useThemeBootstrap sets `<html dir>`).
+  `bg-white/10` in AuthLayout kept — a Tailwind primitive for translucency where
+  `var(--dyl-*)` tokens can't do an alpha channel.
 
 ## Follow-ups
 

@@ -33,7 +33,7 @@ This page records where that is **deliberately not** true.
 | Component | Deviation | Why |
 | --- | --- | --- |
 | \`Button\` | no \`asChild\` / polymorphic \`as\` | Keeps the ref + \`data-*\` contract simple. Navigate with an \`onClick\` handler that calls \`navigate\`. |
-| \`Calendar\` · \`DatePicker\` | month/year picker sub-views and some label-format props are stubbed; the day grid has no roving arrow-key navigation (each day is a tab stop) | Out of scope for the internal use cases; the day grid renders and is mouse- + Tab-operable. |
+| \`Calendar\` · \`DatePicker\` | month/year picker sub-views and some label-format props are stubbed | Out of scope for the internal use cases; the day grid is complete, with a roving tab stop + arrow/Home/End keyboard navigation. |
 | \`FullCalendar\` | dependency-free **month view only** — no week/day/list views, no drag | Avoids a heavy calendar dependency. |
 | \`GanttChart\` | dependency-free re-implementation | Same reason. Bars, progress fill, a shared date axis. |
 | \`VectorMap\` | choropleth ramp is interpolated **in-component** and fed as a code→hex map | jsvectormap 1.6 only ships an ordinal (lookup) scale, not a numeric one. |

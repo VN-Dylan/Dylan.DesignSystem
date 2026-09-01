@@ -1,4 +1,4 @@
-import { forwardRef, useMemo, useState } from 'react'
+import { forwardRef, useMemo, useState, type KeyboardEvent } from 'react'
 import { TbIcons } from '@dylan-ds/icons'
 import { classNames, useControllableState } from '@dylan-ds/utils'
 import type {
@@ -182,6 +182,11 @@ function CalendarPanel({
   const weekdays = getWeekdays(locale, firstDayOfWeek)
   const days = getVisibleDays(currentMonth, firstDayOfWeek)
 
+  const isDateSelected = (date: Date) =>
+    Array.isArray(selectedValue)
+      ? selectedValue.some((item) => isSameDay(item, date))
+      : isSameDay(selectedValue, date)
+
   const isDateDisabled = (date: Date, outOfMonth: boolean) =>
     Boolean(
       (disableOutOfMonth && outOfMonth) ||
@@ -194,9 +199,7 @@ function CalendarPanel({
   const getModifiers = (date: Date): CalendarDayModifiers => {
     const outOfMonth = date.getMonth() !== currentMonth.getMonth()
     const disabled = isDateDisabled(date, outOfMonth)
-    const selected = Array.isArray(selectedValue)
-      ? selectedValue.some((item) => isSameDay(item, date))
-      : isSameDay(selectedValue, date)
+    const selected = isDateSelected(date)
     const base = {
       disabled,
       weekend: weekendDays.includes(date.getDay()),
@@ -222,6 +225,51 @@ function CalendarPanel({
         withCustomRange.firstInRange ||
         withCustomRange.lastInRange,
     }
+  }
+
+  // Roving tab stop: exactly one day is tabbable — the selected day if visible,
+  // else today (this month), else the first focusable day of the month.
+  const inMonth = (date: Date) => date.getMonth() === currentMonth.getMonth()
+  const focusableDays = days.filter((date) => !isDateDisabled(date, !inMonth(date)))
+  const today = new Date()
+  const tabbableDate =
+    focusableDays.find(isDateSelected) ??
+    focusableDays.find((date) => inMonth(date) && isSameDay(date, today)) ??
+    focusableDays.find(inMonth) ??
+    focusableDays[0]
+
+  const onGridKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    const step: Record<string, number> = {
+      ArrowRight: 1,
+      ArrowLeft: -1,
+      ArrowDown: 7,
+      ArrowUp: -7,
+    }
+    const rtl = typeof document !== 'undefined' && document.dir === 'rtl'
+    let delta =
+      event.key === 'ArrowRight' || event.key === 'ArrowLeft'
+        ? (rtl ? -1 : 1) * step[event.key]!
+        : step[event.key]
+    if (event.key === 'Home' || event.key === 'End') delta = 0
+    else if (delta === undefined) return
+
+    const cells = Array.from(
+      event.currentTarget.querySelectorAll<HTMLButtonElement>(
+        'button.dyl-calendar__day:not([disabled])',
+      ),
+    )
+    const currentCell = (event.target as HTMLElement).closest<HTMLButtonElement>(
+      'button.dyl-calendar__day',
+    )
+    const currentIndex = currentCell ? cells.indexOf(currentCell) : -1
+    if (currentIndex < 0) return
+
+    const nextIndex =
+      event.key === 'Home' ? 0 : event.key === 'End' ? cells.length - 1 : currentIndex + delta!
+    const next = cells[nextIndex]
+    if (!next) return
+    event.preventDefault()
+    next.focus()
   }
 
   return (
@@ -271,7 +319,7 @@ function CalendarPanel({
         </div>
       )}
 
-      <div className="dyl-calendar__grid" role="group" aria-label="Days">
+      <div className="dyl-calendar__grid" role="group" aria-label="Days" onKeyDown={onGridKeyDown}>
         {days.map((date) => {
           const modifiers = getModifiers(date)
           const hidden = hideOutOfMonthDates && modifiers.outOfMonth
@@ -296,6 +344,7 @@ function CalendarPanel({
               className={classNames('dyl-calendar__day', customClassName)}
               style={customStyle}
               disabled={modifiers.disabled}
+              tabIndex={isSameDay(date, tabbableDate) ? 0 : -1}
               aria-label={formatDayLabel(date, locale)}
               aria-pressed={modifiers.selected || modifiers.selectedInRange || undefined}
               data-disabled={modifiers.disabled || undefined}

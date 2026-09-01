@@ -47,7 +47,7 @@ export function AiWriterView() {
                   type="button"
                   onClick={() => setActiveId(draft.id)}
                   aria-current={draft.id === activeId}
-                  className={`w-full rounded-md px-3 py-2 text-left transition ${
+                  className={`w-full rounded-md px-3 py-2 text-start transition ${
                     draft.id === activeId
                       ? 'bg-primary-subtle text-primary'
                       : 'text-content-muted hover:bg-surface-sunken'
