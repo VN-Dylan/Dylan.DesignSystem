@@ -155,7 +155,7 @@ Legend: ☐ todo · ◑ in progress · ☑ done · — n/a. Columns: spec · imp
 | C4 | `analytics` (dashboard, forecast, revenue, subscriptions, reports) + `crypto` (dashboard, market, coin/:sym, spot, assets, kyc); + `mock/analytics.ts`, `mock/crypto.ts` | ☑ |
 | C5 | `customers` (dashboard, list, :id/overview, leads, lead/:id/overview, helpdesk) + `hrm` (dashboard, employees, attendance, payroll, leaves, announcements); + `mock/customers.ts`, `mock/hrm.ts` | ☑ |
 | C6 | `ai` (chat, image, writer) + `accounts` (settings/profile, activity, referrals, pricing, invoice, users) ; + `mock/ai.ts`, `mock/account.ts`. All `APP_AREAS` placeholders now gone. | ☑ |
-| C7 | mock data consolidation, polish pass, Eyris visual diff | ◑ visual sweep of all ~62 screens done vs Eyris (22 fixes); partial mock consolidation; deeper cross-area entity merge + minor polish still open |
+| C7 | mock data consolidation, polish pass, Eyris visual diff | ◑ visual sweep of all ~62 screens vs Eyris + polish pass done (29 fixes across 3 commits); mock consolidation done (order totals, analytics MRR, crypto portfolio, `mock/team.ts` roster, avatar de-dup). Remaining: string-name refs via `personName()`, GanttChart label overflow, nav-structure decision |
 
 Unbuilt areas are routed via `PagePlaceholder` (`APP_AREAS` in `routes.config.tsx`); each area batch replaces them with a real `<area>Routes` module + views + `mock/<area>.ts`. Execution: Claude wrote C1 + the C2 dashboard/infra + `SHOWCASE-RECIPE.md`; codex builds the per-area screens from a spec, Claude reviews/fixes/verifies.
 

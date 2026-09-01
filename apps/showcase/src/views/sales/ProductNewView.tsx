@@ -71,69 +71,69 @@ export function ProductNewView() {
         }
       />
 
-      <form className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_20rem]" onSubmit={handleSubmit}>
-        <Card bordered header={{ content: 'Product information', bordered: true }}>
-          <div className="grid gap-4 sm:grid-cols-2">
-            <Field label="Name" error={errors.name}>
-              <Input
-                value={form.name}
-                onChange={(event) => update({ name: event.target.value })}
-                invalid={Boolean(errors.name)}
-                placeholder="Aurora Chrono Watch"
-              />
-            </Field>
-            <Field label="SKU" error={errors.sku}>
-              <Input
-                value={form.sku}
-                onChange={(event) => update({ sku: event.target.value.toUpperCase() })}
-                invalid={Boolean(errors.sku)}
-                placeholder="AUR-CHR-13"
-              />
-            </Field>
-            <Field label="Category">
-              <Select
-                options={productCategoryOptions}
-                value={productCategoryOptions.find((option) => option.value === form.category)}
-                onChange={(option) =>
-                  option && update({ category: option.value as Product['category'] })
-                }
-                isClearable={false}
-                aria-label="Category"
-              />
-            </Field>
-            <Field label="Price" error={errors.price}>
-              <Input
-                type="number"
-                value={form.price}
-                onChange={(event) => update({ price: event.target.value })}
-                invalid={Boolean(errors.price)}
-                min={0}
-                prefix="$"
-              />
-            </Field>
-            <Field label="Stock">
-              <Input
-                type="number"
-                value={form.stock}
-                onChange={(event) => update({ stock: event.target.value })}
-                min={0}
-              />
-            </Field>
-            <div className="sm:col-span-2">
-              <Field label="Description">
+      <form className="space-y-4" onSubmit={handleSubmit}>
+        <div className="grid items-start gap-4 lg:grid-cols-[minmax(0,1fr)_20rem]">
+          <Card bordered header={{ content: 'Product information', bordered: true }}>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <Field label="Name" error={errors.name}>
                 <Input
-                  textArea
-                  rows={5}
-                  value={form.description}
-                  onChange={(event) => update({ description: event.target.value })}
-                  placeholder="Brief merchandising notes for storefront and support teams."
+                  value={form.name}
+                  onChange={(event) => update({ name: event.target.value })}
+                  invalid={Boolean(errors.name)}
+                  placeholder="Aurora Chrono Watch"
                 />
               </Field>
+              <Field label="SKU" error={errors.sku}>
+                <Input
+                  value={form.sku}
+                  onChange={(event) => update({ sku: event.target.value.toUpperCase() })}
+                  invalid={Boolean(errors.sku)}
+                  placeholder="AUR-CHR-13"
+                />
+              </Field>
+              <Field label="Category">
+                <Select
+                  options={productCategoryOptions}
+                  value={productCategoryOptions.find((option) => option.value === form.category)}
+                  onChange={(option) =>
+                    option && update({ category: option.value as Product['category'] })
+                  }
+                  isClearable={false}
+                  aria-label="Category"
+                />
+              </Field>
+              <Field label="Price" error={errors.price}>
+                <Input
+                  type="number"
+                  value={form.price}
+                  onChange={(event) => update({ price: event.target.value })}
+                  invalid={Boolean(errors.price)}
+                  min={0}
+                  prefix="$"
+                />
+              </Field>
+              <Field label="Stock">
+                <Input
+                  type="number"
+                  value={form.stock}
+                  onChange={(event) => update({ stock: event.target.value })}
+                  min={0}
+                />
+              </Field>
+              <div className="sm:col-span-2">
+                <Field label="Description">
+                  <Input
+                    textArea
+                    rows={5}
+                    value={form.description}
+                    onChange={(event) => update({ description: event.target.value })}
+                    placeholder="Brief merchandising notes for storefront and support teams."
+                  />
+                </Field>
+              </div>
             </div>
-          </div>
-        </Card>
+          </Card>
 
-        <div className="space-y-4">
           <Card bordered header={{ content: 'Visibility', bordered: true }}>
             <div className="space-y-3">
               <Segment
@@ -149,12 +149,13 @@ export function ProductNewView() {
               </p>
             </div>
           </Card>
-          <div className="flex justify-end gap-2">
-            <Button onClick={() => navigate('/sales/products')}>Cancel</Button>
-            <Button type="submit" variant="solid" icon={<Icon as={TbIcons.TbDeviceFloppy} />}>
-              Save product
-            </Button>
-          </div>
+        </div>
+
+        <div className="flex justify-end gap-2 border-t border-border pt-4">
+          <Button onClick={() => navigate('/sales/products')}>Cancel</Button>
+          <Button type="submit" variant="solid" icon={<Icon as={TbIcons.TbDeviceFloppy} />}>
+            Save product
+          </Button>
         </div>
       </form>
     </div>

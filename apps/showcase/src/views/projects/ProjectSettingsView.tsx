@@ -82,7 +82,7 @@ export function ProjectSettingsView() {
                 />
               </Field>
               <div className="space-y-1.5">
-                <span className="text-sm font-medium text-content">Visibility</span>
+                <span className="block text-sm font-medium text-content">Visibility</span>
                 <Segment
                   value={form.visibility}
                   onChange={(value) => update({ visibility: String(value) as Visibility })}

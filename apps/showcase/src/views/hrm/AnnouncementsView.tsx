@@ -35,8 +35,8 @@ export function AnnouncementsView() {
         }
       />
 
-      <Card bordered bodyClass="space-y-4 p-4">
-        <div className="overflow-x-auto">
+      <Card bordered bodyClass="p-0">
+        <div className="overflow-x-auto border-b border-border p-4">
           <Segment
             value={tag}
             onChange={(value) => setTag(String(value) as AnnouncementTag | 'all')}
@@ -51,9 +51,9 @@ export function AnnouncementsView() {
           </Segment>
         </div>
 
-        <div className="space-y-3">
+        <div className="divide-y divide-border">
           {filteredAnnouncements.map((announcement) => (
-            <Card key={announcement.id} bordered bodyClass="space-y-3 p-4">
+            <article key={announcement.id} className="space-y-3 p-4">
               <div className="flex flex-wrap items-center gap-2">
                 <StatusTag tone="neutral">{announcement.tag}</StatusTag>
                 {announcement.pinned && (
@@ -69,7 +69,7 @@ export function AnnouncementsView() {
               <p className="text-xs text-content-faint">
                 {announcement.author} · {formatRelativeTime(announcement.date)}
               </p>
-            </Card>
+            </article>
           ))}
         </div>
       </Card>

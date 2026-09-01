@@ -33,13 +33,18 @@ const Aside = () => (
  * - `side`   — card left, brand panel right
  * - `split`  — brand panel left, card right
  */
+/** Surface panel that holds the auth form on every variant. */
+const FormCard = ({ children }: { children: ReactNode }) => (
+  <div className="rounded-xl border border-border bg-surface p-6 shadow-sm sm:p-8">{children}</div>
+)
+
 export function AuthLayout({ variant = 'simple', children }: AuthLayoutProps) {
   if (variant === 'simple') {
     return (
       <div className="grid min-h-screen place-items-center bg-bg px-4 py-10">
         <div className="w-full max-w-sm space-y-6">
           <Logo />
-          {children}
+          <FormCard>{children}</FormCard>
         </div>
       </div>
     )
@@ -49,7 +54,7 @@ export function AuthLayout({ variant = 'simple', children }: AuthLayoutProps) {
     <div className="grid place-items-center bg-bg px-4 py-10">
       <div className="w-full max-w-sm space-y-6">
         <Logo className="lg:hidden" />
-        {children}
+        <FormCard>{children}</FormCard>
       </div>
     </div>
   )
