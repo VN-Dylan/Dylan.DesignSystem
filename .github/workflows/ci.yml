@@ -31,6 +31,9 @@ jobs:
       - name: Token guard (no literal colours)
         run: pnpm check:tokens
 
+      - name: API coverage vs Eyris crawl
+        run: pnpm check:api
+
       - name: Format check
         run: pnpm format:check
 

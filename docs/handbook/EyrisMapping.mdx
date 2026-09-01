@@ -39,8 +39,17 @@ This page records where that is **deliberately not** true.
 | \`VectorMap\` | choropleth ramp is interpolated **in-component** and fed as a code→hex map | jsvectormap 1.6 only ships an ordinal (lookup) scale, not a numeric one. |
 | \`DataTable\` | no \`onRowClick\` prop | Views delegate a click on a wrapping element; a first-class prop is a follow-up. |
 | \`Select\` · \`Segment\` | width must be constrained by a wrapper element | The component sets \`width: 100%\`, which beats a utility class on the component itself. |
+| \`Select\` | lean custom control — no \`creatable\`/\`isCreatable\`, \`customOption\`/\`customLabel\`/\`customInputDisplay\`, \`formatGroupLabel\`, \`onMenuOpen\`/\`onInputChange\`, \`searchInputProps\`, \`showClearAllButton\`, \`isDisabled\` (use \`disabled\`) | Eyris wraps \`react-select\`; Dylan ships a dependency-free control covering the shapes the showcase needs. |
+| \`Table\` | \`borderless\` (inverted) instead of \`bordered\`; no \`asElement\`, \`overflow\`/\`overflowClass\`, \`verticalDivider\` | Overflow/scroll is the caller's container concern; column dividers weren't used. |
+| \`Toast\` | single \`placement\` prop instead of \`offsetX\`/\`offsetY\`/\`block\`/\`transitionType\` | Nine fixed placements cover the need; offset/transition tuning removed. |
+| \`Upload\` | no \`fileListClass\` / \`fileItemClass\` | Style the composed list element via its \`className\`. |
+| \`Input\` | \`onChange\` / \`onFocus\` / \`onBlur\` aren't in the prop table — they pass straight through | Every primitive spreads native props/events onto its main node. |
 | \`Chart\` | grid / palette / tooltip are Eyris-styled and theme-reactive rather than ApexCharts defaults | Faint horizontal-only gridlines, an interleaved categorical palette, and a \`MutationObserver\` that re-reads tokens on theme change. |
 `}</Markdown>
+
+Reconciliation is enforced: \`pnpm check:api\` (in CI) diffs every documented prop
+in the \`docs/reference/eyris-crawl\` JSON against the component source and fails
+on an unlisted gap. 38 base components, 433 props.
 
 ### Utilities
 

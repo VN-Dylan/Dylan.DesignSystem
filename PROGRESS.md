@@ -143,7 +143,7 @@ Legend: ☐ todo · ◑ in progress · ☑ done · — n/a. Columns: spec · imp
 | P3 | 42 composite components | ☑ 42/42 |
 | P4 | Layouts + example app + auth | ☑ C1–C7 done |
 | P5 | Handbook | ◑ 8 Storybook MDX pages drafted (`docs/handbook/*`) |
-| P6 | QA & hardening | ◑ bundle split + Select `name` + a11y fixes |
+| P6 | QA & hardening | ◑ bundle split · token guard · RTL parity · focus-trap fix · keyboard nav · API reconciliation. Left: visual-regression infra |
 
 ## P4 — showcase app (`apps/showcase`)
 
@@ -236,6 +236,16 @@ Done so far:
   (themeStore + ThemeConfigDrawer + useThemeBootstrap sets `<html dir>`).
   `bg-white/10` in AuthLayout kept — a Tailwind primitive for translucency where
   `var(--dyl-*)` tokens can't do an alpha channel.
+- **API reconciliation vs crawl.** `scripts/api-coverage.mjs` + `pnpm check:api`
+  (CI, after `check:tokens`) diffs every prop in the `docs/reference/eyris-crawl`
+  JSON against each component's source. 38 base components, 433 props — all
+  matched or listed as a verified deviation in the script's `ALLOW` map (which
+  makes it a drift gate: a new unlisted gap fails CI). Deviations now spelled out
+  in EyrisMapping: `Select` (no react-select surface — `creatable`,
+  `customOption`, `onMenuOpen`, …), `Table` (`borderless` vs `bordered`, no
+  `overflow`/`verticalDivider`/`asElement`), `Toast` (`placement` only, no
+  offset/transition knobs), `Upload` (no `fileListClass`/`fileItemClass`),
+  `Input` (native events pass straight through).
 
 ## Follow-ups
 
