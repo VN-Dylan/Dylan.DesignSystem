@@ -51,6 +51,33 @@ describe('Select', () => {
     ])
   })
 
+  it('mirrors the selection into a hidden input when `name` is set', async () => {
+    const { container } = render(
+      <Select options={options} defaultValue={options[1]} name="category" aria-label="Category" />,
+    )
+    const hidden = container.querySelector('input[type="hidden"][name="category"]')
+    expect(hidden).toHaveValue('clothing')
+
+    await userEvent.click(screen.getByRole('button', { name: 'Category' }))
+    await userEvent.click(screen.getByRole('option', { name: 'Watches' }))
+    expect(container.querySelector('input[type="hidden"][name="category"]')).toHaveValue('watches')
+  })
+
+  it('emits one hidden input per value in multi mode', async () => {
+    const { container } = render(
+      <Select.Multi
+        options={options}
+        defaultValue={[options[0]!, options[2]!]}
+        name="cats"
+        aria-label="Categories"
+      />,
+    )
+    const values = [...container.querySelectorAll('input[type="hidden"][name="cats"]')].map(
+      (node) => (node as HTMLInputElement).value,
+    )
+    expect(values).toEqual(['watches', 'gadgets'])
+  })
+
   it('has no axe violations (closed and open)', async () => {
     const { container } = render(<Select options={options} aria-label="Category" isSearchable />)
     expect(await axe(container)).toHaveNoViolations()

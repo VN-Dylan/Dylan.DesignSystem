@@ -46,6 +46,25 @@ export const Sizes: Story = {
 export const Invalid: Story = { args: { invalid: true } }
 export const Disabled: Story = { args: { disabled: true, defaultValue: options[0] } }
 
+/** With `name`, the selection is mirrored into a hidden input for native form submission. */
+export const InAForm: Story = {
+  render: () => (
+    <form
+      className="space-y-2"
+      onSubmit={(event) => {
+        event.preventDefault()
+        const data = new FormData(event.currentTarget)
+        window.alert(`category = ${data.get('category') || '(empty)'}`)
+      }}
+    >
+      <Select options={options} name="category" defaultValue={options[1]} aria-label="Category" />
+      <button type="submit" className="rounded-base bg-primary px-3 py-1.5 text-sm text-primary-fg">
+        Submit
+      </button>
+    </form>
+  ),
+}
+
 export const Multi: Story = {
   render: () => {
     const Demo = () => {

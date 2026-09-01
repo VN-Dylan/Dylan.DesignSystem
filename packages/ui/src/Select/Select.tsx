@@ -22,6 +22,7 @@ interface InternalProps {
   noOptionsMessage?: React.ReactNode
   className?: string
   id?: string
+  name?: string
   'aria-label'?: string
 }
 
@@ -45,6 +46,7 @@ const SelectBase = forwardRef<HTMLDivElement, InternalProps>(function SelectBase
     noOptionsMessage = 'No options',
     className,
     id,
+    name,
     'aria-label': ariaLabel,
   },
   ref,
@@ -143,6 +145,14 @@ const SelectBase = forwardRef<HTMLDivElement, InternalProps>(function SelectBase
       data-invalid={invalid || undefined}
       data-disabled={disabled || undefined}
     >
+      {name &&
+        (selectedList.length === 0 ? (
+          <input type="hidden" name={name} value="" />
+        ) : (
+          selectedList.map((option) => (
+            <input key={option.value} type="hidden" name={name} value={option.value} />
+          ))
+        ))}
       <button
         type="button"
         className="dyl-select__trigger"

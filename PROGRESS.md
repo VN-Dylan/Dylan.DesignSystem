@@ -143,7 +143,7 @@ Legend: ☐ todo · ◑ in progress · ☑ done · — n/a. Columns: spec · imp
 | P3 | 42 composite components | ☑ 42/42 |
 | P4 | Layouts + example app + auth | ☑ C1–C7 done |
 | P5 | Handbook | ◑ 8 Storybook MDX pages drafted (`docs/handbook/*`) |
-| P6 | QA & hardening | ☐ |
+| P6 | QA & hardening | ◑ bundle split + Select `name` + a11y fixes |
 
 ## P4 — showcase app (`apps/showcase`)
 
@@ -186,11 +186,21 @@ because no tsconfig covers `docs/`).
 Remaining: DESIGN.md §3/§5/§7 could each get a fuller page; per-component
 "when to use X vs Y" guidance; a schema-switcher demo on the Theming page.
 
+## P6 — QA & hardening (in progress)
+
+Done so far:
+- **`@dylan-ds/ui` bundle: 807 kB single barrel → per-module chunks (~227 kB total, largest
+  chunk 12 kB).** `preserveModules: true`; also externalised `/^@dylan-ds\//` and every
+  `react-icons` subpath (`react-icons/hi2` alone was 595 kB of dead weight bundled in).
+  `pnpm build` (vite + `tsc -b` `.d.ts`) verified; `exports`/types layout unchanged.
+- `Select` gained a `name` prop — mirrors the selection into hidden `<input>`(s) for native
+  form submission (one per value in multi mode). `+2 tests, +InAForm story`.
+- `DataTable` "Rows per page" `<select>` got an explicit `aria-label`.
+- pre-existing prettier drift in `SelectExtension.tsx` fixed.
+
 ## Follow-ups
 
 - Token alpha channels (`bg-primary/40`).
 - Select/menu overlays could adopt @floating-ui (currently Select uses absolute pos).
-- `Select` has no `name`/`inputId` passthrough — add for forms (P6).
 - 4 app-coupled utils still deferred (useDataTableState / useAppendQueryParams / useQueryParamPagingState / withHeaderItem) — land with DataTable-heavy P4 area batches.
 - Calendar/DatePicker: full month/year picker views + exotic label-format props.
-- `packages/ui` bundle is ~800 kB (vendor libs are external); revisit code-splitting at P6.

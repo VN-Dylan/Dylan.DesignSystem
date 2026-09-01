@@ -15,7 +15,6 @@ export default defineConfig({
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
       formats: ['es'],
-      fileName: 'index',
       cssFileName: 'styles',
     },
     cssCodeSplit: false,
@@ -25,7 +24,10 @@ export default defineConfig({
         'react',
         'react-dom',
         'react/jsx-runtime',
-        'react-icons',
+        // Sibling workspace packages — the consumer installs these directly.
+        /^@dylan-ds\//,
+        // react-icons and every icon-set subpath (react-icons/tb, /hi2, /cg …).
+        /^react-icons(\/.*)?$/,
         /^@floating-ui\//,
         /^@tanstack\//,
         'apexcharts',
@@ -37,7 +39,11 @@ export default defineConfig({
         /^jsvectormap\//,
       ],
       output: {
-        preserveModules: false,
+        // Per-module chunks so consumers tree-shake to just the components
+        // they import instead of pulling the whole ~800 kB barrel.
+        preserveModules: true,
+        preserveModulesRoot: 'src',
+        entryFileNames: '[name].js',
       },
     },
   },

@@ -9,10 +9,7 @@ import type {
 import './SelectExtension.scss'
 
 export const SelectInputWithPrefix = forwardRef<HTMLSpanElement, SelectInputWithPrefixProps>(
-  function SelectInputWithPrefix(
-    { label, prefix, showPrefix = true, className, ...rest },
-    ref,
-  ) {
+  function SelectInputWithPrefix({ label, prefix, showPrefix = true, className, ...rest }, ref) {
     return (
       <span
         ref={ref}

@@ -141,6 +141,7 @@ export function DataTable<TData>({
           <label className="dyl-data-table__page-size">
             Rows per page
             <select
+              aria-label="Rows per page"
               value={pagingData.pageSize}
               onChange={(e) => onPageSizeChange?.(Number(e.target.value))}
             >

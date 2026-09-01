@@ -31,6 +31,11 @@ interface SelectBaseProps {
   'aria-label'?: string
   className?: string
   id?: string
+  /**
+   * Form field name. When set, the selected `value`(s) are mirrored into hidden
+   * `<input>`(s) so the control participates in native form submission.
+   */
+  name?: string
 }
 
 export interface SelectProps extends SelectBaseProps {
