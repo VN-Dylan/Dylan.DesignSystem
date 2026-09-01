@@ -1,4 +1,7 @@
-import { useEffect } from 'react'
+// `React` is imported explicitly: Storybook compiles this preview config with the
+// classic JSX runtime, unlike the stories (automatic runtime), so the direction
+// decorator below uses `React.createElement` and needs `React` in scope.
+import React, { useEffect } from 'react'
 import type { Preview } from '@storybook/react'
 import { withThemeByClassName } from '@storybook/addon-themes'
 import '../packages/ui/src/styles/index.scss'
@@ -66,13 +69,16 @@ const preview: Preview = {
           document.documentElement.dir = 'ltr'
         }
       }, [dir])
-      return (
-        <div
-          dir={dir}
-          style={{ background: 'var(--dyl-bg)', color: 'var(--dyl-text)', padding: '1.5rem' }}
-        >
-          <Story />
-        </div>
+      // Storybook transpiles the preview config with the classic JSX runtime, so
+      // this decorator is authored with createElement rather than JSX to keep the
+      // `React` import genuinely referenced (see the import note at the top).
+      return React.createElement(
+        'div',
+        {
+          dir,
+          style: { background: 'var(--dyl-bg)', color: 'var(--dyl-text)', padding: '1.5rem' },
+        },
+        React.createElement(Story),
       )
     },
   ],

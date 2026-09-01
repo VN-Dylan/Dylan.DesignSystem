@@ -142,8 +142,8 @@ Legend: ☐ todo · ◑ in progress · ☑ done · — n/a. Columns: spec · imp
 | P2 | Base components (41/41, icons n/a) | ☑ |
 | P3 | 42 composite components | ☑ 42/42 |
 | P4 | Layouts + example app + auth | ☑ C1–C7 done |
-| P5 | Handbook | ◑ 8 Storybook MDX pages drafted (`docs/handbook/*`) |
-| P6 | QA & hardening | ◑ bundle split · token guard · RTL parity · focus-trap fix · keyboard nav · API reconciliation. Left: visual-regression infra |
+| P5 | Handbook | ☑ 8 Storybook MDX pages (`docs/handbook/*`) |
+| P6 | QA & hardening | ☑ bundle split · token guard · RTL parity · focus-trap fix · keyboard nav · API reconciliation · Storybook smoke + visual-regression harness |
 
 ## P4 — showcase app (`apps/showcase`)
 
@@ -186,9 +186,9 @@ because no tsconfig covers `docs/`).
 Remaining: DESIGN.md §3/§5/§7 could each get a fuller page; per-component
 "when to use X vs Y" guidance; a schema-switcher demo on the Theming page.
 
-## P6 — QA & hardening (in progress)
+## P6 — QA & hardening (done)
 
-Done so far:
+Done:
 - **`@dylan-ds/ui` bundle: 807 kB single barrel → per-module chunks (~227 kB total, largest
   chunk 12 kB).** `preserveModules: true`; also externalised `/^@dylan-ds\//` and every
   `react-icons` subpath (`react-icons/hi2` alone was 595 kB of dead weight bundled in).
@@ -247,17 +247,33 @@ Done so far:
   offset/transition knobs), `Upload` (no `fileListClass`/`fileItemClass`),
   `Input` (native events pass straight through).
 
-Still open:
-- **Pixel visual-regression (light/dark/RTL).** Needs a real browser
-  (Playwright / `@storybook/test-runner`, or Chromatic) — not wired, since
-  Storybook is local-only and Playwright isn't in the toolchain here. Current
-  visual verification: the manual chrome-devtools sweep of all ~62 showcase
-  screens + auth + dark mode (P4 C7), plus the Storybook theme + **Direction**
-  toolbars for on-demand light/dark/RTL review. Decision pending on whether to
-  add the browser toolchain.
+- **Storybook test-runner wired in (`@storybook/test-runner` + Playwright Chromium).**
+  `.storybook/test-runner.ts` + three scripts:
+  - `pnpm test:storybook` — renders every story (84 suites / 384 stories) in a
+    real Chromium and fails on a render error or a browser console error.
+    Deterministic across OSes, so **this is the variant wired into CI** (after
+    `storybook:build`, with `playwright install --with-deps chromium`).
+  - `pnpm test:storybook:visual` / `:visual:update` — adds `SB_VISUAL=1` and
+    screenshot-compares `#storybook-root` against a committed baseline in three
+    modes (light, `.dark`, `dir="rtl"`), `failureThreshold: 0.02%`. Animations/
+    carets frozen before capture. **Local-only** — baselines in
+    `.storybook/__snapshots__/` are rendered by the host OS font stack and are
+    not portable to CI's Ubuntu runner, so CI does not gate on them. Regenerate
+    intentionally after a deliberate visual change; opt a story out with
+    `parameters.snapshot: { skip: true }`.
+  - Baseline set: ~1150 PNGs (~10 MB), generated on Windows / Chromium 1234.
+- **fix (pre-existing):** `.storybook/preview.tsx` — Storybook compiles the
+  preview config with the *classic* JSX runtime (stories use the automatic one),
+  so the `direction` decorator's JSX became `React.createElement(...)` with no
+  `React` in scope → every story threw "React is not defined" in a production
+  Storybook build (dev happened to paper over it). Now imports `React` and the
+  decorator is authored with `React.createElement`.
 
 ## Follow-ups
 
+- CI-gated visual regression: needs a fixed-render environment (the Playwright
+  Docker image, or Chromatic). Today's pixel baselines are Windows-local; CI runs
+  the cross-platform smoke variant only.
 - Token alpha channels (`bg-primary/40`).
 - Select/menu overlays could adopt @floating-ui (currently Select uses absolute pos).
 - 4 app-coupled utils still deferred (useDataTableState / useAppendQueryParams / useQueryParamPagingState / withHeaderItem) — land with DataTable-heavy P4 area batches.
