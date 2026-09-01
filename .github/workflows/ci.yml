@@ -28,6 +28,9 @@ jobs:
       - name: Lint
         run: pnpm lint
 
+      - name: Token guard (no literal colours)
+        run: pnpm check:tokens
+
       - name: Format check
         run: pnpm format:check
 

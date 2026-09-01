@@ -1,5 +1,6 @@
 import { describe, expect, it, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
+import { axe } from 'jest-axe'
 
 vi.mock('react-apexcharts', () => ({
   default: ({ series }: { series: unknown }) => (
@@ -21,5 +22,10 @@ describe('Histogram', () => {
     render(<Histogram data={[]} />)
     const series = JSON.parse(screen.getByTestId('apexchart').getAttribute('data-series')!)
     expect(series[0].data).toEqual([])
+  })
+
+  it('has no axe violations', async () => {
+    const { container } = render(<Histogram data={[1, 2, 3, 4, 5]} bins={3} />)
+    expect(await axe(container)).toHaveNoViolations()
   })
 })

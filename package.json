@@ -13,6 +13,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "lint": "eslint .",
+    "check:tokens": "node scripts/check-tokens.mjs",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "typecheck": "rimraf --glob \"packages/*/tsconfig.tsbuildinfo\" \"apps/*/*.tsbuildinfo\" && tsc -b --pretty",

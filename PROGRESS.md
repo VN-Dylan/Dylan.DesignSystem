@@ -197,6 +197,13 @@ Done so far:
   form submission (one per value in multi mode). `+2 tests, +InAForm story`.
 - `DataTable` "Rows per page" `<select>` got an explicit `aria-label`.
 - pre-existing prettier drift in `SelectExtension.tsx` fixed.
+- **Token-first guard**: `scripts/check-tokens.mjs` (+ `pnpm check:tokens`, wired into
+  CI after lint) scans `packages/ui/src` + `apps/showcase/src` for literal colours
+  (hex, `rgb()/hsl()`, bare CSS colour keywords in `.scss/.css`). `readVar(` lines
+  and a `// ds-allow-literal` marker are the escape hatches. Repo currently clean
+  (535 files, 0 violations).
+- a11y test coverage now 84/84 base+composite components — `Histogram` got its
+  `axe` assertion (was the only file without one).
 
 ## Follow-ups
 
