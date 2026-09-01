@@ -1,4 +1,6 @@
+import { useEffect, useState } from 'react'
 import { Meta, Markdown } from '@storybook/blocks'
+import { presetThemeSchema, themeSchemaNames, themeSchemaToCssVars } from '@dylan-ds/tokens'
 
 <Meta title="Handbook/Theming & Modes" />
 
@@ -57,6 +59,101 @@ Object.entries(vars).forEach(([k, v]) => document.documentElement.style.setPrope
 
 The showcase app owns the higher-level theme _store_ (zustand) that ties these
 together; the packages only expose the primitives.
+
+export const SchemaSwitcher = () => {
+  const [schema, setSchema] = useState('default')
+  useEffect(() => {
+    const value = presetThemeSchema[schema]?.light
+    if (!value) return
+    const root = document.documentElement
+    const vars = themeSchemaToCssVars(value)
+    for (const [prop, val] of Object.entries(vars)) root.style.setProperty(prop, val)
+    return () => {
+      // reset to the default schema on unmount so the rest of the page/docs
+      // aren't left on a brand hue this demo picked
+      const fallback = themeSchemaToCssVars(presetThemeSchema.default.light)
+      for (const prop of Object.keys(fallback)) root.style.removeProperty(prop)
+    }
+  }, [schema])
+  return (
+    <div style={{ margin: '1rem 0' }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '0.75rem' }}>
+        {themeSchemaNames.map((name) => (
+          <button
+            key={name}
+            type="button"
+            onClick={() => setSchema(name)}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.4rem',
+              padding: '0.35rem 0.6rem',
+              borderRadius: 'var(--dyl-radius-md)',
+              border: `1px solid ${schema === name ? 'var(--dyl-primary)' : 'var(--dyl-border)'}`,
+              background: schema === name ? 'var(--dyl-primary-subtle)' : 'var(--dyl-surface)',
+              color: 'var(--dyl-text)',
+              cursor: 'pointer',
+              fontSize: '0.8rem',
+              textTransform: 'capitalize',
+            }}
+          >
+            <span
+              aria-hidden
+              style={{
+                width: 12,
+                height: 12,
+                borderRadius: '999px',
+                background: presetThemeSchema[name].light.primary,
+              }}
+            />
+            {name}
+          </button>
+        ))}
+      </div>
+      <div
+        style={{
+          display: 'flex',
+          gap: '0.75rem',
+          alignItems: 'center',
+          padding: '1rem',
+          borderRadius: 'var(--dyl-radius-lg)',
+          border: '1px solid var(--dyl-border)',
+          background: 'var(--dyl-surface)',
+        }}
+      >
+        <button
+          type="button"
+          style={{
+            padding: '0.5rem 1rem',
+            borderRadius: 'var(--dyl-radius-md)',
+            border: 'none',
+            background: 'var(--dyl-primary)',
+            color: 'var(--dyl-on-primary)',
+            fontSize: '0.85rem',
+          }}
+        >
+          Primary button
+        </button>
+        <span
+          style={{
+            padding: '0.3rem 0.6rem',
+            borderRadius: 'var(--dyl-radius-full)',
+            background: 'var(--dyl-primary-subtle)',
+            color: 'var(--dyl-primary)',
+            fontSize: '0.75rem',
+          }}
+        >
+          Subtle tag
+        </span>
+      </div>
+    </div>
+  )
+}
+
+Live — click a schema, watch `--dyl-primary` and friends update on real
+component-shaped markup (this resets to `default` when you leave the page):
+
+<SchemaSwitcher />
 
 ## RTL
 

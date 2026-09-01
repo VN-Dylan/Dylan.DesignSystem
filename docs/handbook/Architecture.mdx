@@ -1,0 +1,81 @@
+import { Meta, Markdown } from '@storybook/blocks'
+
+<Meta title="Handbook/Architecture" />
+
+# Architecture
+
+**Introduction** has the package table and dependency diagram — start there if
+you haven't. This page is what it doesn't cover: the styling split, and how a
+component actually gets from source to a consuming app's bundle.
+
+`tokens` and `utils` depend on **nothing** else in the workspace, deliberately
+— a consumer who only wants the design tokens (say, to theme a non-React
+surface) or a couple of framework-agnostic hooks doesn't have to pull in the
+component library.
+
+---
+
+## Styling split
+
+Two layers, and the boundary is fixed per component type, not per rule:
+
+1. **Tailwind, via `@apply`** in each component's `.scss` — for anything
+   expressible as a utility class (spacing, colour, radius, typography). No
+   `@layer` wrapper in the component files themselves; the single entry point
+   `packages/ui/src/styles/index.scss` owns `@tailwind base/components/utilities`
+   once for the whole package.
+2. **Plain CSS + `var(--dyl-*)`** for what utilities can't express: `z-index`
+   ladders, `@keyframes`, the modal scrim, a `size()` middleware setting an
+   inline `min-width`.
+
+Every colour, radius, shadow, duration a component reaches for is a
+`var(--dyl-*)` (through a Tailwind utility or directly) — never a literal.
+`pnpm check:tokens` enforces this in CI, scanning every `.scss`/`.css` file in
+`packages/ui/src` and `apps/showcase/src`.
+
+See [`RECIPE.md`](../../RECIPE.md) for the full component file layout
+(`Component.tsx` / `.scss` / `.stories.tsx` / `.test.tsx` / `types.ts` /
+`index.ts`) and the golden-5 reference components.
+
+## Build
+
+`packages/ui` builds with Vite in library mode:
+
+<Markdown>{`
+| Choice | Why |
+| --- | --- |
+| \`formats: ['es']\` | The consumer's own bundler handles the rest; no UMD/CJS to maintain. |
+| \`preserveModules: true\` | Per-module output (\`dist/Button/Button.js\`, not one barrel) — a consumer importing \`Button\` doesn't pull in \`Chart\` or \`RichTextEditor\`. Cut the bundle from an 807 kB single file to ~227 kB total across per-component chunks (largest ~12 kB). |
+| \`cssCodeSplit: false\` | One \`styles.css\` — component CSS is small and interdependent (shared tokens), splitting it per-component isn't worth the request fan-out. |
+| \`external\` | \`react\`/\`react-dom\`, every \`@dylan-ds/*\` sibling, every \`react-icons\` subpath, and every vendor a composite component wraps (\`@floating-ui\`, \`@tanstack/react-table\`, ApexCharts, Tiptap, jsvectormap, \`react-syntax-highlighter\`) — all **peer** deps of the consumer, never bundled into \`@dylan-ds/ui\`. |
+`}</Markdown>
+
+`.d.ts` files are emitted separately: each package's `tsconfig.json` sets
+`emitDeclarationOnly: true` and `pnpm build` runs `tsc -b` after the Vite
+build — Vite makes the JS, TypeScript makes the types. (Corollary: never run
+`tsc -b --force` here — it leaves a stale `tsconfig.tsbuildinfo` that then
+breaks the next `pnpm build`.)
+
+## Verification pipeline
+
+Every change goes through the same gate, locally and in CI
+(`.github/workflows/ci.yml`):
+
+```
+typecheck → lint → check:tokens → check:api → format:check → test → build
+  → storybook:build → test:storybook (real-browser smoke, all 384 stories)
+```
+
+`check:tokens` (`scripts/check-tokens.mjs`) and `check:api`
+(`scripts/api-coverage.mjs`) are this repo's own drift gates — the first
+scans for literal colours, the second diffs every component's props against
+the crawled Eyris reference (`docs/reference/eyris-crawl`) and fails on an
+unlisted gap. Pixel visual-regression (`pnpm test:storybook:visual`,
+Playwright + `jest-image-snapshot`) stays local-only — see `PROGRESS.md` for
+why (the baselines are host-OS/Chromium rendered, not portable to CI).
+
+## Versioning
+
+[Changesets](https://github.com/changesets/changesets), all `@dylan-ds/*`
+packages version in lockstep (`fixed`). `@dylan-ds/showcase` is excluded from
+publishing — it's a proof, not a product.

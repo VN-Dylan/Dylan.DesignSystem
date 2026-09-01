@@ -19,11 +19,13 @@ const preview: Preview = {
           'Handbook',
           [
             'Introduction',
+            'Architecture',
             'Principles',
             'Design Tokens',
             'Theming & Modes',
             'Accessibility',
             'Component API',
+            'When to Use What',
             'Contributing',
             'Eyris Mapping',
           ],

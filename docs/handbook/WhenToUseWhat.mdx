@@ -1,0 +1,105 @@
+import { Meta, Markdown } from '@storybook/blocks'
+
+<Meta title="Handbook/When to Use What" />
+
+# When to use what
+
+The system has 84 components and several solve overlapping problems on
+purpose — a modal-dialog confirmation is not a toast, a floating dropdown is
+not a docked sidebar menu. This page is the decision guide **Component API**
+doesn't cover: not "how does the prop work" but "which component do I reach
+for."
+
+---
+
+## Overlays
+
+<Markdown>{`
+| Component | Use it when | Not when |
+| --- | --- | --- |
+| \`Dialog\` | The task must be completed or dismissed before anything else — a form, a destructive-action confirmation, content the user can't ignore. Modal: traps focus, blocks the page. | The content is optional context (\`Popover\`) or doesn't need to block interaction (\`Toast\`). |
+| \`ConfirmDialog\` | A yes/no or destructive-action confirmation specifically — it's a pre-wired \`Dialog\` (icon + message + confirm/cancel buttons) so you don't hand-roll the same layout every time. | Anything with a body more complex than a message + two buttons — use \`Dialog\` directly. |
+| \`Drawer\` | Modal, but the content is naturally a **panel** (a longer form, a detail view, filters) that benefits from screen-edge real estate rather than a centered card. | A short confirmation (\`ConfirmDialog\`) or content that shouldn't block the page (\`Popover\`). |
+| \`Popover\` | Non-modal contextual content anchored to a trigger — a details flyout, a small form, a custom menu. Doesn't block the page; dismisses on outside click / Esc. | The content needs to block interaction until resolved — use \`Dialog\`. |
+| \`Dropdown\` / \`Menu\` | Choosing **one item** from a floating (\`Dropdown\`) or docked (\`Menu\`, e.g. sidebar nav) list of actions or destinations. | Choosing from data-backed options with search — use \`Select\` or \`AutoComplete\`. |
+| \`Tooltip\` | A short label that appears on hover/focus, for an icon-only button or a truncated value. Not interactive content. | Anything the user needs to click, read at length, or that should stay open — use \`Popover\`. |
+| \`Toast\` | An ambient, auto-dismissing notice about something that just happened (saved, failed, undo available) — doesn't block or require a response. | Anything the user must acknowledge before continuing — use \`Dialog\`/\`ConfirmDialog\`. Persistent page-level status — use \`Alert\`. |
+`}</Markdown>
+
+All five anchored ones (\`Popover\`, \`Dropdown\`, \`Tooltip\`, \`Select\`,
+\`AutoComplete\`) position with the same \`@floating-ui/react\` pattern —
+portalled, \`flip\`/\`shift\`, dismiss on outside-click/Esc. The two modal ones
+(\`Dialog\`, \`Drawer\`) share \`useFocusTrap\` instead — a different problem
+(contain focus, not position a box).
+
+## Picking one thing from a list
+
+<Markdown>{`
+| Component | Use it when |
+| --- | --- |
+| \`Select\` | A fixed, known option list — the common case. Searchable, clearable, single or \`Select.Multi\`. |
+| \`AutoComplete\` | Free-text input where you also want to suggest/filter matches as the user types — the input itself is the value, not just a filter on a closed set. |
+| \`Dropdown\` | The choice is a **command**, not data — "Export as…", a user-menu, a row's action menu. No search, no \`value\`/\`onChange\` pair. |
+| \`Segment\` | 2–5 mutually exclusive options that should all be visible at once (a view toggle, a filter tab bar) — no floating menu, no scrolling. |
+| \`Tabs\` | Switching between **panels of content**, not just a value — each tab owns a \`Tabs.TabContent\`. |
+| \`Steps\` | A fixed, ordered sequence the user progresses through (checkout, onboarding) — not a free choice at all. |
+`}</Markdown>
+
+If the options come from an async source or number in the hundreds, pair
+\`Select\`/\`AutoComplete\` with your own debounced fetch — neither does
+virtualization or remote search itself.
+
+## Tabular data
+
+\`Table\`'s own doc comment says it best: **styled semantic table primitives.
+For data-grid behaviour (client/server pagination, column defs, selection)
+use \`DataTable\` instead.** Concretely:
+
+<Markdown>{`
+| | \`Table\` | \`DataTable\` |
+| --- | --- | --- |
+| Rows | You render \`<Tr>\`/\`<Td>\` yourself | Column-defs (\`@tanstack/react-table\`) drive rendering |
+| Pagination | Bring your own (e.g. \`Pagination\`) | Built in — \`pagingData\` + \`onPaginationChange\` |
+| Sorting / selection | Manual | \`onSort\` / \`selectable\` + \`onSelectChange\` |
+| Best for | A handful of static rows, a custom layout per row | Anything server-driven or with more than a page of rows |
+`}</Markdown>
+
+## Filtering
+
+- **\`PopoverFilter\`** — the standard column/list filter: a popover with a
+  searchable checkbox list. Reach for this first.
+- **\`AdvancedFilterBuilder\`** — a visual query builder (AND/OR combinator +
+  field/operator/value rules) for power-user filter UIs. Single-level only
+  (no nested rule groups yet) — heavier than most screens need.
+
+## Feedback & empty states
+
+<Markdown>{`
+| Component | Use it when |
+| --- | --- |
+| \`Alert\` | Persistent, page-level or section-level status the user should see while it's relevant (a banner, a form-level error summary). Stays until dismissed or removed from the tree. |
+| \`Toast\` | The same *kind* of message (success/error/info/warning), but ambient and temporary — an event just happened. |
+| \`ConfirmDialog\` | The user must decide before an action proceeds. |
+| \`EmptyState\` | A list, table or panel has **no data** — not an error, a normal state that needs a next action ("Create your first…"). |
+`}</Markdown>
+
+## Loading states
+
+<Markdown>{`
+| Component | Use it when |
+| --- | --- |
+| \`Spinner\` | A small, indeterminate loading indicator — inside a button, next to a label, standing in for content that will pop in all at once. |
+| \`Skeleton\` | You know the **shape** of what's loading (a card, a row) and want to reduce layout shift — placeholder blocks sized like the real content. |
+| \`Loading\` | Overlays a loader **over existing children** — the content is there but temporarily non-interactive (e.g. a table mid-refetch). |
+| \`Loaders\` (\`MediaSkeleton\`, …) | Pre-composed skeleton layouts (avatar + title + text) for a common card/list-item shape, so you don't hand-assemble \`Skeleton\` primitives every time. |
+`}</Markdown>
+
+## Small labels
+
+<Markdown>{`
+| Component | Use it when |
+| --- | --- |
+| \`Badge\` | A small dot/count indicator anchored to another element (a notification count on a bell icon). |
+| \`Tag\` | A standalone labeled chip — a category, a status word, a removable filter pill. |
+| \`GrowShrinkTag\` | Specifically a numeric delta with directional styling (+12.4% in green, -3.1% in red) — a \`Tag\` variant, not a general-purpose one. |
+`}</Markdown>

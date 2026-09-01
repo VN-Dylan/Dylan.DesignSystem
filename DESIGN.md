@@ -46,6 +46,9 @@ familiarity; all brand assets, copy and visual identity are Dylan's own.
   `styles/index.scss` owns the layers). Plain CSS + `var(--dyl-*)` for the rest
   (z-index, keyframes, overlay scrim). See [`RECIPE.md`](./RECIPE.md).
 
+Fuller version, with the build/bundle strategy and the monorepo layout: the
+**Handbook → Architecture** page in Storybook (`docs/handbook/Architecture.mdx`).
+
 ## 4. Design tokens
 
 Source: `packages/tokens/src/styles/*.scss` → generated to CSS variables
@@ -106,12 +109,13 @@ semantic utility names (right column).
 | Z-index | `dropdown 1000` · `sticky 1010` · `drawer 1020` · `dialog 1030` · `popover 1040` · `toast 1050` · `tooltip 1060` | `z-*` |
 | Breakpoint | `sm 640` · `md 768` · `lg 1024` · `xl 1280` · `2xl 1536` | Tailwind default |
 
-### Known limitation — opacity modifier
+### Opacity modifier
 
-Themed colours resolve to `var(--dyl-*)` (not channel triples), so
-`bg-primary/40` does **not** work. Use a dedicated token
-(`primary-subtle`, `overlay`) or `brightness-*`. Adding `<alpha-value>` channel
-variables to the palette is a tracked follow-up (see PROGRESS.md).
+`primary`, `success`/`error`/`info`/`warning`, `content` and `gray` each ship a
+`--dyl-*-channel` R G B triplet and resolve through `rgb(var(...) /
+<alpha-value>)`, so `bg-primary/40`, `text-content/60`, etc. work. Colours
+without a channel var — `surface`, `border`, `bg`, `overlay` — stay solid-only;
+reach for `-subtle`, `overlay`, or `brightness-*` there instead.
 
 ### Preset theme schemas
 
@@ -171,8 +175,7 @@ The system reproduces the Eyris component surface 1:1 by name; the import alias
 is the only expected change. The **Handbook → Eyris Mapping** page in Storybook
 (`docs/handbook/EyrisMapping.mdx`) records coverage and every deliberate
 deviation — `Button` has no `asChild`, `FullCalendar`/`GanttChart` are
-dependency-free, 7 app-coupled utilities live in the showcase, the opacity
-modifier is unsupported, etc.
+dependency-free, 3 app-coupled utilities live in the showcase, etc.
 
 ## 9. Versioning
 
