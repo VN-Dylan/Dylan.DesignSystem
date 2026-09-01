@@ -255,13 +255,20 @@ Done:
     `storybook:build`, with `playwright install --with-deps chromium`).
   - `pnpm test:storybook:visual` / `:visual:update` — adds `SB_VISUAL=1` and
     screenshot-compares `#storybook-root` against a committed baseline in three
-    modes (light, `.dark`, `dir="rtl"`), `failureThreshold: 0.02%`. Animations/
-    carets frozen before capture. **Local-only** — baselines in
+    modes (light, `.dark`, `dir="rtl"`), `failureThreshold: 0.02%`. Before each
+    capture: animations/carets frozen, wall clock pinned (`page.clock`), and
+    **every `<img>` awaited to `decode()` + `document.fonts.ready`** — the last
+    one added in the post-P6 sweep after Card/Avatar media stories proved flaky
+    (baseline caught a half-loaded image). **Local-only** — baselines in
     `.storybook/__snapshots__/` are rendered by the host OS font stack and are
     not portable to CI's Ubuntu runner, so CI does not gate on them. Regenerate
     intentionally after a deliberate visual change; opt a story out with
     `parameters.snapshot: { skip: true }`.
-  - Baseline set: ~1150 PNGs (~10 MB), generated on Windows / Chromium 1234.
+  - Baseline set: 1158 PNGs (~10 MB), Windows / Chromium 1234. A clean
+    compare run after the token-alpha + Select-`@floating-ui` changes touched
+    only 10 files — 4 image-race baselines the new `awaitImages` step
+    stabilised + 6 for the two new Calendar picker stories — confirming those
+    two refactors are pixel no-ops.
 - **fix (pre-existing):** `.storybook/preview.tsx` — Storybook compiles the
   preview config with the *classic* JSX runtime (stories use the automatic one),
   so the `direction` decorator's JSX became `React.createElement(...)` with no

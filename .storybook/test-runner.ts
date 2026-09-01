@@ -65,6 +65,25 @@ const config: TestRunnerConfig = {
 
     const root = page.locator('#storybook-root')
 
+    // Wait for every <img> in the story to finish decoding — otherwise a
+    // late-loading avatar / media image races the screenshot and the baseline
+    // captures a half-loaded state.
+    const awaitImages = () =>
+      page.evaluate(async () => {
+        const imgs = Array.from(document.querySelectorAll('#storybook-root img'))
+        await Promise.all(
+          imgs.map((img) => {
+            const el = img as HTMLImageElement
+            if (el.complete && el.naturalWidth > 0) return el.decode().catch(() => {})
+            return new Promise<void>((resolve) => {
+              el.addEventListener('load', () => resolve(), { once: true })
+              el.addEventListener('error', () => resolve(), { once: true })
+            })
+          }),
+        )
+        if ('fonts' in document) await (document as Document).fonts.ready
+      })
+
     for (const mode of MODES) {
       await page.evaluate(
         ({ dark, rtl }) => {
@@ -76,6 +95,7 @@ const config: TestRunnerConfig = {
       await page.addStyleTag({ content: FREEZE_CSS })
       // let the layout settle after the class/dir flip
       await page.waitForTimeout(120)
+      await awaitImages()
 
       const image = await root.screenshot({ animations: 'disabled' })
       expect(image).toMatchImageSnapshot({
