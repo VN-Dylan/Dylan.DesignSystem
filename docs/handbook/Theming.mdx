@@ -65,9 +65,18 @@ import { useDirection } from '@dylan-ds/utils'
 const { direction, toggle } = useDirection() // sets dir="rtl" on <html>
 ```
 
-Component SCSS uses **logical properties** (`margin-inline-start`,
-`inset-inline`, `border-start-*`) rather than left/right, so layout mirrors with
-no per-component work.
+Component SCSS uses **logical properties** throughout — both the plain-CSS rules
+(`margin-inline-start`, `inset-inline`, `border-inline-start`) and the Tailwind
+`@apply` layer (`ps-*` / `pe-*` / `ms-*` / `me-*` / `start-*` / `end-*` /
+`text-start` / `rounded-s-*` / `border-s`). Layout mirrors with no per-component
+work; the few transform-based offsets (Switcher thumb, Badge dot) carry an
+explicit `rtl:` override.
+
+Use the **Direction** toolbar control in Storybook to preview any story in RTL.
+
+Deliberately physical (not mirrored): `Drawer` `placement="left|right"` (the prop
+names a side), the `Slider` fill track (value runs min→max left-to-right), the
+`GanttChart` timeline, and glyph shapes like the checkbox tick.
 
 ## Applying the system in a consuming app
 

@@ -2,7 +2,7 @@
   @apply w-full;
 
   &__trigger {
-    @apply flex w-full items-center justify-between gap-2 py-3 text-left text-sm font-medium
+    @apply flex w-full items-center justify-between gap-2 py-3 text-start text-sm font-medium
       text-content transition-colors;
     @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary
       focus-visible:ring-offset-2 focus-visible:ring-offset-surface;

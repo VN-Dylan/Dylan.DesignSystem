@@ -6,6 +6,6 @@
   }
 
   &[data-orientation='vertical'] {
-    @apply mx-4 h-full self-stretch border-l;
+    @apply mx-4 h-full self-stretch border-s;
   }
 }

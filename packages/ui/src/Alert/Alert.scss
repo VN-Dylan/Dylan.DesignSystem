@@ -54,7 +54,7 @@
   }
 
   &__close {
-    @apply -mr-1 -mt-1 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-md
+    @apply -me-1 -mt-1 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-md
       text-content-muted transition-colors duration-fast hover:bg-surface hover:text-content;
     @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary
       focus-visible:ring-offset-2 focus-visible:ring-offset-surface;

@@ -18,7 +18,7 @@
     grid-template-columns: var(--dyl-form-label-width, 100px) 1fr;
 
     .dyl-form-item__label-row {
-      @apply pt-2 text-right;
+      @apply pt-2 text-end;
     }
     .dyl-form-item__error {
       grid-column: 2;

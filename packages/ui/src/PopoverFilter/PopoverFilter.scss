@@ -6,7 +6,7 @@
   }
 
   &__count {
-    @apply ml-1.5 inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-primary
+    @apply ms-1.5 inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-primary
       px-1 text-[0.65rem] font-semibold text-primary-fg;
   }
 

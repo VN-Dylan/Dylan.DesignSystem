@@ -35,7 +35,7 @@ export function SideNav({ collapsed = false }: SideNavProps) {
     <nav
       aria-label="Primary"
       data-collapsed={collapsed || undefined}
-      className="flex h-full w-full flex-col border-r border-border bg-surface"
+      className="flex h-full w-full flex-col border-e border-border bg-surface"
     >
       <div className="flex h-16 shrink-0 items-center px-4">
         <Logo compact={collapsed} />
@@ -56,7 +56,7 @@ export function SideNav({ collapsed = false }: SideNavProps) {
                   onSelect={() => go(group.path)}
                 >
                   {group.icon && (
-                    <Icon as={group.icon} size={18} className="mr-2 inline shrink-0" />
+                    <Icon as={group.icon} size={18} className="me-2 inline shrink-0" />
                   )}
                   {group.title}
                 </Menu.MenuItem>

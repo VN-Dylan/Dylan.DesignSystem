@@ -20,7 +20,7 @@ export function Header() {
         onClick={toggleNav}
       />
 
-      <label className="ml-1 hidden items-center gap-2 rounded-md bg-surface-sunken px-3 py-1.5 text-sm text-content-faint sm:flex">
+      <label className="ms-1 hidden items-center gap-2 rounded-md bg-surface-sunken px-3 py-1.5 text-sm text-content-faint sm:flex">
         <Icon as={TbIcons.TbSearch} size={16} />
         <input
           type="search"

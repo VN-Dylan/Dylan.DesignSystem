@@ -64,6 +64,8 @@ consuming app's job.
 
 ## Bundle
 
-`@dylan-ds/ui` is ~800 kB with the vendor libraries kept **external** (ApexCharts,
-TanStack Table, Tiptap, jsvectormap, react-syntax-highlighter are peer deps of
-the consuming app). Code-splitting is a P6 item.
+`@dylan-ds/ui` ships as **per-module chunks** (`preserveModules`, ~227 kB total,
+largest chunk ~12 kB) so a consuming app only bundles what it imports. Vendor
+libraries are kept **external** (ApexCharts, TanStack Table, Tiptap, jsvectormap,
+react-syntax-highlighter are peer deps of the consuming app), as is every
+`react-icons` subpath.

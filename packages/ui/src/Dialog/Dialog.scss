@@ -12,7 +12,7 @@
   }
 
   &__close {
-    @apply absolute right-3 top-3 inline-flex h-8 w-8 items-center justify-center rounded-md
+    @apply absolute end-3 top-3 inline-flex h-8 w-8 items-center justify-center rounded-md
       text-content-muted transition-colors hover:bg-surface-sunken hover:text-content;
     @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary;
   }

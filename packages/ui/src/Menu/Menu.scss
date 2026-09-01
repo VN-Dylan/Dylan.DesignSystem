@@ -19,7 +19,7 @@
 
   &__item,
   &__collapse-trigger {
-    @apply flex w-full select-none items-center gap-2 rounded-md px-3 text-left leading-normal
+    @apply flex w-full select-none items-center gap-2 rounded-md px-3 text-start leading-normal
       transition-colors duration-fast ease-standard;
     @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary
       focus-visible:ring-offset-2 focus-visible:ring-offset-surface;
@@ -92,7 +92,7 @@
     }
 
     &[data-indent] {
-      @apply pl-4;
+      @apply ps-4;
     }
   }
 

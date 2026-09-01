@@ -24,12 +24,12 @@
   }
 
   &__thumb {
-    @apply absolute left-0.5 inline-flex h-6 w-6 items-center justify-center rounded-full
+    @apply absolute start-0.5 inline-flex h-6 w-6 items-center justify-center rounded-full
       bg-surface shadow transition duration-fast ease-standard;
   }
 
   &__input:checked + &__track &__thumb {
-    @apply translate-x-5;
+    @apply translate-x-5 rtl:-translate-x-5;
   }
 
   &__content {

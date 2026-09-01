@@ -6,7 +6,7 @@
   }
 
   &__inner {
-    @apply absolute right-0 top-0 inline-flex min-h-5 min-w-5 translate-x-1/2
+    @apply absolute end-0 top-0 inline-flex min-h-5 min-w-5 translate-x-1/2 rtl:-translate-x-1/2
       -translate-y-1/2 items-center justify-center rounded-full bg-error px-1 text-xs
       font-semibold leading-none text-primary-fg;
 

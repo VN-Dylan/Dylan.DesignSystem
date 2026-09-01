@@ -9,13 +9,13 @@
     @apply bottom-0 flex-col-reverse;
   }
   &[data-placement$='start'] {
-    @apply left-0 items-start;
+    @apply start-0 items-start;
   }
   &[data-placement$='center'] {
     @apply inset-x-0 items-center;
   }
   &[data-placement$='end'] {
-    @apply right-0 items-end;
+    @apply end-0 items-end;
   }
 
   &__item {

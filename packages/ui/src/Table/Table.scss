@@ -3,7 +3,7 @@
 }
 
 .dyl-table {
-  @apply w-full border-collapse text-left text-sm text-content;
+  @apply w-full border-collapse text-start text-sm text-content;
 
   .dyl-table__th {
     @apply whitespace-nowrap border-b border-border px-4 py-3 text-xs font-semibold
@@ -41,7 +41,7 @@
   }
 
   &__sorter {
-    @apply flex w-full items-center gap-1 px-4 py-3 text-left text-xs font-semibold
+    @apply flex w-full items-center gap-1 px-4 py-3 text-start text-xs font-semibold
       uppercase tracking-wide text-content-muted;
     @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary;
   }

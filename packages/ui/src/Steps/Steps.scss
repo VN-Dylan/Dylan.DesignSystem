@@ -10,7 +10,7 @@
   }
 
   &:not([data-vertical]) &__item:not(:last-child)::after {
-    @apply absolute left-8 right-0 top-4 h-px bg-border;
+    @apply absolute start-8 end-0 top-4 h-px bg-border;
     content: '';
   }
 
@@ -19,12 +19,12 @@
   }
 
   &[data-vertical] &__item:not(:last-child)::after {
-    @apply absolute bottom-0 left-4 top-8 w-px bg-border;
+    @apply absolute bottom-0 start-4 top-8 w-px bg-border;
     content: '';
   }
 
   &__control {
-    @apply relative z-10 flex min-w-0 items-start gap-3 border-0 bg-transparent p-0 text-left
+    @apply relative z-10 flex min-w-0 items-start gap-3 border-0 bg-transparent p-0 text-start
       text-content;
     @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary
       focus-visible:ring-offset-2 focus-visible:ring-offset-surface;

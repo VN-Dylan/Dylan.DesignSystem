@@ -22,7 +22,7 @@ const Aside = () => (
     <p className="text-xs text-primary-fg/70">Internal reference build · no real accounts</p>
     <div
       aria-hidden
-      className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-white/10"
+      className="pointer-events-none absolute -end-24 -top-24 h-72 w-72 rounded-full bg-white/10"
     />
   </div>
 )

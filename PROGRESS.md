@@ -204,6 +204,17 @@ Done so far:
   (535 files, 0 violations).
 - a11y test coverage now 84/84 base+composite components — `Histogram` got its
   `axe` assertion (was the only file without one).
+- **RTL pass.** The Tailwind `@apply` layer used physical-direction utilities
+  (`pl-`/`ml-`/`text-left`/`left-`/`rounded-l`…) even though the plain-CSS layer
+  was already logical — so `dir="rtl"` did not actually mirror. Converted 25
+  component `.scss` files to logical utilities (`ps-`/`pe-`/`ms-`/`me-`/`start-`/
+  `end-`/`text-start`/`rounded-s`/`border-s`); `Switcher` thumb + `Badge` dot use
+  a transform offset so they carry an explicit `translate-x-* rtl:-translate-x-*`
+  override. Showcase template chrome (SideNav/Header/UserDropdown/AuthLayout)
+  converted too. Storybook got a **Direction** toolbar (`ltr`/`rtl`, sets
+  `<html dir>`). Deliberately left physical: `Drawer` `placement`, `Slider` fill
+  track, `GanttChart` timeline, checkbox tick glyph — documented in Theming
+  handbook. `pnpm build` + generated-CSS spot-check verified.
 
 ## Follow-ups
 

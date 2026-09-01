@@ -6,7 +6,7 @@
   }
 
   &__copy {
-    @apply absolute right-2 top-2 z-10 inline-flex h-7 w-7 items-center justify-center
+    @apply absolute end-2 top-2 z-10 inline-flex h-7 w-7 items-center justify-center
       rounded-md border border-border bg-surface text-content-muted opacity-0 transition
       hover:text-content;
     @apply focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2

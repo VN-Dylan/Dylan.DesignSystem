@@ -28,11 +28,11 @@ export function UserDropdown() {
         </div>
       </Dropdown.Item>
       <Dropdown.Item eventKey="profile" onSelect={() => navigate('/accounts/settings/profile')}>
-        <Icon as={TbIcons.TbUser} size={16} className="mr-2 inline" />
+        <Icon as={TbIcons.TbUser} size={16} className="me-2 inline" />
         Profile
       </Dropdown.Item>
       <Dropdown.Item eventKey="activity" onSelect={() => navigate('/accounts/activity')}>
-        <Icon as={TbIcons.TbClipboardList} size={16} className="mr-2 inline" />
+        <Icon as={TbIcons.TbClipboardList} size={16} className="me-2 inline" />
         Activity log
       </Dropdown.Item>
       <Dropdown.Item variant="divider" />
@@ -43,7 +43,7 @@ export function UserDropdown() {
           navigate('/auth/sign-in')
         }}
       >
-        <Icon as={TbIcons.TbLogout} size={16} className="mr-2 inline" />
+        <Icon as={TbIcons.TbLogout} size={16} className="me-2 inline" />
         Sign out
       </Dropdown.Item>
     </Dropdown>

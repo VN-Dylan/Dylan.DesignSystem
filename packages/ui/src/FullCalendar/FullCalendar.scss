@@ -23,7 +23,7 @@
   }
 
   &__day {
-    @apply flex min-h-24 flex-col items-stretch gap-1 border border-border p-1 text-left
+    @apply flex min-h-24 flex-col items-stretch gap-1 border border-border p-1 text-start
       align-top transition-colors hover:bg-surface-sunken;
     @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary;
 
