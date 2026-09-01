@@ -141,8 +141,8 @@ Legend: ☐ todo · ◑ in progress · ☑ done · — n/a. Columns: spec · imp
 | P1 | Tokens + 24 utils + golden 5 + RECIPE | ☑ |
 | P2 | Base components (41/41, icons n/a) | ☑ |
 | P3 | 42 composite components | ☑ 42/42 |
-| P4 | Layouts + example app + auth | ◑ C1–C6 done |
-| P5 | Handbook | ☐ |
+| P4 | Layouts + example app + auth | ☑ C1–C7 done |
+| P5 | Handbook | ◑ |
 | P6 | QA & hardening | ☐ |
 
 ## P4 — showcase app (`apps/showcase`)
@@ -155,7 +155,9 @@ Legend: ☐ todo · ◑ in progress · ☑ done · — n/a. Columns: spec · imp
 | C4 | `analytics` (dashboard, forecast, revenue, subscriptions, reports) + `crypto` (dashboard, market, coin/:sym, spot, assets, kyc); + `mock/analytics.ts`, `mock/crypto.ts` | ☑ |
 | C5 | `customers` (dashboard, list, :id/overview, leads, lead/:id/overview, helpdesk) + `hrm` (dashboard, employees, attendance, payroll, leaves, announcements); + `mock/customers.ts`, `mock/hrm.ts` | ☑ |
 | C6 | `ai` (chat, image, writer) + `accounts` (settings/profile, activity, referrals, pricing, invoice, users) ; + `mock/ai.ts`, `mock/account.ts`. All `APP_AREAS` placeholders now gone. | ☑ |
-| C7 | mock data consolidation, polish pass, Eyris visual diff | ◑ visual sweep of all ~62 screens vs Eyris + polish pass done (29 fixes across 3 commits); mock consolidation done (order totals, analytics MRR, crypto portfolio, `mock/team.ts` roster, avatar de-dup). Remaining: string-name refs via `personName()`, GanttChart label overflow, nav-structure decision |
+| C7 | mock data consolidation, polish pass, Eyris visual diff | ☑ visual sweep of all ~62 screens + 13 auth + landing/404/gallery + dark mode vs Eyris; 30 fixes across 3 commits; mock consolidation (order totals post-tax, analytics MRR/ARPU derived, crypto portfolio derived, `mock/team.ts` canonical roster, customer↔staff avatar de-dup, "Grace Mensah" customer→"Kwame Boateng"). |
+
+C7 follow-ups (deferred, not blocking): nav keeps Dylan's "Dashboards" super-group + per-area groups (chose not to match Eyris's Dashboard-per-area nesting); string-name people refs (report owner / image author / task assignee label) use literals not `personName(key)`.
 
 Unbuilt areas are routed via `PagePlaceholder` (`APP_AREAS` in `routes.config.tsx`); each area batch replaces them with a real `<area>Routes` module + views + `mock/<area>.ts`. Execution: Claude wrote C1 + the C2 dashboard/infra + `SHOWCASE-RECIPE.md`; codex builds the per-area screens from a spec, Claude reviews/fixes/verifies.
 
