@@ -20,10 +20,51 @@ const Item = forwardRef<HTMLElement, SegmentItemProps>(function SegmentItem(
     if (!disabled) context.setValue(value)
   }
 
+  const isSingle = context.selectionType === 'single'
+
+  const move = (event: KeyboardEvent<HTMLElement>) => {
+    const group = event.currentTarget.closest('[role="radiogroup"],[role="group"]')
+    const items = Array.from(
+      group?.querySelectorAll<HTMLButtonElement>('.dyl-segment__item:not([disabled])') ?? [],
+    )
+    const currentIndex = items.indexOf(event.currentTarget as HTMLButtonElement)
+    if (currentIndex < 0) return
+
+    const lastIndex = items.length - 1
+    const nextIndex =
+      event.key === 'Home'
+        ? 0
+        : event.key === 'End'
+          ? lastIndex
+          : event.key === 'ArrowLeft' || event.key === 'ArrowUp'
+            ? currentIndex === 0
+              ? lastIndex
+              : currentIndex - 1
+            : currentIndex === lastIndex
+              ? 0
+              : currentIndex + 1
+
+    const next = items[nextIndex]
+    if (!next) return
+    event.preventDefault()
+    next.focus()
+    // Single-select radiogroups move selection with focus (WAI-ARIA radio pattern).
+    if (isSingle) next.click()
+  }
+
   const handleKeyDown = (event: KeyboardEvent<HTMLElement>) => {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault()
       selectItem()
+    } else if (
+      event.key === 'ArrowLeft' ||
+      event.key === 'ArrowRight' ||
+      event.key === 'ArrowUp' ||
+      event.key === 'ArrowDown' ||
+      event.key === 'Home' ||
+      event.key === 'End'
+    ) {
+      move(event)
     }
     onKeyDown?.(event)
   }
@@ -53,8 +94,6 @@ const Item = forwardRef<HTMLElement, SegmentItemProps>(function SegmentItem(
       </div>
     )
   }
-
-  const isSingle = context.selectionType === 'single'
 
   return (
     <button

@@ -124,8 +124,11 @@ or `presetThemeSchema` + `themeSchemaToCssVars` from `@dylan-ds/tokens`.
 
 - **Dark mode:** `.dark` class on `<html>` (Tailwind `darkMode: 'class'`).
 - **Schema:** `data-theme-schema` + inline CSS variables.
-- **RTL:** `dir` attribute (`useDirection` from `@dylan-ds/utils`) + CSS logical
-  properties in SCSS.
+- **RTL:** `dir` attribute (`useDirection` from `@dylan-ds/utils`). Component SCSS
+  is fully logical — both plain CSS and the Tailwind `@apply` layer (`ps`/`pe`/
+  `ms`/`me`/`start`/`end`/`text-start`/`rounded-s`); transform offsets carry an
+  `rtl:` override. A few things stay physical by design (Drawer `placement`,
+  Slider fill, Gantt timeline). Storybook has a **Direction** toolbar.
 - Colour mode and direction persist to `localStorage` (`useDarkMode`,
   `useDirection`). The showcase app owns the higher-level theme store.
 
@@ -134,8 +137,11 @@ or `presetThemeSchema` + `themeSchemaToCssVars` from `@dylan-ds/tokens`.
 - Visible `:focus-visible` ring: `ring-2 ring-primary ring-offset-2
   ring-offset-surface`.
 - Modal overlays render through `<Portal>`, set `role="dialog"` +
-  `aria-modal="true"`, and trap focus with `_internal/useFocusTrap`
-  (restoring focus on close).
+  `aria-modal="true"`, and trap focus with `_internal/useFocusTrap` — moves focus
+  in on open (deferred until the portal node mounts), cycles Tab / Shift-Tab, and
+  restores focus to the opener on close.
+- Roving-tabindex composites (`Tabs`, `Segment`) move focus with the arrow keys +
+  Home/End; single-select groups move the selection with focus.
 - `@media (prefers-reduced-motion: reduce)` slows or disables every animation.
 - Every component test asserts `expect(await axe(container)).toHaveNoViolations()`.
 - Interactive non-`<button>` elements carry an accessible name (axe

@@ -215,6 +215,21 @@ Done so far:
   `<html dir>`). Deliberately left physical: `Drawer` `placement`, `Slider` fill
   track, `GanttChart` timeline, checkbox tick glyph — documented in Theming
   handbook. `pnpm build` + generated-CSS spot-check verified.
+- **Keyboard / focus-trap audit.**
+  - **Bug fix:** `useFocusTrap` read `ref.current` once on the effect's first run,
+    but `Dialog`/`Drawer` render through a mounted-gated `Portal` whose node
+    doesn't exist yet — so the trap silently never activated (no initial focus,
+    no Tab containment, no restore). Now retries on `requestAnimationFrame` until
+    the node appears; also handles shift+Tab from the container and keeps focus
+    in on an empty focusable set. +`useFocusTrap.test.tsx`, +focus tests on
+    Dialog/Drawer.
+  - `Segment` gained roving arrow/Home/End navigation (single-select moves
+    selection with focus per the WAI-ARIA radio pattern; multi-select moves
+    focus only). +2 tests.
+  - `Tabs` already had full arrow/Home/End roving + roving tabindex — +2 tests
+    to lock it in.
+  - Known gap (documented in EyrisMapping): `Calendar` day grid has no roving
+    arrow-key nav — each day is a tab stop.
 
 ## Follow-ups
 

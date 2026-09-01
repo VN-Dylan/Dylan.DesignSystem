@@ -1,5 +1,6 @@
+import { useState } from 'react'
 import { describe, expect, it, vi } from 'vitest'
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { axe } from 'jest-axe'
 import { Dialog } from './Dialog'
@@ -53,6 +54,32 @@ describe('Dialog', () => {
     )
     await userEvent.keyboard('{Escape}')
     expect(onClose).not.toHaveBeenCalled()
+  })
+
+  it('moves focus into the dialog on open and restores it to the opener on close', async () => {
+    const user = userEvent.setup()
+    function Harness() {
+      const [open, setOpen] = useState(false)
+      return (
+        <>
+          <button onClick={() => setOpen(true)}>Open</button>
+          <Dialog isOpen={open} onClose={() => setOpen(false)} aria-label="X">
+            <button>Inside</button>
+          </Dialog>
+        </>
+      )
+    }
+    render(<Harness />)
+    const opener = screen.getByRole('button', { name: 'Open' })
+    opener.focus()
+    await user.click(opener)
+
+    const dialog = screen.getByRole('dialog')
+    await waitFor(() => expect(dialog.contains(document.activeElement)).toBe(true))
+
+    await user.keyboard('{Escape}')
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+    expect(opener).toHaveFocus()
   })
 
   it('has no axe violations', async () => {

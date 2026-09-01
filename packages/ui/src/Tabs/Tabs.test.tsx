@@ -56,6 +56,32 @@ describe('Tabs', () => {
     expect(ref).toHaveBeenCalledWith(expect.any(HTMLDivElement))
   })
 
+  it('roves selection with arrow / Home / End keys and skips disabled tabs', async () => {
+    const onChange = vi.fn()
+    renderTabs({ onChange })
+
+    screen.getByRole('tab', { name: 'Home' }).focus()
+    await userEvent.keyboard('{ArrowRight}')
+    expect(screen.getByRole('tab', { name: 'Profile' })).toHaveFocus()
+    expect(onChange).toHaveBeenLastCalledWith('profile')
+
+    // wraps past the disabled "Contact" tab back to "Home"
+    await userEvent.keyboard('{ArrowRight}')
+    expect(screen.getByRole('tab', { name: 'Home' })).toHaveFocus()
+
+    await userEvent.keyboard('{End}')
+    expect(screen.getByRole('tab', { name: 'Profile' })).toHaveFocus()
+
+    await userEvent.keyboard('{Home}')
+    expect(screen.getByRole('tab', { name: 'Home' })).toHaveFocus()
+  })
+
+  it('gives only the selected tab a tab stop (roving tabindex)', () => {
+    renderTabs()
+    expect(screen.getByRole('tab', { name: 'Home' })).toHaveAttribute('tabindex', '0')
+    expect(screen.getByRole('tab', { name: 'Profile' })).toHaveAttribute('tabindex', '-1')
+  })
+
   it('has no axe violations', async () => {
     const { container } = renderTabs()
     expect(await axe(container)).toHaveNoViolations()

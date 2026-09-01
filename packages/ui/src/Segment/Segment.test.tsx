@@ -95,6 +95,45 @@ describe('Segment', () => {
     expect(ref).toHaveBeenCalledWith(expect.any(HTMLButtonElement))
   })
 
+  it('moves selection with arrow keys in a single-select group and skips disabled', async () => {
+    const onChange = vi.fn()
+    render(
+      <Segment defaultValue="left" onChange={onChange} aria-label="Alignment">
+        <Segment.Item value="left">Left</Segment.Item>
+        <Segment.Item value="center">Center</Segment.Item>
+        <Segment.Item value="right" disabled>
+          Right
+        </Segment.Item>
+      </Segment>,
+    )
+    screen.getByRole('radio', { name: 'Left' }).focus()
+    await userEvent.keyboard('{ArrowRight}')
+    expect(onChange).toHaveBeenLastCalledWith('center')
+    expect(screen.getByRole('radio', { name: 'Center' })).toHaveFocus()
+
+    // wraps past the disabled item back to the first
+    await userEvent.keyboard('{ArrowRight}')
+    expect(onChange).toHaveBeenLastCalledWith('left')
+    expect(screen.getByRole('radio', { name: 'Left' })).toHaveFocus()
+
+    await userEvent.keyboard('{End}')
+    expect(screen.getByRole('radio', { name: 'Center' })).toHaveFocus()
+  })
+
+  it('moves focus but not selection with arrow keys in a multiple-select group', async () => {
+    const onChange = vi.fn()
+    render(
+      <Segment selectionType="multiple" defaultValue={[]} onChange={onChange} aria-label="Views">
+        <Segment.Item value="a">A</Segment.Item>
+        <Segment.Item value="b">B</Segment.Item>
+      </Segment>,
+    )
+    screen.getByRole('button', { name: 'A' }).focus()
+    await userEvent.keyboard('{ArrowRight}')
+    expect(screen.getByRole('button', { name: 'B' })).toHaveFocus()
+    expect(onChange).not.toHaveBeenCalled()
+  })
+
   it('has no axe violations', async () => {
     const { container } = renderSegment()
     expect(await axe(container)).toHaveNoViolations()
