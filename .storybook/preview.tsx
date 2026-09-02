@@ -19,6 +19,7 @@ const preview: Preview = {
           'Handbook',
           [
             'Introduction',
+            'Consuming',
             'Architecture',
             'Principles',
             'Design Tokens',

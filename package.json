@@ -2,6 +2,7 @@
   "name": "@dylan-ds/monorepo",
   "version": "0.0.0",
   "private": true,
+  "license": "MIT",
   "type": "module",
   "packageManager": "pnpm@9.15.0",
   "engines": {
@@ -24,6 +25,8 @@
     "test:storybook:visual": "cross-env SB_VISUAL=1 concurrently -k -s first -n sb,test \"http-server storybook-static -p 6006 -a 127.0.0.1 --silent\" \"wait-on -t 60000 tcp:127.0.0.1:6006 && test-storybook --config-dir .storybook --url http://127.0.0.1:6006\"",
     "test:storybook:visual:update": "cross-env SB_VISUAL=1 concurrently -k -s first -n sb,test \"http-server storybook-static -p 6006 -a 127.0.0.1 --silent\" \"wait-on -t 60000 tcp:127.0.0.1:6006 && test-storybook --config-dir .storybook --url http://127.0.0.1:6006 --updateSnapshot\"",
     "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "pnpm build && changeset publish",
     "clean": "pnpm -r exec rimraf dist .turbo node_modules/.vite && rimraf node_modules"
   },
   "devDependencies": {

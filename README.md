@@ -25,9 +25,22 @@ pnpm test                 # unit + a11y tests
 pnpm build                # build all packages
 ```
 
+## Using it in another project
+
+The `@dylan-ds/*` packages publish to GitHub Packages (private, org `dylan-ds`).
+See [`CONSUMING.md`](./CONSUMING.md) for auth, install, the stylesheet, Tailwind
+preset and theming. In short:
+
+```bash
+# consuming project's .npmrc: @dylan-ds:registry=https://npm.pkg.github.com  (+ token)
+pnpm add @dylan-ds/ui
+# app entry:  import '@dylan-ds/ui/styles.css'
+```
+
 ## Documentation
 
 - [`DESIGN.md`](./DESIGN.md) — principles, token anatomy, theming, accessibility.
+- [`CONSUMING.md`](./CONSUMING.md) — installing and using the packages downstream.
 - [`docs/`](./docs) — getting started, theming guide, the build plan.
 - [`docs/reference/`](./docs/reference) — the Eyris exploration report and the raw
   crawl of all 84 component docs + 32 utilities (the implementation spec source).

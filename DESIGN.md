@@ -177,7 +177,12 @@ is the only expected change. The **Handbook → Eyris Mapping** page in Storyboo
 deviation — `Button` has no `asChild`, `FullCalendar`/`GanttChart` are
 dependency-free, 3 app-coupled utilities live in the showcase, etc.
 
-## 9. Versioning
+## 9. Versioning & publishing
 
 Changesets. All `@dylan-ds/*` packages version in lockstep (`fixed`).
 `@dylan-ds/showcase` is not published.
+
+Published to **GitHub Packages** (`npm.pkg.github.com`, private, org `dylan-ds`).
+The `.github/workflows/release.yml` workflow turns merged changesets into a
+version PR, then on merge runs `pnpm release` to publish. Consuming a package
+downstream: [`CONSUMING.md`](./CONSUMING.md).

@@ -30,6 +30,23 @@ Follow [`RECIPE.md`](./RECIPE.md) exactly. In short:
 5. Update the row in [`PROGRESS.md`](./PROGRESS.md).
 6. `pnpm changeset` describing the addition.
 
+## Releasing
+
+Publishing is automated with Changesets + GitHub Actions — you never run
+`npm publish`.
+
+1. In the PR that makes a user-facing change, run `pnpm changeset`, pick the
+   affected package(s) and the bump (`patch` / `minor` / `major`), write a
+   one-line summary. Commit the generated `.changeset/*.md`.
+2. Merge the PR to `main`. The **Release** workflow opens a
+   `chore(release): version packages` PR that bumps versions and updates the
+   `CHANGELOG.md` files.
+3. Merge that PR. The workflow runs `pnpm release` (`pnpm build && changeset
+   publish`) and publishes every `@dylan-ds/*` package to GitHub Packages.
+
+All four packages version in lockstep (`fixed` in `.changeset/config.json`);
+`@dylan-ds/showcase` is never published.
+
 ## Rules that block review
 
 - Any literal colour / radius / shadow / duration in `src/**/*.{tsx,scss}`.
