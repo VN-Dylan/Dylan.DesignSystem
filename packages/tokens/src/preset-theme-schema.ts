@@ -2,7 +2,7 @@
  * The 8 preset colour schemas (ported from Eyris `preset-theme-schema.config`).
  * Each schema overrides only the primary family + `muted` for light and dark.
  * Apply at runtime by writing these onto `document.documentElement.style`
- * (see `@dylan-ds/utils` → `useThemeSchema`).
+ * (see `@vn-dylan/utils` → `useThemeSchema`).
  */
 
 export type ThemeSchemaVariable =

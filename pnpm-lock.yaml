@@ -143,18 +143,6 @@ importers:
 
   apps/showcase:
     dependencies:
-      '@dylan-ds/icons':
-        specifier: workspace:*
-        version: link:../../packages/icons
-      '@dylan-ds/tokens':
-        specifier: workspace:*
-        version: link:../../packages/tokens
-      '@dylan-ds/ui':
-        specifier: workspace:*
-        version: link:../../packages/ui
-      '@dylan-ds/utils':
-        specifier: workspace:*
-        version: link:../../packages/utils
       '@tanstack/react-table':
         specifier: 8.20.6
         version: 8.20.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -167,6 +155,18 @@ importers:
       '@tiptap/starter-kit':
         specifier: 2.10.3
         version: 2.10.3
+      '@vn-dylan/icons':
+        specifier: workspace:*
+        version: link:../../packages/icons
+      '@vn-dylan/tokens':
+        specifier: workspace:*
+        version: link:../../packages/tokens
+      '@vn-dylan/ui':
+        specifier: workspace:*
+        version: link:../../packages/ui
+      '@vn-dylan/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
       apexcharts:
         specifier: 4.3.0
         version: 4.3.0
@@ -244,15 +244,6 @@ importers:
 
   packages/ui:
     dependencies:
-      '@dylan-ds/icons':
-        specifier: workspace:*
-        version: link:../icons
-      '@dylan-ds/tokens':
-        specifier: workspace:*
-        version: link:../tokens
-      '@dylan-ds/utils':
-        specifier: workspace:*
-        version: link:../utils
       '@floating-ui/react':
         specifier: 0.27.3
         version: 0.27.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -268,6 +259,15 @@ importers:
       '@tiptap/starter-kit':
         specifier: 2.10.3
         version: 2.10.3
+      '@vn-dylan/icons':
+        specifier: workspace:*
+        version: link:../icons
+      '@vn-dylan/tokens':
+        specifier: workspace:*
+        version: link:../tokens
+      '@vn-dylan/utils':
+        specifier: workspace:*
+        version: link:../utils
       apexcharts:
         specifier: 4.3.0
         version: 4.3.0
@@ -317,7 +317,7 @@ importers:
 
   packages/utils:
     dependencies:
-      '@dylan-ds/tokens':
+      '@vn-dylan/tokens':
         specifier: workspace:*
         version: link:../tokens
       react:

@@ -22,7 +22,7 @@ Legend: ☐ todo · ◑ in progress · ☑ done · — n/a. Columns: spec · imp
 | `dropdown` | ☑ |  |
 | `form-control` | ☑ |  |
 | `grid` | ☑ |  |
-| `icons` | — | n/a — @dylan-ds/icons |
+| `icons` | — | n/a — @vn-dylan/icons |
 | `input` | ☑ |  |
 | `input-group` | ☑ |  |
 | `menu` | ☑ |  |
@@ -189,8 +189,8 @@ Remaining: DESIGN.md §3/§5/§7 could each get a fuller page; per-component
 ## P6 — QA & hardening (done)
 
 Done:
-- **`@dylan-ds/ui` bundle: 807 kB single barrel → per-module chunks (~227 kB total, largest
-  chunk 12 kB).** `preserveModules: true`; also externalised `/^@dylan-ds\//` and every
+- **`@vn-dylan/ui` bundle: 807 kB single barrel → per-module chunks (~227 kB total, largest
+  chunk 12 kB).** `preserveModules: true`; also externalised `/^@vn-dylan\//` and every
   `react-icons` subpath (`react-icons/hi2` alone was 595 kB of dead weight bundled in).
   `pnpm build` (vite + `tsc -b` `.d.ts`) verified; `exports`/types layout unchanged.
 - `Select` gained a `name` prop — mirrors the selection into hidden `<input>`(s) for native
@@ -278,7 +278,7 @@ Done:
 
 ## Post-P6 follow-up sweep (2026-09-01)
 
-- **Table / URL utils ported** into `@dylan-ds/utils` (History-API based, router-free):
+- **Table / URL utils ported** into `@vn-dylan/utils` (History-API based, router-free):
   `useAppendQueryParams`, `useQueryParamPagingState`, `useDataTableState`,
   `withHeaderItem`. Utilities 24/32 → 28/32.
 - **`Select` moved to `@floating-ui`** — trigger-anchored, portalled, `flip`/`shift`/

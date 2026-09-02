@@ -1,12 +1,12 @@
 {
-  "name": "@dylan-ds/utils",
+  "name": "@vn-dylan/utils",
   "version": "0.1.0",
   "description": "Framework hooks and helpers for the Dylan Design System.",
   "type": "module",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dylan-ds/Dylan.DesignSystem.git",
+    "url": "git+https://github.com/VN-Dylan/Dylan.DesignSystem.git",
     "directory": "packages/utils"
   },
   "publishConfig": {
@@ -28,7 +28,7 @@
     "dev": "vite build --watch"
   },
   "dependencies": {
-    "@dylan-ds/tokens": "workspace:*"
+    "@vn-dylan/tokens": "workspace:*"
   },
   "peerDependencies": {
     "react": "^18.2.0",

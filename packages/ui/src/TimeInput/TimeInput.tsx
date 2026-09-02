@@ -1,6 +1,6 @@
 import { forwardRef, useEffect, useRef, useState, type ChangeEvent, type FocusEvent } from 'react'
-import { TbIcons } from '@dylan-ds/icons'
-import { classNames, useControllableState } from '@dylan-ds/utils'
+import { TbIcons } from '@vn-dylan/icons'
+import { classNames, useControllableState } from '@vn-dylan/utils'
 import type {
   TimeInputFormat,
   TimeInputProps,

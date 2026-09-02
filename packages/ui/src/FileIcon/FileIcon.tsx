@@ -1,6 +1,6 @@
 import { forwardRef, type HTMLAttributes } from 'react'
-import { TbIcons } from '@dylan-ds/icons'
-import { classNames } from '@dylan-ds/utils'
+import { TbIcons } from '@vn-dylan/icons'
+import { classNames } from '@vn-dylan/utils'
 import './FileIcon.scss'
 
 export interface FileIconProps extends HTMLAttributes<HTMLSpanElement> {

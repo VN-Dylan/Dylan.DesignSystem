@@ -4,8 +4,8 @@ import { Meta, Markdown } from '@storybook/blocks'
 
 # Consuming the system in another project
 
-The four `@dylan-ds/*` packages publish to **GitHub Packages** (private, org
-`dylan-ds`). Full copy of this guide, kept in sync: [`CONSUMING.md`](https://github.com/dylan-ds/Dylan.DesignSystem/blob/main/CONSUMING.md) in the repo root.
+The four `@vn-dylan/*` packages publish to **GitHub Packages** (private, org
+`VN-Dylan`). Full copy of this guide, kept in sync: [`CONSUMING.md`](https://github.com/VN-Dylan/Dylan.DesignSystem/blob/main/CONSUMING.md) in the repo root.
 
 ---
 
@@ -16,7 +16,7 @@ GitHub Packages needs auth even to read. In the **consuming** project's root
 
 <Markdown>{`
 \`\`\`
-@dylan-ds:registry=https://npm.pkg.github.com
+@vn-dylan:registry=https://npm.pkg.github.com
 //npm.pkg.github.com/:_authToken=\${GITHUB_TOKEN}
 \`\`\`
 `}</Markdown>
@@ -29,23 +29,23 @@ exported in the shell and set as an env var in CI. Never commit the token.
 <Markdown>{`
 | Command | When |
 | --- | --- |
-| \`pnpm add @dylan-ds/ui\` | Always — pulls \`tokens\` / \`utils\` / \`icons\` automatically |
-| \`pnpm add @dylan-ds/tokens\` | You extend \`tailwind.config\` with the preset |
-| \`pnpm add @dylan-ds/utils\` | You call the hooks (\`useDarkMode\`, \`useThemeSchema\`, …) |
-| \`pnpm add @dylan-ds/icons\` | You render icons directly |
+| \`pnpm add @vn-dylan/ui\` | Always — pulls \`tokens\` / \`utils\` / \`icons\` automatically |
+| \`pnpm add @vn-dylan/tokens\` | You extend \`tailwind.config\` with the preset |
+| \`pnpm add @vn-dylan/utils\` | You call the hooks (\`useDarkMode\`, \`useThemeSchema\`, …) |
+| \`pnpm add @vn-dylan/icons\` | You render icons directly |
 `}</Markdown>
 
 `react` and `react-dom` **v18** are peer dependencies — they must already be in
 the project. The heavier libraries a few components use (`apexcharts`, `@tiptap/*`,
 `@tanstack/react-table`, `jsvectormap`, `react-syntax-highlighter`,
-`@floating-ui/react`) are normal dependencies of `@dylan-ds/ui` and install
+`@floating-ui/react`) are normal dependencies of `@vn-dylan/ui` and install
 automatically; tree-shaking keeps unused ones out of the bundle.
 
 ## 3. Stylesheet — imported once
 
 ```ts
 // app entry, e.g. src/main.tsx
-import '@dylan-ds/ui/styles.css'
+import '@vn-dylan/ui/styles.css'
 ```
 
 One file: token custom properties (`:root` / `.dark` / schema overrides) +
@@ -56,30 +56,36 @@ Tailwind `base` / `components` / `utilities` + every component's semantic CSS.
 Only if your app uses Tailwind and wants the token-aware utilities:
 
 ```ts
-import { dylanPreset } from '@dylan-ds/tokens/tailwind-preset'
-export default { presets: [dylanPreset], darkMode: 'class', content: [/* … */] }
+import { dylanPreset } from '@vn-dylan/tokens/tailwind-preset'
+export default {
+  presets: [dylanPreset],
+  darkMode: 'class',
+  content: [
+    /* … */
+  ],
+}
 ```
 
 ## 5. Theming
 
-`@dylan-ds/utils` ships headless hooks — call once near the app root, wire to your
+`@vn-dylan/utils` ships headless hooks — call once near the app root, wire to your
 own toggles:
 
 ```tsx
-import { useDarkMode, useThemeSchema, useDirection } from '@dylan-ds/utils'
+import { useDarkMode, useThemeSchema, useDirection } from '@vn-dylan/utils'
 
-const [isDark, setMode] = useDarkMode()            // toggles `.dark` on <html>
+const [isDark, setMode] = useDarkMode() // toggles `.dark` on <html>
 useThemeSchema('green', isDark ? 'dark' : 'light') // brand schema vars
-useDirection()                                     // persisted `dir`
+useDirection() // persisted `dir`
 ```
 
-Schema names: `themeSchemaNames` from `@dylan-ds/tokens` — `default`, `dark`,
+Schema names: `themeSchemaNames` from `@vn-dylan/tokens` — `default`, `dark`,
 `green`, `purple`, `orange`, `cyan`, `gold`, `pink`.
 
 ## 6. Upgrading
 
 ```bash
-pnpm up '@dylan-ds/*' --latest
+pnpm up '@vn-dylan/*' --latest
 ```
 
 All four packages version in lockstep. See **Handbook → Contributing** for how a

@@ -1,5 +1,5 @@
 import { forwardRef } from 'react'
-import { useDebounce } from '@dylan-ds/utils'
+import { useDebounce } from '@vn-dylan/utils'
 import { Input } from '../Input'
 import type { DebounceInputProps, DebounceInputChangeEvent } from './types'
 import './DebounceInput.scss'

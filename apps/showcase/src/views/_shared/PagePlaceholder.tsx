@@ -1,4 +1,4 @@
-import { EmptyState } from '@dylan-ds/ui'
+import { EmptyState } from '@vn-dylan/ui'
 import { PageHeader } from '@/components/shared/PageHeader'
 
 export interface PagePlaceholderProps {

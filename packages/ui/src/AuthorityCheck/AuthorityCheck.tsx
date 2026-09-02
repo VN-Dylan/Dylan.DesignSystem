@@ -1,5 +1,5 @@
 import { forwardRef } from 'react'
-import { classNames } from '@dylan-ds/utils'
+import { classNames } from '@vn-dylan/utils'
 import type { AuthorityCheckProps } from './types'
 import './AuthorityCheck.scss'
 

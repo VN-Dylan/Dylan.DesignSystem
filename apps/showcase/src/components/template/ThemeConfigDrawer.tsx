@@ -1,5 +1,5 @@
-import { Drawer, Segment } from '@dylan-ds/ui'
-import { themeSchemaNames } from '@dylan-ds/tokens'
+import { Drawer, Segment } from '@vn-dylan/ui'
+import { themeSchemaNames } from '@vn-dylan/tokens'
 import { useThemeStore } from '@/store/themeStore'
 
 /** Runtime theme controls: colour mode, preset schema, text direction. */

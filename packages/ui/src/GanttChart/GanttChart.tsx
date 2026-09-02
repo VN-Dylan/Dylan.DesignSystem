@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { classNames } from '@dylan-ds/utils'
+import { classNames } from '@vn-dylan/utils'
 import './GanttChart.scss'
 
 export interface GanttTask {

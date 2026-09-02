@@ -1,5 +1,5 @@
 import { Children, forwardRef, type CSSProperties } from 'react'
-import { classNames } from '@dylan-ds/utils'
+import { classNames } from '@vn-dylan/utils'
 import { OmittedAvatarTooltip } from './OmittedAvatarTooltip'
 import type { AvatarGroupProps, AvatarProps } from './types'
 import './Avatar.scss'

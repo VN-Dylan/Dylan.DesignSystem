@@ -9,8 +9,8 @@ import {
   type KeyboardEvent,
   type MouseEvent,
 } from 'react'
-import { classNames } from '@dylan-ds/utils'
-import { Icon, TbIcons } from '@dylan-ds/icons'
+import { classNames } from '@vn-dylan/utils'
+import { Icon, TbIcons } from '@vn-dylan/icons'
 import { MenuProvider, useMenuContext } from './context'
 import type { MenuCollapseProps, MenuGroupProps, MenuItemProps, MenuProps } from './types'
 import './Menu.scss'

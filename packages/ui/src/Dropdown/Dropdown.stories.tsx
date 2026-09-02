@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { TbIcons } from '@dylan-ds/icons'
+import { TbIcons } from '@vn-dylan/icons'
 import { Dropdown } from './Dropdown'
 import { Button } from '../Button'
 

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
-import { Icon, HiIcons } from '@dylan-ds/icons'
+import { Icon, HiIcons } from '@vn-dylan/icons'
 import { Tabs } from './Tabs'
 
 const { TabNav, TabList, TabContent } = Tabs

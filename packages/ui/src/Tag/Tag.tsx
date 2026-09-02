@@ -1,5 +1,5 @@
 import { forwardRef, isValidElement } from 'react'
-import { classNames } from '@dylan-ds/utils'
+import { classNames } from '@vn-dylan/utils'
 import type { TagProps } from './types'
 import './Tag.scss'
 

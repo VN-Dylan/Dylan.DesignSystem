@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
-import { TbIcons } from '@dylan-ds/icons'
+import { TbIcons } from '@vn-dylan/icons'
 import { Select } from '../Select'
 import { SelectInputWithPrefix, SelectOptionWithPrefix } from './SelectExtension'
 

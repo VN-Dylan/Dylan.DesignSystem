@@ -1,5 +1,5 @@
 import { forwardRef, useState } from 'react'
-import { classNames, useControllableState } from '@dylan-ds/utils'
+import { classNames, useControllableState } from '@vn-dylan/utils'
 import { Input } from '../Input'
 import {
   applyNumericFormat,

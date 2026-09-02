@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
-import { Drawer } from '@dylan-ds/ui'
+import { Drawer } from '@vn-dylan/ui'
 import { useLayout } from '@/utils/hooks/useLayout'
 import { Header } from '@/components/template/Header'
 import { Footer } from '@/components/template/Footer'

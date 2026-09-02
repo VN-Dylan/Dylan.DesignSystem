@@ -89,7 +89,7 @@ export const activity: ActivityEntry[] = [
     id: 'ac-04',
     type: 'team',
     action: 'Invited a member',
-    detail: 'grace@dylan-ds.dev — role: Support',
+    detail: 'grace@vn-dylan.dev — role: Support',
     at: '2026-08-27T13:20:00Z',
     ip: '203.0.113.24',
     device: 'Chrome · macOS',

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
-import { Icon, HiIcons } from '@dylan-ds/icons'
+import { Icon, HiIcons } from '@vn-dylan/icons'
 import { Button } from '../Button'
 import { Spinner } from '../Spinner'
 import { Steps } from './Steps'

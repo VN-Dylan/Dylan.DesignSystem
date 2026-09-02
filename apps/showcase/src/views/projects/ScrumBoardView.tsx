@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
-import { Avatar, Badge, Card, Progress, Select } from '@dylan-ds/ui'
-import type { SelectOption } from '@dylan-ds/ui'
+import { Avatar, Badge, Card, Progress, Select } from '@vn-dylan/ui'
+import type { SelectOption } from '@vn-dylan/ui'
 import { PageHeader } from '@/components/shared/PageHeader'
 import { StatusTag } from '@/components/shared/StatusTag'
 import { getMember, projects, taskStatusColumns, tasks } from '@/mock/projects'

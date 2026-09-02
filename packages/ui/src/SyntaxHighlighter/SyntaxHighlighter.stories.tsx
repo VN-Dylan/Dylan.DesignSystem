@@ -22,7 +22,7 @@ export const Tsx: Story = {
   args: {
     language: 'tsx',
     showLineNumbers: true,
-    children: `import { Button } from '@dylan-ds/ui'
+    children: `import { Button } from '@vn-dylan/ui'
 
 export function Save() {
   return <Button variant="solid">Save</Button>
@@ -34,6 +34,6 @@ export function Save() {
 export const Bash: Story = {
   args: {
     language: 'bash',
-    children: 'pnpm add @dylan-ds/ui\npnpm storybook',
+    children: 'pnpm add @vn-dylan/ui\npnpm storybook',
   },
 }

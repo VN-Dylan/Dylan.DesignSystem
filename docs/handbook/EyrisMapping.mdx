@@ -6,7 +6,7 @@ import { Meta, Markdown } from '@storybook/blocks'
 
 The system reproduces the Eyris component surface **1:1 by name**. An Eyris
 `<Button variant="solid" />` is a Dylan `<Button variant="solid" />`. The import
-alias changes from `@/components/ui/<Name>` to `@dylan-ds/ui`; everything else is
+alias changes from `@/components/ui/<Name>` to `@vn-dylan/ui`; everything else is
 meant to feel identical.
 
 This page records where that is **deliberately not** true.
@@ -18,7 +18,7 @@ This page records where that is **deliberately not** true.
 <Markdown>{`
 | Eyris group | Count | Dylan |
 | --- | --- | --- |
-| Base UI components | 42 | 41 built + \`icons\` → the separate \`@dylan-ds/icons\` package |
+| Base UI components | 42 | 41 built + \`icons\` → the separate \`@vn-dylan/icons\` package |
 | Composite / shared components | 42 | 42 built |
 | Utilities | 32 | 28 built + 1 stub + 3 app-coupled (in \`apps/showcase\`) |
 | Preset theme schemas | 8 | 8 (\`default, dark, green, purple, orange, cyan, gold, pink\`) |
@@ -54,10 +54,10 @@ on an unlisted gap. 38 base components, 433 props.
 ### Utilities
 
 3 utilities are **app-coupled** and live in `apps/showcase/src/utils` rather
-than `@dylan-ds/utils`, because they depend on the auth store / layout config /
+than `@vn-dylan/utils`, because they depend on the auth store / layout config /
 navigation tree: `useAuth` · `useLayout` · `useMenuActive`.
 
-The table / URL hooks **are** in `@dylan-ds/utils`, re-implemented against the
+The table / URL hooks **are** in `@vn-dylan/utils`, re-implemented against the
 History API so they carry no router dependency (Eyris binds them to
 react-router):
 
@@ -84,7 +84,7 @@ consuming app's job.
 
 ## Bundle
 
-`@dylan-ds/ui` ships as **per-module chunks** (`preserveModules`, ~227 kB total,
+`@vn-dylan/ui` ships as **per-module chunks** (`preserveModules`, ~227 kB total,
 largest chunk ~12 kB) so a consuming app only bundles what it imports. Vendor
 libraries are kept **external** (ApexCharts, TanStack Table, Tiptap, jsvectormap,
 react-syntax-highlighter are peer deps of the consuming app), as is every

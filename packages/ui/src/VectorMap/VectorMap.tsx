@@ -1,7 +1,7 @@
 import { useEffect, useId, useRef } from 'react'
 import jsVectorMap from 'jsvectormap'
 import 'jsvectormap/dist/maps/world.js'
-import { classNames } from '@dylan-ds/utils'
+import { classNames } from '@vn-dylan/utils'
 import './VectorMap.scss'
 
 export interface VectorMapProps {

@@ -1,5 +1,5 @@
 {
-  "name": "@dylan-ds/showcase",
+  "name": "@vn-dylan/showcase",
   "version": "0.0.0",
   "description": "Reference application — rebuilds the Eyris example screens on the Dylan Design System.",
   "type": "module",
@@ -11,10 +11,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@dylan-ds/icons": "workspace:*",
-    "@dylan-ds/tokens": "workspace:*",
-    "@dylan-ds/ui": "workspace:*",
-    "@dylan-ds/utils": "workspace:*",
+    "@vn-dylan/icons": "workspace:*",
+    "@vn-dylan/tokens": "workspace:*",
+    "@vn-dylan/ui": "workspace:*",
+    "@vn-dylan/utils": "workspace:*",
     "@tanstack/react-table": "8.20.6",
     "@tiptap/pm": "2.10.3",
     "@tiptap/react": "2.10.3",

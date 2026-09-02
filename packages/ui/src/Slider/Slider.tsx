@@ -1,5 +1,5 @@
 import { forwardRef, useState, type CSSProperties, type ChangeEvent } from 'react'
-import { classNames as cx, useControllableState } from '@dylan-ds/utils'
+import { classNames as cx, useControllableState } from '@vn-dylan/utils'
 import type { SliderMark, SliderProps, SliderRangeProps, SliderRangeValue } from './types'
 import './Slider.scss'
 

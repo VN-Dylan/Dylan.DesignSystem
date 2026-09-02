@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
 import { EditorContent, useEditor, type Editor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
-import { TbIcons } from '@dylan-ds/icons'
-import { classNames } from '@dylan-ds/utils'
+import { TbIcons } from '@vn-dylan/icons'
+import { classNames } from '@vn-dylan/utils'
 import './RichTextEditor.scss'
 
 export interface RichTextEditorProps {

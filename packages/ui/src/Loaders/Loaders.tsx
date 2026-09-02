@@ -1,5 +1,5 @@
 import { forwardRef } from 'react'
-import { classNames } from '@dylan-ds/utils'
+import { classNames } from '@vn-dylan/utils'
 import { Skeleton } from '../Skeleton'
 import type { MediaSkeletonProps, TableRowSkeletonProps, TextBlockSkeletonProps } from './types'
 import './Loaders.scss'

@@ -1,6 +1,6 @@
 import { forwardRef } from 'react'
 import type { KeyboardEvent, Ref } from 'react'
-import { classNames, useControllableState } from '@dylan-ds/utils'
+import { classNames, useControllableState } from '@vn-dylan/utils'
 import { SegmentProvider, useSegmentContext } from './context'
 import type { SegmentItemProps, SegmentProps, SegmentValue } from './types'
 import './Segment.scss'

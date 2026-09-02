@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { classNames } from '@dylan-ds/utils'
+import { classNames } from '@vn-dylan/utils'
 import { Portal } from '../_internal/Portal'
 import type { ActionBarProps } from './types'
 import './ActionBar.scss'

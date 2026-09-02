@@ -1,5 +1,5 @@
 import type { HTMLAttributes, ReactNode } from 'react'
-import type { IconType } from '@dylan-ds/icons'
+import type { IconType } from '@vn-dylan/icons'
 
 export type SpinnerSize = string | number
 export type SpinnerIndicator = ReactNode | IconType

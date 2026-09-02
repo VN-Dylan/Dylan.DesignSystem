@@ -1,6 +1,6 @@
 import { forwardRef, isValidElement, type CSSProperties } from 'react'
-import { CgIcons, Icon, type IconType } from '@dylan-ds/icons'
-import { classNames } from '@dylan-ds/utils'
+import { CgIcons, Icon, type IconType } from '@vn-dylan/icons'
+import { classNames } from '@vn-dylan/utils'
 import type { SpinnerIndicator, SpinnerProps } from './types'
 import './Spinner.scss'
 

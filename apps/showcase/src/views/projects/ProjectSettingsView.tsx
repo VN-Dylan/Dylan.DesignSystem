@@ -1,7 +1,7 @@
 import { useState, type FormEvent, type ReactNode } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Button, Card, ConfirmDialog, Input, Segment, Switcher } from '@dylan-ds/ui'
-import { Icon, TbIcons } from '@dylan-ds/icons'
+import { Button, Card, ConfirmDialog, Input, Segment, Switcher } from '@vn-dylan/ui'
+import { Icon, TbIcons } from '@vn-dylan/icons'
 import { PageHeader } from '@/components/shared/PageHeader'
 import { projects } from '@/mock/projects'
 

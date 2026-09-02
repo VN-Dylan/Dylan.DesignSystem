@@ -1,5 +1,5 @@
 import { forwardRef, type KeyboardEvent } from 'react'
-import { classNames } from '@dylan-ds/utils'
+import { classNames } from '@vn-dylan/utils'
 import type { CardFooterConfig, CardHeaderConfig, CardProps } from './types'
 import './Card.scss'
 

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { HiIcons, Icon } from '@dylan-ds/icons'
+import { HiIcons, Icon } from '@vn-dylan/icons'
 import { IconFrame } from './IconFrame'
 
 const meta = {

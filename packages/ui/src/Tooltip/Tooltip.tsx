@@ -7,7 +7,7 @@ import {
   useRole,
 } from '@floating-ui/react'
 import { forwardRef, useEffect, useId, useState } from 'react'
-import { classNames } from '@dylan-ds/utils'
+import { classNames } from '@vn-dylan/utils'
 import { Portal } from '../_internal/Portal'
 import { composeRefs } from '../_internal/composeRefs'
 import { normalizeFloatingPlacement } from '../_internal/floatingPlacement'

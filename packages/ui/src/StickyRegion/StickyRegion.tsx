@@ -1,5 +1,5 @@
 import { forwardRef, useCallback, useEffect, useRef, useState, type CSSProperties } from 'react'
-import { classNames } from '@dylan-ds/utils'
+import { classNames } from '@vn-dylan/utils'
 import { composeRefs } from '../_internal/composeRefs'
 import type { StickyRegionProps } from './types'
 import './StickyRegion.scss'

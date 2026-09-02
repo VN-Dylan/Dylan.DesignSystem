@@ -9,7 +9,7 @@ import {
   type Ref,
   type UIEvent,
 } from 'react'
-import { classNames } from '@dylan-ds/utils'
+import { classNames } from '@vn-dylan/utils'
 import type { ScrollFlexSizeProps, ScrollPosition, ScrollProps } from './types'
 import './Scroll.scss'
 

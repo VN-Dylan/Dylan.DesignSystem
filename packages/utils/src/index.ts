@@ -1,4 +1,4 @@
-// @dylan-ds/utils — framework hooks and helpers.
+// @vn-dylan/utils — framework hooks and helpers.
 //
 // Ported from the Eyris `@/utils` surface. Three app-coupled hooks
 // (useAuth, useLayout, useMenuActive) are intentionally NOT here — they depend

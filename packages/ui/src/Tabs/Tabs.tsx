@@ -1,5 +1,5 @@
 import { forwardRef, useId, type KeyboardEvent } from 'react'
-import { classNames, useControllableState } from '@dylan-ds/utils'
+import { classNames, useControllableState } from '@vn-dylan/utils'
 import { TabsProvider, useTabsContext } from './context'
 import type { TabsProps, TabsTabContentProps, TabsTabListProps, TabsTabNavProps } from './types'
 import './Tabs.scss'

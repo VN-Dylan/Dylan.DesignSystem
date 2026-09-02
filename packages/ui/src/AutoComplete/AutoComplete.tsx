@@ -1,6 +1,6 @@
 import { forwardRef, useId, useMemo, useState, type KeyboardEvent, type ReactElement } from 'react'
 import { useDismiss, useFloating, useInteractions } from '@floating-ui/react'
-import { classNames, useControllableState } from '@dylan-ds/utils'
+import { classNames, useControllableState } from '@vn-dylan/utils'
 import { Portal } from '../_internal/Portal'
 import { composeRefs } from '../_internal/composeRefs'
 import { floatingAutoUpdate, getFloatingMiddleware } from '../_internal/floatingRuntime'

@@ -1,6 +1,6 @@
 import { useState, type ReactNode } from 'react'
-import { Avatar, Button, Card, Input, Segment, Switcher } from '@dylan-ds/ui'
-import { Icon, TbIcons } from '@dylan-ds/icons'
+import { Avatar, Button, Card, Input, Segment, Switcher } from '@vn-dylan/ui'
+import { Icon, TbIcons } from '@vn-dylan/icons'
 import { PageHeader } from '@/components/shared/PageHeader'
 import { notificationPrefs, profile } from '@/mock/account'
 

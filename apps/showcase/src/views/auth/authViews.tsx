@@ -1,6 +1,6 @@
 import { useState, type ComponentProps, type FormEvent, type ReactNode } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Button, Checkbox, Input } from '@dylan-ds/ui'
+import { Button, Checkbox, Input } from '@vn-dylan/ui'
 
 /** Card heading + optional subtitle shared by every auth screen. */
 function AuthHead({ title, subtitle }: { title: string; subtitle?: ReactNode }) {
@@ -35,7 +35,7 @@ export function SignInView() {
   return (
     <form className="space-y-5" onSubmit={onSubmit}>
       <AuthHead title="Welcome back" subtitle="Sign in to continue to your workspace." />
-      <Field label="Email" type="email" defaultValue="dylan@dylan-ds.dev" autoComplete="email" />
+      <Field label="Email" type="email" defaultValue="dylan@vn-dylan.dev" autoComplete="email" />
       <Field
         label="Password"
         type="password"

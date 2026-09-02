@@ -1,6 +1,6 @@
 import { forwardRef, useEffect, useMemo, useState } from 'react'
-import { classNames } from '@dylan-ds/utils'
-import { Icon, TbIcons } from '@dylan-ds/icons'
+import { classNames } from '@vn-dylan/utils'
+import { Icon, TbIcons } from '@vn-dylan/icons'
 import type { PaginationProps } from './types'
 import './Pagination.scss'
 

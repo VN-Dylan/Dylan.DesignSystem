@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { presetThemeSchema, themeSchemaToCssVars, type ThemeSchemaName } from '@dylan-ds/tokens'
+import { presetThemeSchema, themeSchemaToCssVars, type ThemeSchemaName } from '@vn-dylan/tokens'
 
 /**
  * Apply a preset theme schema's colour variables to `<html>` for the given mode.

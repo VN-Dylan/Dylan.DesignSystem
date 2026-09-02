@@ -1,12 +1,12 @@
 {
-  "name": "@dylan-ds/icons",
+  "name": "@vn-dylan/icons",
   "version": "0.1.0",
   "description": "Icon layer for the Dylan Design System — a thin wrapper over react-icons.",
   "type": "module",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dylan-ds/Dylan.DesignSystem.git",
+    "url": "git+https://github.com/VN-Dylan/Dylan.DesignSystem.git",
     "directory": "packages/icons"
   },
   "publishConfig": {

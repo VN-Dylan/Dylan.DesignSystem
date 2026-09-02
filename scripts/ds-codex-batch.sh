@@ -44,11 +44,11 @@ RULES
 - @apply must NOT be inside @layer (Tailwind v3 here).
 
 VERIFY — all must pass before finishing:
-  pnpm --filter @dylan-ds/ui exec tsc -b
+  pnpm --filter @vn-dylan/ui exec tsc -b
   pnpm exec eslint packages/ui/src
   pnpm exec prettier --check 'packages/ui/src/**/*.{ts,tsx,scss}'
   pnpm exec vitest run packages/ui/src
-  pnpm --filter @dylan-ds/ui exec vite build
+  pnpm --filter @vn-dylan/ui exec vite build
 Fix until green. Do NOT git commit. Summarise what you built + judgement calls.
 EOF
 } | codex exec --skip-git-repo-check --dangerously-bypass-approvals-and-sandbox -C "$ROOT" -

@@ -1,5 +1,5 @@
 import { Children, cloneElement, forwardRef, isValidElement } from 'react'
-import { classNames } from '@dylan-ds/utils'
+import { classNames } from '@vn-dylan/utils'
 import type { TimelineItemProps, TimelineProps } from './types'
 import './Timeline.scss'
 

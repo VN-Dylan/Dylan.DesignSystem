@@ -46,7 +46,7 @@ export const conversations: Conversation[] = [
         id: 'm-4',
         role: 'assistant',
         content:
-          '**@dylan-ds/ui** — DataTable paging API; Progress + VectorMap fixes.\n**@dylan-ds/tokens** — no changes.\n**showcase** — analytics + crypto areas.',
+          '**@vn-dylan/ui** — DataTable paging API; Progress + VectorMap fixes.\n**@vn-dylan/tokens** — no changes.\n**showcase** — analytics + crypto areas.',
         time: '2026-08-31T09:10:00Z',
       },
     ],
@@ -195,7 +195,7 @@ export const drafts: Draft[] = [
     body: [
       'Every component follows the RECIPE. Start by reading the golden five — Button, Input, Card, Dialog and Table — to see the file layout, the SCSS conventions and how state flows through context.',
       'Create the component directory with the standard file set: the component, its types, tests, a story and an autodoc page. Tests end with an axe assertion; stories cover every variant and size.',
-      'Open a changeset with your PR. All @dylan-ds/* packages version in lockstep, so even a docs-only change needs a patch entry.',
+      'Open a changeset with your PR. All @vn-dylan/* packages version in lockstep, so even a docs-only change needs a patch entry.',
     ].join('\n\n'),
   },
 ]

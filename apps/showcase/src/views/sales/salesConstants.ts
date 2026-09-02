@@ -1,4 +1,4 @@
-import type { SelectOption } from '@dylan-ds/ui'
+import type { SelectOption } from '@vn-dylan/ui'
 import type { StatusTone } from '@/components/shared/StatusTag'
 import type { Order, Product } from '@/mock/sales'
 

@@ -1,5 +1,5 @@
 import { forwardRef, useCallback, useId, useRef } from 'react'
-import { classNames, useControllableState } from '@dylan-ds/utils'
+import { classNames, useControllableState } from '@vn-dylan/utils'
 import { CollapsibleContext, useCollapsibleContext } from './context'
 import type { CollapsibleContentProps, CollapsibleProps, CollapsibleTriggerProps } from './types'
 import './Collapsible.scss'

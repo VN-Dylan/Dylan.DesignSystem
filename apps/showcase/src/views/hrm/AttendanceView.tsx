@@ -1,5 +1,5 @@
-import { Avatar, Card } from '@dylan-ds/ui'
-import { formatNumber } from '@dylan-ds/utils'
+import { Avatar, Card } from '@vn-dylan/ui'
+import { formatNumber } from '@vn-dylan/utils'
 import { PageHeader } from '@/components/shared/PageHeader'
 import { attendanceSummary, attendanceWeek, getEmployee, type AttendanceState } from '@/mock/hrm'
 import { attendanceStateClass } from './hrmConstants'

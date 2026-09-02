@@ -21,8 +21,8 @@ pnpm dev         # showcase app,         http://localhost:5173
 ## Use a component (once published / linked)
 
 ```tsx
-import '@dylan-ds/ui/styles.css'
-import { Button } from '@dylan-ds/ui'
+import '@vn-dylan/ui/styles.css'
+import { Button } from '@vn-dylan/ui'
 
 export function Example() {
   return <Button variant="solid">Save</Button>
@@ -33,7 +33,7 @@ Apply the Tailwind preset in the consuming app so utility classes resolve:
 
 ```ts
 // tailwind.config.ts
-import { dylanPreset } from '@dylan-ds/tokens/tailwind-preset'
+import { dylanPreset } from '@vn-dylan/tokens/tailwind-preset'
 
 export default {
   presets: [dylanPreset],
@@ -46,7 +46,7 @@ export default {
 ```ts
 document.documentElement.classList.toggle('dark', isDark)
 
-import { presetThemeSchema, themeSchemaToCssVars } from '@dylan-ds/tokens'
+import { presetThemeSchema, themeSchemaToCssVars } from '@vn-dylan/tokens'
 const vars = themeSchemaToCssVars(presetThemeSchema.green.light)
 Object.entries(vars).forEach(([k, v]) => document.documentElement.style.setProperty(k, v))
 ```

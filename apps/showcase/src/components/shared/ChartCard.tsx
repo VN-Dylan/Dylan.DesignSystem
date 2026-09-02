@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
-import { Card, Chart } from '@dylan-ds/ui'
-import type { ChartProps } from '@dylan-ds/ui'
+import { Card, Chart } from '@vn-dylan/ui'
+import type { ChartProps } from '@vn-dylan/ui'
 
 export interface ChartCardProps extends ChartProps {
   title: string

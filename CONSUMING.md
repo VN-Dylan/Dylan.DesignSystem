@@ -1,7 +1,7 @@
 # Using Dylan Design System in another project
 
-The four `@dylan-ds/*` packages are published to **GitHub Packages** (private, org
-`dylan-ds`). This guide is for an app that wants to consume them.
+The four `@vn-dylan/*` packages are published to **GitHub Packages** (private, org
+`VN-Dylan`). This guide is for an app that wants to consume them.
 
 ## 1. Authenticate to GitHub Packages
 
@@ -9,7 +9,7 @@ GitHub Packages requires auth even for read. In the **consuming project**, creat
 `.npmrc` at its root:
 
 ```
-@dylan-ds:registry=https://npm.pkg.github.com
+@vn-dylan:registry=https://npm.pkg.github.com
 //npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
 ```
 
@@ -19,36 +19,36 @@ scope (github.com → Settings → Developer settings → Personal access tokens
 environment variable in CI / Vercel / Netlify. Do **not** commit the token.
 
 > Prefer not to rely on an env var? Put the token literally in a machine-local
-> `~/.npmrc` instead and keep the project `.npmrc` to just the `@dylan-ds:registry`
+> `~/.npmrc` instead and keep the project `.npmrc` to just the `@vn-dylan:registry`
 > line.
 
 ## 2. Install
 
 ```bash
-pnpm add @dylan-ds/ui
+pnpm add @vn-dylan/ui
 ```
 
-That is enough to render components — `@dylan-ds/ui` depends on `@dylan-ds/tokens`,
-`@dylan-ds/utils` and `@dylan-ds/icons` (regular dependencies, not peers), so the
+That is enough to render components — `@vn-dylan/ui` depends on `@vn-dylan/tokens`,
+`@vn-dylan/utils` and `@vn-dylan/icons` (regular dependencies, not peers), so the
 package manager pulls them in automatically.
 
 Add the others **explicitly** for anything you `import` from directly (pnpm blocks
 "phantom" dependencies):
 
 ```bash
-pnpm add @dylan-ds/tokens   # if you extend your tailwind.config with the preset
-pnpm add @dylan-ds/utils    # if you use the hooks (useDarkMode, useThemeSchema, …)
-pnpm add @dylan-ds/icons    # if you render icons directly
+pnpm add @vn-dylan/tokens   # if you extend your tailwind.config with the preset
+pnpm add @vn-dylan/utils    # if you use the hooks (useDarkMode, useThemeSchema, …)
+pnpm add @vn-dylan/icons    # if you render icons directly
 ```
 
 ### Peer dependencies
 
 `react` and `react-dom` **v18** must already be in your project.
 
-Heavier libraries used by a few `@dylan-ds/ui` components (`apexcharts`,
+Heavier libraries used by a few `@vn-dylan/ui` components (`apexcharts`,
 `react-apexcharts`, `@tiptap/*`, `@tanstack/react-table`, `jsvectormap`,
 `react-syntax-highlighter`, `@floating-ui/react`) are declared as normal
-dependencies of `@dylan-ds/ui`, so they install automatically. Tree-shaking keeps
+dependencies of `@vn-dylan/ui`, so they install automatically. Tree-shaking keeps
 them out of your bundle unless you import the component that needs them.
 
 ## 3. Load the stylesheet — once
@@ -56,7 +56,7 @@ them out of your bundle unless you import the component that needs them.
 In your app entry (e.g. `src/main.tsx`):
 
 ```ts
-import '@dylan-ds/ui/styles.css'
+import '@vn-dylan/ui/styles.css'
 ```
 
 This single file contains the token custom properties (`:root` / `.dark` / schema
@@ -71,7 +71,7 @@ Only if **your** app also uses Tailwind and you want the token-aware utilities
 ```ts
 // tailwind.config.ts
 import type { Config } from 'tailwindcss'
-import { dylanPreset } from '@dylan-ds/tokens/tailwind-preset'
+import { dylanPreset } from '@vn-dylan/tokens/tailwind-preset'
 
 export default {
   presets: [dylanPreset],
@@ -87,7 +87,7 @@ compiled utilities the components rely on.
 
 ```tsx
 import { useState } from 'react'
-import { Button, Input, Dialog } from '@dylan-ds/ui'
+import { Button, Input, Dialog } from '@vn-dylan/ui'
 
 export function Example() {
   const [open, setOpen] = useState(false)
@@ -111,11 +111,11 @@ Full component reference, props and examples: the Storybook handbook (run
 
 ## 6. Theming — light / dark / RTL / brand schemas
 
-`@dylan-ds/utils` ships headless hooks; wire them to your own UI. Call them once,
+`@vn-dylan/utils` ships headless hooks; wire them to your own UI. Call them once,
 high in the tree.
 
 ```tsx
-import { useDarkMode, useThemeSchema, useDirection } from '@dylan-ds/utils'
+import { useDarkMode, useThemeSchema, useDirection } from '@vn-dylan/utils'
 
 function ThemeBootstrap() {
   const [isDark, setMode] = useDarkMode()          // toggles `.dark` on <html>, persists
@@ -126,7 +126,7 @@ function ThemeBootstrap() {
 }
 ```
 
-Available schema names come from `themeSchemaNames` in `@dylan-ds/tokens`
+Available schema names come from `themeSchemaNames` in `@vn-dylan/tokens`
 (`default`, `dark`, `green`, `purple`, `orange`, `cyan`, `gold`, `pink`).
 
 Make sure your Tailwind config (if any) has `darkMode: 'class'` so the `.dark`
@@ -135,7 +135,7 @@ class toggled by `useDarkMode` takes effect.
 ## 7. Upgrading
 
 ```bash
-pnpm up '@dylan-ds/*' --latest
+pnpm up '@vn-dylan/*' --latest
 ```
 
 All four packages version in lockstep, so their versions always match. Release

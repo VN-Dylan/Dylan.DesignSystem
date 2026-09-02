@@ -1,5 +1,5 @@
 import { forwardRef } from 'react'
-import { classNames, useControllableState } from '@dylan-ds/utils'
+import { classNames, useControllableState } from '@vn-dylan/utils'
 import type { SwitcherProps } from './types'
 import './Switcher.scss'
 

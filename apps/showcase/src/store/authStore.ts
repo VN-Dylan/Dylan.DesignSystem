@@ -13,7 +13,7 @@ export interface AuthUser {
 const DEMO_USER: AuthUser = {
   id: 'u-001',
   name: 'Dylan Carter',
-  email: 'dylan@dylan-ds.dev',
+  email: 'dylan@vn-dylan.dev',
   avatar: 'https://i.pravatar.cc/128?img=12',
   authority: ['admin', 'user'],
 }

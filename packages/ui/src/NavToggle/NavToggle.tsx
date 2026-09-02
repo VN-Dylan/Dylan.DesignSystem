@@ -1,5 +1,5 @@
 import { forwardRef } from 'react'
-import { classNames } from '@dylan-ds/utils'
+import { classNames } from '@vn-dylan/utils'
 import type { NavToggleProps } from './types'
 import './NavToggle.scss'
 

@@ -1,4 +1,4 @@
-// @dylan-ds/ui — component library entry point.
+// @vn-dylan/ui — component library entry point.
 //
 // P1 ships the a11y primitive + the "golden five" reference components
 // (Button, Input, Select, Dialog, Table) that set the pattern every later

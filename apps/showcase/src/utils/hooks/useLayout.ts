@@ -1,4 +1,4 @@
-import { useResponsive } from '@dylan-ds/utils'
+import { useResponsive } from '@vn-dylan/utils'
 import { useThemeStore } from '@/store/themeStore'
 
 export interface UseLayoutResult {

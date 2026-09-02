@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-/** Breakpoint pixel values — mirror `@dylan-ds/tokens` `$breakpoint`. */
+/** Breakpoint pixel values — mirror `@vn-dylan/tokens` `$breakpoint`. */
 export const breakpoints = {
   xs: 0,
   sm: 640,

@@ -1,6 +1,6 @@
 import { forwardRef, useState } from 'react'
-import { Icon, TbIcons } from '@dylan-ds/icons'
-import { classNames } from '@dylan-ds/utils'
+import { Icon, TbIcons } from '@vn-dylan/icons'
+import { classNames } from '@vn-dylan/utils'
 import { Input } from '../Input'
 import type { PasswordInputProps } from './types'
 import './PasswordInput.scss'

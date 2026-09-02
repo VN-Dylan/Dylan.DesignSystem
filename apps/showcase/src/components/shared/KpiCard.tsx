@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { Card, Chart, GrowShrinkTag } from '@dylan-ds/ui'
+import { Card, Chart, GrowShrinkTag } from '@vn-dylan/ui'
 
 export interface KpiCardProps {
   label: string

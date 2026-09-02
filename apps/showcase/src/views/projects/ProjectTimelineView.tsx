@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
-import { Card, EmptyState, GanttChart, Progress, Select } from '@dylan-ds/ui'
-import type { SelectOption } from '@dylan-ds/ui'
+import { Card, EmptyState, GanttChart, Progress, Select } from '@vn-dylan/ui'
+import type { SelectOption } from '@vn-dylan/ui'
 import { PageHeader } from '@/components/shared/PageHeader'
 import { milestones, projects } from '@/mock/projects'
 

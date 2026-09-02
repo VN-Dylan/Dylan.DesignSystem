@@ -5,7 +5,7 @@ import {
   useFloating,
   useInteractions,
 } from '@floating-ui/react'
-import { classNames, useControllableState } from '@dylan-ds/utils'
+import { classNames, useControllableState } from '@vn-dylan/utils'
 import { Portal } from '../_internal/Portal'
 import { floatingAutoUpdate, getFloatingMiddleware } from '../_internal/floatingRuntime'
 import type { SelectMultiProps, SelectOption, SelectProps } from './types'

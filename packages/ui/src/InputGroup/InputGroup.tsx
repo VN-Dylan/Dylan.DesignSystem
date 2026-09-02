@@ -1,5 +1,5 @@
 import { forwardRef } from 'react'
-import { classNames } from '@dylan-ds/utils'
+import { classNames } from '@vn-dylan/utils'
 import { InputGroupContext, useInputGroupContext } from './context'
 import type { InputGroupAddonProps, InputGroupProps } from './types'
 import './InputGroup.scss'

@@ -42,10 +42,10 @@ Publishing is automated with Changesets + GitHub Actions — you never run
    `chore(release): version packages` PR that bumps versions and updates the
    `CHANGELOG.md` files.
 3. Merge that PR. The workflow runs `pnpm release` (`pnpm build && changeset
-   publish`) and publishes every `@dylan-ds/*` package to GitHub Packages.
+   publish`) and publishes every `@vn-dylan/*` package to GitHub Packages.
 
 All four packages version in lockstep (`fixed` in `.changeset/config.json`);
-`@dylan-ds/showcase` is never published.
+`@vn-dylan/showcase` is never published.
 
 ## Rules that block review
 

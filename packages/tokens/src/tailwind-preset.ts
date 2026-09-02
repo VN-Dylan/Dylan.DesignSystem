@@ -4,7 +4,7 @@ import type { Config } from 'tailwindcss'
  * Tailwind preset for the Dylan Design System.
  *
  * Every colour resolves to a CSS custom property declared by
- * `@dylan-ds/tokens/css`, so utilities stay theme-reactive (dark mode +
+ * `@vn-dylan/tokens/css`, so utilities stay theme-reactive (dark mode +
  * preset schemas) without regenerating CSS.
  *
  * A handful of colours (brand, status, body text, grey ramp) additionally

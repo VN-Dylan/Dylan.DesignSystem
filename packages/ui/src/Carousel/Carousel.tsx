@@ -7,7 +7,7 @@ import {
   useState,
   type KeyboardEvent,
 } from 'react'
-import { classNames } from '@dylan-ds/utils'
+import { classNames } from '@vn-dylan/utils'
 import { Button } from '../Button'
 import { CarouselContext, useCarousel } from './context'
 import type {

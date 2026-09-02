@@ -1,5 +1,5 @@
 import { forwardRef, type KeyboardEvent } from 'react'
-import { acronym } from '@dylan-ds/utils'
+import { acronym } from '@vn-dylan/utils'
 import { Avatar } from '../Avatar'
 import type { UserDataObject, UsersAvatarGroupProps } from './types'
 import './UsersAvatarGroup.scss'

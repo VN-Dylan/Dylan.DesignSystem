@@ -1,8 +1,8 @@
 import { useMemo, useState, type FormEvent, type ReactNode } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Button, Card, Input, Segment, Select } from '@dylan-ds/ui'
-import { Icon, TbIcons } from '@dylan-ds/icons'
-import { formatCurrency } from '@dylan-ds/utils'
+import { Button, Card, Input, Segment, Select } from '@vn-dylan/ui'
+import { Icon, TbIcons } from '@vn-dylan/icons'
+import { formatCurrency } from '@vn-dylan/utils'
 import { PageHeader } from '@/components/shared/PageHeader'
 import { products, TAX_RATE, type Order } from '@/mock/sales'
 

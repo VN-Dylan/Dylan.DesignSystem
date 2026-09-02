@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { presetThemeSchema, themeSchemaToCssVars } from '@dylan-ds/tokens'
+import { presetThemeSchema, themeSchemaToCssVars } from '@vn-dylan/tokens'
 import { useThemeStore } from '@/store/themeStore'
 
 /**

@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
-import { TbIcons } from '@dylan-ds/icons'
-import { classNames, useControllableState } from '@dylan-ds/utils'
+import { TbIcons } from '@vn-dylan/icons'
+import { classNames, useControllableState } from '@vn-dylan/utils'
 import { Button } from '../Button'
 import './FullCalendar.scss'
 

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { useCallback, useState } from 'react'
-import { HiIcons } from '@dylan-ds/icons'
+import { HiIcons } from '@vn-dylan/icons'
 import { Button } from '../Button'
 import { Progress } from './Progress'
 

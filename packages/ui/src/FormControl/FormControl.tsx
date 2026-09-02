@@ -1,5 +1,5 @@
 import { forwardRef, useId } from 'react'
-import { classNames } from '@dylan-ds/utils'
+import { classNames } from '@vn-dylan/utils'
 import { FormContext, useFormContext } from './context'
 import type { FormItemProps, FormProps } from './types'
 import './FormControl.scss'

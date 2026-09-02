@@ -1,5 +1,5 @@
 import { forwardRef, type CSSProperties } from 'react'
-import { classNames } from '@dylan-ds/utils'
+import { classNames } from '@vn-dylan/utils'
 import type { InfoBarLevel, InfoBarProps } from './types'
 import './InfoBar.scss'
 

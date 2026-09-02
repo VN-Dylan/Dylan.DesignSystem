@@ -1,5 +1,5 @@
-import { Button, Card, Input, Steps, Table, Upload } from '@dylan-ds/ui'
-import { Icon, TbIcons } from '@dylan-ds/icons'
+import { Button, Card, Input, Steps, Table, Upload } from '@vn-dylan/ui'
+import { Icon, TbIcons } from '@vn-dylan/icons'
 import { PageHeader } from '@/components/shared/PageHeader'
 import { StatusTag } from '@/components/shared/StatusTag'
 import { kycProgress } from '@/mock/crypto'

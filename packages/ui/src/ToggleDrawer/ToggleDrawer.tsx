@@ -1,5 +1,5 @@
 import { forwardRef, useImperativeHandle, useState } from 'react'
-import { classNames } from '@dylan-ds/utils'
+import { classNames } from '@vn-dylan/utils'
 import { Button } from '../Button'
 import { Drawer } from '../Drawer'
 import { NavToggle } from '../NavToggle'

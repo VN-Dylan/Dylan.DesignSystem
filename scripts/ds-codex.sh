@@ -31,16 +31,16 @@ TASK
 - Add the export (component + \`export type\`) to packages/ui/src/index.ts,
   keeping that file's existing ordering/formatting.
 - Use ONLY existing dependencies. Do NOT add packages. Icons come from
-  react-icons via the \`Icon\` component in @dylan-ds/icons or direct imports
+  react-icons via the \`Icon\` component in @vn-dylan/icons or direct imports
   in stories only.
 - NO literal colours / px / durations in .tsx or .scss — tokens only.
 
 VERIFY before finishing (all must pass):
-  pnpm --filter @dylan-ds/ui exec tsc -b
+  pnpm --filter @vn-dylan/ui exec tsc -b
   pnpm exec eslint packages/ui/src/$NAME
   pnpm exec prettier --check packages/ui/src/$NAME
   pnpm exec vitest run packages/ui/src/$NAME
-  pnpm --filter @dylan-ds/ui exec vite build
+  pnpm --filter @vn-dylan/ui exec vite build
 Fix everything until green. Do not commit. Report what you built."
 
 exec codex exec --skip-git-repo-check --dangerously-bypass-approvals-and-sandbox \

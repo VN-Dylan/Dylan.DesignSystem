@@ -15,7 +15,7 @@ import {
   type CSSProperties,
   type ReactElement,
 } from 'react'
-import { classNames, useControllableState } from '@dylan-ds/utils'
+import { classNames, useControllableState } from '@vn-dylan/utils'
 import { Portal } from '../_internal/Portal'
 import { composeRefs } from '../_internal/composeRefs'
 import { normalizeFloatingPlacement } from '../_internal/floatingPlacement'

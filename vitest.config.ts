@@ -8,11 +8,11 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@dylan-ds/tokens/tailwind-preset': resolve(root, 'packages/tokens/src/tailwind-preset.ts'),
-      '@dylan-ds/tokens': resolve(root, 'packages/tokens/src/index.ts'),
-      '@dylan-ds/utils': resolve(root, 'packages/utils/src/index.ts'),
-      '@dylan-ds/icons': resolve(root, 'packages/icons/src/index.ts'),
-      '@dylan-ds/ui': resolve(root, 'packages/ui/src/index.ts'),
+      '@vn-dylan/tokens/tailwind-preset': resolve(root, 'packages/tokens/src/tailwind-preset.ts'),
+      '@vn-dylan/tokens': resolve(root, 'packages/tokens/src/index.ts'),
+      '@vn-dylan/utils': resolve(root, 'packages/utils/src/index.ts'),
+      '@vn-dylan/icons': resolve(root, 'packages/icons/src/index.ts'),
+      '@vn-dylan/ui': resolve(root, 'packages/ui/src/index.ts'),
     },
   },
   test: {

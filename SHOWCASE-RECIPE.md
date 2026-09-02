@@ -43,7 +43,7 @@ export function XView() {
 
 Rules:
 
-1. **Components come from `@dylan-ds/ui`** — never hand-roll a button, table,
+1. **Components come from `@vn-dylan/ui`** — never hand-roll a button, table,
    card, input, tabs, dialog, etc. Full inventory: `packages/ui/src/index.ts`.
    Layout/spacing = Tailwind utilities with the semantic token classes
    (`bg-surface`, `text-content`, `text-content-muted`, `border-border`,
@@ -53,7 +53,7 @@ Rules:
    `Math.random`, no `Date.now`). Reuse `src/mock/sales.ts` shapes as a guide.
    Cross-area entities (customers, users) may be imported across mock files.
 3. **Money / numbers** → `formatCurrency`, `formatNumber`, `formatRelativeTime`
-   from `@dylan-ds/utils`. **Deltas** → `<KpiCard delta>` or `<GrowShrinkTag>`.
+   from `@vn-dylan/utils`. **Deltas** → `<KpiCard delta>` or `<GrowShrinkTag>`.
    **Status pills** → `<StatusTag tone>` (tone by meaning, not label).
 4. **Charts** → `<ChartCard>` (titled card) or `<Chart>` directly. Series/labels
    from mock data. Keep options minimal.
@@ -77,10 +77,10 @@ Rules:
 ## Verify — all must pass before finishing
 
 ```
-pnpm --filter @dylan-ds/showcase exec tsc -p tsconfig.app.json --noEmit
+pnpm --filter @vn-dylan/showcase exec tsc -p tsconfig.app.json --noEmit
 pnpm exec eslint apps/showcase/src
 pnpm exec prettier --check 'apps/showcase/src/**/*.{ts,tsx}'
-pnpm --filter @dylan-ds/showcase build
+pnpm --filter @vn-dylan/showcase build
 ```
 
 Fix until green. Do NOT `git commit`. Summarise screens built + judgement calls.

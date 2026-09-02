@@ -282,10 +282,10 @@
       <div class="decision"><dt>Handbook <span class="pick">Storybook 8 + DESIGN.md</span></dt><dd>Storybook cho playground tương tác, controls, autodocs từ TSDoc/props, addon a11y + theme + viewport. <code>DESIGN.md</code> và <code>docs/</code> cho phần triết lý &amp; guideline không thuộc về từng component.</dd></div>
       <div class="decision"><dt>Thực thi <span class="pick">Claude điều phối · codex làm hàng loạt</span></dt><dd>Claude viết token, hạ tầng, và "5 component vàng" làm chuẩn; sau đó sinh spec cho từng nhóm và chạy <code>codex exec --dangerously-bypass-approvals-and-sandbox</code> theo batch; Claude review, sửa, gộp.</dd></div>
       <div class="decision"><dt>Quản lý repo <span class="pick">pnpm workspace (monorepo)</span></dt><dd>Nhiều package nhỏ + <code>apps/showcase</code> + Storybook, dùng chung tooling. Changesets cho versioning.</dd></div>
-      <div class="decision"><dt>Tên package <span class="pick">@dylan-ds/*</span></dt><dd><code>@dylan-ds/tokens</code>, <code>@dylan-ds/ui</code>, <code>@dylan-ds/utils</code>, <code>@dylan-ds/icons</code>.</dd></div>
+      <div class="decision"><dt>Tên package <span class="pick">@vn-dylan/*</span></dt><dd><code>@vn-dylan/tokens</code>, <code>@vn-dylan/ui</code>, <code>@vn-dylan/utils</code>, <code>@vn-dylan/icons</code>.</dd></div>
       <div class="decision"><dt>i18n <span class="pick">Làm sau</span></dt><dd>Bản đầu dùng <code>useTranslation</code> stub + text tiếng Anh. Thêm <code>react-i18next</code> + locale (en/vi) ở pha sau.</dd></div>
       <div class="decision"><dt>Storybook <span class="pick">Chạy local</span></dt><dd><code>pnpm storybook</code> ở máy, chưa deploy. CI vẫn build để chặn hồi quy.</dd></div>
-      <div class="decision"><dt>Icons <span class="pick">Wrap react-icons</span></dt><dd><code>@dylan-ds/icons</code> re-export react-icons + component <code>&lt;Icon&gt;</code>. Không tự vẽ bộ linear riêng.</dd></div>
+      <div class="decision"><dt>Icons <span class="pick">Wrap react-icons</span></dt><dd><code>@vn-dylan/icons</code> re-export react-icons + component <code>&lt;Icon&gt;</code>. Không tự vẽ bộ linear riêng.</dd></div>
       <div class="decision"><dt>Nguồn tham chiếu <span class="pick">Bản crawl đã lưu</span></dt><dd>Đã crawl đầy đủ 84 trang doc component (demo source + bảng API) + 32 trang util + docs theming/folder-structure vào <code>eyris-crawl/</code>. Đây là spec đầu vào, không cần vào lại site cho phần lớn công việc.</dd></div>
     </dl>
     <div class="note"><b>Lưu ý bản quyền.</b> Eyris là template thương mại của ThemeNate. Kế hoạch này tái hiện lại (re-implement) component từ tài liệu công khai cho mục đích nội bộ của bạn, đặt trong thư mục riêng tư — <strong>không sao chép nguyên văn</strong> source của nhà cung cấp và không phân phối lại. Tên component/prop trùng để tương thích API là chấp nhận được; asset thương hiệu (logo "eyris", ảnh) sẽ thay bằng của Dylan.</div>
@@ -531,7 +531,7 @@
     </div>
     <h3>Đã chốt (2026-08-31)</h3>
     <ul>
-      <li>Scope package: <code>@dylan-ds/*</code>.</li>
+      <li>Scope package: <code>@vn-dylan/*</code>.</li>
       <li>i18n: làm sau — bản đầu dùng stub + tiếng Anh.</li>
       <li>Storybook: chạy local, chưa deploy.</li>
       <li>Icons: chỉ wrap <code>react-icons</code>, không vẽ bộ linear riêng.</li>

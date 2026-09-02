@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { HiIcons, TbIcons } from '@dylan-ds/icons'
+import { HiIcons, TbIcons } from '@vn-dylan/icons'
 import { Tag } from './Tag'
 
 const meta = {

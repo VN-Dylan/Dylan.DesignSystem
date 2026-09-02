@@ -34,9 +34,9 @@ familiarity; all brand assets, copy and visual identity are Dylan's own.
 ## 3. Architecture
 
 ```
-@dylan-ds/tokens  ──►  @dylan-ds/ui  ──►  apps/showcase
-@dylan-ds/utils   ──►  (also used by showcase & Storybook)
-@dylan-ds/icons   ──►
+@vn-dylan/tokens  ──►  @vn-dylan/ui  ──►  apps/showcase
+@vn-dylan/utils   ──►  (also used by showcase & Storybook)
+@vn-dylan/icons   ──►
 ```
 
 - `tokens` depends on nothing. `utils` depends on nothing (React peer only).
@@ -52,8 +52,8 @@ Fuller version, with the build/bundle strategy and the monorepo layout: the
 ## 4. Design tokens
 
 Source: `packages/tokens/src/styles/*.scss` → generated to CSS variables
-(`@dylan-ds/tokens/css`), a Tailwind preset (`@dylan-ds/tokens/tailwind-preset`)
-and TS (`@dylan-ds/tokens`). Runtime contract, in cascade order:
+(`@vn-dylan/tokens/css`), a Tailwind preset (`@vn-dylan/tokens/tailwind-preset`)
+and TS (`@vn-dylan/tokens`). Runtime contract, in cascade order:
 `:root` (light) → `:root.dark` (dark) → `[data-theme-schema]` (brand hue).
 
 Every CSS variable is prefixed `--dyl-`. The Tailwind preset maps them to
@@ -121,14 +121,14 @@ reach for `-subtle`, `overlay`, or `brightness-*` there instead.
 
 Eight schemas ported from Eyris — `default, dark, green, purple, orange, cyan,
 gold, pink` — each overriding the primary family. Applied at runtime by writing
-CSS variables onto `<html>`: `useThemeSchema(name, mode)` from `@dylan-ds/utils`,
-or `presetThemeSchema` + `themeSchemaToCssVars` from `@dylan-ds/tokens`.
+CSS variables onto `<html>`: `useThemeSchema(name, mode)` from `@vn-dylan/utils`,
+or `presetThemeSchema` + `themeSchemaToCssVars` from `@vn-dylan/tokens`.
 
 ## 5. Theming & modes
 
 - **Dark mode:** `.dark` class on `<html>` (Tailwind `darkMode: 'class'`).
 - **Schema:** `data-theme-schema` + inline CSS variables.
-- **RTL:** `dir` attribute (`useDirection` from `@dylan-ds/utils`). Component SCSS
+- **RTL:** `dir` attribute (`useDirection` from `@vn-dylan/utils`). Component SCSS
   is fully logical — both plain CSS and the Tailwind `@apply` layer (`ps`/`pe`/
   `ms`/`me`/`start`/`end`/`text-start`/`rounded-s`); transform offsets carry an
   `rtl:` override. A few things stay physical by design (Drawer `placement`,
@@ -179,10 +179,10 @@ dependency-free, 3 app-coupled utilities live in the showcase, etc.
 
 ## 9. Versioning & publishing
 
-Changesets. All `@dylan-ds/*` packages version in lockstep (`fixed`).
-`@dylan-ds/showcase` is not published.
+Changesets. All `@vn-dylan/*` packages version in lockstep (`fixed`).
+`@vn-dylan/showcase` is not published.
 
-Published to **GitHub Packages** (`npm.pkg.github.com`, private, org `dylan-ds`).
+Published to **GitHub Packages** (`npm.pkg.github.com`, private, org `VN-Dylan`).
 The `.github/workflows/release.yml` workflow turns merged changesets into a
 version PR, then on merge runs `pnpm release` to publish. Consuming a package
 downstream: [`CONSUMING.md`](./CONSUMING.md).

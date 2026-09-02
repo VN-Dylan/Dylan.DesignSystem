@@ -47,7 +47,7 @@ See [`RECIPE.md`](../../RECIPE.md) for the full component file layout
 | \`formats: ['es']\` | The consumer's own bundler handles the rest; no UMD/CJS to maintain. |
 | \`preserveModules: true\` | Per-module output (\`dist/Button/Button.js\`, not one barrel) — a consumer importing \`Button\` doesn't pull in \`Chart\` or \`RichTextEditor\`. Cut the bundle from an 807 kB single file to ~227 kB total across per-component chunks (largest ~12 kB). |
 | \`cssCodeSplit: false\` | One \`styles.css\` — component CSS is small and interdependent (shared tokens), splitting it per-component isn't worth the request fan-out. |
-| \`external\` | \`react\`/\`react-dom\`, every \`@dylan-ds/*\` sibling, every \`react-icons\` subpath, and every vendor a composite component wraps (\`@floating-ui\`, \`@tanstack/react-table\`, ApexCharts, Tiptap, jsvectormap, \`react-syntax-highlighter\`) — all **peer** deps of the consumer, never bundled into \`@dylan-ds/ui\`. |
+| \`external\` | \`react\`/\`react-dom\`, every \`@vn-dylan/*\` sibling, every \`react-icons\` subpath, and every vendor a composite component wraps (\`@floating-ui\`, \`@tanstack/react-table\`, ApexCharts, Tiptap, jsvectormap, \`react-syntax-highlighter\`) — all **peer** deps of the consumer, never bundled into \`@vn-dylan/ui\`. |
 `}</Markdown>
 
 `.d.ts` files are emitted separately: each package's `tsconfig.json` sets
@@ -76,6 +76,6 @@ why (the baselines are host-OS/Chromium rendered, not portable to CI).
 
 ## Versioning
 
-[Changesets](https://github.com/changesets/changesets), all `@dylan-ds/*`
-packages version in lockstep (`fixed`). `@dylan-ds/showcase` is excluded from
+[Changesets](https://github.com/changesets/changesets), all `@vn-dylan/*`
+packages version in lockstep (`fixed`). `@vn-dylan/showcase` is excluded from
 publishing — it's a proof, not a product.

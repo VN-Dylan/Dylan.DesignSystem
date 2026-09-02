@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import ReactApexChart from 'react-apexcharts'
 import type { ApexOptions } from 'apexcharts'
-import { classNames } from '@dylan-ds/utils'
+import { classNames } from '@vn-dylan/utils'
 import type { ChartProps } from './types'
 import './Chart.scss'
 

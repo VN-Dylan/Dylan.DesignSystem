@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { Button } from '@dylan-ds/ui'
+import { Button } from '@vn-dylan/ui'
 
 /** 404 — unmatched route. */
 export function NotFoundView() {

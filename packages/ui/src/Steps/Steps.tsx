@@ -6,8 +6,8 @@ import {
   type ReactElement,
   type ReactNode,
 } from 'react'
-import { classNames } from '@dylan-ds/utils'
-import { Icon, TbIcons } from '@dylan-ds/icons'
+import { classNames } from '@vn-dylan/utils'
+import { Icon, TbIcons } from '@vn-dylan/icons'
 import { StepsProvider, useStepsContext } from './context'
 import type { StepsItemProps, StepsProps, StepsStatus } from './types'
 import './Steps.scss'

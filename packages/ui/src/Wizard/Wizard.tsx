@@ -1,4 +1,4 @@
-import { useControllableState } from '@dylan-ds/utils'
+import { useControllableState } from '@vn-dylan/utils'
 import { Steps } from '../Steps'
 import { Button } from '../Button'
 import type { WizardProps } from './types'

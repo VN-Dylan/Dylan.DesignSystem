@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button, Dialog, Input, Select, Table, type SelectOption } from '@dylan-ds/ui'
+import { Button, Dialog, Input, Select, Table, type SelectOption } from '@vn-dylan/ui'
 import { PageHeader } from '@/components/shared/PageHeader'
 
 const categories: SelectOption[] = [

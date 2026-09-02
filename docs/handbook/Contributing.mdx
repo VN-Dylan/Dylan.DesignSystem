@@ -39,7 +39,7 @@ than reinventing.
 
 1. **`forwardRef` always**, to the primary DOM node; spread `...rest` onto it.
 2. **Variants are `data-*`**, styled via `&[data-variant='…']`.
-3. **`className` merge** with `classNames` from `@dylan-ds/utils`; support the
+3. **`className` merge** with `classNames` from `@vn-dylan/utils`; support the
    `(state) => string` callback form where the component has interaction state.
 4. **Prop names & defaults follow Eyris** — `docs/reference/eyris-crawl/<name>.json`
    is the API-table source.
@@ -69,12 +69,12 @@ than reinventing.
 ## Verify
 
 ```bash
-pnpm --filter @dylan-ds/ui exec vite build
+pnpm --filter @vn-dylan/ui exec vite build
 pnpm test -- <Name>
 pnpm lint && pnpm format:check
 ```
 
 ## Versioning
 
-Changesets. All `@dylan-ds/*` packages version in lockstep (`fixed`). Even a
+Changesets. All `@vn-dylan/*` packages version in lockstep (`fixed`). Even a
 docs-only change to a package needs a patch changeset.

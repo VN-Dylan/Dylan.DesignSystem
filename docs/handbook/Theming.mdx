@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Meta, Markdown } from '@storybook/blocks'
-import { presetThemeSchema, themeSchemaNames, themeSchemaToCssVars } from '@dylan-ds/tokens'
+import { presetThemeSchema, themeSchemaNames, themeSchemaToCssVars } from '@vn-dylan/tokens'
 
 <Meta title="Handbook/Theming & Modes" />
 
@@ -29,7 +29,7 @@ every swatch in **Design Tokens** re-reads the live values.
 hues stay put. In a consuming app:
 
 ```ts
-import { useDarkMode } from '@dylan-ds/utils'
+import { useDarkMode } from '@vn-dylan/utils'
 
 const { isDark, toggle } = useDarkMode() // toggles `.dark`, persists
 ```
@@ -48,11 +48,11 @@ Eight schemas ported from Eyris — `default`, `dark`, `green`, `purple`,
 both light and dark.
 
 ```ts
-import { useThemeSchema } from '@dylan-ds/utils'
+import { useThemeSchema } from '@vn-dylan/utils'
 useThemeSchema('green', 'light') // writes vars to <html>, persists
 
 // or the token layer directly:
-import { presetThemeSchema, themeSchemaToCssVars } from '@dylan-ds/tokens'
+import { presetThemeSchema, themeSchemaToCssVars } from '@vn-dylan/tokens'
 const vars = themeSchemaToCssVars(presetThemeSchema.green.light)
 Object.entries(vars).forEach(([k, v]) => document.documentElement.style.setProperty(k, v))
 ```
@@ -158,7 +158,7 @@ component-shaped markup (this resets to `default` when you leave the page):
 ## RTL
 
 ```ts
-import { useDirection } from '@dylan-ds/utils'
+import { useDirection } from '@vn-dylan/utils'
 const { direction, toggle } = useDirection() // sets dir="rtl" on <html>
 ```
 
@@ -179,16 +179,16 @@ names a side), the `Slider` fill track (value runs min→max left-to-right), the
 
 ```ts
 // 1. tokens as CSS vars + the component styles
-import '@dylan-ds/tokens/css'
-import '@dylan-ds/ui/styles.css'
+import '@vn-dylan/tokens/css'
+import '@vn-dylan/ui/styles.css'
 ```
 
 ```ts
 // 2. the Tailwind preset, so utility classes resolve
-import { dylanPreset } from '@dylan-ds/tokens/tailwind-preset'
+import { dylanPreset } from '@vn-dylan/tokens/tailwind-preset'
 export default {
   presets: [dylanPreset],
-  content: ['./src/**/*.{ts,tsx}', './node_modules/@dylan-ds/ui/dist/**/*.js'],
+  content: ['./src/**/*.{ts,tsx}', './node_modules/@vn-dylan/ui/dist/**/*.js'],
 }
 ```
 

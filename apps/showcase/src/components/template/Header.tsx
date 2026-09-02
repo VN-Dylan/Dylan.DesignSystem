@@ -1,5 +1,5 @@
-import { Button } from '@dylan-ds/ui'
-import { Icon, TbIcons } from '@dylan-ds/icons'
+import { Button } from '@vn-dylan/ui'
+import { Icon, TbIcons } from '@vn-dylan/icons'
 import { useThemeStore } from '@/store/themeStore'
 import { useLayout } from '@/utils/hooks/useLayout'
 import { UserDropdown } from './UserDropdown'

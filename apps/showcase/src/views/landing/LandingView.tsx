@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
-import { Button } from '@dylan-ds/ui'
-import { Icon, TbIcons } from '@dylan-ds/icons'
+import { Button } from '@vn-dylan/ui'
+import { Icon, TbIcons } from '@vn-dylan/icons'
 import { Logo } from '@/components/template/Logo'
 
 const features = [

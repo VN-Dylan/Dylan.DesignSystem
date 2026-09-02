@@ -8,10 +8,10 @@ handbook — reverse-engineered from the Eyris admin template and rebuilt on
 
 | Package | What it is |
 | --- | --- |
-| `@dylan-ds/tokens` | Design tokens — SCSS source, generated CSS variables, Tailwind preset, 8 preset theme schemas. |
-| `@dylan-ds/utils` | Framework hooks and helpers (`classNames`, `useResponsive`, `formatCurrency`, …). |
-| `@dylan-ds/icons` | Icon layer — a thin wrapper over `react-icons` (Tabler as the house set). |
-| `@dylan-ds/ui` | The React component library — 42 base + 42 composite components. |
+| `@vn-dylan/tokens` | Design tokens — SCSS source, generated CSS variables, Tailwind preset, 8 preset theme schemas. |
+| `@vn-dylan/utils` | Framework hooks and helpers (`classNames`, `useResponsive`, `formatCurrency`, …). |
+| `@vn-dylan/icons` | Icon layer — a thin wrapper over `react-icons` (Tabler as the house set). |
+| `@vn-dylan/ui` | The React component library — 42 base + 42 composite components. |
 | `apps/showcase` | Reference app that rebuilds the Eyris example screens on the system. |
 
 ## Getting started
@@ -27,14 +27,14 @@ pnpm build                # build all packages
 
 ## Using it in another project
 
-The `@dylan-ds/*` packages publish to GitHub Packages (private, org `dylan-ds`).
+The `@vn-dylan/*` packages publish to GitHub Packages (private, org `VN-Dylan`).
 See [`CONSUMING.md`](./CONSUMING.md) for auth, install, the stylesheet, Tailwind
 preset and theming. In short:
 
 ```bash
-# consuming project's .npmrc: @dylan-ds:registry=https://npm.pkg.github.com  (+ token)
-pnpm add @dylan-ds/ui
-# app entry:  import '@dylan-ds/ui/styles.css'
+# consuming project's .npmrc: @vn-dylan:registry=https://npm.pkg.github.com  (+ token)
+pnpm add @vn-dylan/ui
+# app entry:  import '@vn-dylan/ui/styles.css'
 ```
 
 ## Documentation

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
-import { TbIcons } from '@dylan-ds/icons'
-import { classNames, useControllableState } from '@dylan-ds/utils'
+import { TbIcons } from '@vn-dylan/icons'
+import { classNames, useControllableState } from '@vn-dylan/utils'
 import { Dropdown } from '../Dropdown'
 import type { OverflowTabsProps } from './types'
 import './OverflowTabs.scss'

@@ -1,6 +1,6 @@
 import { forwardRef, useRef, useState, type DragEvent } from 'react'
-import { TbIcons } from '@dylan-ds/icons'
-import { classNames, fileSizeUnit, useControllableState } from '@dylan-ds/utils'
+import { TbIcons } from '@vn-dylan/icons'
+import { classNames, fileSizeUnit, useControllableState } from '@vn-dylan/utils'
 import type { UploadProps } from './types'
 import './Upload.scss'
 

@@ -6,9 +6,9 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@dylan-ds/tokens': resolve(__dirname, '../tokens/src/index.ts'),
-      '@dylan-ds/utils': resolve(__dirname, '../utils/src/index.ts'),
-      '@dylan-ds/icons': resolve(__dirname, '../icons/src/index.ts'),
+      '@vn-dylan/tokens': resolve(__dirname, '../tokens/src/index.ts'),
+      '@vn-dylan/utils': resolve(__dirname, '../utils/src/index.ts'),
+      '@vn-dylan/icons': resolve(__dirname, '../icons/src/index.ts'),
     },
   },
   build: {
@@ -25,7 +25,7 @@ export default defineConfig({
         'react-dom',
         'react/jsx-runtime',
         // Sibling workspace packages — the consumer installs these directly.
-        /^@dylan-ds\//,
+        /^@vn-dylan\//,
         // react-icons and every icon-set subpath (react-icons/tb, /hi2, /cg …).
         /^react-icons(\/.*)?$/,
         /^@floating-ui\//,

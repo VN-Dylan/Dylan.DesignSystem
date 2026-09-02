@@ -1,6 +1,6 @@
 import { forwardRef, useId } from 'react'
 import type { MouseEvent } from 'react'
-import { classNames, useControllableState } from '@dylan-ds/utils'
+import { classNames, useControllableState } from '@vn-dylan/utils'
 import { RadioGroupProvider, useRadioGroupContext } from './context'
 import type { RadioGroupProps, RadioProps, RadioValue } from './types'
 import './Radio.scss'

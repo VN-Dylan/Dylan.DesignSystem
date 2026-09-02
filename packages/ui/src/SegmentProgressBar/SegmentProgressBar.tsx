@@ -1,5 +1,5 @@
 import { forwardRef, type CSSProperties } from 'react'
-import { classNames } from '@dylan-ds/utils'
+import { classNames } from '@vn-dylan/utils'
 import type { SegmentProgressBarProps } from './types'
 import './SegmentProgressBar.scss'
 

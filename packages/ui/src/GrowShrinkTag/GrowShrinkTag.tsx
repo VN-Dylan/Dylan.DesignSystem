@@ -1,6 +1,6 @@
 import { forwardRef } from 'react'
-import { HiIcons, Icon } from '@dylan-ds/icons'
-import { classNames } from '@dylan-ds/utils'
+import { HiIcons, Icon } from '@vn-dylan/icons'
+import { classNames } from '@vn-dylan/utils'
 import type { GrowShrinkTagProps } from './types'
 import './GrowShrinkTag.scss'
 

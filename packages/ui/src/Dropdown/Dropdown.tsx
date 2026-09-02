@@ -22,7 +22,7 @@ import {
   type ReactElement,
   type SetStateAction,
 } from 'react'
-import { classNames } from '@dylan-ds/utils'
+import { classNames } from '@vn-dylan/utils'
 import { Portal } from '../_internal/Portal'
 import { composeRefs } from '../_internal/composeRefs'
 import { normalizeDropdownPlacement } from '../_internal/floatingPlacement'

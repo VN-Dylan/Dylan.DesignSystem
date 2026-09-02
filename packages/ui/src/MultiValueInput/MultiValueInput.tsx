@@ -1,6 +1,6 @@
 import { forwardRef, useRef, useState, type KeyboardEvent } from 'react'
-import { classNames, useControllableState } from '@dylan-ds/utils'
-import { TbIcons } from '@dylan-ds/icons'
+import { classNames, useControllableState } from '@vn-dylan/utils'
+import { TbIcons } from '@vn-dylan/icons'
 import type { MultiValueInputProps } from './types'
 import './MultiValueInput.scss'
 

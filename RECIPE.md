@@ -30,7 +30,7 @@ Shared building blocks live in `packages/ui/src/_internal/`:
 
 ```tsx
 import { forwardRef } from 'react'
-import { classNames } from '@dylan-ds/utils'
+import { classNames } from '@vn-dylan/utils'
 import type { XProps } from './types'
 import './X.scss'
 
@@ -57,14 +57,14 @@ Rules:
 2. **Variants are `data-*` attributes**, not class permutations
    (`data-variant`, `data-size`, `data-shape`, `data-active`, `data-invalid`,
    `data-disabled`, …). The SCSS targets `&[data-variant='solid']`.
-3. **`className` merge** with `classNames` from `@dylan-ds/utils`. Support the
+3. **`className` merge** with `classNames` from `@vn-dylan/utils`. Support the
    callback form `(state) => string` where the component exposes interaction
    state (see `Button`).
 4. **Prop names & defaults** follow Eyris (`docs/reference/eyris-crawl/<name>.json`
    → the API table). Types are `<Name>Props`, `<Name>Variant`, etc. — exported
    from `types.ts` and re-exported from the package root.
 5. **Controlled / uncontrolled** state uses `useControllableState` from
-   `@dylan-ds/utils` (`value` / `defaultValue` / `onChange`).
+   `@vn-dylan/utils` (`value` / `defaultValue` / `onChange`).
 6. **Compound components**: `export const X = Object.assign(XRoot, { Item, … })`,
    share state through context in `context.ts`.
 7. **Overlays** (Dialog, Drawer, Popover, Tooltip, Dropdown, Toast) render
@@ -73,7 +73,7 @@ Rules:
    **Anchored** overlays (Popover, Tooltip, Dropdown, Select menu) position with
    `@floating-ui/react` (`useFloating` + `offset`/`flip`/`shift`/`autoUpdate`,
    `useRole`/`useDismiss`/`useInteractions`) — it is an allowed dependency of
-   `@dylan-ds/ui`.
+   `@vn-dylan/ui`.
 
 ## Styling
 
@@ -134,7 +134,7 @@ codex exec --skip-git-repo-check --dangerously-bypass-approvals-and-sandbox \
   packages/ui/src/Dialog/*  packages/ui/src/Select/*  packages/ui/src/Table/*
 
   Build packages/ui/src/<Name>/ per the recipe. Run:
-  pnpm --filter @dylan-ds/ui exec vite build && pnpm test -- <Name>
+  pnpm --filter @vn-dylan/ui exec vite build && pnpm test -- <Name>
   Fix until green."
 ```
 

@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import type { ThemeSchemaName } from '@dylan-ds/tokens'
+import type { ThemeSchemaName } from '@vn-dylan/tokens'
 
 export type ColorMode = 'light' | 'dark'
 export type Direction = 'ltr' | 'rtl'

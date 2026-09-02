@@ -1,6 +1,6 @@
 import { forwardRef } from 'react'
-import { TbIcons } from '@dylan-ds/icons'
-import { classNames } from '@dylan-ds/utils'
+import { TbIcons } from '@vn-dylan/icons'
+import { classNames } from '@vn-dylan/utils'
 import type { NotificationProps, NotificationType } from './types'
 
 const icons: Record<NotificationType, React.ReactNode> = {

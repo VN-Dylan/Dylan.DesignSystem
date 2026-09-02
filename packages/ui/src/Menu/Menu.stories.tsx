@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { Icon, HiIcons } from '@dylan-ds/icons'
+import { Icon, HiIcons } from '@vn-dylan/icons'
 import { Menu } from './Menu'
 
 const meta = {

@@ -12,7 +12,7 @@ export default defineConfig({
     },
     sourcemap: true,
     rollupOptions: {
-      external: ['react', 'react-dom', 'react/jsx-runtime', '@dylan-ds/tokens'],
+      external: ['react', 'react-dom', 'react/jsx-runtime', '@vn-dylan/tokens'],
     },
   },
 })

@@ -32,7 +32,7 @@ jobs:
 
       # GitHub Packages auth for `pnpm publish`. Written to the user-level npmrc
       # so the working tree stays clean for the Changesets action's git steps.
-      # The project .npmrc already maps the @dylan-ds scope to npm.pkg.github.com.
+      # The project .npmrc already maps the @vn-dylan scope to npm.pkg.github.com.
       - name: Configure GitHub Packages auth
         run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> "$HOME/.npmrc"
 
@@ -41,8 +41,8 @@ jobs:
         with:
           version: pnpm version-packages
           publish: pnpm release
-          commit: "chore(release): version packages"
-          title: "chore(release): version packages"
+          commit: 'chore(release): version packages'
+          title: 'chore(release): version packages'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

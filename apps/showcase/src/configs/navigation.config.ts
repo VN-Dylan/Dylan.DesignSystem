@@ -1,5 +1,5 @@
-import type { IconType } from '@dylan-ds/icons'
-import { TbIcons } from '@dylan-ds/icons'
+import type { IconType } from '@vn-dylan/icons'
+import { TbIcons } from '@vn-dylan/icons'
 
 export interface NavItem {
   /** Stable key — also the Menu `eventKey` and `useMenuActive` match target. */

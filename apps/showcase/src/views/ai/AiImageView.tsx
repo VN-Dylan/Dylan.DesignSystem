@@ -1,8 +1,8 @@
 import { useMemo, useState } from 'react'
-import { Button, Card, Input, Segment, Select } from '@dylan-ds/ui'
-import type { SelectOption } from '@dylan-ds/ui'
-import { Icon, TbIcons } from '@dylan-ds/icons'
-import { formatNumber } from '@dylan-ds/utils'
+import { Button, Card, Input, Segment, Select } from '@vn-dylan/ui'
+import type { SelectOption } from '@vn-dylan/ui'
+import { Icon, TbIcons } from '@vn-dylan/icons'
+import { formatNumber } from '@vn-dylan/utils'
 import { PageHeader } from '@/components/shared/PageHeader'
 import { aiUsage, imageHistory, imageStyles, type GeneratedImage } from '@/mock/ai'
 

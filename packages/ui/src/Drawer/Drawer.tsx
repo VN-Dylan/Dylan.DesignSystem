@@ -1,5 +1,5 @@
 import { useEffect, useId, useRef } from 'react'
-import { classNames } from '@dylan-ds/utils'
+import { classNames } from '@vn-dylan/utils'
 import { Portal } from '../_internal/Portal'
 import { useFocusTrap } from '../_internal/useFocusTrap'
 import type { DrawerProps } from './types'

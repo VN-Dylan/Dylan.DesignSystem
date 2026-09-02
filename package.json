@@ -1,5 +1,5 @@
 {
-  "name": "@dylan-ds/monorepo",
+  "name": "@vn-dylan/monorepo",
   "version": "0.0.0",
   "private": true,
   "license": "MIT",
@@ -10,7 +10,7 @@
   },
   "scripts": {
     "build": "rimraf --glob \"packages/*/tsconfig.tsbuildinfo\" \"packages/*/dist\" && pnpm -r --filter \"./packages/**\" build && tsc -b",
-    "dev": "pnpm --filter @dylan-ds/showcase dev",
+    "dev": "pnpm --filter @vn-dylan/showcase dev",
     "test": "vitest run",
     "test:watch": "vitest",
     "lint": "eslint .",

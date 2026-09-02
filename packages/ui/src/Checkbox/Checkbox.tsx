@@ -1,5 +1,5 @@
 import { forwardRef, useEffect, useRef } from 'react'
-import { classNames, useControllableState } from '@dylan-ds/utils'
+import { classNames, useControllableState } from '@vn-dylan/utils'
 import { CheckboxGroupProvider, useCheckboxGroupContext } from './context'
 import type { CheckboxGroupProps, CheckboxProps, CheckboxValue } from './types'
 import './Checkbox.scss'

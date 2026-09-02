@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
-import { Avatar, Dropdown } from '@dylan-ds/ui'
-import { Icon, TbIcons } from '@dylan-ds/icons'
+import { Avatar, Dropdown } from '@vn-dylan/ui'
+import { Icon, TbIcons } from '@vn-dylan/icons'
 import { useAuth } from '@/utils/hooks/useAuth'
 
 /** User menu anchored to the header avatar. */

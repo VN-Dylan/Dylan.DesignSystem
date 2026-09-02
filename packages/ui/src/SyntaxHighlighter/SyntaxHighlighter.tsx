@@ -12,8 +12,8 @@ import tsx from 'react-syntax-highlighter/dist/esm/languages/prism/tsx'
 import typescript from 'react-syntax-highlighter/dist/esm/languages/prism/typescript'
 import javascript from 'react-syntax-highlighter/dist/esm/languages/prism/javascript'
 import yaml from 'react-syntax-highlighter/dist/esm/languages/prism/yaml'
-import { TbIcons } from '@dylan-ds/icons'
-import { classNames } from '@dylan-ds/utils'
+import { TbIcons } from '@vn-dylan/icons'
+import { classNames } from '@vn-dylan/utils'
 import './SyntaxHighlighter.scss'
 
 // PrismLight ships no grammars by default — register the languages the design

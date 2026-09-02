@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useMemo, useState, type MouseEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Avatar, Card, DataTable, Input, Progress, Select } from '@dylan-ds/ui'
-import type { ColumnDef, DataTableSort, SelectOption } from '@dylan-ds/ui'
-import { Icon, TbIcons } from '@dylan-ds/icons'
-import { formatRelativeTime } from '@dylan-ds/utils'
+import { Avatar, Card, DataTable, Input, Progress, Select } from '@vn-dylan/ui'
+import type { ColumnDef, DataTableSort, SelectOption } from '@vn-dylan/ui'
+import { Icon, TbIcons } from '@vn-dylan/icons'
+import { formatRelativeTime } from '@vn-dylan/utils'
 import { PageHeader } from '@/components/shared/PageHeader'
 import { StatusTag } from '@/components/shared/StatusTag'
 import {

@@ -1,6 +1,6 @@
 import { forwardRef } from 'react'
-import { Icon, TbIcons } from '@dylan-ds/icons'
-import { classNames } from '@dylan-ds/utils'
+import { Icon, TbIcons } from '@vn-dylan/icons'
+import { classNames } from '@vn-dylan/utils'
 import type { NumericInputStepperProps } from './types'
 import './NumericInputStepper.scss'
 
