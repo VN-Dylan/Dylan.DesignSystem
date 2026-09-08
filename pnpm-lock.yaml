@@ -217,7 +217,7 @@ importers:
   packages/icons:
     dependencies:
       react:
-        specifier: ^18.2.0
+        specifier: ^18.2.0 || ^19.0.0
         version: 18.3.1
       react-icons:
         specifier: 5.4.0
@@ -275,13 +275,13 @@ importers:
         specifier: 1.6.0
         version: 1.6.0
       react:
-        specifier: ^18.2.0
+        specifier: ^18.2.0 || ^19.0.0
         version: 18.3.1
       react-apexcharts:
         specifier: 1.7.0
         version: 1.7.0(apexcharts@4.3.0)(react@18.3.1)
       react-dom:
-        specifier: ^18.2.0
+        specifier: ^18.2.0 || ^19.0.0
         version: 18.3.1(react@18.3.1)
       react-syntax-highlighter:
         specifier: 15.6.1
@@ -321,10 +321,10 @@ importers:
         specifier: workspace:*
         version: link:../tokens
       react:
-        specifier: ^18.2.0
+        specifier: ^18.2.0 || ^19.0.0
         version: 18.3.1
       react-dom:
-        specifier: ^18.2.0
+        specifier: ^18.2.0 || ^19.0.0
         version: 18.3.1(react@18.3.1)
     devDependencies:
       '@vitejs/plugin-react':

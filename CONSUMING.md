@@ -43,7 +43,7 @@ pnpm add @vn-dylan/icons    # if you render icons directly
 
 ### Peer dependencies
 
-`react` and `react-dom` **v18** must already be in your project.
+`react` and `react-dom` **v18 or v19** must already be in your project.
 
 Heavier libraries used by a few `@vn-dylan/ui` components (`apexcharts`,
 `react-apexcharts`, `@tiptap/*`, `@tanstack/react-table`, `jsvectormap`,

@@ -35,8 +35,8 @@ exported in the shell and set as an env var in CI. Never commit the token.
 | \`pnpm add @vn-dylan/icons\` | You render icons directly |
 `}</Markdown>
 
-`react` and `react-dom` **v18** are peer dependencies — they must already be in
-the project. The heavier libraries a few components use (`apexcharts`, `@tiptap/*`,
+`react` and `react-dom` **v18 or v19** are peer dependencies — they must already be
+in the project. The heavier libraries a few components use (`apexcharts`, `@tiptap/*`,
 `@tanstack/react-table`, `jsvectormap`, `react-syntax-highlighter`,
 `@floating-ui/react`) are normal dependencies of `@vn-dylan/ui` and install
 automatically; tree-shaking keeps unused ones out of the bundle.
