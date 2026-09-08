@@ -7,7 +7,7 @@ import { ProtectedRoute } from '@/components/route/ProtectedRoute'
 import { LandingView } from '@/views/landing/LandingView'
 import { AccessDeniedView } from '@/views/others/AccessDeniedView'
 import { NotFoundView } from '@/views/others/NotFoundView'
-import { ComponentGalleryView } from '@/views/_dev/ComponentGalleryView'
+import { galleryRoutes } from '@/views/gallery/galleryRoutes'
 import {
   ForgotPasswordView,
   OtpVerificationView,
@@ -51,6 +51,7 @@ export const routes: RouteObject[] = [
       ...authRoutes,
     ],
   },
+  ...galleryRoutes,
   {
     element: (
       <ProtectedRoute>
@@ -58,7 +59,6 @@ export const routes: RouteObject[] = [
       </ProtectedRoute>
     ),
     children: [
-      { path: '/dev/components', element: <ComponentGalleryView /> },
       { path: '/others/access-denied', element: <AccessDeniedView /> },
       ...salesRoutes,
       ...projectsRoutes,
