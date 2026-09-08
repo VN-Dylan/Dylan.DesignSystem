@@ -1,6 +1,6 @@
 {
   "name": "@vn-dylan/utils",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Framework hooks and helpers for the Dylan Design System.",
   "type": "module",
   "license": "MIT",
