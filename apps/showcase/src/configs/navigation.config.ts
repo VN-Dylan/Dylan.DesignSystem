@@ -128,7 +128,7 @@ export const navigationConfig: NavItem[] = [
     icon: TbIcons.TbBook,
     children: [
       { key: 'guides.landing', title: 'Landing page', path: '/landing' },
-      { key: 'guides.components', title: 'Component gallery', path: '/dev/components' },
+      { key: 'guides.components', title: 'Component gallery', path: '/gallery' },
       { key: 'guides.access-denied', title: 'Access denied', path: '/others/access-denied' },
     ],
   },
