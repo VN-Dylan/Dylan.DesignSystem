@@ -136,3 +136,25 @@ export const galleryTreeCountries = [
   { code: 'VN', name: 'Vietnam', value: 52 },
   { code: 'BR', name: 'Brazil', value: 33 },
 ]
+
+export const galleryGanttTasks = [
+  { id: 'task-1', name: 'Audit stories', start: '2026-09-01', end: '2026-09-04', progress: 100 },
+  { id: 'task-2', name: 'Map demos', start: '2026-09-04', end: '2026-09-09', progress: 80 },
+  {
+    id: 'task-3',
+    name: 'Build gallery',
+    start: '2026-09-08',
+    end: '2026-09-17',
+    progress: 45,
+    dependencies: ['task-2'],
+  },
+  { id: 'task-4', name: 'Verify bundle', start: '2026-09-16', end: '2026-09-22', progress: 10 },
+]
+
+export const galleryCalendarEvents = [
+  { id: 'event-1', title: 'Design review', start: '2026-09-04' },
+  { id: 'event-2', title: 'Token audit', start: '2026-09-08', end: '2026-09-09' },
+  { id: 'event-3', title: 'Gallery freeze', start: '2026-09-15' },
+  { id: 'event-4', title: 'Release notes', start: '2026-09-15' },
+  { id: 'event-5', title: 'QA sweep', start: '2026-09-22' },
+]
