@@ -17,7 +17,7 @@ services:
       - /mnt/SourceCode/DylanDesignSystem/showcase:/srv/showcase:ro
       - /mnt/SourceCode/DylanDesignSystem/storybook:/srv/storybook:ro
     expose:
-      - "80"
+      - '80'
     restart: unless-stopped
 
 networks:
