@@ -4,10 +4,10 @@ name: Deploy CI/CD
 # then rsyncs both static trees to the VPS where nginx serves each from its
 # own subdomain. Deploy runs only on push to main.
 #
-# Required repo secrets (already used by the project):
-#   VPS_SSH_KEY         - ed25519 private key, authorised on the VPS
-#   VPS_SSH_PASSPHRASE  - passphrase for that key
-#   VPS_USER            - ssh user on the VPS
+# Required repo secrets:
+#   VPS_SSH_KEY  - ed25519 PRIVATE key WITHOUT a passphrase, whose public key is
+#                  in ~/.ssh/authorized_keys for VPS_USER on the VPS
+#   VPS_USER     - ssh user on the VPS
 #
 # Server-side prerequisites (NOT managed here):
 #   - nginx server blocks for SHOWCASE_URL / STORYBOOK_URL pointing at
@@ -39,6 +39,7 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -89,6 +90,7 @@ jobs:
     needs: build
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Download deploy artifact
         uses: actions/download-artifact@v4
@@ -96,29 +98,11 @@ jobs:
           name: static-sites
           path: deploy
 
-      - name: Start ssh-agent
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.VPS_SSH_KEY }}
-          SSH_PASSPHRASE: ${{ secrets.VPS_SSH_PASSPHRASE }}
+      - name: Install SSH key
         run: |
-          eval "$(ssh-agent -s)"
-          echo "SSH_AUTH_SOCK=${SSH_AUTH_SOCK}" >> "${GITHUB_ENV}"
-          echo "SSH_AGENT_PID=${SSH_AGENT_PID}" >> "${GITHUB_ENV}"
-
           mkdir -p ~/.ssh
-          printf '%s\n' "${SSH_PRIVATE_KEY}" > ~/.ssh/id_ed25519
+          printf '%s\n' "${{ secrets.VPS_SSH_KEY }}" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
-
-          cat > ~/.ssh/askpass.sh <<'EOF'
-          #!/bin/sh
-          printf '%s\n' "$SSH_PASSPHRASE"
-          EOF
-          chmod +x ~/.ssh/askpass.sh
-
-          DISPLAY=:0 \
-          SSH_ASKPASS="$HOME/.ssh/askpass.sh" \
-          SSH_ASKPASS_REQUIRE=force \
-          setsid -w ssh-add ~/.ssh/id_ed25519 </dev/null
 
       - name: Trust VPS host key
         run: |
@@ -127,20 +111,20 @@ jobs:
 
       - name: Prepare VPS directories
         run: |
-          ssh -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes -p "${VPS_PORT}" \
-            "${{ secrets.VPS_USER }}@${VPS_HOST}" \
+          ssh -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes -o BatchMode=yes \
+            -p "${VPS_PORT}" "${{ secrets.VPS_USER }}@${VPS_HOST}" \
             "mkdir -p '${SHOWCASE_DIR}' '${STORYBOOK_DIR}'"
 
       - name: Sync showcase
         run: |
           rsync -az --delete \
-            -e "ssh -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes -p ${VPS_PORT}" \
+            -e "ssh -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes -o BatchMode=yes -p ${VPS_PORT}" \
             deploy/showcase/ "${{ secrets.VPS_USER }}@${VPS_HOST}:${SHOWCASE_DIR}/"
 
       - name: Sync Storybook
         run: |
           rsync -az --delete \
-            -e "ssh -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes -p ${VPS_PORT}" \
+            -e "ssh -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes -o BatchMode=yes -p ${VPS_PORT}" \
             deploy/storybook/ "${{ secrets.VPS_USER }}@${VPS_HOST}:${STORYBOOK_DIR}/"
 
       - name: Smoke test
