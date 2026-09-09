@@ -1,5 +1,18 @@
 # @vn-dylan/ui
 
+## 0.2.0
+
+### Minor Changes
+
+- 24a1c68: Booking-readiness component set + brand-booking token pack.
+
+### Patch Changes
+
+- Updated dependencies [24a1c68]
+  - @vn-dylan/tokens@0.2.0
+  - @vn-dylan/utils@0.2.0
+  - @vn-dylan/icons@0.2.0
+
 ## 0.1.1
 
 ### Patch Changes

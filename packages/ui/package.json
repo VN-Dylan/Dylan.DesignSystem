@@ -1,6 +1,6 @@
 {
   "name": "@vn-dylan/ui",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "React component library for the Dylan Design System.",
   "type": "module",
   "license": "MIT",

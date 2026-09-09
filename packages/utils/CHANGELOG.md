@@ -1,5 +1,12 @@
 # @vn-dylan/utils
 
+## 0.2.0
+
+### Patch Changes
+
+- Updated dependencies [24a1c68]
+  - @vn-dylan/tokens@0.2.0
+
 ## 0.1.1
 
 ### Patch Changes
