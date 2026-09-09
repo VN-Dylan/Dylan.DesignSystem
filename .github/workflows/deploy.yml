@@ -1,0 +1,153 @@
+name: Deploy CI/CD
+
+# Builds the showcase app (Vite SPA) and the Storybook handbook (static),
+# then rsyncs both static trees to the VPS where nginx serves each from its
+# own subdomain. Deploy runs only on push to main.
+#
+# Required repo secrets (already used by the project):
+#   VPS_SSH_KEY         - ed25519 private key, authorised on the VPS
+#   VPS_SSH_PASSPHRASE  - passphrase for that key
+#   VPS_USER            - ssh user on the VPS
+#
+# Server-side prerequisites (NOT managed here):
+#   - nginx server blocks for SHOWCASE_URL / STORYBOOK_URL pointing at
+#     SHOWCASE_DIR / STORYBOOK_DIR (with SPA fallback `try_files $uri /index.html`
+#     for the showcase).
+#   - DNS + TLS for both subdomains.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  VPS_HOST: 103.72.97.160
+  VPS_PORT: '24700'
+  SHOWCASE_DIR: /mnt/SourceCode/DylanDesignSystem/showcase
+  STORYBOOK_DIR: /mnt/SourceCode/DylanDesignSystem/storybook
+  SHOWCASE_URL: https://showcase.dylan.com.vn
+  STORYBOOK_URL: https://storybook.dylan.com.vn
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build workspace packages
+        run: pnpm build
+
+      - name: Build showcase
+        run: pnpm --filter @vn-dylan/showcase build
+
+      - name: Build Storybook
+        run: pnpm storybook:build
+
+      - name: Assemble deploy tree
+        run: |
+          set -e
+          rm -rf deploy
+          mkdir -p deploy
+          cp -R apps/showcase/dist deploy/showcase
+          cp -R storybook-static     deploy/storybook
+          test -f deploy/showcase/index.html
+          test -f deploy/storybook/index.html
+
+      - name: Upload deploy artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: static-sites
+          path: deploy/
+          if-no-files-found: error
+          include-hidden-files: true
+
+  deploy:
+    name: Deploy to VPS
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download deploy artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: static-sites
+          path: deploy
+
+      - name: Start ssh-agent
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.VPS_SSH_KEY }}
+          SSH_PASSPHRASE: ${{ secrets.VPS_SSH_PASSPHRASE }}
+        run: |
+          eval "$(ssh-agent -s)"
+          echo "SSH_AUTH_SOCK=${SSH_AUTH_SOCK}" >> "${GITHUB_ENV}"
+          echo "SSH_AGENT_PID=${SSH_AGENT_PID}" >> "${GITHUB_ENV}"
+
+          mkdir -p ~/.ssh
+          printf '%s\n' "${SSH_PRIVATE_KEY}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+
+          cat > ~/.ssh/askpass.sh <<'EOF'
+          #!/bin/sh
+          printf '%s\n' "$SSH_PASSPHRASE"
+          EOF
+          chmod +x ~/.ssh/askpass.sh
+
+          DISPLAY=:0 \
+          SSH_ASKPASS="$HOME/.ssh/askpass.sh" \
+          SSH_ASKPASS_REQUIRE=force \
+          setsid -w ssh-add ~/.ssh/id_ed25519 </dev/null
+
+      - name: Trust VPS host key
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -p "${VPS_PORT}" -H "${VPS_HOST}" >> ~/.ssh/known_hosts
+
+      - name: Prepare VPS directories
+        run: |
+          ssh -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes -p "${VPS_PORT}" \
+            "${{ secrets.VPS_USER }}@${VPS_HOST}" \
+            "mkdir -p '${SHOWCASE_DIR}' '${STORYBOOK_DIR}'"
+
+      - name: Sync showcase
+        run: |
+          rsync -az --delete \
+            -e "ssh -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes -p ${VPS_PORT}" \
+            deploy/showcase/ "${{ secrets.VPS_USER }}@${VPS_HOST}:${SHOWCASE_DIR}/"
+
+      - name: Sync Storybook
+        run: |
+          rsync -az --delete \
+            -e "ssh -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes -p ${VPS_PORT}" \
+            deploy/storybook/ "${{ secrets.VPS_USER }}@${VPS_HOST}:${STORYBOOK_DIR}/"
+
+      - name: Smoke test
+        run: |
+          set -e
+          for url in "${SHOWCASE_URL}" "${STORYBOOK_URL}"; do
+            echo "Checking ${url}"
+            curl -fsS --compressed --retry 10 --retry-delay 3 --retry-all-errors \
+              "${url}/" -o /dev/null
+          done
