@@ -24,6 +24,7 @@ import { customersRoutes } from '@/views/customers/customersRoutes'
 import { hrmRoutes } from '@/views/hrm/hrmRoutes'
 import { aiRoutes } from '@/views/ai/aiRoutes'
 import { accountsRoutes } from '@/views/accounts/accountsRoutes'
+import { bookingRoutes } from '@/views/booking/bookingRoutes'
 
 const authScreens: [string, ReactNode][] = [
   ['sign-in', <SignInView />],
@@ -53,6 +54,7 @@ export const routes: RouteObject[] = [
       ...authRoutes,
     ],
   },
+  ...bookingRoutes,
   ...galleryRoutes,
   {
     element: (

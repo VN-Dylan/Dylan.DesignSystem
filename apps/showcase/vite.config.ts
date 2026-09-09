@@ -11,6 +11,10 @@ export default defineConfig({
       '@': resolve(__dirname, 'src'),
       '@vn-dylan/ui': resolve(root, 'packages/ui/src/index.ts'),
       '@vn-dylan/tokens/tailwind-preset': resolve(root, 'packages/tokens/src/tailwind-preset.ts'),
+      '@vn-dylan/tokens/scss/brand-booking': resolve(
+        root,
+        'packages/tokens/src/styles/brand-booking.scss',
+      ),
       '@vn-dylan/tokens': resolve(root, 'packages/tokens/src/index.ts'),
       '@vn-dylan/utils': resolve(root, 'packages/utils/src/index.ts'),
       '@vn-dylan/icons': resolve(root, 'packages/icons/src/index.ts'),

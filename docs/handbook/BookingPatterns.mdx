@@ -1,0 +1,114 @@
+import { Meta, Markdown } from '@storybook/blocks'
+
+<Meta title="Handbook/Booking Patterns" />
+
+# Booking patterns
+
+The booking-readiness set expands Dylan from admin surfaces into a complete
+travel booking reference. Open the live route at `/booking` in the showcase app.
+
+---
+
+## What it adds
+
+<Markdown>{`
+| Area | Additions |
+| --- | --- |
+| Brand | \`@vn-dylan/tokens/scss/brand-booking\`, Sora display font, \`booking\` theme schema |
+| Booking UI | \`Rating\`, \`PriceTag\`, \`ImageGallery\`, \`MapView\`, \`AvailabilityCalendar\`, \`GuestSelector\` |
+| Motion | \`Reveal\`, \`Stagger\`, \`PageTransition\`, \`Parallax\` |
+| Showcase kit | \`TestimonialCard\`, \`Faq\`, \`CtaSection\`, \`LogoCloud\`, \`PricingTable\` |
+`}</Markdown>
+
+## Brand scope
+
+Import the brand layer once, then scope it to the booking tree so the rest of
+the application keeps its current schema.
+
+```tsx
+import '@vn-dylan/tokens/scss/brand-booking'
+import { presetThemeSchema, themeSchemaToCssVars } from '@vn-dylan/tokens'
+
+const bookingVars = themeSchemaToCssVars(presetThemeSchema.booking.light)
+
+export function BookingShell({ children }) {
+  return (
+    <main data-brand="booking" data-theme-schema="booking" style={bookingVars}>
+      {children}
+    </main>
+  )
+}
+```
+
+Use `font-display` on booking hero and section headings after loading Sora in
+the consuming app.
+
+## Search and results
+
+`AvailabilityCalendar` and `GuestSelector` compose into a compact search panel.
+`MapView` can render live tiles when `VITE_MAP_TILES_URL` exists, and otherwise
+falls back to accessible static content.
+
+```tsx
+<AvailabilityCalendar
+  value={[checkIn, checkOut]}
+  onChange={setRange}
+  minNights={2}
+  blockedDates={blockedDates}
+  priceForDate={() => pricePerNight}
+/>
+
+<GuestSelector value={guests} onChange={setGuests} totalMax={8} />
+
+<MapView
+  center={[stay.lng, stay.lat]}
+  markers={stays.map((stay) => ({
+    id: stay.id,
+    lng: stay.lng,
+    lat: stay.lat,
+    popup: <PriceTag amount={stay.pricePerNight} currency="USD" unit="night" />,
+  }))}
+/>
+```
+
+## Stay detail
+
+The detail route combines the media and commerce pieces: `ImageGallery` for the
+header, read-only `Rating`, `Badge` for superhost status, and a sticky card with
+price, availability, guests, computed nights, and total.
+
+```tsx
+<ImageGallery images={stay.images} columns={{ sm: 2, md: 3, lg: 4 }} />
+
+<Rating readOnly allowHalf value={stay.rating} />
+<PriceTag amount={stay.pricePerNight} currency={stay.currency} unit="night" />
+```
+
+## Checkout
+
+`Wizard` owns the four-step progression while form controls stay ordinary Dylan
+inputs.
+
+```tsx
+<Wizard
+  finishLabel="Confirm reservation"
+  onFinish={() => navigate('/booking/confirmation')}
+  steps={[
+    { title: 'Trip details', content: <TripDetails /> },
+    { title: 'Guest info', content: <GuestInfoForm /> },
+    { title: 'Payment', content: <DemoPaymentForm /> },
+    { title: 'Review', content: <ReviewSummary /> },
+  ]}
+/>
+```
+
+## Marketing support
+
+Booking pages can reuse the showcase marketing kit for trust, support, and
+conversion sections.
+
+```tsx
+<TestimonialCard quote="Booked in minutes." author="Priya Shah" rating={5} />
+<Faq items={bookingFaq} single />
+<CtaSection title="Explore more stays" primary={{ label: 'Open booking', href: '/booking' }} />
+```

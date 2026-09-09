@@ -48,9 +48,11 @@ Landed in `feat(tokens,ui): booking brand pack + Rating + PriceTag`. Full suite 
 - [x] **`apps/showcase/src/components/marketing/`** — `Hero`, `FeatureGrid`, `PricingTable`, `TestimonialCard`, `StatBand`, `Faq`, `CtaSection`, `LogoCloud`. Token + Tailwind only. Not published.
 
 ### Phase 5 — Reference + release
-- [ ] **`apps/showcase` › `/booking`** — end-to-end: search bar → results (cards + `MapView`) → detail (`ImageGallery` + `AvailabilityCalendar` + `Rating` + `PriceTag`) → checkout `Wizard` → confirmation. Uses the `brand-booking` pack + `booking` schema.
-- [ ] **Docs** — `EyrisMapping.mdx` deviations for every new component; Storybook handbook page "Booking patterns".
-- [ ] **Release** — changeset (minor); `pnpm release`.
+- [x] **`apps/showcase` › `/booking`** — end-to-end: search bar → results (cards + `MapView`) → detail (`ImageGallery` + `AvailabilityCalendar` + `Rating` + `PriceTag`) → checkout `Wizard` → confirmation. Uses the `brand-booking` pack + `booking` schema.
+- [x] **Docs** — `EyrisMapping.mdx` deviations for every new component; Storybook handbook page "Booking patterns".
+- [x] **Release** — changeset (minor); `pnpm release`.
+
+Status: complete. The release changeset is prepared; publishing remains with the normal release workflow.
 
 ## Sequencing
 
