@@ -5,6 +5,7 @@ import { BlankLayout } from '@/components/layouts/BlankLayout'
 import { AuthLayout, type AuthLayoutVariant } from '@/components/layouts/AuthLayout'
 import { ProtectedRoute } from '@/components/route/ProtectedRoute'
 import { LandingView } from '@/views/landing/LandingView'
+import { MarketingKitView } from '@/views/marketing/MarketingKitView'
 import { AccessDeniedView } from '@/views/others/AccessDeniedView'
 import { NotFoundView } from '@/views/others/NotFoundView'
 import { galleryRoutes } from '@/views/gallery/galleryRoutes'
@@ -48,6 +49,7 @@ export const routes: RouteObject[] = [
     children: [
       { path: '/', element: <LandingView /> },
       { path: '/landing', element: <LandingView /> },
+      { path: '/marketing-kit', element: <MarketingKitView /> },
       ...authRoutes,
     ],
   },

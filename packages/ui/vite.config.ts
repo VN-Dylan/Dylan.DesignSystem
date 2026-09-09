@@ -35,6 +35,8 @@ export default defineConfig({
         'react-syntax-highlighter',
         /^react-syntax-highlighter\//,
         /^@tiptap\//,
+        'framer-motion',
+        /^framer-motion\//,
         'jsvectormap',
         /^jsvectormap\//,
         'maplibre-gl',

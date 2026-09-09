@@ -44,8 +44,8 @@ Landed in `feat(tokens,ui): booking brand pack + Rating + PriceTag`. Full suite 
 - [x] **`GuestSelector`** — adults / children / infants / rooms steppers in a popover trigger. Check whether `NumericInputStepper` + `Popover` compose this with no new primitive first; only add a component if it earns its place.
 
 ### Phase 4 — Surface
-- [ ] **`packages/ui/src/motion/`** — `<Reveal>` (IntersectionObserver + framer-motion), `<Stagger>`, `<Parallax>` (subtle), `usePageTransition` helper. All no-op under `prefers-reduced-motion`. Exported under `@vn-dylan/ui` (tree-shakeable) — framer-motion as `peerDependencies` + `peerDependenciesMeta.optional`.
-- [ ] **`apps/showcase/src/components/marketing/`** — `Hero`, `FeatureGrid`, `PricingTable`, `TestimonialCard`, `StatBand`, `Faq`, `CtaSection`, `LogoCloud`. Token + Tailwind only. Not published.
+- [x] **`packages/ui/src/motion/`** — `<Reveal>` (IntersectionObserver + framer-motion), `<Stagger>`, `<Parallax>` (subtle), `usePageTransition` helper. All no-op under `prefers-reduced-motion`. Exported under `@vn-dylan/ui` (tree-shakeable) — framer-motion as `peerDependencies` + `peerDependenciesMeta.optional`.
+- [x] **`apps/showcase/src/components/marketing/`** — `Hero`, `FeatureGrid`, `PricingTable`, `TestimonialCard`, `StatBand`, `Faq`, `CtaSection`, `LogoCloud`. Token + Tailwind only. Not published.
 
 ### Phase 5 — Reference + release
 - [ ] **`apps/showcase` › `/booking`** — end-to-end: search bar → results (cards + `MapView`) → detail (`ImageGallery` + `AvailabilityCalendar` + `Rating` + `PriceTag`) → checkout `Wizard` → confirmation. Uses the `brand-booking` pack + `booking` schema.

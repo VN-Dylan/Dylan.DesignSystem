@@ -241,6 +241,8 @@ export type { AvailabilityCalendarProps } from './AvailabilityCalendar'
 export { GuestSelector } from './GuestSelector'
 export type { GuestCategory, GuestCounts, GuestSelectorProps } from './GuestSelector'
 
+export * from './motion'
+
 export { Alert } from './Alert'
 export type { AlertProps, AlertType } from './Alert'
 
