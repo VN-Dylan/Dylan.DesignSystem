@@ -1,8 +1,9 @@
 name: Deploy CI/CD
 
 # Builds the showcase app (Vite SPA) and the Storybook handbook (static),
-# then rsyncs both static trees to the VPS where nginx serves each from its
-# own subdomain. Deploy runs only on push to main.
+# rsyncs both static trees to the VPS, installs the nginx vhost config
+# (infra/nginx/dylan-designsystem.conf) and reloads nginx. Runs only on
+# push to main.
 #
 # Required repo secrets:
 #   VPS_SSH_KEY  - ed25519 PRIVATE key WITHOUT a passphrase, whose public key is
@@ -10,10 +11,9 @@ name: Deploy CI/CD
 #   VPS_USER     - ssh user on the VPS
 #
 # Server-side prerequisites (NOT managed here):
-#   - nginx server blocks for SHOWCASE_URL / STORYBOOK_URL pointing at
-#     SHOWCASE_DIR / STORYBOOK_DIR (with SPA fallback `try_files $uri /index.html`
-#     for the showcase).
-#   - DNS + TLS for both subdomains.
+#   - VPS_USER has passwordless sudo for: install, chmod, nginx, systemctl.
+#   - TLS cert at /etc/letsencrypt/live/dylan.com.vn/ with a SAN covering both
+#     subdomains; DNS for showcase/storybook.dylan.com.vn pointed at the VPS.
 
 on:
   push:
@@ -74,8 +74,10 @@ jobs:
           mkdir -p deploy
           cp -R apps/showcase/dist deploy/showcase
           cp -R storybook-static     deploy/storybook
+          cp -R infra/nginx          deploy/nginx
           test -f deploy/showcase/index.html
           test -f deploy/storybook/index.html
+          test -f deploy/nginx/dylan-designsystem.conf
 
       - name: Upload deploy artifact
         uses: actions/upload-artifact@v4
@@ -126,6 +128,25 @@ jobs:
           rsync -az --delete \
             -e "ssh -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes -o BatchMode=yes -p ${VPS_PORT}" \
             deploy/storybook/ "${{ secrets.VPS_USER }}@${VPS_HOST}:${STORYBOOK_DIR}/"
+
+      - name: Configure nginx
+        run: |
+          scp -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes -o BatchMode=yes -P "${VPS_PORT}" \
+            deploy/nginx/dylan-designsystem.conf \
+            "${{ secrets.VPS_USER }}@${VPS_HOST}:/tmp/dylan-designsystem.conf"
+          ssh -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes -o BatchMode=yes -p "${VPS_PORT}" \
+            "${{ secrets.VPS_USER }}@${VPS_HOST}" 'bash -se' <<'EOF'
+          set -e
+          SUDO=""
+          [ "$(id -u)" != "0" ] && SUDO="sudo"
+          $SUDO install -o root -g root -m 644 /tmp/dylan-designsystem.conf \
+            /etc/nginx/conf.d/dylan-designsystem.conf
+          rm -f /tmp/dylan-designsystem.conf
+          # let the nginx worker traverse into the site roots
+          $SUDO chmod o+x /mnt /mnt/SourceCode /mnt/SourceCode/DylanDesignSystem
+          $SUDO nginx -t
+          $SUDO systemctl reload nginx
+          EOF
 
       - name: Smoke test
         run: |
