@@ -56,6 +56,8 @@ This page records where that is **deliberately not** true.
 | \`PriceTag\` | booking-readiness addition, not in the Eyris crawl | Booking cards and detail pages need locale-aware price formatting with discount and unit text. |
 | \`ImageGallery\` | booking-readiness addition, not in the Eyris crawl | Booking detail pages need responsive media grids with an accessible lightbox viewer. |
 | \`MapView\` | booking-readiness addition, not in the Eyris crawl; adds optional \`maplibre-gl\` peer dependency | Booking search and detail pages need an accessible live map wrapper that remains safe without a tile URL. |
+| \`AvailabilityCalendar\` | booking-readiness addition, not in the Eyris crawl | Lodging detail pages need range selection with availability, stay-length, and nightly-price affordances. |
+| \`GuestSelector\` | booking-readiness addition, not in the Eyris crawl | Booking search and checkout forms need category-based guest and room counts in a compact popover. |
 `}</Markdown>
 
 Reconciliation is enforced: \`pnpm check:api\` (in CI) diffs every documented prop

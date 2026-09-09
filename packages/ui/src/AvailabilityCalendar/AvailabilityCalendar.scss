@@ -1,0 +1,49 @@
+.dyl-availability-calendar {
+  @apply inline-flex max-w-full flex-col gap-3 text-sm text-content;
+
+  .dyl-calendar {
+    @apply w-full;
+  }
+
+  .dyl-calendar__day {
+    @apply h-12 w-12;
+  }
+
+  &__day {
+    @apply flex h-full w-full flex-col items-center justify-center gap-0.5;
+  }
+
+  &__day-number {
+    @apply text-sm leading-none;
+  }
+
+  &__price {
+    @apply text-xs font-medium leading-none text-content-muted;
+  }
+
+  .dyl-calendar__day[data-selected] &__price,
+  .dyl-calendar__day[data-selected-in-range] &__price {
+    @apply text-primary-fg;
+  }
+
+  .dyl-calendar__day[data-disabled] &__price {
+    @apply text-content-faint;
+  }
+
+  &__status {
+    @apply min-h-5 text-xs font-medium text-error;
+  }
+
+  &__footer {
+    @apply flex flex-wrap items-center justify-between gap-2 rounded-lg border border-border
+      bg-surface-sunken px-3 py-2 text-sm;
+
+    &[data-empty='true'] {
+      @apply text-content-muted;
+    }
+
+    strong {
+      @apply font-semibold text-content;
+    }
+  }
+}

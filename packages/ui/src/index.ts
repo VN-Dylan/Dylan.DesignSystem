@@ -235,6 +235,12 @@ export type {
 export { MapView } from './MapView'
 export type { MapMarker, MapViewProps } from './MapView'
 
+export { AvailabilityCalendar } from './AvailabilityCalendar'
+export type { AvailabilityCalendarProps } from './AvailabilityCalendar'
+
+export { GuestSelector } from './GuestSelector'
+export type { GuestCategory, GuestCounts, GuestSelectorProps } from './GuestSelector'
+
 export { Alert } from './Alert'
 export type { AlertProps, AlertType } from './Alert'
 

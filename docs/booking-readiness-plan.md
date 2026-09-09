@@ -40,8 +40,8 @@ Landed in `feat(tokens,ui): booking brand pack + Rating + PriceTag`. Full suite 
 - [x] **`MapView`** — thin `maplibre-gl` wrapper. Controlled `center` / `zoom`, `markers` (with `popup` render prop), optional clustering, `onMoveEnd`. `maplibre-gl` is a lazy dynamic import; component renders an accessible fallback when no tile URL. CSS imported by the consumer app, not bundled.
 
 ### Phase 3 — Booking core
-- [ ] **`AvailabilityCalendar`** — built on `Calendar`. Range selection (`checkIn` / `checkOut`), `blockedDates`, `minNights` / `maxNights`, `priceForDate` render slot, `isDateAvailable` predicate. Two-month view on `md+`. Full keyboard grid (roving tabindex, matches `Calendar`).
-- [ ] **`GuestSelector`** — adults / children / infants / rooms steppers in a popover trigger. Check whether `NumericInputStepper` + `Popover` compose this with no new primitive first; only add a component if it earns its place.
+- [x] **`AvailabilityCalendar`** — built on `Calendar`. Range selection (`checkIn` / `checkOut`), `blockedDates`, `minNights` / `maxNights`, `priceForDate` render slot, `isDateAvailable` predicate. Two-month view on `md+`. Full keyboard grid (roving tabindex, matches `Calendar`).
+- [x] **`GuestSelector`** — adults / children / infants / rooms steppers in a popover trigger. Check whether `NumericInputStepper` + `Popover` compose this with no new primitive first; only add a component if it earns its place.
 
 ### Phase 4 — Surface
 - [ ] **`packages/ui/src/motion/`** — `<Reveal>` (IntersectionObserver + framer-motion), `<Stagger>`, `<Parallax>` (subtle), `usePageTransition` helper. All no-op under `prefers-reduced-motion`. Exported under `@vn-dylan/ui` (tree-shakeable) — framer-motion as `peerDependencies` + `peerDependenciesMeta.optional`.
