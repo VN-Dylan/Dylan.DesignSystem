@@ -36,8 +36,8 @@ new `packages/ui` component still follows `RECIPE.md` exactly.
 Landed in `feat(tokens,ui): booking brand pack + Rating + PriceTag`. Full suite green (508 tests, tsc, eslint, check:tokens, check:api, vite + storybook build).
 
 ### Phase 2 — Media
-- [ ] **`ImageGallery` + `Lightbox`** — responsive grid (compound: `ImageGallery` + internal lightbox). Click opens full-screen viewer: keyboard (←/→/Esc), swipe, thumbnail strip, counter, focus trap, `prefers-reduced-motion`. Reuse `Carousel` context where possible.
-- [ ] **`MapView`** — thin `maplibre-gl` wrapper. Controlled `center` / `zoom`, `markers` (with `popup` render prop), optional clustering, `onMoveEnd`. `maplibre-gl` is a lazy dynamic import; component renders an accessible fallback when no tile URL. CSS imported by the consumer app, not bundled.
+- [x] **`ImageGallery` + `Lightbox`** — responsive grid (compound: `ImageGallery` + internal lightbox). Click opens full-screen viewer: keyboard (←/→/Esc), swipe, thumbnail strip, counter, focus trap, `prefers-reduced-motion`. Reuse `Carousel` context where possible.
+- [x] **`MapView`** — thin `maplibre-gl` wrapper. Controlled `center` / `zoom`, `markers` (with `popup` render prop), optional clustering, `onMoveEnd`. `maplibre-gl` is a lazy dynamic import; component renders an accessible fallback when no tile URL. CSS imported by the consumer app, not bundled.
 
 ### Phase 3 — Booking core
 - [ ] **`AvailabilityCalendar`** — built on `Calendar`. Range selection (`checkIn` / `checkOut`), `blockedDates`, `minNights` / `maxNights`, `priceForDate` render slot, `isDateAvailable` predicate. Two-month view on `md+`. Full keyboard grid (roving tabindex, matches `Calendar`).

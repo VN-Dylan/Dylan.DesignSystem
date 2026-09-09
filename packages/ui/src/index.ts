@@ -224,6 +224,17 @@ export type { RatingProps, RatingSize } from './Rating'
 export { PriceTag } from './PriceTag'
 export type { PriceTagAlign, PriceTagProps, PriceTagSize } from './PriceTag'
 
+export { ImageGallery } from './ImageGallery'
+export type {
+  ImageGalleryColumns,
+  ImageGalleryGap,
+  ImageGalleryItem,
+  ImageGalleryProps,
+} from './ImageGallery'
+
+export { MapView } from './MapView'
+export type { MapMarker, MapViewProps } from './MapView'
+
 export { Alert } from './Alert'
 export type { AlertProps, AlertType } from './Alert'
 

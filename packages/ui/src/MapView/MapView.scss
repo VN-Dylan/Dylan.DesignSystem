@@ -1,0 +1,24 @@
+.dyl-map-view {
+  @apply relative min-h-64 w-full overflow-hidden rounded-lg border border-border bg-surface-sunken
+    text-content;
+
+  &__canvas {
+    @apply absolute inset-0 h-full w-full;
+  }
+
+  &__fallback {
+    @apply flex h-full min-h-64 flex-col items-center justify-center gap-2 p-6 text-center;
+  }
+
+  &__fallback-title {
+    @apply text-sm font-semibold text-content;
+  }
+
+  &__fallback-copy {
+    @apply text-sm text-content-muted;
+  }
+
+  &__marker-list {
+    @apply sr-only;
+  }
+}

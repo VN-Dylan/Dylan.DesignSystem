@@ -37,6 +37,8 @@ export default defineConfig({
         /^@tiptap\//,
         'jsvectormap',
         /^jsvectormap\//,
+        'maplibre-gl',
+        /^maplibre-gl\//,
       ],
       output: {
         // Per-module chunks so consumers tree-shake to just the components
