@@ -1,9 +1,10 @@
 name: Deploy CI/CD
 
 # Builds the showcase app (Vite SPA) and the Storybook handbook (static),
-# rsyncs both static trees to the VPS, installs the nginx vhost config
-# (infra/nginx/dylan-designsystem.conf) and reloads nginx. Runs only on
-# push to main.
+# rsyncs both static trees to the VPS, then (re)starts the `dylan-ds-nginx`
+# container (infra/compose.yaml) that serves them. Dylan.Plan's edge nginx
+# terminates TLS and proxies showcase/storybook.dylan.com.vn to that
+# container. Runs only on push to main.
 #
 # Required repo secrets:
 #   VPS_SSH_KEY  - ed25519 PRIVATE key WITHOUT a passphrase, whose public key is
@@ -11,9 +12,12 @@ name: Deploy CI/CD
 #   VPS_USER     - ssh user on the VPS
 #
 # Server-side prerequisites (NOT managed here):
-#   - VPS_USER has passwordless sudo for: install, chmod, nginx, systemctl.
+#   - VPS_USER has passwordless sudo for docker (as Dylan.Plan's deploy uses).
+#   - Dylan.Plan is deployed (its compose owns the `dylanplan_default` network
+#     and the edge nginx). Its nginx/default.conf must carry the
+#     showcase/storybook.dylan.com.vn proxy vhosts.
 #   - TLS cert at /etc/letsencrypt/live/dylan.com.vn/ with a SAN covering both
-#     subdomains; DNS for showcase/storybook.dylan.com.vn pointed at the VPS.
+#     subdomains; DNS for both subdomains pointed at the VPS.
 
 on:
   push:
@@ -74,10 +78,10 @@ jobs:
           mkdir -p deploy
           cp -R apps/showcase/dist deploy/showcase
           cp -R storybook-static     deploy/storybook
-          cp -R infra/nginx          deploy/nginx
+          cp -R infra                deploy/infra
           test -f deploy/showcase/index.html
           test -f deploy/storybook/index.html
-          test -f deploy/nginx/dylan-designsystem.conf
+          test -f deploy/infra/compose.yaml
 
       - name: Upload deploy artifact
         uses: actions/upload-artifact@v4
@@ -115,7 +119,7 @@ jobs:
         run: |
           ssh -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes -o BatchMode=yes \
             -p "${VPS_PORT}" "${{ secrets.VPS_USER }}@${VPS_HOST}" \
-            "mkdir -p '${SHOWCASE_DIR}' '${STORYBOOK_DIR}'"
+            "mkdir -p '${SHOWCASE_DIR}' '${STORYBOOK_DIR}' /mnt/SourceCode/DylanDesignSystem/infra"
 
       - name: Sync showcase
         run: |
@@ -129,23 +133,24 @@ jobs:
             -e "ssh -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes -o BatchMode=yes -p ${VPS_PORT}" \
             deploy/storybook/ "${{ secrets.VPS_USER }}@${VPS_HOST}:${STORYBOOK_DIR}/"
 
-      - name: Configure nginx
+      - name: Sync infra config
         run: |
-          scp -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes -o BatchMode=yes -P "${VPS_PORT}" \
-            deploy/nginx/dylan-designsystem.conf \
-            "${{ secrets.VPS_USER }}@${VPS_HOST}:/tmp/dylan-designsystem.conf"
+          rsync -az --delete \
+            -e "ssh -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes -o BatchMode=yes -p ${VPS_PORT}" \
+            deploy/infra/ "${{ secrets.VPS_USER }}@${VPS_HOST}:/mnt/SourceCode/DylanDesignSystem/infra/"
+
+      - name: Start edge container
+        run: |
           ssh -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes -o BatchMode=yes -p "${VPS_PORT}" \
             "${{ secrets.VPS_USER }}@${VPS_HOST}" 'bash -se' <<'EOF'
           set -e
           SUDO=""
           [ "$(id -u)" != "0" ] && SUDO="sudo"
-          $SUDO install -o root -g root -m 644 /tmp/dylan-designsystem.conf \
-            /etc/nginx/conf.d/dylan-designsystem.conf
-          rm -f /tmp/dylan-designsystem.conf
-          # let the nginx worker traverse into the site roots
-          $SUDO chmod o+x /mnt /mnt/SourceCode /mnt/SourceCode/DylanDesignSystem
-          $SUDO nginx -t
-          $SUDO systemctl reload nginx
+          cd /mnt/SourceCode/DylanDesignSystem/infra
+          $SUDO docker network inspect dylanplan_default >/dev/null 2>&1 \
+            || $SUDO docker network create dylanplan_default
+          $SUDO docker compose up -d --remove-orphans
+          $SUDO docker compose exec -T nginx nginx -t
           EOF
 
       - name: Smoke test
@@ -156,3 +161,16 @@ jobs:
             curl -fsS --compressed --retry 10 --retry-delay 3 --retry-all-errors \
               "${url}/" -o /dev/null
           done
+
+      - name: Diagnostics on failure
+        if: failure()
+        run: |
+          ssh -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes -o BatchMode=yes -p "${VPS_PORT}" \
+            "${{ secrets.VPS_USER }}@${VPS_HOST}" 'bash -se' <<'EOF'
+          SUDO=""
+          [ "$(id -u)" != "0" ] && SUDO="sudo"
+          cd /mnt/SourceCode/DylanDesignSystem/infra || exit 0
+          $SUDO docker compose ps
+          $SUDO docker compose logs --tail=80
+          $SUDO docker network inspect dylanplan_default -f '{{range .Containers}}{{.Name}} {{end}}' || true
+          EOF

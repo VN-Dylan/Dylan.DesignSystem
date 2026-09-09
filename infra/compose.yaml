@@ -1,0 +1,26 @@
+# Static edge for the Dylan Design System.
+#
+# Serves the showcase (Vite SPA) and Storybook builds that the deploy workflow
+# rsyncs to /mnt/SourceCode/DylanDesignSystem/{showcase,storybook}. Content
+# updates land through the bind mounts with no restart; this container only
+# needs `docker compose up -d` again when compose.yaml or the nginx conf change.
+#
+# TLS is terminated by Dylan.Plan's edge nginx (holds :80/:443). It reaches
+# this container as `dylan-ds-nginx` on the shared `dylanplan_default` network.
+
+services:
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: dylan-ds-nginx
+    volumes:
+      - ./nginx/dylan-designsystem.conf:/etc/nginx/conf.d/default.conf:ro
+      - /mnt/SourceCode/DylanDesignSystem/showcase:/srv/showcase:ro
+      - /mnt/SourceCode/DylanDesignSystem/storybook:/srv/storybook:ro
+    expose:
+      - "80"
+    restart: unless-stopped
+
+networks:
+  default:
+    name: dylanplan_default
+    external: true
