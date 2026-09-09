@@ -21,7 +21,7 @@ This page records where that is **deliberately not** true.
 | Base UI components | 42 | 41 built + \`icons\` → the separate \`@vn-dylan/icons\` package |
 | Composite / shared components | 42 | 42 built |
 | Utilities | 32 | 28 built + 1 stub + 3 app-coupled (in \`apps/showcase\`) |
-| Preset theme schemas | 8 | 8 (\`default, dark, green, purple, orange, cyan, gold, pink\`) |
+| Preset theme schemas | 8 | 9 (\`default, dark, green, purple, orange, cyan, gold, pink\` + booking) |
 | Example app screens | ~62 | ~62 rebuilt in \`apps/showcase\` |
 `}</Markdown>
 
@@ -45,6 +45,15 @@ This page records where that is **deliberately not** true.
 | \`Upload\` | no \`fileListClass\` / \`fileItemClass\` | Style the composed list element via its \`className\`. |
 | \`Input\` | \`onChange\` / \`onFocus\` / \`onBlur\` aren't in the prop table — they pass straight through | Every primitive spreads native props/events onto its main node. |
 | \`Chart\` | grid / palette / tooltip are Eyris-styled and theme-reactive rather than ApexCharts defaults | Faint horizontal-only gridlines, an interleaved categorical palette, and a \`MutationObserver\` that re-reads tokens on theme change. |
+`}</Markdown>
+
+### Beyond Eyris
+
+<Markdown>{`
+| Component | Deviation | Why |
+| --- | --- | --- |
+| \`Rating\` | booking-readiness addition, not in the Eyris crawl | Booking detail pages need an accessible star score and input primitive. |
+| \`PriceTag\` | booking-readiness addition, not in the Eyris crawl | Booking cards and detail pages need locale-aware price formatting with discount and unit text. |
 `}</Markdown>
 
 Reconciliation is enforced: \`pnpm check:api\` (in CI) diffs every documented prop

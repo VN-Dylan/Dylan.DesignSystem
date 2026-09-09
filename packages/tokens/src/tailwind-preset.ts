@@ -46,6 +46,13 @@ export const dylanPreset = {
           subtle: 'var(--dyl-primary-subtle)',
           fg: 'var(--dyl-on-primary)',
         },
+        accent: {
+          DEFAULT: withAlpha('--dyl-accent-channel'),
+          deep: 'var(--dyl-accent-deep)',
+          mild: 'var(--dyl-accent-mild)',
+          subtle: 'var(--dyl-accent-subtle)',
+          fg: 'var(--dyl-on-accent)',
+        },
         success: {
           DEFAULT: withAlpha('--dyl-success-channel'),
           subtle: 'var(--dyl-success-subtle)',
@@ -82,6 +89,7 @@ export const dylanPreset = {
       fontFamily: {
         sans: 'var(--dyl-font-sans)',
         mono: 'var(--dyl-font-mono)',
+        display: 'var(--dyl-font-display)',
       },
       boxShadow: {
         sm: 'var(--dyl-shadow-sm)',

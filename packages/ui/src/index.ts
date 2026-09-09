@@ -218,6 +218,12 @@ export type { UsersAvatarGroupProps, UserDataObject } from './UsersAvatarGroup'
 export { Badge } from './Badge'
 export type { BadgeProps } from './Badge'
 
+export { Rating } from './Rating'
+export type { RatingProps, RatingSize } from './Rating'
+
+export { PriceTag } from './PriceTag'
+export type { PriceTagAlign, PriceTagProps, PriceTagSize } from './PriceTag'
+
 export { Alert } from './Alert'
 export type { AlertProps, AlertType } from './Alert'
 

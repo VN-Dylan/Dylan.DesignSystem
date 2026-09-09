@@ -117,12 +117,32 @@ semantic utility names (right column).
 without a channel var — `surface`, `border`, `bg`, `overlay` — stay solid-only;
 reach for `-subtle`, `overlay`, or `brightness-*` there instead.
 
+### Brand booking pack
+
+`@vn-dylan/tokens/scss/brand-booking` is a second, opt-in visual layer for
+booking surfaces. Import it in the app and wrap the booking tree with
+`data-brand="booking"`:
+
+```tsx
+import '@vn-dylan/tokens/scss/brand-booking'
+
+export function BookingShell() {
+  return <main data-brand="booking">{/* booking UI */}</main>
+}
+```
+
+The pack only overrides radius, shadow, `--dyl-font-display`, and the static
+accent family under `[data-brand="booking"]`; default consumers do not change.
+It is orthogonal to `.dark` and `data-theme-schema`, so it can be combined with
+both. Apps that use the display stack must load the **Sora** webfont themselves.
+
 ### Preset theme schemas
 
-Eight schemas ported from Eyris — `default, dark, green, purple, orange, cyan,
-gold, pink` — each overriding the primary family. Applied at runtime by writing
-CSS variables onto `<html>`: `useThemeSchema(name, mode)` from `@vn-dylan/utils`,
-or `presetThemeSchema` + `themeSchemaToCssVars` from `@vn-dylan/tokens`.
+Nine schemas ship: the eight ported from Eyris — `default, dark, green, purple,
+orange, cyan, gold, pink` — plus `booking` for booking-readiness surfaces. Each
+overrides the primary family. Applied at runtime by writing CSS variables onto
+`<html>`: `useThemeSchema(name, mode)` from `@vn-dylan/utils`, or
+`presetThemeSchema` + `themeSchemaToCssVars` from `@vn-dylan/tokens`.
 
 ## 5. Theming & modes
 

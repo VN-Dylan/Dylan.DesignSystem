@@ -1,0 +1,36 @@
+.dyl-price-tag {
+  @apply inline-flex items-baseline gap-1 align-baseline font-semibold text-content;
+
+  &[data-align='start'] {
+    @apply justify-start text-start;
+  }
+
+  &[data-align='center'] {
+    @apply justify-center text-center;
+  }
+
+  &[data-align='end'] {
+    @apply justify-end text-end;
+  }
+
+  &[data-size='sm'] {
+    @apply text-base;
+  }
+
+  &[data-size='md'] {
+    @apply text-xl;
+  }
+
+  &[data-size='lg'] {
+    @apply text-2xl;
+  }
+
+  &__original,
+  &__unit {
+    @apply text-sm font-normal text-content-muted;
+  }
+
+  &__sr {
+    @apply sr-only;
+  }
+}

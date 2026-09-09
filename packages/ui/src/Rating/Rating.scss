@@ -1,0 +1,51 @@
+.dyl-rating {
+  @apply inline-flex items-center gap-1 align-middle text-warning;
+
+  &[data-disabled] {
+    @apply cursor-not-allowed opacity-60;
+  }
+
+  &[data-size='sm'] {
+    @apply text-base;
+  }
+
+  &[data-size='md'] {
+    @apply text-xl;
+  }
+
+  &[data-size='lg'] {
+    @apply text-2xl;
+  }
+
+  &__star {
+    @apply relative inline-flex shrink-0 items-center justify-center text-inherit;
+  }
+
+  &__button {
+    @apply cursor-pointer rounded-sm border-0 bg-transparent p-0 transition duration-fast ease-standard;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary
+      focus-visible:ring-offset-2 focus-visible:ring-offset-surface;
+
+    &:disabled {
+      @apply cursor-not-allowed;
+    }
+  }
+
+  &__empty {
+    @apply text-content-faint;
+  }
+
+  &__filled {
+    @apply pointer-events-none absolute inset-0 overflow-hidden;
+  }
+
+  &__filled-icon {
+    @apply block max-w-none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dyl-rating__button {
+    @apply transition-none;
+  }
+}

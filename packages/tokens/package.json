@@ -28,6 +28,7 @@
     },
     "./css": "./dist/tokens.css",
     "./scss": "./src/styles/tokens.scss",
+    "./scss/brand-booking": "./src/styles/brand-booking.scss",
     "./scss/*": "./src/styles/*"
   },
   "files": [

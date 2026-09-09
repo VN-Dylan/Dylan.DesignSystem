@@ -28,10 +28,12 @@ new `packages/ui` component still follows `RECIPE.md` exactly.
 
 ## Phases
 
-### Phase 1 — Foundation
-- [ ] **`@vn-dylan/tokens` › brand-booking pack** — new `src/styles/brand-booking.scss` emitting overrides scoped to `[data-brand="booking"]`: rounder radius ramp, larger/softer shadows, `--dyl-font-display`. Export as `@vn-dylan/tokens/scss/brand-booking` + a `brandBookingCssVars` helper. Add `booking` entry to `presetThemeSchema` (primary + accent hue). Update `DESIGN.md §4`. No change to `:root` defaults.
-- [ ] **`Rating`** — star rating. `value` / `defaultValue` / `onChange`, `max` (default 5), `allowHalf`, `readOnly`, `size` (`sm|md|lg`), `precision` display. Interactive = `radiogroup` semantics, arrow keys + Home/End, `aria-label` per star. Display mode is non-interactive with `aria-label="3.5 out of 5"`.
-- [ ] **`PriceTag`** — formatted price. `amount`, `currency` (ISO 4217), `locale`, `original` (struck-through), `unit` (e.g. `"night"`), `size`. Uses `Intl.NumberFormat`. No interactivity.
+### Phase 1 — Foundation ✅
+- [x] **`@vn-dylan/tokens` › brand-booking pack** — `src/styles/brand-booking.scss` scoped to `[data-brand="booking"]`: rounder radius ramp, larger/softer shadows, `--dyl-font-display` (Sora), static coral accent family. Exported at `@vn-dylan/tokens/scss/brand-booking` + `brandBookingCssVars` helper. `booking` schema (teal primary) added to `presetThemeSchema` + `themeSchemaNames`. Tailwind preset gains `accent` colour + `font-display`. `DESIGN.md §4` updated. `:root` defaults unchanged.
+- [x] **`Rating`** — star rating. `value` / `defaultValue` / `onChange`, `max` (5), `allowHalf`, `readOnly`, `disabled`, `size` (`sm|md|lg`), `onHoverChange`, `name`. Interactive = `radiogroup` + one `radio` per star, arrow keys + Home/End, half-star via clipped fill. readOnly = `role="img"` `aria-label="3.5 out of 5"`.
+- [x] **`PriceTag`** — formatted price. `amount`, `currency` (ISO 4217), `locale`, `original` (struck-through + SR "was …"), `unit` (`" / night"`), `size`, `align`. `Intl.NumberFormat`. No interactivity.
+
+Landed in `feat(tokens,ui): booking brand pack + Rating + PriceTag`. Full suite green (508 tests, tsc, eslint, check:tokens, check:api, vite + storybook build).
 
 ### Phase 2 — Media
 - [ ] **`ImageGallery` + `Lightbox`** — responsive grid (compound: `ImageGallery` + internal lightbox). Click opens full-screen viewer: keyboard (←/→/Esc), swipe, thumbnail strip, counter, focus trap, `prefers-reduced-motion`. Reuse `Carousel` context where possible.

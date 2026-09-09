@@ -48,6 +48,7 @@ export const presetThemeSchema = {
   cyan: build('#07b9e7', '#0596bc', '#43cef0', 'rgba(7,185,231,0.1)'),
   gold: build('#f3a027', '#d5841a', '#f6b757', 'rgba(243,160,39,0.1)'),
   pink: build('#f93f90', '#dc1f72', '#fb6faf', 'rgba(249,63,144,0.1)'),
+  booking: build('#14b8a6', '#0f766e', '#5eead4', 'rgba(20,184,166,0.1)'),
 } satisfies Record<string, ThemeSchema>
 
 export type ThemeSchemaName = keyof typeof presetThemeSchema
