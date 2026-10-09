@@ -1,2 +1,2 @@
 export { Container } from './Container'
-export type { ContainerProps } from './types'
+export type { ContainerProps, ContainerSize } from './types'

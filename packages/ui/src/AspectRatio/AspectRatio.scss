@@ -1,0 +1,8 @@
+.dyl-aspect-ratio {
+  @apply relative w-full overflow-hidden;
+  aspect-ratio: var(--dyl-aspect-ratio);
+
+  > :first-child {
+    @apply h-full w-full;
+  }
+}

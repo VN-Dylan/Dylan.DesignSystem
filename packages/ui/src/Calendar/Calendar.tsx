@@ -215,14 +215,13 @@ function MonthGrid({ currentMonth, locale, isSelected, onSelectMonth }: MonthGri
     () => getMonthCells(currentMonth.getFullYear(), locale),
     [currentMonth, locale],
   )
-  const today = new Date()
   const tabbableIndex =
     cells.findIndex((cell) => isSelected(cell.date)) >= 0
       ? cells.findIndex((cell) => isSelected(cell.date))
       : cells.findIndex(
           (cell) =>
-            cell.date.getMonth() === today.getMonth() &&
-            cell.date.getFullYear() === today.getFullYear(),
+            cell.date.getMonth() === currentMonth.getMonth() &&
+            cell.date.getFullYear() === currentMonth.getFullYear(),
         )
 
   return (

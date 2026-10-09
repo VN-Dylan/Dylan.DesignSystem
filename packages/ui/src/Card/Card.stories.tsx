@@ -9,6 +9,9 @@ const meta = {
   component: Card,
   parameters: { layout: 'centered' },
   tags: ['autodocs'],
+  argTypes: {
+    padding: { control: 'inline-radio', options: ['default', 'compact'] },
+  },
   decorators: [
     (Story) => (
       <div className="w-96">
@@ -92,6 +95,19 @@ export const Borderless: Story = {
   },
 }
 
+export const PaddingVariants: Story = {
+  render: () => (
+    <div className="grid gap-loose">
+      <Card padding="default" header={{ content: 'Default padding' }}>
+        Uses the card inset token.
+      </Card>
+      <Card padding="compact" header={{ content: 'Compact padding' }}>
+        Uses the compact spacing step.
+      </Card>
+    </div>
+  ),
+}
+
 export const ExtraClass: Story = {
   args: {
     header: { content: <span>Card Header</span>, className: 'text-primary' },
@@ -172,3 +188,12 @@ export const KristenFisher: Story = {
 }
 
 export const CardStory: Story = {}
+
+export const RightToLeft: Story = {
+  args: {
+    dir: 'rtl',
+    header: { content: 'عنوان البطاقة', extra: 'مسودة' },
+    footer: { content: 'تذييل البطاقة' },
+    children: <p className="text-content-muted">محتوى البطاقة من اليمين إلى اليسار.</p>,
+  },
+}

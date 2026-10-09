@@ -1,0 +1,29 @@
+.dyl-page-header {
+  @apply text-content;
+
+  &__breadcrumb {
+    @apply text-sm text-content-muted;
+  }
+
+  &__lead,
+  &__copy {
+    @apply min-w-0;
+  }
+
+  &__copy {
+    @apply flex-1;
+  }
+
+  &__back,
+  &__actions {
+    @apply shrink-0;
+  }
+
+  &__title {
+    @apply text-3xl font-semibold leading-tight;
+  }
+
+  &__description {
+    @apply max-w-prose text-content-muted;
+  }
+}

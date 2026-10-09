@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
+import { Stack } from '../Stack'
 import { Divider } from './Divider'
 
 const meta = {
@@ -8,8 +9,9 @@ const meta = {
   tags: ['autodocs'],
   argTypes: {
     orientation: { control: 'inline-radio', options: ['horizontal', 'vertical'] },
+    spacing: { control: 'inline-radio', options: ['none', 'tight', 'base'] },
   },
-  args: { orientation: 'horizontal' },
+  args: { orientation: 'horizontal', spacing: 'base' },
 } satisfies Meta<typeof Divider>
 
 export default meta
@@ -33,6 +35,45 @@ export const Vertical: Story = {
       <span className="text-sm text-content-muted">Right content</span>
     </div>
   ),
+}
+
+export const SpacingVariants: Story = {
+  render: () => (
+    <Stack gap="base" className="w-72">
+      {(['none', 'tight', 'base'] as const).map((spacing) => (
+        <div key={spacing}>
+          <span className="text-sm text-content-muted">{spacing}</span>
+          <Divider spacing={spacing} />
+        </div>
+      ))}
+    </Stack>
+  ),
+}
+
+export const WithLabel: Story = {
+  args: { label: 'Account details' },
+  decorators: [
+    (Story) => (
+      <div className="w-72">
+        <Story />
+      </div>
+    ),
+  ],
+}
+
+export const Decorative: Story = {
+  args: { role: 'none', spacing: 'tight' },
+}
+
+export const RightToLeft: Story = {
+  args: { dir: 'rtl', label: 'تفاصيل الحساب' },
+  decorators: [
+    (Story) => (
+      <div className="w-72">
+        <Story />
+      </div>
+    ),
+  ],
 }
 
 export const DividerStory: Story = {

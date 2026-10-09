@@ -1,20 +1,123 @@
+@use '../_internal/layout-gap' as layout;
+
 .dyl-grid {
-  @apply grid gap-4;
+  @apply grid;
+  @include layout.gap(--dyl-grid-gap);
+
+  &[data-columns] {
+    grid-template-columns: repeat(var(--dyl-grid-columns-base), minmax(0, 1fr));
+  }
+
+  &[data-min-child-width] {
+    grid-template-columns: repeat(auto-fit, minmax(var(--dyl-grid-min-child-width), 1fr));
+  }
 
   &__item {
-    @apply grid min-h-12 place-content-center rounded-md bg-primary text-sm font-semibold text-primary-fg
-      shadow;
+    grid-column: span var(--dyl-grid-item-span-base, 1) / span var(--dyl-grid-item-span-base, 1);
+    grid-row: span var(--dyl-grid-item-row-span, 1) / span var(--dyl-grid-item-row-span, 1);
+  }
+}
+
+@media (min-width: theme('screens.sm')) {
+  .dyl-grid[data-columns]:not([data-min-child-width]) {
+    grid-template-columns: repeat(
+      var(--dyl-grid-columns-sm, var(--dyl-grid-columns-base)),
+      minmax(0, 1fr)
+    );
   }
 
-  &__item--muted {
-    @apply bg-primary-subtle text-primary;
+  .dyl-grid__item {
+    grid-column: span var(--dyl-grid-item-span-sm, var(--dyl-grid-item-span-base, 1)) / span
+      var(--dyl-grid-item-span-sm, var(--dyl-grid-item-span-base, 1));
+  }
+}
+
+@media (min-width: theme('screens.md')) {
+  .dyl-grid[data-columns]:not([data-min-child-width]) {
+    grid-template-columns: repeat(
+      var(--dyl-grid-columns-md, var(--dyl-grid-columns-sm, var(--dyl-grid-columns-base))),
+      minmax(0, 1fr)
+    );
   }
 
-  &__item--success {
-    @apply bg-success text-primary-fg;
+  .dyl-grid__item {
+    grid-column: span
+      var(
+        --dyl-grid-item-span-md,
+        var(--dyl-grid-item-span-sm, var(--dyl-grid-item-span-base, 1))
+      ) /
+      span
+      var(--dyl-grid-item-span-md, var(--dyl-grid-item-span-sm, var(--dyl-grid-item-span-base, 1)));
+  }
+}
+
+@media (min-width: theme('screens.lg')) {
+  .dyl-grid[data-columns]:not([data-min-child-width]) {
+    grid-template-columns: repeat(
+      var(
+        --dyl-grid-columns-lg,
+        var(--dyl-grid-columns-md, var(--dyl-grid-columns-sm, var(--dyl-grid-columns-base)))
+      ),
+      minmax(0, 1fr)
+    );
   }
 
-  &__item--info {
-    @apply bg-info text-primary-fg;
+  .dyl-grid__item {
+    grid-column: span
+      var(
+        --dyl-grid-item-span-lg,
+        var(
+          --dyl-grid-item-span-md,
+          var(--dyl-grid-item-span-sm, var(--dyl-grid-item-span-base, 1))
+        )
+      ) /
+      span
+      var(
+        --dyl-grid-item-span-lg,
+        var(
+          --dyl-grid-item-span-md,
+          var(--dyl-grid-item-span-sm, var(--dyl-grid-item-span-base, 1))
+        )
+      );
+  }
+}
+
+@media (min-width: theme('screens.xl')) {
+  .dyl-grid[data-columns]:not([data-min-child-width]) {
+    grid-template-columns: repeat(
+      var(
+        --dyl-grid-columns-xl,
+        var(
+          --dyl-grid-columns-lg,
+          var(--dyl-grid-columns-md, var(--dyl-grid-columns-sm, var(--dyl-grid-columns-base)))
+        )
+      ),
+      minmax(0, 1fr)
+    );
+  }
+
+  .dyl-grid__item {
+    grid-column: span
+      var(
+        --dyl-grid-item-span-xl,
+        var(
+          --dyl-grid-item-span-lg,
+          var(
+            --dyl-grid-item-span-md,
+            var(--dyl-grid-item-span-sm, var(--dyl-grid-item-span-base, 1))
+          )
+        )
+      ) /
+      span
+      var(
+        --dyl-grid-item-span-xl,
+        var(
+          --dyl-grid-item-span-lg,
+          var(
+            --dyl-grid-item-span-md,
+            var(--dyl-grid-item-span-sm, var(--dyl-grid-item-span-base, 1))
+          )
+        )
+      );
   }
 }

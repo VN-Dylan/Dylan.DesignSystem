@@ -1,4 +1,27 @@
 .dyl-container {
-  @apply mx-auto w-full px-4 sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg
-    xl:max-w-screen-xl 2xl:max-w-screen-2xl;
+  @apply mx-auto w-full;
+
+  &[data-gutter] {
+    @apply px-gutter;
+  }
+
+  &[data-size='prose'] {
+    @apply max-w-prose;
+  }
+
+  &[data-size='narrow'] {
+    @apply max-w-narrow;
+  }
+
+  &[data-size='default'] {
+    @apply max-w-content;
+  }
+
+  &[data-size='wide'] {
+    @apply max-w-wide;
+  }
+
+  &[data-size='full'] {
+    @apply max-w-none;
+  }
 }

@@ -168,7 +168,7 @@ export { ClockProgress } from './ClockProgress'
 export type { ClockProgressProps } from './ClockProgress'
 
 export { Divider } from './Divider'
-export type { DividerProps, DividerOrientation } from './Divider'
+export type { DividerProps, DividerOrientation, DividerSpacing } from './Divider'
 
 export { ActionLink } from './ActionLink'
 export type { ActionLinkProps, ActionLinkLocation, ActionLinkTo } from './ActionLink'
@@ -186,7 +186,36 @@ export { GrowShrinkTag } from './GrowShrinkTag'
 export type { GrowShrinkTagProps } from './GrowShrinkTag'
 
 export { Container } from './Container'
-export type { ContainerProps } from './Container'
+export type { ContainerProps, ContainerSize } from './Container'
+
+export { Stack } from './Stack'
+export type { StackProps, GapToken, LayoutAlign, LayoutJustify } from './Stack'
+
+export { Inline } from './Inline'
+export type { InlineProps } from './Inline'
+
+export { Section } from './Section'
+export type { SectionProps, SectionSpacing, SectionTone } from './Section'
+
+export { PageHeader } from './PageHeader'
+export type { PageHeaderProps, PageHeaderHeading } from './PageHeader'
+
+export { Center } from './Center'
+export type { CenterProps } from './Center'
+
+export { Spacer } from './Spacer'
+export type { SpacerProps, SpacingKey } from './Spacer'
+
+export { AspectRatio } from './AspectRatio'
+export type { AspectRatioProps } from './AspectRatio'
+
+export { useMediaQuery, useBreakpoint } from './hooks'
+export type {
+  UseMediaQueryOptions,
+  ActiveBreakpoint,
+  BreakpointName,
+  UseBreakpointResult,
+} from './hooks'
 
 export { Affix } from './Affix'
 export type { AffixProps } from './Affix'
@@ -247,7 +276,7 @@ export { Alert } from './Alert'
 export type { AlertProps, AlertType } from './Alert'
 
 export { Card } from './Card'
-export type { CardProps, CardHeaderConfig, CardFooterConfig } from './Card'
+export type { CardProps, CardHeaderConfig, CardFooterConfig, CardPadding } from './Card'
 
 export { StatisticCard } from './StatisticCard'
 export type { StatisticCardProps } from './StatisticCard'
@@ -256,7 +285,14 @@ export { Typography } from './Typography'
 export type { TypographyProps } from './Typography'
 
 export { Grid } from './Grid'
-export type { GridProps } from './Grid'
+export type {
+  GridProps,
+  GridItemProps,
+  GridColumns,
+  GridSpan,
+  GridMinChildWidth,
+  ResponsiveGridValue,
+} from './Grid'
 
 export { Scroll } from './Scroll'
 export type {

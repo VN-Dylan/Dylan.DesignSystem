@@ -1,11 +1,35 @@
 .dyl-divider {
+  --dyl-divider-spacing: var(--dyl-gap-base);
+
   @apply shrink-0 border-border;
 
+  &[data-spacing='none'] {
+    --dyl-divider-spacing: var(--dyl-space-0);
+  }
+
+  &[data-spacing='tight'] {
+    --dyl-divider-spacing: var(--dyl-gap-tight);
+  }
+
   &[data-orientation='horizontal'] {
-    @apply my-4 w-full border-t;
+    @apply w-full border-t;
+    margin-block: var(--dyl-divider-spacing);
   }
 
   &[data-orientation='vertical'] {
-    @apply mx-4 h-full self-stretch border-s;
+    @apply h-full self-stretch border-s;
+    margin-inline: var(--dyl-divider-spacing);
+  }
+
+  &[data-labelled] {
+    @apply flex items-center gap-tight border-t-0;
+  }
+
+  &__line {
+    @apply flex-1 border-t border-border;
+  }
+
+  &__label {
+    @apply shrink-0 text-sm text-content-muted;
   }
 }

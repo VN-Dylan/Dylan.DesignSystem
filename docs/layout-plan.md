@@ -42,13 +42,13 @@ Mọi component mới tuân [`RECIPE.md`](../RECIPE.md); token theo
 
 ### Phase 2 — Primitive
 Song song được (không phụ thuộc nhau, đều chỉ dùng token Phase 1):
-- [ ] **`Stack`** + **`Inline`** (dùng chung SCSS gap qua `data-gap`).
-- [ ] **`Grid`** nâng cấp: `columns` responsive, `minChildWidth`, `gap`, `Grid.Item span`; chuyển `dyl-grid__item*` sang story-only.
-- [ ] **`Container`** nâng cấp: `size`, `gutter`; giữ hành vi cũ khi không truyền prop.
-- [ ] **`Section`** (+ `tone`), **`PageHeader`**, **`Center`**, **`Spacer`**, **`AspectRatio`**.
-- [ ] **`Card`**: thêm `padding` (`default|compact`), dùng `p-card` / `p-4`.
-- [ ] **`Divider`**: thêm `spacing` (`none|tight|base`, mặc định `base` = 16px như cũ) và `label`.
-- [ ] `useMediaQuery`, `useBreakpoint` (SSR-safe, test với `matchMedia` mock).
+- [x] **`Stack`** + **`Inline`** (dùng chung SCSS gap qua `data-gap`).
+- [x] **`Grid`** nâng cấp: `columns` responsive, `minChildWidth`, `gap`, `Grid.Item span`; chuyển `dyl-grid__item*` sang story-only.
+- [x] **`Container`** nâng cấp: `size`, `gutter`; giữ hành vi cũ khi không truyền prop.
+- [x] **`Section`** (+ `tone`), **`PageHeader`**, **`Center`**, **`Spacer`**, **`AspectRatio`**.
+- [x] **`Card`**: thêm `padding` (`default|compact`), dùng `p-card` / `p-4`.
+- [x] **`Divider`**: thêm `spacing` (`none|tight|base`, mặc định `base` = 16px như cũ) và `label`.
+- [x] `useMediaQuery`, `useBreakpoint` (SSR-safe, test với `matchMedia` mock).
 - **Xong khi:** mỗi component có story (mọi biến thể + RTL), test + axe, export; `check:api` xanh.
 
 ### Phase 3 — AppShell

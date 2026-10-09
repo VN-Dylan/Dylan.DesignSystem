@@ -26,6 +26,12 @@ describe('Card', () => {
     const card = container.querySelector('.dyl-card')
     expect(card).toHaveAttribute('data-bordered')
     expect(card).toHaveAttribute('data-clickable')
+    expect(card).toHaveAttribute('data-padding', 'default')
+  })
+
+  it('supports compact padding', () => {
+    const { container } = render(<Card padding="compact">Body</Card>)
+    expect(container.querySelector('.dyl-card')).toHaveAttribute('data-padding', 'compact')
   })
 
   it('fires click and supports keyboard activation', async () => {

@@ -1,0 +1,16 @@
+.dyl-grid-demo__item {
+  @apply grid min-h-12 place-content-center rounded-md bg-primary text-sm font-semibold text-primary-fg
+    shadow;
+
+  &--muted {
+    @apply bg-primary-subtle text-primary;
+  }
+
+  &--success {
+    @apply bg-success text-primary-fg;
+  }
+
+  &--info {
+    @apply bg-info text-primary-fg;
+  }
+}

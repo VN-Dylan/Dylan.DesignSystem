@@ -4,20 +4,30 @@ import { axe } from 'jest-axe'
 import { Divider } from './Divider'
 
 describe('Divider', () => {
-  it('renders a horizontal separator by default', () => {
+  it('renders a horizontal separator with base spacing by default', () => {
     render(<Divider aria-label="Section" />)
-    expect(screen.getByRole('separator', { name: 'Section' })).toHaveAttribute(
-      'aria-orientation',
-      'horizontal',
-    )
+    const divider = screen.getByRole('separator', { name: 'Section' })
+    expect(divider).toHaveAttribute('aria-orientation', 'horizontal')
+    expect(divider).toHaveAttribute('data-spacing', 'base')
   })
 
-  it('renders a vertical separator', () => {
-    render(<Divider orientation="vertical" aria-label="Columns" />)
-    expect(screen.getByRole('separator', { name: 'Columns' })).toHaveAttribute(
-      'data-orientation',
-      'vertical',
-    )
+  it('renders a vertical separator with configurable spacing', () => {
+    render(<Divider orientation="vertical" spacing="none" aria-label="Columns" />)
+    const divider = screen.getByRole('separator', { name: 'Columns' })
+    expect(divider).toHaveAttribute('data-orientation', 'vertical')
+    expect(divider).toHaveAttribute('data-spacing', 'none')
+  })
+
+  it('renders a centered label between two horizontal lines', () => {
+    const { container } = render(<Divider label="Details" />)
+    expect(screen.getByText('Details')).toHaveClass('dyl-divider__label')
+    expect(container.querySelectorAll('.dyl-divider__line')).toHaveLength(2)
+  })
+
+  it('can be marked decorative without aria separator state', () => {
+    render(<Divider role="none" data-testid="divider" />)
+    expect(screen.getByTestId('divider')).toHaveAttribute('role', 'none')
+    expect(screen.getByTestId('divider')).not.toHaveAttribute('aria-orientation')
   })
 
   it('forwards ref to the divider element', () => {
@@ -30,7 +40,7 @@ describe('Divider', () => {
     const { container } = render(
       <div>
         <p>Before</p>
-        <Divider />
+        <Divider label="More information" />
         <p>After</p>
       </div>,
     )

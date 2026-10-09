@@ -14,6 +14,7 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(function Card(
     footer,
     bordered = false,
     clickable = false,
+    padding = 'default',
     bodyClass,
     onClick,
     onKeyDown,
@@ -41,6 +42,7 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(function Card(
       ref={ref}
       data-bordered={bordered || undefined}
       data-clickable={clickable || interactive || undefined}
+      data-padding={padding}
       className={classNames('dyl-card', className)}
       onClick={onClick}
       onKeyDown={handleKeyDown}

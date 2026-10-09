@@ -1,0 +1,45 @@
+@mixin alignment {
+  &[data-align='start'] {
+    @apply items-start;
+  }
+
+  &[data-align='center'] {
+    @apply items-center;
+  }
+
+  &[data-align='end'] {
+    @apply items-end;
+  }
+
+  &[data-align='stretch'] {
+    @apply items-stretch;
+  }
+
+  &[data-align='baseline'] {
+    @apply items-baseline;
+  }
+
+  &[data-justify='start'] {
+    @apply justify-start;
+  }
+
+  &[data-justify='center'] {
+    @apply justify-center;
+  }
+
+  &[data-justify='end'] {
+    @apply justify-end;
+  }
+
+  &[data-justify='between'] {
+    @apply justify-between;
+  }
+
+  &[data-justify='around'] {
+    @apply justify-around;
+  }
+
+  &[data-justify='evenly'] {
+    @apply justify-evenly;
+  }
+}

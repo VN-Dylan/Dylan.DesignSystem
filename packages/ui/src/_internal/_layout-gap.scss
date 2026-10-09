@@ -1,0 +1,25 @@
+@mixin gap($property) {
+  gap: var(#{$property}, var(--dyl-gap-base));
+
+  &[data-gap='tight'] {
+    #{$property}: var(--dyl-gap-tight);
+  }
+
+  &[data-gap='base'] {
+    #{$property}: var(--dyl-gap-base);
+  }
+
+  &[data-gap='loose'] {
+    #{$property}: var(--dyl-gap-loose);
+  }
+
+  &[data-gap='group'] {
+    #{$property}: var(--dyl-gap-group);
+  }
+
+  @each $key in 0, 1, 2, 3, 4, 6, 8, 12, 16, 24 {
+    &[data-gap='#{$key}'] {
+      #{$property}: var(--dyl-space-#{$key});
+    }
+  }
+}

@@ -59,6 +59,17 @@ This page records where that is **deliberately not** true.
 | \`motion/\` | booking-readiness addition, not in the Eyris crawl; adds optional \`framer-motion\` peer dependency | Marketing and booking surfaces need tree-shakeable entrance, stagger, parallax and route-transition primitives that no-op under reduced motion. |
 | \`AvailabilityCalendar\` | booking-readiness addition, not in the Eyris crawl | Lodging detail pages need range selection with availability, stay-length, and nightly-price affordances. |
 | \`GuestSelector\` | booking-readiness addition, not in the Eyris crawl | Booking search and checkout forms need category-based guest and room counts in a compact popover. |
+| \`Stack\` | layout-system addition, not in the Eyris crawl | Owns vertical rhythm through semantic or constrained numeric gap tokens and can insert dividers between children. |
+| \`Inline\` | layout-system addition, not in the Eyris crawl | Owns horizontal rhythm, alignment, wrapping, and optional dividers through the same gap contract as \`Stack\`. |
+| \`Section\` | layout-system addition, not in the Eyris crawl | Standardizes section spacing, tonal surfaces, and optional \`Container\` containment. |
+| \`PageHeader\` | layout-system addition, not in the Eyris crawl | Provides standard title, description, breadcrumb, back, and action slots with a configurable heading level. |
+| \`Center\` | layout-system addition, not in the Eyris crawl | Provides a minimal two-axis centering primitive. |
+| \`Spacer\` | layout-system addition, not in the Eyris crawl | Fills remaining flex space or reserves a constrained spacing-token step. |
+| \`AspectRatio\` | layout-system addition, not in the Eyris crawl | Reserves a stable native aspect-ratio box through a CSS custom property. |
+| \`Grid\` | upgraded beyond the Eyris demo-only wrapper | Adds token gaps, responsive CSS-variable columns, auto-fit minimum widths, and \`Grid.Item\` spans while retaining utility-class usage. |
+| \`Container\` | upgraded beyond the Eyris breakpoint wrapper | Uses named content-width tokens and an optional responsive gutter; the default content width is 1200px. |
+| \`Card\` | default inner padding deliberately changed from mixed 20/16px values to 24px | \`padding="default"\` now uses \`p-card\`; \`padding="compact"\` uses 16px for dense content. |
+| \`Divider\` | spacing is now explicit and labels are supported | \`spacing="base"\` preserves the former 16px default; \`tight\`/\`none\` remove hard-coded margins and horizontal labels render between two lines. |
 `}</Markdown>
 
 Reconciliation is enforced: \`pnpm check:api\` (in CI) diffs every documented prop

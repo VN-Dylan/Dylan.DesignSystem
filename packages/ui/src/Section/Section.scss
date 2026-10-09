@@ -1,0 +1,17 @@
+.dyl-section {
+  &[data-spacing='base'] {
+    @apply py-section;
+  }
+
+  &[data-spacing='loose'] {
+    padding-block: calc(var(--dyl-space-section) + var(--dyl-gap-group));
+  }
+
+  &[data-spacing='none'] {
+    @apply py-0;
+  }
+
+  &[data-tone='subtle'] {
+    @apply bg-surface-sunken;
+  }
+}

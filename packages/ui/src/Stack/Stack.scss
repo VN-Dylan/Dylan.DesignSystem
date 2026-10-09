@@ -1,0 +1,8 @@
+@use '../_internal/layout-gap' as layout;
+@use '../_internal/flex-alignment' as flex;
+
+.dyl-stack {
+  @apply flex flex-col;
+  @include layout.gap(--dyl-stack-gap);
+  @include flex.alignment;
+}

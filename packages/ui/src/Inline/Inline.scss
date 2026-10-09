@@ -1,0 +1,12 @@
+@use '../_internal/layout-gap' as layout;
+@use '../_internal/flex-alignment' as flex;
+
+.dyl-inline {
+  @apply flex flex-row;
+  @include layout.gap(--dyl-inline-gap);
+  @include flex.alignment;
+
+  &[data-wrap] {
+    @apply flex-wrap;
+  }
+}

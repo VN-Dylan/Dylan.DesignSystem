@@ -13,6 +13,8 @@ export interface CardFooterConfig {
   bordered?: boolean
 }
 
+export type CardPadding = 'default' | 'compact'
+
 export interface CardProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onClick'> {
   /** Card header config. */
   header?: CardHeaderConfig
@@ -22,6 +24,8 @@ export interface CardProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onClick
   bordered?: boolean
   /** Make cursor become pointer upon hover. @default false */
   clickable?: boolean
+  /** Inner padding shared by the header, body, and footer. @default 'default' */
+  padding?: CardPadding
   /** Apply class to card body. */
   bodyClass?: string
   /** Callback when Card is clicked. */
