@@ -6,12 +6,12 @@
   }
 
   &__count {
-    @apply ms-1.5 inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-primary
+    @apply ms-2 inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-primary
       px-1 text-[0.65rem] font-semibold text-primary-fg;
   }
 
   &__list {
-    @apply flex max-h-56 flex-col gap-1.5 overflow-y-auto;
+    @apply flex max-h-56 flex-col gap-2 overflow-y-auto;
   }
 
   &__empty {

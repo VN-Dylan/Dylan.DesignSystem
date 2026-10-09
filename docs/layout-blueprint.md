@@ -126,7 +126,7 @@ thang số dùng cùng cơ chế (`data-gap="6"` → `var(--dyl-space-6)`), nên
 
 - **`pnpm check:spacing`** (script mới, cạnh `check-tokens.mjs`): quét
   `packages/ui/src/**/*.{scss,tsx}` và `apps/showcase/src/**/*.tsx`, báo lỗi với
-  giá trị ngoài thang (`1.5 2.5 3.5 5 7 …`), `max-w-*` tự do ngoài `Container`,
+  giá trị ngoài thang (`1.5 2.5 3.5 5 7 …`), `max-w-*` tự do ở `apps/showcase` (giới hạn nội bộ của overlay trong `packages/ui` được phép),
   và `z-<số>` literal. Escape hatch: `// ds-allow-spacing`.
 - **Test cấu trúc**: mỗi primitive có test xác nhận `data-gap` → biến token đúng.
 - **Visual snapshots**: cập nhật sau khi chuẩn hoá Card/Divider (đổi có chủ đích).

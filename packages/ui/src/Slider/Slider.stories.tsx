@@ -62,7 +62,7 @@ export const Marks: Story = { args: { defaultValue: 50, marks } }
 
 export const Step: Story = {
   render: () => (
-    <div className="space-y-10">
+    <div className="space-y-12">
       <Slider defaultValue={25} step={25} marks={marks} tooltip={(value) => `${value}`} />
       <Slider stepOnMarks defaultValue={26} marks={unevenMarks} />
     </div>

@@ -64,7 +64,7 @@ export const Color: Story = {
 
 export const Status: Story = {
   render: () => (
-    <div className="flex items-center gap-5">
+    <div className="flex items-center gap-6">
       <Badge>
         <Avatar icon={<TbUser />} />
       </Badge>

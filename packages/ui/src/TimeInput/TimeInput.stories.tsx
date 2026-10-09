@@ -49,7 +49,7 @@ export const Controlled: Story = {
         addMinutes(new Date(), 60),
       ])
       return (
-        <div className="space-y-5">
+        <div className="space-y-6">
           <TimeInput value={value} onChange={setValue} />
           <p className="text-sm text-content-muted">{value?.toLocaleTimeString() ?? 'No time'}</p>
           <TimeInput.TimeInputRange value={range} onChange={setRange} />

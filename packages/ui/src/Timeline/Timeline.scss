@@ -10,11 +10,11 @@
   }
 
   &__media {
-    @apply relative z-10 flex min-h-6 min-w-6 items-center justify-center;
+    @apply relative z-[1] flex min-h-6 min-w-6 items-center justify-center;
   }
 
   &__dot {
-    @apply mt-1.5 h-2.5 w-2.5 rounded-full bg-primary ring-4 ring-primary-subtle;
+    @apply mt-2 h-2.5 w-2.5 rounded-full bg-primary ring-4 ring-primary-subtle;
   }
 
   &__connector {

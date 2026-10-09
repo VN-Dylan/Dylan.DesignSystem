@@ -43,7 +43,7 @@ export const Controlled: Story = {
       const [dateTime, setDateTime] = useState<Date | null>(new Date())
 
       return (
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-6">
           <DatePicker placeholder="Pick a date" value={date} onChange={setDate} />
           <DatePicker.DatePickerRange
             placeholder="Select dates range"
@@ -121,7 +121,7 @@ export const InputSize: Story = {
 
 export const InputAffix: Story = {
   render: () => (
-    <div className="flex flex-col gap-5">
+    <div className="flex flex-col gap-6">
       <DatePicker inputPrefix={<TbIcons.TbCalendar />} inputSuffix={null} />
       <DatePicker inputSuffix={<TbIcons.TbCalendarStats />} />
     </div>
@@ -130,7 +130,7 @@ export const InputAffix: Story = {
 
 export const ClearButton: Story = {
   render: () => (
-    <div className="flex flex-col gap-5">
+    <div className="flex flex-col gap-6">
       <DatePicker defaultValue={new Date()} clearable={false} />
       <DatePicker defaultValue={new Date()} clearButton={<Button size="sm">Clear</Button>} />
     </div>

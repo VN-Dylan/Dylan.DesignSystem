@@ -20,7 +20,7 @@ type Story = StoryObj<typeof meta>
 
 export const Basic: Story = {
   render: () => (
-    <div className="flex items-center gap-5">
+    <div className="flex items-center gap-6">
       <Badge content={9}>
         <Avatar icon={<TbUser />} />
       </Badge>
@@ -33,7 +33,7 @@ export const Basic: Story = {
 
 export const CountOverflow: Story = {
   render: () => (
-    <div className="flex items-center gap-5">
+    <div className="flex items-center gap-6">
       <Badge content={10} maxCount={9}>
         <Avatar icon={<TbUser />} />
       </Badge>

@@ -47,6 +47,6 @@
   }
 
   &__bar-label {
-    @apply relative z-10 truncate px-2 font-medium text-content;
+    @apply relative z-[1] truncate px-2 font-medium text-content;
   }
 }

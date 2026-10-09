@@ -18,7 +18,7 @@
 
   &__dropzone {
     @apply flex flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed
-      border-border bg-surface-sunken px-6 py-10 text-center text-sm text-content-muted
+      border-border bg-surface-sunken px-6 py-8 text-center text-sm text-content-muted
       transition-colors;
     @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary;
 

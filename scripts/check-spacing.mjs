@@ -56,9 +56,12 @@ function walk(root, config, out) {
   }
 }
 
-function isContainerFile(file) {
+// Component-internal width caps (tooltips, popovers, dialogs, story frames) are
+// legitimate. Free `max-w-*` is only a page-layout smell in the showcase app,
+// where `Container` (size=...) owns the content width.
+function isPageWidthScope(file) {
   const normalized = relative(repoRoot, file).split(sep).join('/')
-  return normalized.startsWith('packages/ui/src/Container/')
+  return normalized.startsWith('apps/showcase/src/')
 }
 
 function collectMatches(regex, line, visit) {
@@ -109,7 +112,7 @@ for (const file of files.sort()) {
       addViolation('spacing', file, index + 1, `${variants}${property}-${key}`)
     })
 
-    if (!isContainerFile(file)) {
+    if (isPageWidthScope(file)) {
       collectMatches(MAX_WIDTH, line, (match) => {
         const [, variants, key] = match
         if (ALLOWED_MAX_WIDTH.has(key)) return

@@ -51,7 +51,7 @@ export const Disabled: Story = {
 
 export const Vertical: Story = {
   render: () => (
-    <div className="space-y-5">
+    <div className="space-y-6">
       <div className="flex flex-col gap-2">
         <Checkbox>Checkbox 1</Checkbox>
         <Checkbox>Checkbox 2</Checkbox>
@@ -67,7 +67,7 @@ export const Vertical: Story = {
 
 export const Color: Story = {
   render: () => (
-    <div className="space-y-5">
+    <div className="space-y-6">
       <Checkbox defaultChecked data-color="success">
         Checkbox 1
       </Checkbox>

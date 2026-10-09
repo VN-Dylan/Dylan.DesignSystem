@@ -58,9 +58,9 @@ Song song được (không phụ thuộc nhau, đều chỉ dùng token Phase 1)
 - **Xong khi:** shell render đúng ở 360 / 768 / 1280, LTR + RTL, light + dark.
 
 ### Phase 4 — Chuẩn hoá component hiện có
-- [ ] Chạy `check-spacing` ở chế độ fail cho `packages/ui`; sửa vi phạm (ưu tiên các `gap-1.5`, `p-2.5`, `py-3.5`…).
-- [ ] Bỏ margin ngoài còn sót trong component (parent sở hữu gap).
-- [ ] Cập nhật visual snapshot (`pnpm test:storybook:visual:update`) và review diff từng ảnh; ghi thay đổi vào `EyrisMapping.mdx`.
+- [x] Chạy `check-spacing --strict` cho `packages/ui`; sửa vi phạm (ưu tiên các `gap-1.5`, `p-2.5`, `py-3.5`…).
+- [x] Bỏ margin ngoài còn sót trong component (parent sở hữu gap).
+- [x] Cập nhật visual snapshot (`pnpm test:storybook:visual:update`) và review diff từng ảnh; ghi thay đổi vào `EyrisMapping.mdx`.
 - **Xong khi:** `check:spacing` = 0 vi phạm trong `packages/ui`; không còn margin ngoài; snapshot đã được duyệt.
 
 ### Phase 5 — Showcase

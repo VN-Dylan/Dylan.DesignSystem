@@ -58,7 +58,7 @@ export const InAForm: Story = {
       }}
     >
       <Select options={options} name="category" defaultValue={options[1]} aria-label="Category" />
-      <button type="submit" className="rounded-base bg-primary px-3 py-1.5 text-sm text-primary-fg">
+      <button type="submit" className="rounded-base bg-primary px-3 py-2 text-sm text-primary-fg">
         Submit
       </button>
     </form>

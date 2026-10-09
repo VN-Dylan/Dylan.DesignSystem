@@ -24,7 +24,7 @@
   }
 
   &__control {
-    @apply relative z-10 flex min-w-0 items-start gap-3 border-0 bg-transparent p-0 text-start
+    @apply relative z-[1] flex min-w-0 items-start gap-3 border-0 bg-transparent p-0 text-start
       text-content;
     @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary
       focus-visible:ring-offset-2 focus-visible:ring-offset-surface;

@@ -11,7 +11,7 @@
 
   /* --- size --- */
   &[data-size='xs'] {
-    @apply h-7 px-2.5 text-xs;
+    @apply h-7 px-3 text-xs;
   }
   &[data-size='sm'] {
     @apply h-8 px-3 text-sm;
@@ -20,7 +20,7 @@
     @apply h-10 px-4 text-sm;
   }
   &[data-size='lg'] {
-    @apply h-12 px-5 text-base;
+    @apply h-12 px-6 text-base;
   }
 
   /* --- shape --- */

@@ -11,7 +11,7 @@
 }
 
 .dyl-form-item {
-  @apply flex flex-col gap-1.5;
+  @apply flex flex-col gap-2;
 
   &[data-layout='horizontal'] {
     @apply grid gap-x-4;

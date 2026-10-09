@@ -25,14 +25,14 @@
     @apply min-h-32 px-3 py-2 outline-none;
 
     p {
-      @apply my-1.5;
+      @apply my-2;
     }
     h2 {
       @apply my-2 text-lg font-semibold;
     }
     ul,
     ol {
-      @apply my-1.5 ps-5;
+      @apply my-2 ps-6;
     }
     ul {
       @apply list-disc;
