@@ -87,6 +87,14 @@
   // Radius
   @include emit-map('dyl-radius', s.$radius);
 
+  // Spacing and layout (theme-neutral; dark mode and brand packs inherit these)
+  @include emit-map('dyl-space', s.$space);
+  @include emit-map('dyl-gap', s.$gap);
+  @include emit-map('dyl-inset', s.$inset);
+  @include emit-map('dyl-content', s.$content);
+  @include emit-map('dyl-sidenav', s.$sidenav);
+  @include emit-map('dyl', s.$layout);
+
   // Typography
   --dyl-font-sans: #{map.get(s.$font-family, sans)};
   --dyl-font-mono: #{map.get(s.$font-family, mono)};

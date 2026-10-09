@@ -16,6 +16,16 @@ import type { Config } from 'tailwindcss'
  * step, `overlay`, or a `brightness-*` utility instead.
  */
 const withAlpha = (channelVar: string) => `rgb(var(${channelVar}) / <alpha-value>)`
+
+/** Tailwind's default breakpoints as numeric pixel values for runtime consumers. */
+export const breakpoints = {
+  sm: 640,
+  md: 768,
+  lg: 1024,
+  xl: 1280,
+  '2xl': 1536,
+} as const
+
 export const dylanPreset = {
   darkMode: 'class',
   theme: {
@@ -85,6 +95,21 @@ export const dylanPreset = {
         xl: 'var(--dyl-radius-xl)',
         '2xl': 'var(--dyl-radius-2xl)',
         full: 'var(--dyl-radius-full)',
+      },
+      spacing: {
+        tight: 'var(--dyl-gap-tight)',
+        base: 'var(--dyl-gap-base)',
+        loose: 'var(--dyl-gap-loose)',
+        group: 'var(--dyl-gap-group)',
+        section: 'var(--dyl-space-section)',
+        card: 'var(--dyl-inset-card)',
+        gutter: 'var(--dyl-gutter)',
+      },
+      maxWidth: {
+        prose: 'var(--dyl-content-prose)',
+        narrow: 'var(--dyl-content-narrow)',
+        content: 'var(--dyl-content-default)',
+        wide: 'var(--dyl-content-wide)',
       },
       fontFamily: {
         sans: 'var(--dyl-font-sans)',

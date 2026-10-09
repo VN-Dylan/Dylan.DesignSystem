@@ -24,6 +24,49 @@ $spacing: (
   24: 6rem,
 );
 
+// Layout primitives use this constrained numeric scale through data-gap values.
+$space: (
+  0: 0,
+  1: 0.25rem,
+  2: 0.5rem,
+  3: 0.75rem,
+  4: 1rem,
+  6: 1.5rem,
+  8: 2rem,
+  12: 3rem,
+  16: 4rem,
+  24: 6rem,
+  section: clamp(3rem, 2rem + 4vw, 6rem),
+);
+
+$gap: (
+  tight: 0.5rem,
+  base: 1rem,
+  loose: 1.5rem,
+  group: 2rem,
+);
+
+$inset: (
+  card: 1.5rem,
+);
+
+$content: (
+  prose: 65ch,
+  narrow: 40rem,
+  default: 75rem,
+  wide: 90rem,
+);
+
+$sidenav: (
+  width: 16rem,
+  collapsed: 4.5rem,
+);
+
+$layout: (
+  gutter: clamp(1rem, 0.5rem + 2vw, 2rem),
+  header-height: 4rem,
+);
+
 // Border radius — Eyris cards sit around 12px
 $radius: (
   none: 0,

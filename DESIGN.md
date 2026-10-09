@@ -109,6 +109,51 @@ semantic utility names (right column).
 | Z-index | `dropdown 1000` · `sticky 1010` · `drawer 1020` · `dialog 1030` · `popover 1040` · `toast 1050` · `tooltip 1060` | `z-*` |
 | Breakpoint | `sm 640` · `md 768` · `lg 1024` · `xl 1280` · `2xl 1536` | Tailwind default |
 
+### Spacing & layout
+
+The numeric spacing scale stays on a 4px base and an 8px rhythm. Layout code
+uses the following constrained keys; `px` and `0.5` remain available for
+hairlines and outline offsets.
+
+| Key | px | Use |
+| --- | --- | --- |
+| `0` | 0 | Reset |
+| `1` | 4 | Tight icon-to-label spacing and badges |
+| `2` | 8 | Inside a component; labels and controls |
+| `3` | 12 | Small control padding |
+| `4` | 16 | Control padding and component gap within a group |
+| `6` | 24 | Card padding and card/group gap |
+| `8` | 32 | Gap between major groups in a section |
+| `12` | 48 | Mobile section spacing |
+| `16` | 64 | Tablet section spacing |
+| `24` | 96 | Desktop and hero section spacing |
+
+Semantic aliases express layout roles instead of numeric choices:
+
+| Token | Value | Tailwind | Meaning |
+| --- | --- | --- | --- |
+| `--dyl-gap-tight` | `0.5rem` | `gap-tight` | Within a component; icon and label; button group |
+| `--dyl-gap-base` | `1rem` | `gap-base` | Between components in one group |
+| `--dyl-gap-loose` | `1.5rem` | `gap-loose` | Between cards or groups in a grid |
+| `--dyl-gap-group` | `2rem` | `gap-group` | Between major groups in a section |
+| `--dyl-space-section` | `clamp(3rem, 2rem + 4vw, 6rem)` | `py-section` | Responsive section spacing |
+| `--dyl-inset-card` | `1.5rem` | `p-card` | Default card or panel padding |
+| `--dyl-gutter` | `clamp(1rem, 0.5rem + 2vw, 2rem)` | `px-gutter` | Responsive page gutter |
+
+Content and application-shell dimensions are also semantic:
+
+| Token | Value | Use |
+| --- | --- | --- |
+| `--dyl-content-prose` | `65ch` | Long-form reading |
+| `--dyl-content-narrow` | `40rem` | Forms and authentication |
+| `--dyl-content-default` | `75rem` | Standard page content (1200px) |
+| `--dyl-content-wide` | `90rem` | Dashboards and wide tables |
+| `--dyl-sidenav-width` | `16rem` | Expanded side navigation (256px) |
+| `--dyl-sidenav-collapsed` | `4.5rem` | Collapsed side navigation (72px) |
+| `--dyl-header-height` | `4rem` | Application header (64px) |
+| Breakpoints | `sm 640` · `md 768` · `lg 1024` · `xl 1280` · `2xl 1536` | Tailwind defaults, also exported as `breakpoints` |
+| Z-index | `dropdown 1000` through `tooltip 1060` | Use named `z-*` utilities only |
+
 ### Opacity modifier
 
 `primary`, `success`/`error`/`info`/`warning`, `content` and `gray` each ship a

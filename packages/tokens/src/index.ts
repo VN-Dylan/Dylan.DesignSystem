@@ -1,4 +1,4 @@
-export { dylanPreset, default as tailwindPreset } from './tailwind-preset'
+export { breakpoints, dylanPreset, default as tailwindPreset } from './tailwind-preset'
 export {
   presetThemeSchema,
   themeSchemaToCssVars,

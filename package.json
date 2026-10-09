@@ -15,6 +15,7 @@
     "test:watch": "vitest",
     "lint": "eslint .",
     "check:tokens": "node scripts/check-tokens.mjs",
+    "check:spacing": "node scripts/check-spacing.mjs",
     "check:api": "node scripts/api-coverage.mjs",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
