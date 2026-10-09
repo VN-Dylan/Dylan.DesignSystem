@@ -138,7 +138,7 @@ export const Media: Story = {
       content: (
         <img
           className="aspect-video w-full object-cover"
-          src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3"
+          src="fixtures/gallery/lounge-hills.svg"
           alt="Automation dashboard"
         />
       ),
@@ -149,7 +149,7 @@ export const Media: Story = {
       bordered: false,
       content: (
         <div className="flex items-center gap-2">
-          <Avatar size={32} shape="circle" src="https://i.pravatar.cc/64?img=12" alt="" />
+          <Avatar size={32} shape="circle" src="fixtures/avatars/avatar-7.svg" alt="" />
           <span>
             <h6 className="text-sm font-semibold text-content">Kristen Fisher</h6>
             <span className="text-xs text-content-muted">Sep 23, 2021</span>
@@ -178,7 +178,7 @@ export const KristenFisher: Story = {
     header: {
       content: (
         <div className="flex items-center gap-2">
-          <Avatar size={32} shape="circle" src="https://i.pravatar.cc/64?img=12" alt="" />
+          <Avatar size={32} shape="circle" src="fixtures/avatars/avatar-7.svg" alt="" />
           <span>Kristen Fisher</span>
         </div>
       ),

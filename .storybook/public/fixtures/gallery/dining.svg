@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1067" width="1600" height="1067" role="img" aria-label="Open plan dining room">
+<title>Open plan dining room</title>
+<defs><linearGradient id="wall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6efe6"/><stop offset="1" stop-color="#eadfce"/></linearGradient></defs>
+<rect width="1600" height="1067" fill="url(#wall)"/>
+<rect x="0" y="760" width="1600" height="307" fill="#a07a58"/>
+<line x1="800" y1="0" x2="800" y2="220" stroke="#2f2f2f" stroke-width="8"/>
+<circle cx="800" cy="300" r="90" fill="#2f2f2f"/>
+<ellipse cx="800" cy="390" rx="160" ry="22" fill="#ffe7b0" opacity=".6"/>
+<g fill="#c8b29a"><rect x="440" y="520" width="110" height="140" rx="16"/><rect x="455" y="660" width="14" height="190"/><rect x="536" y="660" width="14" height="190"/><rect x="630" y="520" width="110" height="140" rx="16"/><rect x="645" y="660" width="14" height="190"/><rect x="726" y="660" width="14" height="190"/><rect x="820" y="520" width="110" height="140" rx="16"/><rect x="835" y="660" width="14" height="190"/><rect x="916" y="660" width="14" height="190"/><rect x="1010" y="520" width="110" height="140" rx="16"/><rect x="1025" y="660" width="14" height="190"/><rect x="1106" y="660" width="14" height="190"/></g>
+<rect x="420" y="620" width="760" height="40" rx="10" fill="#5a3f2b"/>
+<rect x="470" y="660" width="26" height="200" fill="#5a3f2b"/>
+<rect x="1104" y="660" width="26" height="200" fill="#5a3f2b"/>
+<circle cx="700" cy="600" r="28" fill="#e9eef2"/><circle cx="900" cy="600" r="28" fill="#e9eef2"/>
+<rect x="160" y="200" width="200" height="260" rx="6" fill="#d8c7b2"/>
+<rect x="1240" y="220" width="220" height="180" rx="6" fill="#9fb3a1"/>
+</svg>

@@ -10,6 +10,9 @@ const config: StorybookConfig = {
     '../packages/ui/src/**/*.stories.@(ts|tsx)',
     '../docs/**/*.mdx',
   ],
+  // Local, license-free fixtures (e.g. gallery images) so visual snapshots never
+  // depend on the network. Referenced with relative URLs: `fixtures/...`.
+  staticDirs: ['./public'],
   addons: ['@storybook/addon-essentials', '@storybook/addon-a11y', '@storybook/addon-themes'],
   framework: {
     name: '@storybook/react-vite',

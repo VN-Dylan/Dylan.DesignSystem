@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1067" width="1600" height="1067" role="img" aria-label="Apartment bedroom with white linen">
+<title>Apartment bedroom with white linen</title>
+<defs><linearGradient id="wall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eef0f3"/><stop offset="1" stop-color="#dfe3e8"/></linearGradient><linearGradient id="city" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9fb7d1"/><stop offset="1" stop-color="#c9d8e8"/></linearGradient></defs>
+<rect width="1600" height="1067" fill="url(#wall)"/>
+<rect x="980" y="140" width="460" height="520" rx="8" fill="url(#city)"/>
+<g fill="#7f97b3"><rect x="1000" y="420" width="56" height="240"/><rect x="1070" y="383" width="56" height="277"/><rect x="1140" y="346" width="56" height="314"/><rect x="1210" y="309" width="56" height="351"/><rect x="1280" y="272" width="56" height="388"/><rect x="1350" y="415" width="56" height="245"/></g>
+<rect x="980" y="140" width="460" height="520" rx="8" fill="none" stroke="#ffffff" stroke-width="16"/>
+<rect x="0" y="800" width="1600" height="267" fill="#b89b7d"/>
+<rect x="160" y="420" width="700" height="260" rx="24" fill="#8c6e55"/>
+<rect x="120" y="640" width="820" height="230" rx="30" fill="#ffffff"/>
+<rect x="120" y="740" width="820" height="130" rx="30" fill="#e7ebf0"/>
+<rect x="200" y="560" width="250" height="110" rx="40" fill="#f7f8fa"/>
+<rect x="530" y="560" width="250" height="110" rx="40" fill="#f7f8fa"/>
+<rect x="960" y="720" width="140" height="150" rx="14" fill="#6d5a49"/>
+<circle cx="1030" cy="690" r="34" fill="#f2c46b"/>
+</svg>

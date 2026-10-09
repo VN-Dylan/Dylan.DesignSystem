@@ -65,22 +65,22 @@ const config: TestRunnerConfig = {
 
     const root = page.locator('#storybook-root')
 
-    // Wait for every <img> in the story to finish decoding — otherwise a
-    // late-loading avatar / media image races the screenshot and the baseline
-    // captures a half-loaded state.
+    // Wait for every <img> on the page to finish loading + decoding — otherwise
+    // a late-loading image races the screenshot and the baseline captures a
+    // half-loaded state. Scans the whole document, not just #storybook-root:
+    // overlays (lightbox, dialog, drawer, popover) render through a portal.
+    // Each image is capped so a never-loading lazy image cannot hang the run.
     const awaitImages = () =>
       page.evaluate(async () => {
-        const imgs = Array.from(document.querySelectorAll('#storybook-root img'))
-        await Promise.all(
-          imgs.map((img) => {
-            const el = img as HTMLImageElement
-            if (el.complete && el.naturalWidth > 0) return el.decode().catch(() => {})
-            return new Promise<void>((resolve) => {
-              el.addEventListener('load', () => resolve(), { once: true })
-              el.addEventListener('error', () => resolve(), { once: true })
-            })
-          }),
-        )
+        const imgs = Array.from(document.querySelectorAll('img'))
+        const settle = (el: HTMLImageElement) =>
+          new Promise<void>((resolve) => {
+            if (el.complete) return resolve()
+            el.addEventListener('load', () => resolve(), { once: true })
+            el.addEventListener('error', () => resolve(), { once: true })
+          }).then(() => (el.naturalWidth > 0 ? el.decode().catch(() => {}) : undefined))
+        const cap = () => new Promise<void>((resolve) => setTimeout(resolve, 8000))
+        await Promise.all(imgs.map((img) => Promise.race([settle(img as HTMLImageElement), cap()])))
         if ('fonts' in document) await (document as Document).fonts.ready
       })
 

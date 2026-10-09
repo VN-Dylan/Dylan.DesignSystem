@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1067" width="1600" height="1067" role="img" aria-label="Hotel pool at dusk">
+<title>Hotel pool at dusk</title>
+<defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2b2d5c"/><stop offset="1" stop-color="#f39c6b"/></linearGradient><linearGradient id="water" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3cb5c9"/><stop offset="1" stop-color="#1d6f8c"/></linearGradient></defs>
+<rect width="1600" height="1067" fill="url(#sky)"/>
+<circle cx="1220" cy="560" r="110" fill="#ffd28a" opacity=".9"/>
+<rect x="0" y="560" width="1600" height="120" fill="#3a3f63"/>
+<rect x="120" y="470" width="300" height="210" fill="#4a4f78"/>
+<rect x="460" y="420" width="240" height="260" fill="#555b86"/>
+<g fill="#ffe3a8"><rect x="150" y="500" width="28" height="30"/><rect x="210" y="500" width="28" height="30"/><rect x="270" y="500" width="28" height="30"/><rect x="330" y="500" width="28" height="30"/><rect x="150" y="555" width="28" height="30"/><rect x="210" y="555" width="28" height="30"/><rect x="270" y="555" width="28" height="30"/><rect x="330" y="555" width="28" height="30"/><rect x="150" y="610" width="28" height="30"/><rect x="210" y="610" width="28" height="30"/><rect x="270" y="610" width="28" height="30"/><rect x="330" y="610" width="28" height="30"/></g>
+<rect x="0" y="680" width="1600" height="387" fill="#d8c3a5"/>
+<rect x="140" y="740" width="1320" height="260" rx="24" fill="url(#water)"/>
+<g stroke="#bfeff6" stroke-width="6" stroke-linecap="round" opacity=".7">
+<line x1="260" y1="820" x2="420" y2="820"/><line x1="620" y1="880" x2="860" y2="880"/>
+<line x1="1000" y1="930" x2="1220" y2="930"/></g>
+<rect x="1300" y="560" width="14" height="190" fill="#2f2f3f"/>
+<circle cx="1307" cy="550" r="22" fill="#ffd28a"/>
+</svg>

@@ -4,38 +4,42 @@ import { Button } from '../Button'
 import { ImageGallery } from './ImageGallery'
 import type { ImageGalleryItem } from './types'
 
+// Local illustrations served from `.storybook/public` — no network, so the
+// visual snapshots are deterministic. Relative URL works under any base path.
+const fixture = (name: string) => `fixtures/gallery/${name}.svg`
+
 const images: ImageGalleryItem[] = [
   {
-    src: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee',
-    thumbnail: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=600',
+    src: fixture('lounge-hills'),
+    thumbnail: fixture('lounge-hills'),
     alt: 'Lounge with a view of green hills',
     caption: 'Main lounge overlooking the valley.',
   },
   {
-    src: 'https://images.unsplash.com/photo-1566073771259-6a8506099945',
-    thumbnail: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600',
+    src: fixture('pool-dusk'),
+    thumbnail: fixture('pool-dusk'),
     alt: 'Hotel pool at dusk',
     caption: 'Pool deck with evening service.',
   },
   {
-    src: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267',
-    thumbnail: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=600',
+    src: fixture('bedroom'),
+    thumbnail: fixture('bedroom'),
     alt: 'Apartment bedroom with white linen',
     caption: 'Primary bedroom with city views.',
   },
   {
-    src: 'https://images.unsplash.com/photo-1493809842364-78817add7ffb',
-    thumbnail: 'https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=600',
+    src: fixture('dining'),
+    thumbnail: fixture('dining'),
     alt: 'Open plan dining room',
   },
   {
-    src: 'https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd',
-    thumbnail: 'https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?w=600',
+    src: fixture('kitchen'),
+    thumbnail: fixture('kitchen'),
     alt: 'Kitchen with marble island',
   },
   {
-    src: 'https://images.unsplash.com/photo-1554995207-c18c203602cb',
-    thumbnail: 'https://images.unsplash.com/photo-1554995207-c18c203602cb?w=600',
+    src: fixture('reading-corner'),
+    thumbnail: fixture('reading-corner'),
     alt: 'Reading corner beside a window',
   },
 ]

@@ -45,8 +45,8 @@ export const Type: Story = {
       <Avatar>DF</Avatar>
       <Avatar icon={<TbUser />} />
       <Avatar
-        src="https://i.pravatar.cc/96?img=12"
-        srcSet="https://i.pravatar.cc/192?img=12 2x"
+        src="fixtures/avatars/avatar-7.svg"
+        srcSet="fixtures/avatars/avatar-7.svg 2x"
         alt="Kristen Fisher"
       />
     </div>
@@ -86,12 +86,12 @@ export const AvatarGroup: Story = {
       maxCount={4}
       omittedAvatarProps={{ shape: 'circle' }}
     >
-      <Avatar shape="circle" src="https://i.pravatar.cc/96?img=1" alt="Ada" />
-      <Avatar shape="circle" src="https://i.pravatar.cc/96?img=2" alt="Grace" />
-      <Avatar shape="circle" src="https://i.pravatar.cc/96?img=3" alt="Linus" />
-      <Avatar shape="circle" src="https://i.pravatar.cc/96?img=4" alt="Margaret" />
-      <Avatar shape="circle" src="https://i.pravatar.cc/96?img=5" alt="Alan" />
-      <Avatar shape="circle" src="https://i.pravatar.cc/96?img=6" alt="Katherine" />
+      <Avatar shape="circle" src="fixtures/avatars/avatar-1.svg" alt="Ada" />
+      <Avatar shape="circle" src="fixtures/avatars/avatar-2.svg" alt="Grace" />
+      <Avatar shape="circle" src="fixtures/avatars/avatar-3.svg" alt="Linus" />
+      <Avatar shape="circle" src="fixtures/avatars/avatar-4.svg" alt="Margaret" />
+      <Avatar shape="circle" src="fixtures/avatars/avatar-5.svg" alt="Alan" />
+      <Avatar shape="circle" src="fixtures/avatars/avatar-6.svg" alt="Katherine" />
     </Avatar.Group>
   ),
 }

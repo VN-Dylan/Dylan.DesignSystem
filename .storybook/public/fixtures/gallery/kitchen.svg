@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1067" width="1600" height="1067" role="img" aria-label="Kitchen with marble island">
+<title>Kitchen with marble island</title>
+<defs><linearGradient id="wall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e9edf0"/><stop offset="1" stop-color="#d5dde3"/></linearGradient><linearGradient id="marble" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#e6e8ec"/></linearGradient></defs>
+<rect width="1600" height="1067" fill="url(#wall)"/>
+<g fill="#5d7a86"><rect x="140" y="140" width="210" height="260" rx="8"/><rect x="370" y="140" width="210" height="260" rx="8"/><rect x="600" y="140" width="210" height="260" rx="8"/><rect x="830" y="140" width="210" height="260" rx="8"/><rect x="1060" y="140" width="210" height="260" rx="8"/><rect x="1290" y="140" width="210" height="260" rx="8"/></g>
+<rect x="120" y="420" width="1360" height="30" fill="#c9cdd2"/>
+<g fill="#4f6b77"><rect x="140" y="450" width="210" height="270" rx="8"/><rect x="370" y="450" width="210" height="270" rx="8"/><rect x="600" y="450" width="210" height="270" rx="8"/><rect x="830" y="450" width="210" height="270" rx="8"/><rect x="1060" y="450" width="210" height="270" rx="8"/><rect x="1290" y="450" width="210" height="270" rx="8"/></g>
+<rect x="0" y="760" width="1600" height="307" fill="#bfa58a"/>
+<rect x="400" y="730" width="800" height="230" rx="8" fill="#e3e6ea"/>
+<rect x="360" y="660" width="880" height="70" rx="12" fill="url(#marble)"/>
+<path d="M420 690 C560 670 660 715 820 690 S1080 700 1180 685" stroke="#c7ccd4" stroke-width="4" fill="none"/>
+<g fill="#2f3b42"><rect x="510" y="830" width="20" height="170"/><circle cx="520" cy="1000" r="40"/><rect x="700" y="830" width="20" height="170"/><circle cx="710" cy="1000" r="40"/><rect x="890" y="830" width="20" height="170"/><circle cx="900" cy="1000" r="40"/><rect x="1080" y="830" width="20" height="170"/><circle cx="1090" cy="1000" r="40"/><rect x="560" y="0" width="6" height="170"/><rect x="1040" y="0" width="6" height="170"/>
+<ellipse cx="563" cy="185" rx="44" ry="18"/><ellipse cx="1043" cy="185" rx="44" ry="18"/></g>
+</svg>

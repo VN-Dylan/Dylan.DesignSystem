@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="192" height="192" role="img" aria-label="Avatar 4">
+<title>Avatar 4</title>
+<rect width="192" height="192" fill="#fef3c7"/>
+<path d="M28 192 C36 146 66 128 96 128 C126 128 156 146 164 192 Z" fill="#d97706"/>
+<rect x="84" y="110" width="24" height="26" rx="8" fill="#f5d0b5"/>
+<circle cx="96" cy="86" r="38" fill="#f5d0b5"/>
+<path d="M56 84 C54 52 74 38 96 38 C122 38 140 54 138 84 C130 66 112 60 96 62 C80 60 64 68 56 84 Z" fill="#a16207"/>
+</svg>
