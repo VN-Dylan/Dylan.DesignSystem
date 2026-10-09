@@ -7,6 +7,14 @@ const meta = {
   component: Table,
   parameters: { layout: 'padded' },
   tags: ['autodocs'],
+  // Tables sit on a card surface in real screens — mirror the showcase.
+  decorators: [
+    (Story) => (
+      <div className="rounded-lg border border-border bg-surface p-card">
+        <Story />
+      </div>
+    ),
+  ],
 } satisfies Meta<typeof Table>
 
 export default meta

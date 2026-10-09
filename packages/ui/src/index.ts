@@ -438,7 +438,15 @@ export { Wizard } from './Wizard'
 export type { WizardProps, WizardStep } from './Wizard'
 
 export { DataTable } from './DataTable'
-export type { DataTableProps, DataTablePagingData, DataTableSort, ColumnDef } from './DataTable'
+export type {
+  DataTableProps,
+  DataTablePagingData,
+  DataTableSort,
+  DataTableLayout,
+  DataTableInitialState,
+  DataTableColumnPinning,
+  ColumnDef,
+} from './DataTable'
 
 export { Chart } from './Chart'
 export type { ChartProps, ChartType } from './Chart'

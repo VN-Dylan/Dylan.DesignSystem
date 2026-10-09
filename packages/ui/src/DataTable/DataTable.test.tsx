@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest'
-import { render, screen } from '@testing-library/react'
+import { fireEvent, render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { axe } from 'jest-axe'
 import type { ColumnDef } from '@tanstack/react-table'
@@ -17,6 +17,20 @@ const columns: ColumnDef<Row, unknown>[] = [
   { accessorKey: 'name', header: 'Name' },
   { accessorKey: 'age', header: 'Age' },
 ]
+
+const many: Row[] = Array.from({ length: 23 }, (_, i) => ({
+  name: `Person ${String(i + 1).padStart(2, '0')}`,
+  age: 20 + i,
+}))
+
+const headerNames = () =>
+  screen.getAllByRole('columnheader').map((th) => th.textContent?.replace(/\s+/g, ' ').trim())
+
+const bodyCells = (column: number) =>
+  screen
+    .getAllByRole('row')
+    .slice(1)
+    .map((row) => within(row).getAllByRole('cell')[column]?.textContent)
 
 describe('DataTable', () => {
   it('renders rows and headers', () => {
@@ -40,11 +54,22 @@ describe('DataTable', () => {
     expect(onSelectChange).toHaveBeenLastCalledWith(data)
   })
 
-  it('reports sort changes', async () => {
+  it('reports sort changes (server sorting)', async () => {
     const onSort = vi.fn()
     render(<DataTable columns={columns} data={data} onSort={onSort} />)
-    await userEvent.click(screen.getByRole('button', { name: /name/i }))
+    await userEvent.click(screen.getByRole('button', { name: 'Name' }))
     expect(onSort).toHaveBeenLastCalledWith({ key: 'name', order: 'asc' })
+  })
+
+  it('sorts client-side and exposes aria-sort', async () => {
+    render(<DataTable columns={columns} data={data} />)
+    await userEvent.click(screen.getByRole('button', { name: 'Age' }))
+    await userEvent.click(screen.getByRole('button', { name: 'Age' }))
+    expect(screen.getByRole('columnheader', { name: /age/i })).toHaveAttribute(
+      'aria-sort',
+      'descending',
+    )
+    expect(bodyCells(0)).toEqual(['Grace', 'Ada'])
   })
 
   it('drives server pagination', async () => {
@@ -58,10 +83,113 @@ describe('DataTable', () => {
       />,
     )
     expect(screen.getByText('Page 1 of 3')).toBeInTheDocument()
+    expect(screen.getByText('Showing 1–2 of 6')).toBeInTheDocument()
+  })
+
+  it('paginates client-side and changes the page size', async () => {
+    const onPageSizeChange = vi.fn()
+    render(
+      <DataTable
+        columns={columns}
+        data={many}
+        pagination
+        pageSizeOptions={[10, 25]}
+        onPageSizeChange={onPageSizeChange}
+      />,
+    )
+    expect(screen.getByText('Showing 1–10 of 23')).toBeInTheDocument()
+    expect(screen.getAllByRole('row')).toHaveLength(11)
+
+    await userEvent.selectOptions(screen.getByLabelText('Rows per page'), '25')
+    expect(onPageSizeChange).toHaveBeenCalledWith(25)
+    expect(screen.getByText('Showing 1–23 of 23')).toBeInTheDocument()
+  })
+
+  it('filters with the search box', async () => {
+    render(<DataTable columns={columns} data={many} searchable pagination />)
+    await userEvent.type(screen.getByRole('searchbox', { name: 'Search…' }), 'Person 07')
+    expect(bodyCells(0)).toEqual(['Person 07'])
+    expect(screen.getByText('Showing 1–1 of 1')).toBeInTheDocument()
+  })
+
+  it('hands search to the server when onSearchChange is set', async () => {
+    const onSearchChange = vi.fn()
+    render(<DataTable columns={columns} data={data} searchable onSearchChange={onSearchChange} />)
+    await userEvent.type(screen.getByRole('searchbox'), 'Zed')
+    expect(onSearchChange).toHaveBeenLastCalledWith('Zed')
+    expect(bodyCells(0)).toEqual(['Ada', 'Grace'])
+  })
+
+  it('renders filter and toolbar slots', () => {
+    render(
+      <DataTable
+        columns={columns}
+        data={data}
+        filters={<button type="button">Status</button>}
+        toolbarEnd={<button type="button">Export</button>}
+      />,
+    )
+    const toolbar = screen.getByRole('toolbar', { name: 'Table controls' })
+    expect(within(toolbar).getByRole('button', { name: 'Status' })).toBeInTheDocument()
+    expect(within(toolbar).getByRole('button', { name: 'Export' })).toBeInTheDocument()
+  })
+
+  it('pins a column to the start via the column menu', async () => {
+    const onLayoutChange = vi.fn()
+    render(<DataTable columns={columns} data={data} onLayoutChange={onLayoutChange} />)
+    await userEvent.click(screen.getByRole('button', { name: 'Age options' }))
+    await userEvent.click(await screen.findByText('Pin to start'))
+
+    expect(headerNames()).toEqual(['Age', 'Name'])
+    expect(screen.getByRole('columnheader', { name: /age/i })).toHaveAttribute(
+      'data-pinned',
+      'start',
+    )
+    expect(onLayoutChange).toHaveBeenLastCalledWith(
+      expect.objectContaining({ columnPinning: { left: ['age'], right: [] } }),
+    )
+  })
+
+  it('moves and hides columns via the column menu', async () => {
+    render(<DataTable columns={columns} data={data} />)
+    await userEvent.click(screen.getByRole('button', { name: 'Name options' }))
+    await userEvent.click(await screen.findByText('Move right'))
+    expect(headerNames()).toEqual(['Age', 'Name'])
+
+    await userEvent.click(screen.getByRole('button', { name: 'Age options' }))
+    await userEvent.click(await screen.findByText('Hide column'))
+    expect(headerNames()).toEqual(['Name'])
+  })
+
+  it('reorders columns by dragging a header', () => {
+    render(<DataTable columns={columns} data={data} />)
+    const [name, age] = screen.getAllByRole('columnheader')
+    const dataTransfer = { setData: vi.fn(), effectAllowed: '', dropEffect: '' }
+    fireEvent.dragStart(name!, { dataTransfer })
+    fireEvent.dragOver(age!, { dataTransfer })
+    fireEvent.drop(age!, { dataTransfer })
+    expect(headerNames()).toEqual(['Age', 'Name'])
+  })
+
+  it('respects initialState', () => {
+    render(
+      <DataTable
+        columns={columns}
+        data={data}
+        initialState={{
+          sorting: { key: 'age', order: 'desc' },
+          columnVisibility: { age: false },
+        }}
+      />,
+    )
+    expect(headerNames()).toEqual(['Name'])
+    expect(bodyCells(0)).toEqual(['Grace', 'Ada'])
   })
 
   it('has no axe violations', async () => {
-    const { container } = render(<DataTable columns={columns} data={data} selectable />)
+    const { container } = render(
+      <DataTable columns={columns} data={many} selectable searchable pagination />,
+    )
     expect(await axe(container)).toHaveNoViolations()
   })
 })

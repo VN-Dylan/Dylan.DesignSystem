@@ -1,7 +1,6 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
-import { Card, DataTable, Input, Select } from '@vn-dylan/ui'
-import type { ColumnDef, DataTableSort, SelectOption } from '@vn-dylan/ui'
-import { Icon, TbIcons } from '@vn-dylan/icons'
+import { useMemo, useState } from 'react'
+import { Card, DataTable, Select } from '@vn-dylan/ui'
+import type { ColumnDef, SelectOption } from '@vn-dylan/ui'
 import { formatNumber, formatRelativeTime } from '@vn-dylan/utils'
 import { KpiCard } from '@/components/shared/KpiCard'
 import { PageHeader } from '@/components/shared/PageHeader'
@@ -32,52 +31,24 @@ const categoryOptions: SelectOption[] = [
     value: category,
   })),
 ]
-const defaultPageSize = 8
+const pageSizeOptions = [8, 16, 24]
 
-const compareTickets = (sort: DataTableSort) => (a: Ticket, b: Ticket) => {
-  const direction = sort.order === 'desc' ? -1 : 1
-  if (sort.key === 'created') return a.created.localeCompare(b.created) * direction
-  return 0
-}
-
-/** Helpdesk ticket queue with KPI summary and multi-field filtering. */
+/** Helpdesk ticket queue with KPI summary, search, filters, sorting and column layout. */
 export function HelpdeskView() {
-  const [query, setQuery] = useState('')
   const [statusFilter, setStatusFilter] = useState<SelectOption>(allStatusOption)
   const [priorityFilter, setPriorityFilter] = useState<SelectOption>(allPriorityOption)
   const [categoryFilter, setCategoryFilter] = useState<SelectOption>(allCategoryOption)
-  const [sort, setSort] = useState<DataTableSort>({ key: '', order: '' })
-  const [pageIndex, setPageIndex] = useState(1)
-  const [pageSize, setPageSize] = useState(defaultPageSize)
 
-  useEffect(() => {
-    setPageIndex(1)
-  }, [categoryFilter.value, pageSize, priorityFilter.value, query, statusFilter.value])
-
-  const filteredTickets = useMemo(() => {
-    const lowered = query.trim().toLowerCase()
-    return tickets.filter((ticket) => {
-      const matchesQuery =
-        lowered.length === 0 ||
-        ticket.subject.toLowerCase().includes(lowered) ||
-        ticket.customer.toLowerCase().includes(lowered)
-      const matchesStatus = statusFilter.value === 'all' || ticket.status === statusFilter.value
-      const matchesPriority =
-        priorityFilter.value === 'all' || ticket.priority === priorityFilter.value
-      const matchesCategory =
-        categoryFilter.value === 'all' || ticket.category === categoryFilter.value
-      return matchesQuery && matchesStatus && matchesPriority && matchesCategory
-    })
-  }, [categoryFilter.value, priorityFilter.value, query, statusFilter.value])
-
-  const sortedTickets = useMemo(() => {
-    if (!sort.key || !sort.order) return filteredTickets
-    return [...filteredTickets].sort(compareTickets(sort))
-  }, [filteredTickets, sort])
-
-  const pageRows = useMemo(
-    () => sortedTickets.slice((pageIndex - 1) * pageSize, pageIndex * pageSize),
-    [pageIndex, pageSize, sortedTickets],
+  // Select filters narrow the data; DataTable owns search, sort and paging.
+  const filteredTickets = useMemo(
+    () =>
+      tickets.filter(
+        (ticket) =>
+          (statusFilter.value === 'all' || ticket.status === statusFilter.value) &&
+          (priorityFilter.value === 'all' || ticket.priority === priorityFilter.value) &&
+          (categoryFilter.value === 'all' || ticket.category === categoryFilter.value),
+      ),
+    [categoryFilter.value, priorityFilter.value, statusFilter.value],
   )
 
   const columns = useMemo<ColumnDef<Ticket, unknown>[]>(
@@ -85,7 +56,8 @@ export function HelpdeskView() {
       {
         id: 'ticket',
         header: 'Ticket',
-        enableSorting: false,
+        accessorFn: (ticket) => `${ticket.subject} ${ticket.id}`,
+        enableHiding: false,
         cell: ({ row }) => (
           <div className="min-w-64">
             <p className="font-medium text-content">{row.original.subject}</p>
@@ -96,17 +68,14 @@ export function HelpdeskView() {
       {
         accessorKey: 'customer',
         header: 'Customer',
-        enableSorting: false,
       },
       {
         accessorKey: 'category',
         header: 'Category',
-        enableSorting: false,
       },
       {
         accessorKey: 'priority',
         header: 'Priority',
-        enableSorting: false,
         cell: ({ row }) => (
           <StatusTag tone={ticketPriorityTone[row.original.priority]}>
             {row.original.priority}
@@ -116,7 +85,6 @@ export function HelpdeskView() {
       {
         accessorKey: 'status',
         header: 'Status',
-        enableSorting: false,
         cell: ({ row }) => (
           <StatusTag tone={ticketStatusTone[row.original.status]}>{row.original.status}</StatusTag>
         ),
@@ -124,7 +92,6 @@ export function HelpdeskView() {
       {
         accessorKey: 'agent',
         header: 'Agent',
-        enableSorting: false,
       },
       {
         accessorKey: 'created',
@@ -134,16 +101,11 @@ export function HelpdeskView() {
       {
         accessorKey: 'replies',
         header: 'Replies',
-        enableSorting: false,
         cell: ({ row }) => formatNumber(row.original.replies, 0),
       },
     ],
     [],
   )
-
-  const handleSort = useCallback((nextSort: DataTableSort) => {
-    setSort(nextSort)
-  }, [])
 
   return (
     <div className="space-y-6">
@@ -157,47 +119,43 @@ export function HelpdeskView() {
         <KpiCard label="Satisfaction" value={`${helpdeskKpis.satisfaction}%`} />
       </div>
 
-      <Card bordered bodyClass="space-y-4 p-4">
-        <div className="grid gap-3 lg:grid-cols-[minmax(16rem,1fr)_12rem_12rem_14rem]">
-          <Input
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            name="ticket-search"
-            placeholder="Search subject or customer"
-            prefix={<Icon as={TbIcons.TbSearch} size={16} />}
-            aria-label="Search tickets"
-          />
-          <Select
-            options={statusOptions}
-            value={statusFilter}
-            onChange={(option) => setStatusFilter(option ?? allStatusOption)}
-            isClearable={false}
-            aria-label="Ticket status"
-          />
-          <Select
-            options={priorityOptions}
-            value={priorityFilter}
-            onChange={(option) => setPriorityFilter(option ?? allPriorityOption)}
-            isClearable={false}
-            aria-label="Ticket priority"
-          />
-          <Select
-            options={categoryOptions}
-            value={categoryFilter}
-            onChange={(option) => setCategoryFilter(option ?? allCategoryOption)}
-            isClearable={false}
-            aria-label="Ticket category"
-          />
-        </div>
-
+      <Card bordered>
         <DataTable<Ticket>
           columns={columns}
-          data={pageRows}
-          pagingData={{ pageIndex, pageSize, total: sortedTickets.length }}
-          pageSizeOptions={[8, 16, 24]}
-          onPaginationChange={setPageIndex}
-          onPageSizeChange={setPageSize}
-          onSort={handleSort}
+          data={filteredTickets}
+          searchable
+          searchPlaceholder="Search tickets"
+          filters={
+            <>
+              <Select
+                options={statusOptions}
+                value={statusFilter}
+                onChange={(option) => setStatusFilter(option ?? allStatusOption)}
+                isClearable={false}
+                aria-label="Ticket status"
+              />
+              <Select
+                options={priorityOptions}
+                value={priorityFilter}
+                onChange={(option) => setPriorityFilter(option ?? allPriorityOption)}
+                isClearable={false}
+                aria-label="Ticket priority"
+              />
+              <Select
+                options={categoryOptions}
+                value={categoryFilter}
+                onChange={(option) => setCategoryFilter(option ?? allCategoryOption)}
+                isClearable={false}
+                aria-label="Ticket category"
+              />
+            </>
+          }
+          pagination
+          pageSizeOptions={pageSizeOptions}
+          initialState={{
+            sorting: { key: 'created', order: 'desc' },
+            columnPinning: { left: ['ticket'] },
+          }}
           emptyMessage="No tickets match the current filters."
         />
       </Card>

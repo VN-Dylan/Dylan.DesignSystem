@@ -1,10 +1,122 @@
 .dyl-data-table {
-  @apply relative;
+  @apply relative flex flex-col gap-base;
 
   &[data-loading] {
     @apply pointer-events-none;
   }
 
+  /* ------------------------------------------------------------- toolbar */
+  &__toolbar {
+    @apply flex flex-wrap items-center gap-tight;
+  }
+
+  &__search {
+    @apply min-w-0 flex-1 basis-64;
+  }
+
+  /* Filter controls get a fixed, compact width on sm+ so they share a row
+     with the search box; full width when stacked on phones. */
+  &__filters {
+    @apply flex w-full flex-wrap items-center gap-tight sm:w-auto;
+
+    > * {
+      @apply w-full sm:w-44;
+    }
+  }
+
+  &__toolbar-end {
+    @apply ms-auto flex items-center gap-tight;
+  }
+
+  &__columns-btn {
+    @apply inline-flex h-10 items-center gap-2 rounded-md border border-border bg-surface px-3
+      text-sm font-medium text-content transition-colors duration-fast ease-standard
+      hover:bg-surface-sunken;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary;
+  }
+
+  &__menu-icon {
+    @apply me-2 inline shrink-0 text-content-muted;
+  }
+
+  /* -------------------------------------------------------------- header */
+  &__th {
+    @apply p-0;
+
+    &[draggable='true'] {
+      @apply cursor-grab;
+    }
+
+    &[data-dragging] {
+      @apply opacity-50;
+    }
+
+    &[data-drop-target] {
+      @apply bg-primary-subtle;
+    }
+  }
+
+  &__th-inner {
+    @apply flex items-center gap-1 pe-2;
+  }
+
+  &__sorter,
+  &__label {
+    @apply flex min-w-0 flex-1 items-center gap-1 px-4 py-3 text-start text-xs font-semibold
+      uppercase tracking-wide text-content-muted;
+  }
+
+  &__sorter {
+    @apply cursor-pointer hover:text-content;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset
+      focus-visible:ring-primary;
+  }
+
+  &__sort-icon {
+    @apply shrink-0 text-content-faint transition-colors duration-fast;
+
+    &[data-active] {
+      @apply text-primary;
+    }
+  }
+
+  &__pin-icon {
+    @apply shrink-0 text-primary;
+  }
+
+  &__menu-btn {
+    @apply inline-flex size-6 shrink-0 items-center justify-center rounded text-content-faint
+      opacity-0 transition-opacity duration-fast hover:bg-surface-sunken hover:text-content;
+    @apply focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2
+      focus-visible:ring-primary;
+
+    &[aria-expanded='true'] {
+      @apply opacity-100;
+    }
+  }
+
+  &__th:hover &__menu-btn {
+    @apply opacity-100;
+  }
+
+  /* --------------------------------------------------------- pinned cells */
+  [data-pinned] {
+    @apply sticky z-[1] bg-surface;
+  }
+
+  .dyl-table__row:hover [data-pinned] {
+    @apply bg-surface-sunken;
+  }
+
+  [data-pinned='start'][data-pin-edge] {
+    box-shadow: inset calc(-1 * var(--dyl-border-width, 1px)) 0 0 var(--dyl-border);
+  }
+
+  [data-pinned='end'][data-pin-edge] {
+    box-shadow: inset var(--dyl-border-width, 1px) 0 0 var(--dyl-border);
+  }
+
+  /* ---------------------------------------------------------------- body */
   &__select-cell {
     @apply w-10;
   }
@@ -18,19 +130,26 @@
     background-color: color-mix(in srgb, var(--dyl-surface) 65%, transparent);
   }
 
+  /* -------------------------------------------------------------- footer */
   &__footer {
-    @apply mt-3 flex flex-wrap items-center justify-between gap-3 text-sm text-content-muted;
+    @apply flex flex-wrap items-center justify-between gap-base text-sm text-content-muted;
+  }
+
+  &__footer-end {
+    @apply ms-auto flex flex-wrap items-center gap-base;
   }
 
   &__page-size {
-    @apply flex items-center gap-2;
+    @apply flex items-center gap-2 whitespace-nowrap;
 
     select {
-      @apply rounded-md border border-border bg-surface px-2 py-1 text-content;
+      @apply h-8 rounded-md border border-border bg-surface px-2 text-content;
+      @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary;
     }
   }
 
+  &__range,
   &__count {
-    @apply tabular-nums;
+    @apply whitespace-nowrap tabular-nums;
   }
 }

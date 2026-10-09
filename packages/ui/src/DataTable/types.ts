@@ -12,27 +12,84 @@ export interface DataTableSort {
   order: 'asc' | 'desc' | ''
 }
 
+export interface DataTableColumnPinning {
+  left?: string[]
+  right?: string[]
+}
+
+/** The user-adjustable column layout — persist it to restore a user's view. */
+export interface DataTableLayout {
+  columnOrder: string[]
+  columnPinning: { left: string[]; right: string[] }
+  columnVisibility: Record<string, boolean>
+}
+
+export interface DataTableInitialState {
+  sorting?: DataTableSort
+  columnOrder?: string[]
+  columnPinning?: DataTableColumnPinning
+  columnVisibility?: Record<string, boolean>
+  /** Client-side page size. Defaults to the first `pageSizeOptions` entry. */
+  pageSize?: number
+}
+
 export interface DataTableProps<TData> {
-  /** TanStack column definitions. */
+  /** TanStack column definitions. Each column needs an `id` or `accessorKey`. */
   columns: ColumnDef<TData, unknown>[]
-  /** Row data for the current page. */
+  /** Row data. Client mode: the full set. Server mode: the current page. */
   data: TData[]
   /** Show the loading overlay. */
   loading?: boolean
-  /** Server-side paging state. Omit for a non-paginated table. */
+  /** Message shown when there are no rows. @default 'No data' */
+  emptyMessage?: ReactNode
+  /** Stable row id (used by selection). Defaults to the row index. */
+  getRowId?: (row: TData, index: number) => string
+
+  /* ---------------------------------------------------------------- toolbar */
+  /** Show the search box. Client mode filters every column. @default false */
+  searchable?: boolean
+  /** @default 'Search…' */
+  searchPlaceholder?: string
+  /** Server-side search: receives the raw query (debounce it yourself) and disables client filtering. */
+  onSearchChange?: (query: string) => void
+  /** Filter controls rendered after the search box (e.g. `Select`s). */
+  filters?: ReactNode
+  /** Extra controls at the end of the toolbar (e.g. an export button). */
+  toolbarEnd?: ReactNode
+  /** Show the "Columns" menu (visibility + reset layout). @default true when the toolbar is shown */
+  columnsToggle?: boolean
+
+  /* ---------------------------------------------------------------- columns */
+  /** Per-column menu (sort, pin, move, hide). @default true */
+  columnMenu?: boolean
+  /** Drag column headers to reorder. @default true */
+  reorderable?: boolean
+  /** Allow pinning columns to the start/end edge. @default true */
+  pinnable?: boolean
+  /** Initial sorting / layout / page size. */
+  initialState?: DataTableInitialState
+  /** Called whenever the column order, pinning or visibility changes. */
+  onLayoutChange?: (layout: DataTableLayout) => void
+
+  /* ------------------------------------------------------------- pagination */
+  /** Client-side pagination over `data`. Ignored when `pagingData` is set. @default false */
+  pagination?: boolean
+  /** Server-side paging state (1-based `pageIndex`). */
   pagingData?: DataTablePagingData
   /** Page-size options for the selector. @default [10, 25, 50] */
   pageSizeOptions?: number[]
-  /** Called when the page changes. */
+  /** Server mode: called with the new 1-based page. */
   onPaginationChange?: (pageIndex: number) => void
-  /** Called when the page size changes. */
+  /** Called when the page size changes (both modes). */
   onPageSizeChange?: (pageSize: number) => void
-  /** Called when a sortable header is toggled. */
+
+  /* ---------------------------------------------------------------- sorting */
+  /** Server-side sorting: receives the sort and disables client sorting. */
   onSort?: (sort: DataTableSort) => void
+
+  /* -------------------------------------------------------------- selection */
   /** Enable a leading selection-checkbox column. */
   selectable?: boolean
   /** Called with the selected row objects. */
   onSelectChange?: (rows: TData[]) => void
-  /** Message shown when there are no rows. @default 'No data' */
-  emptyMessage?: ReactNode
 }
