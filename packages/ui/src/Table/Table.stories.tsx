@@ -5,7 +5,15 @@ import { Table } from './Table'
 const meta = {
   title: 'Data Display/Table',
   component: Table,
-  parameters: { layout: 'padded' },
+  parameters: {
+    layout: 'padded',
+    docs: {
+      description: {
+        component:
+          '`Table` is the styled, static table markup. For a data grid with **search, filters, sorting, column pinning / reordering / hiding and pagination** use [`DataTable`](?path=/docs/data-display-datatable--docs) — see the [Ticket queue](?path=/story/data-display-datatable--ticket-queue) example.',
+      },
+    },
+  },
   tags: ['autodocs'],
   // Tables sit on a card surface in real screens — mirror the showcase.
   decorators: [
