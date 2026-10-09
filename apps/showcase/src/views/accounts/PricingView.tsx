@@ -50,7 +50,7 @@ export function PricingView() {
               </div>
               {plan.highlighted && <StatusTag tone="info">Popular</StatusTag>}
             </div>
-            <div className="mt-5">
+            <div className="mt-6">
               <p className="text-3xl font-semibold tracking-tight text-content">
                 {displayPrice(plan, billingPeriod)}
               </p>
@@ -58,7 +58,7 @@ export function PricingView() {
                 <p className="mt-1 text-xs text-success">2 months free</p>
               )}
             </div>
-            <ul className="mt-5 flex-1 space-y-2">
+            <ul className="mt-6 flex-1 space-y-2">
               {plan.features.map((feature) => (
                 <li key={feature} className="flex gap-2 text-sm text-content-muted">
                   <Icon as={TbIcons.TbCheck} size={16} className="mt-0.5 shrink-0 text-success" />

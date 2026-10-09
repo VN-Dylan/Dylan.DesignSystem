@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { CtaSection } from '@/components/marketing'
-import { Card, PriceTag, Reveal } from '@vn-dylan/ui'
+import { Card, PriceTag, Reveal, Container } from '@vn-dylan/ui'
 import { Icon, TbIcons } from '@vn-dylan/icons'
 import { bookingSubtotal, bookingTotal, stays } from '@/mock/booking'
 import { useBookingStore } from '@/store/bookingStore'
@@ -14,7 +14,7 @@ export function BookingConfirmationView() {
   const reference = useMemo(() => `DYL-${stay.id.slice(-4).toUpperCase()}-1026`, [stay.id])
 
   return (
-    <main className="mx-auto max-w-4xl px-4 py-10">
+    <Container asElement="main" className="py-12">
       <Reveal className="space-y-6 text-center">
         <span className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-success-subtle text-success">
           <Icon as={TbIcons.TbCircleCheck} aria-hidden />
@@ -28,7 +28,7 @@ export function BookingConfirmationView() {
         </div>
       </Reveal>
 
-      <Card bordered className="my-8 shadow-sm" bodyClass="space-y-5 p-5">
+      <Card bordered className="my-8 shadow-sm" bodyClass="space-y-6 p-6">
         <TripSummary stay={stay} checkIn={checkIn} checkOut={checkOut} guests={guests} />
         <div className="border-t border-border pt-4">
           <SummaryRow
@@ -44,6 +44,6 @@ export function BookingConfirmationView() {
         primary={{ label: 'Explore more stays', href: '/booking' }}
         tone="surface"
       />
-    </main>
+    </Container>
   )
 }

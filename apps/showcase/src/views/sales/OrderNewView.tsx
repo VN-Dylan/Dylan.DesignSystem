@@ -14,7 +14,7 @@ interface LineItem {
 
 function Field({ label, children }: { label: string; children: ReactNode }) {
   return (
-    <label className="block space-y-1.5">
+    <label className="block space-y-2">
       <span className="text-sm font-medium text-content">{label}</span>
       {children}
     </label>
@@ -114,7 +114,7 @@ export function OrderNewView() {
                   />
                 </Field>
               </div>
-              <div className="mt-4 space-y-1.5">
+              <div className="mt-4 space-y-2">
                 <span className="block text-sm font-medium text-content">Payment method</span>
                 <Segment
                   value={payment}

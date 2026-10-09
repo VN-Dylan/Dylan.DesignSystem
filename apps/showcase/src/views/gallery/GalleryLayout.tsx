@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
-import { Button, Dropdown } from '@vn-dylan/ui'
+import { Button, Dropdown, Container } from '@vn-dylan/ui'
 import { Icon, TbIcons } from '@vn-dylan/icons'
 import { themeSchemaNames } from '@vn-dylan/tokens'
 import { useThemeStore } from '@/store/themeStore'
@@ -106,8 +106,8 @@ export function GalleryLayout() {
 
   return (
     <div className="min-h-screen bg-bg text-content">
-      <header className="sticky top-0 z-20 border-b border-border bg-surface">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3">
+      <header className="sticky top-0 z-sticky border-b border-border bg-surface">
+        <Container className="flex items-center justify-between gap-4 py-3">
           <div className="flex items-center gap-3">
             <Button
               size="sm"
@@ -136,10 +136,10 @@ export function GalleryLayout() {
               <Icon as={TbIcons.TbBrandGithub} size={18} />
             </a>
           </div>
-        </div>
+        </Container>
       </header>
 
-      <div className="mx-auto flex max-w-7xl gap-8 px-4 py-8">
+      <Container className="flex gap-8 py-8">
         <aside className="hidden w-56 shrink-0 lg:block">
           <div className="sticky top-24">
             <CategoryRail />
@@ -147,7 +147,7 @@ export function GalleryLayout() {
         </aside>
 
         {menuOpen && (
-          <div className="fixed inset-x-0 top-[57px] z-10 border-b border-border bg-surface p-4 lg:hidden">
+          <div className="fixed inset-x-0 top-[57px] z-dropdown border-b border-border bg-surface p-4 lg:hidden">
             <CategoryRail onNavigate={() => setMenuOpen(false)} />
           </div>
         )}
@@ -155,7 +155,7 @@ export function GalleryLayout() {
         <main className="min-w-0 flex-1 pb-24">
           <Outlet />
         </main>
-      </div>
+      </Container>
     </div>
   )
 }

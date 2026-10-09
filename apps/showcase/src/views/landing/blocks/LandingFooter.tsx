@@ -1,4 +1,5 @@
 import { Icon, TbIcons } from '@vn-dylan/icons'
+import { Container } from '@vn-dylan/ui'
 import { Reveal } from '@/views/landing/blocks/Reveal'
 
 const links = [
@@ -22,7 +23,7 @@ export function LandingFooter() {
   return (
     <footer className="border-t border-border bg-surface">
       <Reveal>
-        <div className="mx-auto flex max-w-5xl flex-col gap-5 px-4 py-8 text-sm text-content-muted sm:flex-row sm:items-center sm:justify-between">
+        <Container className="flex flex-col gap-6 py-8 text-sm text-content-muted sm:flex-row sm:items-center sm:justify-between">
           <p>Internal reference build. Built for evaluation and implementation handoff.</p>
           <nav className="flex flex-wrap items-center gap-x-4 gap-y-2" aria-label="Footer">
             {links.map((link) => (
@@ -31,7 +32,7 @@ export function LandingFooter() {
                 href={link.href}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-1.5 text-content-muted transition hover:text-content"
+                className="inline-flex items-center gap-2 text-content-muted transition hover:text-content"
               >
                 <span>{link.label}</span>
                 {link.note && (
@@ -41,7 +42,7 @@ export function LandingFooter() {
               </a>
             ))}
           </nav>
-        </div>
+        </Container>
       </Reveal>
     </footer>
   )

@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { Button, Reveal, Stagger } from '@vn-dylan/ui'
+import { Button, Reveal, Stagger, Container } from '@vn-dylan/ui'
 import { Icon, TbIcons } from '@vn-dylan/icons'
 import { CtaSection, Faq, TestimonialCard } from '@/components/marketing'
 import { bookingFaq, bookingTestimonials, stays } from '@/mock/booking'
@@ -10,14 +10,17 @@ export function BookingHomeView() {
 
   return (
     <main>
-      <section className="mx-auto grid max-w-6xl gap-8 px-4 py-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)] lg:items-center lg:py-16">
+      <Container
+        asElement="section"
+        className="grid gap-8 py-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)] lg:items-center lg:py-16"
+      >
         <Reveal className="space-y-6">
           <Tagline />
           <div className="space-y-4">
             <h1 className="font-display text-4xl font-bold leading-tight text-content sm:text-5xl">
               Book distinctive stays with production-ready Dylan patterns.
             </h1>
-            <p className="max-w-xl text-lg leading-8 text-content-muted">
+            <p className="max-w-prose text-lg leading-8 text-content-muted">
               A complete travel reference using the booking brand pack, search cards, maps,
               galleries, availability, guests, checkout, and motion.
             </p>
@@ -40,7 +43,7 @@ export function BookingHomeView() {
         <Reveal>
           <BookingSearchPanel />
         </Reveal>
-      </section>
+      </Container>
 
       <BookingSection
         eyebrow="Featured stays"
@@ -64,18 +67,18 @@ export function BookingHomeView() {
         </Stagger>
       </BookingSection>
 
-      <section className="mx-auto max-w-4xl px-4 py-12 sm:py-16">
+      <Container asElement="section" className="py-12 sm:py-16">
         <Faq items={bookingFaq} single />
-      </section>
+      </Container>
 
-      <section className="mx-auto max-w-6xl px-4 pb-16">
+      <Container asElement="section" className="pb-16">
         <CtaSection
           title="Start from the full booking reference."
           description="Search, results, stay detail, checkout, and confirmation are wired as route-level examples."
           primary={{ label: 'Open results', href: '/booking/results' }}
           secondary={{ label: 'Browse components', href: '/gallery' }}
         />
-      </section>
+      </Container>
     </main>
   )
 }

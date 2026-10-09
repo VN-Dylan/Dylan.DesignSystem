@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
-import { Button, Card, Parallax, Reveal, Stagger } from '@vn-dylan/ui'
+import { Button, Card, Parallax, Reveal, Stagger, Container } from '@vn-dylan/ui'
 import { Logo } from '@/components/template/Logo'
 import {
   CtaSection,
@@ -66,7 +66,7 @@ const logos = ['Northstay', 'CasaGrid', 'Roomline', 'StayOS', 'Harbor', 'Voyage'
 
 function MarketingSection({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <section className="space-y-5">
+    <section className="space-y-6">
       <div className="space-y-2">
         <p className="font-mono text-xs uppercase tracking-widest text-primary">Marketing kit</p>
         <h2 className="text-2xl font-bold tracking-tight text-content sm:text-3xl">{title}</h2>
@@ -81,7 +81,7 @@ export function MarketingKitView() {
   return (
     <div className="min-h-screen bg-bg">
       <header className="border-b border-border bg-surface">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-5">
+        <Container className="flex items-center justify-between gap-4 py-6">
           <Logo />
           <div className="flex items-center gap-3">
             <Link
@@ -94,12 +94,12 @@ export function MarketingKitView() {
               Preview action
             </Button>
           </div>
-        </div>
+        </Container>
       </header>
 
-      <main className="mx-auto max-w-6xl space-y-16 px-4 py-12 sm:py-16">
+      <Container asElement="main" className="space-y-16 py-12 sm:py-16">
         <Reveal>
-          <div className="max-w-3xl space-y-4">
+          <div className="max-w-prose space-y-4">
             <p className="font-mono text-xs uppercase tracking-widest text-primary">Surface kit</p>
             <h1 className="text-4xl font-bold tracking-tight text-content sm:text-5xl">
               Marketing sections for booking-ready pages
@@ -152,7 +152,7 @@ export function MarketingKitView() {
         <MarketingSection title="Motion primitives">
           <div className="grid gap-4 lg:grid-cols-3">
             <Reveal>
-              <Card bordered bodyClass="space-y-2 p-5">
+              <Card bordered bodyClass="space-y-2 p-6">
                 <h3 className="font-semibold text-content">Reveal</h3>
                 <p className="text-sm text-content-muted">
                   Fades and lifts content the first time it enters the viewport.
@@ -162,14 +162,14 @@ export function MarketingKitView() {
             <Stagger className="grid gap-4">
               {['Search', 'Compare', 'Reserve'].map((label) => (
                 <Stagger.Item key={label}>
-                  <Card bordered bodyClass="p-5">
+                  <Card bordered bodyClass="p-6">
                     <span className="font-semibold text-content">{label}</span>
                   </Card>
                 </Stagger.Item>
               ))}
             </Stagger>
             <Parallax>
-              <Card bordered className="bg-surface-raised shadow-lg" bodyClass="space-y-2 p-5">
+              <Card bordered className="bg-surface-raised shadow-lg" bodyClass="space-y-2 p-6">
                 <h3 className="font-semibold text-content">Parallax</h3>
                 <p className="text-sm text-content-muted">
                   Translates within a small scroll-linked range and disables under reduced motion.
@@ -178,7 +178,7 @@ export function MarketingKitView() {
             </Parallax>
           </div>
         </MarketingSection>
-      </main>
+      </Container>
     </div>
   )
 }

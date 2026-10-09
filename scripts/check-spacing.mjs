@@ -26,7 +26,20 @@ const ROOTS = [
 const TEST_FILE = /\.(?:test|spec)\.tsx?$/
 const ALLOW = /ds-allow-spacing/
 const ALLOWED_SPACING = new Set(['0', '0.5', '1', '2', '3', '4', '6', '8', '12', '16', '24'])
-const ALLOWED_MAX_WIDTH = new Set(['none', 'full', 'prose', 'narrow', 'content', 'wide'])
+// Tokens + small component caps (<= md, 28rem) + arbitrary `[...]` values are fine.
+// Page- and paragraph-scale widths (lg and up, screen-*) must use Container or the
+// prose/narrow/content/wide tokens.
+const ALLOWED_MAX_WIDTH = new Set([
+  'none',
+  'full',
+  'prose',
+  'narrow',
+  'content',
+  'wide',
+  'xs',
+  'sm',
+  'md',
+])
 
 const VARIANT = String.raw`(?:(?:[\w-]+|\[[^\]\s]+\]):)*`
 const START = String.raw`(?:^|[\s"'\x60(])`
@@ -115,7 +128,7 @@ for (const file of files.sort()) {
     if (isPageWidthScope(file)) {
       collectMatches(MAX_WIDTH, line, (match) => {
         const [, variants, key] = match
-        if (ALLOWED_MAX_WIDTH.has(key)) return
+        if (ALLOWED_MAX_WIDTH.has(key) || key.startsWith('[')) return
         addViolation('max-width', file, index + 1, `${variants}max-w-${key}`)
       })
     }

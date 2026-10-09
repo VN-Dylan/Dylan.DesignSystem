@@ -13,6 +13,7 @@ import {
   Reveal,
   Stagger,
   Tag,
+  Container,
 } from '@vn-dylan/ui'
 import { Icon, TbIcons } from '@vn-dylan/icons'
 import { TestimonialCard } from '@/components/marketing'
@@ -45,8 +46,8 @@ export function BookingStayDetailView() {
 
   return (
     <main>
-      <section className="mx-auto max-w-6xl px-4 py-8">
-        <Reveal className="space-y-5">
+      <Container asElement="section" className="py-8">
+        <Reveal className="space-y-6">
           <ImageGallery images={stay.images} columns={{ sm: 2, md: 3, lg: 4 }} />
           <div className="space-y-3">
             <div className="flex flex-wrap items-start justify-between gap-3">
@@ -70,9 +71,12 @@ export function BookingStayDetailView() {
             </div>
           </div>
         </Reveal>
-      </section>
+      </Container>
 
-      <section className="mx-auto grid max-w-6xl gap-8 px-4 pb-16 lg:grid-cols-[minmax(0,1fr)_minmax(20rem,0.45fr)]">
+      <Container
+        asElement="section"
+        className="grid gap-8 pb-16 lg:grid-cols-[minmax(0,1fr)_minmax(20rem,0.45fr)]"
+      >
         <div className="space-y-8">
           <Reveal>
             <div className="space-y-4">
@@ -98,7 +102,7 @@ export function BookingStayDetailView() {
           </Reveal>
 
           <Reveal>
-            <Card bordered bodyClass="flex items-center gap-4 p-5">
+            <Card bordered bodyClass="flex items-center gap-4 p-6">
               <Avatar shape="circle" src={stay.host.avatarSrc} alt={stay.host.name}>
                 {stay.host.name.slice(0, 1)}
               </Avatar>
@@ -123,9 +127,14 @@ export function BookingStayDetailView() {
         </div>
 
         <aside className="lg:sticky lg:top-24 lg:self-start">
-          <Card bordered className="shadow-lg" bodyClass="space-y-5 p-5">
+          <Card bordered className="shadow-lg" bodyClass="space-y-6 p-6">
             <div className="flex items-start justify-between gap-4">
-              <PriceTag amount={stay.pricePerNight} currency={stay.currency} unit="night" size="lg" />
+              <PriceTag
+                amount={stay.pricePerNight}
+                currency={stay.currency}
+                unit="night"
+                size="lg"
+              />
               <span className="flex items-center gap-2 text-sm text-content-muted">
                 <Rating readOnly allowHalf value={stay.rating} size="sm" />
                 {stay.rating}
@@ -161,7 +170,7 @@ export function BookingStayDetailView() {
             </Button>
           </Card>
         </aside>
-      </section>
+      </Container>
     </main>
   )
 }

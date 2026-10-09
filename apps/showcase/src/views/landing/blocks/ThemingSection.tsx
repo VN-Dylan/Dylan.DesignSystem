@@ -35,8 +35,8 @@ export function ThemingSection() {
       description="Schema buttons write to the same store the app shell uses, so the landing page and component gallery re-theme together."
     >
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:items-start">
-        <div className="rounded-lg border border-border bg-surface p-5">
-          <div className="mb-5 flex items-center justify-between gap-3">
+        <div className="rounded-lg border border-border bg-surface p-6">
+          <div className="mb-6 flex items-center justify-between gap-3">
             <div className="space-y-1 text-start">
               <h3 className="font-semibold text-content">Live schema</h3>
               <p className="text-sm text-content-muted">Current preset: {schema}</p>
@@ -71,7 +71,7 @@ export function ThemingSection() {
             })}
           </div>
 
-          <div className="mt-5 rounded-md bg-surface-sunken p-4">
+          <div className="mt-6 rounded-md bg-surface-sunken p-4">
             <div className="mb-3 flex items-center gap-2 text-sm font-medium text-content">
               <Icon as={TbIcons.TbSparkles} size={16} />
               Preview tokens

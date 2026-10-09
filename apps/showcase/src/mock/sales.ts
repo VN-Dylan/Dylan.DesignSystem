@@ -148,7 +148,7 @@ export const products: Product[] = [
     rating: 4.1,
   },
   {
-    id: 'p-10',
+    id: 'p-12',
     name: 'MagSafe Travel Charger',
     sku: 'MAG-CHG-10',
     category: 'Accessories',
@@ -194,7 +194,7 @@ export const orders: Order[] = [
     items: [
       { productId: 'p-01', name: 'Aurora Chrono Watch', qty: 1, price: 420 },
       { productId: 'p-04', name: 'Echo Buds Pro', qty: 1, price: 149 },
-      { productId: 'p-10', name: 'MagSafe Travel Charger', qty: 1, price: 59 },
+      { productId: 'p-12', name: 'MagSafe Travel Charger', qty: 1, price: 59 },
       { productId: 'p-09', name: 'Braided USB-C Cable', qty: 2, price: 19 },
     ],
   },
@@ -251,7 +251,7 @@ export const orders: Order[] = [
     status: 'cancelled',
     payment: 'paypal',
     items: [
-      { productId: 'p-10', name: 'MagSafe Travel Charger', qty: 1, price: 59 },
+      { productId: 'p-12', name: 'MagSafe Travel Charger', qty: 1, price: 59 },
       { productId: 'p-09', name: 'Braided USB-C Cable', qty: 1, price: 19 },
     ],
   },

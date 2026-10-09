@@ -11,6 +11,7 @@ import {
   PriceTag,
   Reveal,
   Wizard,
+  Container,
 } from '@vn-dylan/ui'
 import {
   blockedBookingDates,
@@ -51,13 +52,13 @@ export function BookingCheckoutView() {
   )
 
   return (
-    <main className="mx-auto max-w-5xl px-4 py-8">
+    <Container asElement="main" className="py-8">
       <Reveal className="mb-8 space-y-3">
         <p className="font-mono text-xs uppercase tracking-wide text-primary">Checkout</p>
         <h1 className="font-display text-3xl font-bold leading-tight text-content sm:text-4xl">
           Reserve {stay.title}
         </h1>
-        <p className="max-w-2xl text-content-muted">
+        <p className="max-w-prose text-content-muted">
           Complete the demo checkout. No account is created and no real payment is collected.
         </p>
       </Reveal>
@@ -71,11 +72,13 @@ export function BookingCheckoutView() {
               title: 'Trip details',
               description: 'Dates and guests',
               content: (
-                <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(16rem,0.5fr)]">
+                <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(16rem,0.5fr)]">
                   <div className="space-y-4">
                     <AvailabilityCalendar
                       value={range}
-                      onChange={([start, end]) => setDates(toBookingDate(start), toBookingDate(end))}
+                      onChange={([start, end]) =>
+                        setDates(toBookingDate(start), toBookingDate(end))
+                      }
                       blockedDates={blockedBookingDates(stay).filter(Boolean) as Date[]}
                       minNights={2}
                       priceForDate={() => stay.pricePerNight}
@@ -84,7 +87,12 @@ export function BookingCheckoutView() {
                     <GuestSelector value={guests} onChange={setGuests} totalMax={8} />
                   </div>
                   <Card bordered bodyClass="space-y-3 p-4">
-                    <TripSummary stay={stay} checkIn={checkIn} checkOut={checkOut} guests={guests} />
+                    <TripSummary
+                      stay={stay}
+                      checkIn={checkIn}
+                      checkOut={checkOut}
+                      guests={guests}
+                    />
                   </Card>
                 </div>
               ),
@@ -174,9 +182,14 @@ export function BookingCheckoutView() {
               title: 'Review',
               description: 'Confirm trip',
               content: (
-                <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(16rem,0.5fr)]">
+                <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(16rem,0.5fr)]">
                   <Card bordered bodyClass="space-y-4 p-4">
-                    <TripSummary stay={stay} checkIn={checkIn} checkOut={checkOut} guests={guests} />
+                    <TripSummary
+                      stay={stay}
+                      checkIn={checkIn}
+                      checkOut={checkOut}
+                      guests={guests}
+                    />
                     <div className="border-t border-border pt-4 text-sm text-content-muted">
                       Confirmation will be sent to {guestInfo.email || 'your email'}.
                     </div>
@@ -209,6 +222,6 @@ export function BookingCheckoutView() {
           Back to stay
         </Button>
       </div>
-    </main>
+    </Container>
   )
 }

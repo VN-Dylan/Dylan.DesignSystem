@@ -35,8 +35,8 @@ export function CtaSection({
             : 'border-border bg-surface text-content'
         }`}
       >
-        <div className={`flex flex-col gap-5 ${alignment}`}>
-          <div className="max-w-2xl space-y-2">
+        <div className={`flex flex-col gap-6 ${alignment}`}>
+          <div className="max-w-prose space-y-2">
             <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">{title}</h2>
             {description && (
               <p className={brand ? 'text-primary-fg' : 'text-content-muted'}>{description}</p>

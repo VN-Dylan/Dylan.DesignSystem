@@ -1,6 +1,15 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Button, Card, Input, Select, Switcher, Tag, type SelectOption } from '@vn-dylan/ui'
+import {
+  Button,
+  Card,
+  Input,
+  Select,
+  Switcher,
+  Tag,
+  type SelectOption,
+  Container,
+} from '@vn-dylan/ui'
 import { Icon, TbIcons } from '@vn-dylan/icons'
 import { themeSchemaNames } from '@vn-dylan/tokens'
 import { useThemeStore } from '@/store/themeStore'
@@ -21,8 +30,8 @@ export function HeroSection() {
   const [notify, setNotify] = useState(true)
 
   return (
-    <header className="mx-auto max-w-6xl px-4">
-      <nav className="flex items-center justify-between py-5">
+    <Container asElement="header">
+      <nav className="flex items-center justify-between py-6">
         <Logo />
         <div className="flex items-center gap-2">
           <a
@@ -43,7 +52,7 @@ export function HeroSection() {
         </div>
       </nav>
 
-      <div className="grid items-center gap-10 py-12 lg:grid-cols-2 lg:py-20">
+      <div className="grid items-center gap-12 py-12 lg:grid-cols-2 lg:py-24">
         <div className="space-y-6">
           <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-xs text-content-muted">
             <span className="h-1.5 w-1.5 rounded-full bg-success" />
@@ -52,7 +61,7 @@ export function HeroSection() {
           <h1 className="text-4xl font-bold tracking-tight text-content sm:text-5xl">
             A complete admin design system, rebuilt in the open
           </h1>
-          <p className="max-w-xl text-lg text-content-muted">
+          <p className="max-w-prose text-lg text-content-muted">
             84 React components, 32 utilities and a token layer that reproduces the Eyris admin
             template — Tailwind, SCSS and TypeScript, themed entirely through CSS variables.
           </p>
@@ -80,7 +89,7 @@ export function HeroSection() {
                 type="button"
                 aria-pressed={schema === name}
                 onClick={() => setSchema(name)}
-                className={`rounded-full border px-2.5 py-1 text-xs capitalize transition ${
+                className={`rounded-full border px-3 py-1 text-xs capitalize transition ${
                   schema === name
                     ? 'border-primary bg-primary-subtle text-primary'
                     : 'border-border text-content-muted hover:border-border-strong'
@@ -141,6 +150,6 @@ export function HeroSection() {
           All 84 components →
         </Link>
       </div>
-    </header>
+    </Container>
   )
 }

@@ -15,7 +15,7 @@ function AuthHead({ title, subtitle }: { title: string; subtitle?: ReactNode }) 
 function Field({ label, name, ...props }: { label: string } & ComponentProps<typeof Input>) {
   const fieldName = name ?? label.toLowerCase().replace(/\s+/g, '-')
   return (
-    <label className="block space-y-1.5">
+    <label className="block space-y-2">
       <span className="text-sm font-medium text-content">{label}</span>
       <Input name={fieldName} {...props} />
     </label>
@@ -33,7 +33,7 @@ const useMockSubmit = (to: string) => {
 export function SignInView() {
   const onSubmit = useMockSubmit('/sales/dashboard')
   return (
-    <form className="space-y-5" onSubmit={onSubmit}>
+    <form className="space-y-6" onSubmit={onSubmit}>
       <AuthHead title="Welcome back" subtitle="Sign in to continue to your workspace." />
       <Field label="Email" type="email" defaultValue="dylan@vn-dylan.dev" autoComplete="email" />
       <Field
@@ -64,7 +64,7 @@ export function SignInView() {
 export function SignUpView() {
   const onSubmit = useMockSubmit('/sales/dashboard')
   return (
-    <form className="space-y-5" onSubmit={onSubmit}>
+    <form className="space-y-6" onSubmit={onSubmit}>
       <AuthHead title="Create your account" subtitle="Start exploring the design system." />
       <Field label="Full name" autoComplete="name" />
       <Field label="Email" type="email" autoComplete="email" />
@@ -86,7 +86,7 @@ export function SignUpView() {
 export function ForgotPasswordView() {
   const onSubmit = useMockSubmit('/auth/otp-verification')
   return (
-    <form className="space-y-5" onSubmit={onSubmit}>
+    <form className="space-y-6" onSubmit={onSubmit}>
       <AuthHead
         title="Reset your password"
         subtitle="Enter your email and we'll send a verification code."
@@ -107,7 +107,7 @@ export function ForgotPasswordView() {
 export function ResetPasswordView() {
   const onSubmit = useMockSubmit('/auth/sign-in')
   return (
-    <form className="space-y-5" onSubmit={onSubmit}>
+    <form className="space-y-6" onSubmit={onSubmit}>
       <AuthHead title="Set a new password" subtitle="Choose a password you haven't used before." />
       <Field label="New password" type="password" autoComplete="new-password" />
       <Field label="Confirm password" type="password" autoComplete="new-password" />
@@ -123,7 +123,7 @@ export function OtpVerificationView() {
   const [code, setCode] = useState('')
   return (
     <form
-      className="space-y-5"
+      className="space-y-6"
       onSubmit={(e) => {
         e.preventDefault()
         navigate('/auth/reset-password')

@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
-import { Drawer } from '@vn-dylan/ui'
+import { AppShell } from '@vn-dylan/ui'
 import { useLayout } from '@/utils/hooks/useLayout'
 import { Header } from '@/components/template/Header'
 import { Footer } from '@/components/template/Footer'
@@ -10,10 +10,11 @@ import { ThemeConfigDrawer } from '@/components/template/ThemeConfigDrawer'
 /**
  * Primary application shell: persistent side nav + sticky header + scrolling
  * content. Below the `lg` breakpoint the side nav becomes an overlay drawer
- * toggled from the header.
+ * toggled from the header. The frame itself is the library `AppShell`; layout
+ * state stays in the persisted theme store.
  */
 export function AppLayout() {
-  const { isMobile, sideNavCollapsed, mobileNavOpen, setMobileNavOpen } = useLayout()
+  const { sideNavCollapsed, setSideNavCollapsed, mobileNavOpen, setMobileNavOpen } = useLayout()
   const { pathname } = useLocation()
 
   // Close the mobile overlay after navigating.
@@ -23,39 +24,25 @@ export function AppLayout() {
   }, [pathname])
 
   return (
-    <div className="flex min-h-screen bg-bg text-content">
-      {!isMobile && (
-        <aside
-          className="sticky top-0 h-screen shrink-0 transition-[width] duration-200"
-          style={{ width: sideNavCollapsed ? 72 : 260 }}
-        >
-          <SideNav collapsed={sideNavCollapsed} />
-        </aside>
-      )}
+    <AppShell
+      sidebarCollapsed={sideNavCollapsed}
+      onSidebarCollapsedChange={setSideNavCollapsed}
+      mobileNavOpen={mobileNavOpen}
+      onMobileNavOpenChange={setMobileNavOpen}
+    >
+      <AppShell.Sidebar aria-label="Navigation">
+        <SideNav collapsed={sideNavCollapsed} />
+      </AppShell.Sidebar>
 
-      {isMobile && (
-        <Drawer
-          isOpen={mobileNavOpen}
-          onClose={() => setMobileNavOpen(false)}
-          placement="left"
-          width={260}
-          closable={false}
-          bodyClass="p-0"
-          aria-label="Navigation"
-        >
-          <SideNav />
-        </Drawer>
-      )}
-
-      <div className="flex min-w-0 flex-1 flex-col">
+      <AppShell.Content>
         <Header />
-        <main className="flex-1 p-4">
+        <AppShell.Main containerSize="wide">
           <Outlet />
-        </main>
+        </AppShell.Main>
         <Footer />
-      </div>
+      </AppShell.Content>
 
       <ThemeConfigDrawer />
-    </div>
+    </AppShell>
   )
 }

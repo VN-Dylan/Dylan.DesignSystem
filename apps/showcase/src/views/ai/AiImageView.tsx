@@ -72,7 +72,7 @@ export function AiImageView() {
         />
         <div className="grid gap-3 md:grid-cols-[minmax(14rem,1fr)_16rem_auto] md:items-end">
           <div>
-            <p className="mb-1.5 text-sm font-medium text-content">Style</p>
+            <p className="mb-2 text-sm font-medium text-content">Style</p>
             <Select
               options={styleOptions}
               value={style}
@@ -82,7 +82,7 @@ export function AiImageView() {
             />
           </div>
           <div>
-            <p className="mb-1.5 text-sm font-medium text-content">Aspect ratio</p>
+            <p className="mb-2 text-sm font-medium text-content">Aspect ratio</p>
             <Segment
               value={ratio}
               onChange={(value) => setRatio(String(value) as GeneratedImage['ratio'])}

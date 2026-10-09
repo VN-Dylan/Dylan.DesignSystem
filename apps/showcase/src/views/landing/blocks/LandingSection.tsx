@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import { Section, Stack } from '@vn-dylan/ui'
 import { Reveal } from '@/views/landing/blocks/Reveal'
 
 export interface LandingSectionProps {
@@ -24,10 +25,10 @@ export function LandingSection({
   className,
 }: LandingSectionProps) {
   return (
-    <section id={id} className={`mx-auto max-w-5xl px-4 py-16 sm:py-20 ${className ?? ''}`}>
+    <Section id={id} className={className}>
       <Reveal>
         {(eyebrow || title || description) && (
-          <div className="mb-10 max-w-2xl space-y-3">
+          <Stack gap={3} className="mb-12 max-w-prose">
             {eyebrow && (
               <p className="font-mono text-xs uppercase tracking-widest text-primary">{eyebrow}</p>
             )}
@@ -37,10 +38,10 @@ export function LandingSection({
               </h2>
             )}
             {description && <p className="text-content-muted">{description}</p>}
-          </div>
+          </Stack>
         )}
         {children}
       </Reveal>
-    </section>
+    </Section>
   )
 }

@@ -180,7 +180,7 @@ export function TeamUsersView() {
           Invite member
         </h2>
         <div className="mt-4 space-y-4">
-          <label className="block space-y-1.5">
+          <label className="block space-y-2">
             <span className="text-sm font-medium text-content">Email</span>
             <Input
               name="invite-email"
@@ -190,7 +190,7 @@ export function TeamUsersView() {
               placeholder="name@company.com"
             />
           </label>
-          <label className="block space-y-1.5">
+          <label className="block space-y-2">
             <span className="text-sm font-medium text-content">Role</span>
             <Select
               options={inviteRoleOptions}

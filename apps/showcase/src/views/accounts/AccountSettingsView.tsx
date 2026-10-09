@@ -6,7 +6,7 @@ import { notificationPrefs, profile } from '@/mock/account'
 
 function Field({ label, children }: { label: string; children: ReactNode }) {
   return (
-    <label className="block space-y-1.5">
+    <label className="block space-y-2">
       <span className="text-sm font-medium text-content">{label}</span>
       {children}
     </label>
@@ -91,11 +91,11 @@ export function AccountSettingsView() {
                     <p className="text-xs text-content-muted">{p.description}</p>
                   </div>
                   <div className="flex shrink-0 items-center gap-4 text-xs text-content-muted">
-                    <label className="flex items-center gap-1.5">
+                    <label className="flex items-center gap-2">
                       <Switcher checked={p.email} onChange={() => togglePref(p.id, 'email')} />
                       Email
                     </label>
-                    <label className="flex items-center gap-1.5">
+                    <label className="flex items-center gap-2">
                       <Switcher checked={p.push} onChange={() => togglePref(p.id, 'push')} />
                       Push
                     </label>

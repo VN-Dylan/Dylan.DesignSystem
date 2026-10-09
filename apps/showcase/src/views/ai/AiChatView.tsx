@@ -23,7 +23,7 @@ function ChatText({ text }: { text: string }) {
     )
 
   return (
-    <div className="space-y-1.5">
+    <div className="space-y-2">
       {text.split('\n').map((line, index) => {
         if (line.trim() === '') return <div key={index} className="h-1" aria-hidden />
         if (line.startsWith('- ')) {

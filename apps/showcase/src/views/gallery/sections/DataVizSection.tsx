@@ -106,7 +106,7 @@ export function DataVizSection() {
         description="Buckets static sample values into a bar-chart distribution."
         code={`<Histogram data={galleryHistogram} bins={8} height={260} />`}
       >
-        <div className="w-full max-w-2xl">
+        <div className="w-full max-w-prose">
           <Histogram data={galleryHistogram} bins={8} height={260} />
         </div>
       </Demo>

@@ -35,7 +35,7 @@ export function SideNav({ collapsed = false }: SideNavProps) {
     <nav
       aria-label="Primary"
       data-collapsed={collapsed || undefined}
-      className="flex h-full w-full flex-col border-e border-border bg-surface"
+      className="flex h-full w-full flex-col"
     >
       <div className="flex h-16 shrink-0 items-center px-4">
         <Logo compact={collapsed} />

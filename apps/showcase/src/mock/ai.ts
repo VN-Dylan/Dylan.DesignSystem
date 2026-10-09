@@ -57,7 +57,7 @@ export const conversations: Conversation[] = [
     updated: '2026-08-29T14:40:00Z',
     messages: [
       {
-        id: 'm-5',
+        id: 'm-6',
         role: 'user',
         content: 'A hook that debounces a value AND tracks whether it’s settling — name ideas?',
         time: '2026-08-29T14:38:00Z',

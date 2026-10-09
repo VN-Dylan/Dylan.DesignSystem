@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { Button, Card, Input, MapView, PriceTag, Reveal, Tag } from '@vn-dylan/ui'
+import { Button, Card, Input, MapView, PriceTag, Reveal, Tag, Container } from '@vn-dylan/ui'
 import { Icon, TbIcons } from '@vn-dylan/icons'
 import { stays } from '@/mock/booking'
 import { useBookingStore } from '@/store/bookingStore'
@@ -50,8 +50,11 @@ export function BookingResultsView() {
   }))
 
   return (
-    <main className="mx-auto grid max-w-6xl gap-6 px-4 py-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)]">
-      <section className="min-w-0 space-y-5 lg:max-h-screen lg:overflow-y-auto lg:pe-2">
+    <Container
+      asElement="main"
+      className="grid gap-6 py-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)]"
+    >
+      <section className="min-w-0 space-y-6 lg:max-h-screen lg:overflow-y-auto lg:pe-2">
         <Reveal>
           <div className="space-y-3">
             <p className="font-mono text-xs uppercase tracking-wide text-primary">Results</p>
@@ -82,7 +85,11 @@ export function BookingResultsView() {
               />
             </label>
             <div className="flex flex-wrap gap-2" aria-label="Sort stays">
-              <Button size="sm" active={sort === 'recommended'} onClick={() => setSort('recommended')}>
+              <Button
+                size="sm"
+                active={sort === 'recommended'}
+                onClick={() => setSort('recommended')}
+              >
                 Recommended
               </Button>
               <Button size="sm" active={sort === 'price'} onClick={() => setSort('price')}>
@@ -115,7 +122,7 @@ export function BookingResultsView() {
             aria-label="Booking results map"
             className="min-h-screen"
             fallback={
-              <div className="flex h-full min-h-screen flex-col justify-between bg-surface-sunken p-5">
+              <div className="flex h-full min-h-screen flex-col justify-between bg-surface-sunken p-6">
                 <div className="space-y-2">
                   <p className="font-display text-xl font-semibold text-content">Map preview</p>
                   <p className="text-sm text-content-muted">
@@ -147,6 +154,6 @@ export function BookingResultsView() {
           />
         </div>
       </aside>
-    </main>
+    </Container>
   )
 }

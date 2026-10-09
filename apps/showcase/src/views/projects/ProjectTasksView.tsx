@@ -86,9 +86,9 @@ export function ProjectTasksView() {
         header: 'Task',
         enableSorting: false,
         cell: ({ row }) => (
-          <div className="min-w-64 space-y-1.5">
+          <div className="min-w-64 space-y-2">
             <p className="font-medium text-content">{row.original.title}</p>
-            <div className="flex flex-wrap gap-1.5">
+            <div className="flex flex-wrap gap-2">
               {row.original.labels.map((label) => (
                 <span
                   key={label}

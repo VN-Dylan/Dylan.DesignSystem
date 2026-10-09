@@ -23,7 +23,7 @@ export function TestimonialCard({ quote, author, role, avatarSrc, rating }: Test
 
   return (
     <Reveal>
-      <Card bordered className="h-full" bodyClass="space-y-5 p-5">
+      <Card bordered className="h-full" bodyClass="space-y-6 p-6">
         {rating != null && (
           <Rating readOnly allowHalf value={rating} aria-label={`${rating} out of 5`} />
         )}

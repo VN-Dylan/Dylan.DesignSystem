@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import { Stack } from '@vn-dylan/ui'
 import { Logo } from '@/components/template/Logo'
 
 export type AuthLayoutVariant = 'simple' | 'side' | 'split'
@@ -9,16 +10,16 @@ export interface AuthLayoutProps {
 }
 
 const Aside = () => (
-  <div className="relative hidden flex-col justify-between overflow-hidden bg-primary p-10 text-primary-fg lg:flex">
+  <div className="relative hidden flex-col justify-between overflow-hidden bg-primary p-12 text-primary-fg lg:flex">
     <Logo className="text-primary-fg [&_span]:text-primary-fg" />
-    <div className="space-y-3">
+    <Stack gap={3}>
       <p className="text-2xl font-semibold leading-snug">
         The Dylan Design System, rebuilt from the Eyris admin template.
       </p>
       <p className="text-primary-fg/80">
         84 components, 32 utilities, runtime theming — exercised by this showcase.
       </p>
-    </div>
+    </Stack>
     <p className="text-xs text-primary-fg/70">Internal reference build · no real accounts</p>
     <div
       aria-hidden
@@ -41,21 +42,21 @@ const FormCard = ({ children }: { children: ReactNode }) => (
 export function AuthLayout({ variant = 'simple', children }: AuthLayoutProps) {
   if (variant === 'simple') {
     return (
-      <div className="grid min-h-screen place-items-center bg-bg px-4 py-10">
-        <div className="w-full max-w-sm space-y-6">
+      <div className="grid min-h-screen place-items-center bg-bg px-4 py-12">
+        <Stack gap="loose" className="w-full max-w-sm">
           <Logo />
           <FormCard>{children}</FormCard>
-        </div>
+        </Stack>
       </div>
     )
   }
 
   const card = (
-    <div className="grid place-items-center bg-bg px-4 py-10">
-      <div className="w-full max-w-sm space-y-6">
+    <div className="grid place-items-center bg-bg px-4 py-12">
+      <Stack gap="loose" className="w-full max-w-sm">
         <Logo className="lg:hidden" />
         <FormCard>{children}</FormCard>
-      </div>
+      </Stack>
     </div>
   )
 

@@ -32,7 +32,7 @@ export function Faq({ items, single = false }: FaqProps) {
 
           return (
             <Stagger.Item key={index}>
-              <Collapsible {...controlled} className="px-5">
+              <Collapsible {...controlled} className="px-6">
                 <Collapsible.Trigger className="text-content">
                   {({ isOpen }) => (
                     <>

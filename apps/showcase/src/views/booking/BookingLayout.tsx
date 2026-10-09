@@ -1,7 +1,7 @@
 import { useMemo, type CSSProperties } from 'react'
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { presetThemeSchema, themeSchemaToCssVars } from '@vn-dylan/tokens'
-import { Button, PageTransition } from '@vn-dylan/ui'
+import { Button, PageTransition, Container } from '@vn-dylan/ui'
 import { Icon, TbIcons } from '@vn-dylan/icons'
 import { useThemeStore } from '@/store/themeStore'
 
@@ -22,8 +22,11 @@ export function BookingLayout() {
       className="min-h-screen bg-bg text-content"
     >
       <header className="sticky top-0 z-sticky border-b border-border bg-surface/95 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4">
-          <Link to="/booking" className="flex items-center gap-3 font-display font-bold text-content">
+        <Container className="flex items-center justify-between gap-4 py-4">
+          <Link
+            to="/booking"
+            className="flex items-center gap-3 font-display font-bold text-content"
+          >
             <span className="grid h-9 w-9 place-items-center rounded-lg bg-primary text-primary-fg">
               <Icon as={TbIcons.TbBed} aria-hidden />
             </span>
@@ -37,7 +40,7 @@ export function BookingLayout() {
               List your place
             </Button>
           </nav>
-        </div>
+        </Container>
       </header>
 
       <PageTransition transitionKey={pathname}>

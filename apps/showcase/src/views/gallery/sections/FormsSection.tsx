@@ -636,7 +636,7 @@ export function FormsSection() {
   placeholder="Start typing..."
 />`}
       >
-        <div className="w-full max-w-2xl space-y-2">
+        <div className="w-full max-w-prose space-y-2">
           <RichTextEditor
             value={editorHtml}
             onChange={setEditorHtml}

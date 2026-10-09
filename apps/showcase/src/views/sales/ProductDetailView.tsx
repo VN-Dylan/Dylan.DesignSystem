@@ -85,7 +85,7 @@ export function ProductDetailView() {
             <Tabs.TabNav value="reviews">Reviews</Tabs.TabNav>
           </Tabs.TabList>
           <Tabs.TabContent value="overview" className="space-y-4 pt-4">
-            <p className="max-w-3xl text-sm leading-6 text-content-muted">
+            <p className="max-w-prose text-sm leading-6 text-content-muted">
               {product.name} is a {product.category.toLowerCase()} item tracked in the sales catalog
               with live inventory, pricing and order performance metrics.
             </p>

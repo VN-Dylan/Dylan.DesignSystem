@@ -571,7 +571,7 @@ export function DataDisplaySection() {
   onApply={handleApply}
 />`}
       >
-        <div className="w-full max-w-2xl space-y-3">
+        <div className="w-full max-w-prose space-y-3">
           <AdvancedFilterBuilder
             fields={filterFields}
             value={advancedQuery}

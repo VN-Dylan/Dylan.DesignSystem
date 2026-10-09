@@ -17,7 +17,7 @@ interface SettingsForm {
 
 function Field({ label, children }: { label: string; children: ReactNode }) {
   return (
-    <label className="block space-y-1.5">
+    <label className="block space-y-2">
       <span className="text-sm font-medium text-content">{label}</span>
       {children}
     </label>
@@ -81,7 +81,7 @@ export function ProjectSettingsView() {
                   onChange={(event) => update({ description: event.target.value })}
                 />
               </Field>
-              <div className="space-y-1.5">
+              <div className="space-y-2">
                 <span className="block text-sm font-medium text-content">Visibility</span>
                 <Segment
                   value={form.visibility}

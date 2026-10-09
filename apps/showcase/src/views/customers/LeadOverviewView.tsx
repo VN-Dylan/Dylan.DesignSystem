@@ -79,7 +79,7 @@ export function LeadOverviewView() {
       <Card
         bordered
         header={{ content: 'Opportunity detail', bordered: true }}
-        bodyClass="space-y-5 p-4"
+        bodyClass="space-y-6 p-4"
       >
         <p className="text-sm leading-6 text-content-muted">{lead.note}</p>
 

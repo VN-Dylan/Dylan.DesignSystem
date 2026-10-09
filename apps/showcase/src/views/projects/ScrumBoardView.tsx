@@ -68,7 +68,7 @@ export function ScrumBoardView() {
                     <Card key={task.id} bordered bodyClass="space-y-3 p-3">
                       <div className="space-y-2">
                         <h2 className="text-sm font-semibold text-content">{task.title}</h2>
-                        <div className="flex flex-wrap gap-1.5">
+                        <div className="flex flex-wrap gap-2">
                           {task.labels.map((label) => (
                             <span
                               key={label}
@@ -90,7 +90,7 @@ export function ScrumBoardView() {
                           alt={member?.name ?? task.assignee}
                         />
                       </div>
-                      <div className="space-y-1.5">
+                      <div className="space-y-2">
                         <div className="flex justify-between text-xs text-content-muted">
                           <span>Checklist</span>
                           <span>

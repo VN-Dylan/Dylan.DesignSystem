@@ -77,16 +77,16 @@ describe('AppShell', () => {
   it('opens and closes the drawer below the breakpoint', async () => {
     setViewport(500)
     render(<Shell />)
-    expect(screen.queryByRole('navigation')).not.toBeInTheDocument()
+    expect(screen.queryByText('Dashboard')).not.toBeInTheDocument()
     const trigger = screen.getByRole('button', { name: 'Open navigation' })
     expect(trigger).toHaveAttribute('aria-expanded', 'false')
 
     await userEvent.click(trigger)
     expect(trigger).toHaveAttribute('aria-expanded', 'true')
-    expect(screen.getByRole('navigation', { name: 'Primary' })).toBeInTheDocument()
+    expect(screen.getByText('Dashboard')).toBeInTheDocument()
 
     await userEvent.keyboard('{Escape}')
-    expect(screen.queryByRole('navigation')).not.toBeInTheDocument()
+    expect(screen.queryByText('Dashboard')).not.toBeInTheDocument()
   })
 
   it('supports a controlled mobile drawer', async () => {
@@ -95,7 +95,7 @@ describe('AppShell', () => {
     render(<Shell mobileNavOpen={false} onMobileNavOpenChange={onOpen} />)
     await userEvent.click(screen.getByRole('button', { name: 'Open navigation' }))
     expect(onOpen).toHaveBeenCalledWith(true)
-    expect(screen.queryByRole('navigation')).not.toBeInTheDocument()
+    expect(screen.queryByText('Dashboard')).not.toBeInTheDocument()
   })
 
   it('throws when parts are used outside AppShell', () => {

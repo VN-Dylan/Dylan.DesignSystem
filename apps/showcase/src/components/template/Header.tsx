@@ -1,4 +1,4 @@
-import { Button } from '@vn-dylan/ui'
+import { AppShell, Button, Inline } from '@vn-dylan/ui'
 import { Icon, TbIcons } from '@vn-dylan/icons'
 import { useThemeStore } from '@/store/themeStore'
 import { useLayout } from '@/utils/hooks/useLayout'
@@ -10,7 +10,7 @@ export function Header() {
   const setConfigOpen = useThemeStore((s) => s.setConfigOpen)
 
   return (
-    <header className="sticky top-0 z-sticky flex h-16 items-center gap-2 border-b border-border bg-surface px-4">
+    <AppShell.Header>
       <Button
         size="sm"
         shape="circle"
@@ -20,7 +20,7 @@ export function Header() {
         onClick={toggleNav}
       />
 
-      <label className="ms-1 hidden items-center gap-2 rounded-md bg-surface-sunken px-3 py-1.5 text-sm text-content-faint sm:flex">
+      <label className="ms-1 hidden items-center gap-2 rounded-md bg-surface-sunken px-3 py-2 text-sm text-content-faint sm:flex">
         <Icon as={TbIcons.TbSearch} size={16} />
         <input
           type="search"
@@ -31,7 +31,7 @@ export function Header() {
         />
       </label>
 
-      <div className="ml-auto flex items-center gap-1">
+      <Inline gap={1} className="ms-auto">
         <Button
           size="sm"
           shape="circle"
@@ -56,7 +56,7 @@ export function Header() {
           onClick={() => setConfigOpen(true)}
         />
         <UserDropdown />
-      </div>
-    </header>
+      </Inline>
+    </AppShell.Header>
   )
 }

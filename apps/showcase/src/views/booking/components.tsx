@@ -11,16 +11,17 @@ import {
   Stagger,
   Tag,
   type GuestCounts,
+  Container,
 } from '@vn-dylan/ui'
 import { Icon, TbIcons } from '@vn-dylan/icons'
-import {
-  parseBookingDate,
-  stays,
-  toBookingDate,
-  type BookingStay,
-} from '@/mock/booking'
+import { parseBookingDate, stays, toBookingDate, type BookingStay } from '@/mock/booking'
 import { useBookingStore } from '@/store/bookingStore'
-import { formatDateRange, formatGuests, formatReviewCount, formatStayLocation } from './bookingUtils'
+import {
+  formatDateRange,
+  formatGuests,
+  formatReviewCount,
+  formatStayLocation,
+} from './bookingUtils'
 
 type BookingRangeValue = [Date | null, Date | null]
 
@@ -36,8 +37,8 @@ export function BookingSection({
   children: ReactNode
 }) {
   return (
-    <section className="mx-auto w-full max-w-6xl px-4 py-12 sm:py-16">
-      <div className="mb-8 max-w-2xl space-y-3">
+    <Container asElement="section" className="py-12 sm:py-16">
+      <div className="mb-8 max-w-prose space-y-3">
         {eyebrow && (
           <p className="font-mono text-xs uppercase tracking-wide text-primary">{eyebrow}</p>
         )}
@@ -47,7 +48,7 @@ export function BookingSection({
         {description && <p className="text-content-muted">{description}</p>}
       </div>
       {children}
-    </section>
+    </Container>
   )
 }
 
@@ -67,8 +68,11 @@ export function BookingSearchPanel({ compact = false }: { compact?: boolean }) {
   }
 
   return (
-    <Card bordered className="shadow-sm" bodyClass="space-y-5 p-4 sm:p-5">
-      <form className="grid gap-4 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)_auto]" onSubmit={handleSubmit}>
+    <Card bordered className="shadow-sm" bodyClass="space-y-6 p-4 sm:p-6">
+      <form
+        className="grid gap-4 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)_auto]"
+        onSubmit={handleSubmit}
+      >
         <label className="space-y-2">
           <span className="text-xs font-semibold uppercase tracking-wide text-content-muted">
             Destination
@@ -90,7 +94,13 @@ export function BookingSearchPanel({ compact = false }: { compact?: boolean }) {
         </div>
 
         <div className="flex items-end">
-          <Button type="submit" variant="solid" size="lg" block icon={<Icon as={TbIcons.TbSearch} aria-hidden />}>
+          <Button
+            type="submit"
+            variant="solid"
+            size="lg"
+            block
+            icon={<Icon as={TbIcons.TbSearch} aria-hidden />}
+          >
             Search
           </Button>
         </div>
@@ -100,7 +110,9 @@ export function BookingSearchPanel({ compact = false }: { compact?: boolean }) {
         <div className="rounded-lg border border-border bg-surface-sunken p-3">
           <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wide text-content-muted">Dates</p>
+              <p className="text-xs font-semibold uppercase tracking-wide text-content-muted">
+                Dates
+              </p>
               <p className="font-medium text-content">{formatDateRange(checkIn, checkOut)}</p>
             </div>
             <Tag prefix>Flexible checkout</Tag>
@@ -146,7 +158,9 @@ export function StayCard({
               <h3 className="font-display text-lg font-semibold leading-snug text-content">
                 {stay.title}
               </h3>
-              {stay.superhost && <Tag className="shrink-0 border-primary text-primary">Superhost</Tag>}
+              {stay.superhost && (
+                <Tag className="shrink-0 border-primary text-primary">Superhost</Tag>
+              )}
             </div>
             <p className="flex items-center gap-1 text-sm text-content-muted">
               <Icon as={TbIcons.TbMapPin} aria-hidden />
@@ -174,7 +188,7 @@ export function StayCard({
 
 export function StayGrid({ items = stays }: { items?: BookingStay[] }) {
   return (
-    <Stagger className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+    <Stagger className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
       {items.map((stay) => (
         <Stagger.Item key={stay.id}>
           <StayCard stay={stay} />
@@ -184,13 +198,7 @@ export function StayGrid({ items = stays }: { items?: BookingStay[] }) {
   )
 }
 
-export function SummaryRow({
-  label,
-  value,
-}: {
-  label: React.ReactNode
-  value: React.ReactNode
-}) {
+export function SummaryRow({ label, value }: { label: React.ReactNode; value: React.ReactNode }) {
   return (
     <div className="flex items-center justify-between gap-4 text-sm">
       <span className="text-content-muted">{label}</span>

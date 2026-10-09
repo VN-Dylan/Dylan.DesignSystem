@@ -17,7 +17,7 @@ export function CategoryMontage() {
           <Link
             key={category.slug}
             to={`/gallery/${category.slug}`}
-            className="group rounded-lg border border-border bg-surface p-5 transition hover:border-primary hover:shadow-sm"
+            className="group rounded-lg border border-border bg-surface p-6 transition hover:border-primary hover:shadow-sm"
           >
             <div className="flex items-start gap-4">
               <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-md bg-primary-subtle text-primary">

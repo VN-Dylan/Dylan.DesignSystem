@@ -24,7 +24,7 @@ export function SectionShell({ slug, children }: SectionShellProps) {
         <h1 id={`cat-${slug}`} className="text-2xl font-bold tracking-tight text-content">
           {category.title}
         </h1>
-        <p className="max-w-2xl text-sm text-content-muted">{category.blurb}</p>
+        <p className="max-w-prose text-sm text-content-muted">{category.blurb}</p>
       </div>
       <div className="space-y-8">{children}</div>
     </section>

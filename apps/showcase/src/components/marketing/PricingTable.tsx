@@ -32,7 +32,7 @@ export function PricingTable({ plans }: PricingTableProps) {
               className={
                 plan.featured ? 'h-full border-primary shadow-lg ring-2 ring-primary' : 'h-full'
               }
-              bodyClass="flex h-full flex-col p-5"
+              bodyClass="flex h-full flex-col p-6"
             >
               <div className="space-y-3">
                 <div className="flex items-start justify-between gap-3">

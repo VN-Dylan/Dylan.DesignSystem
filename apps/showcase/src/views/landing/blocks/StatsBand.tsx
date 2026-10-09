@@ -13,10 +13,10 @@ const stats = [
 /** Landing stats band with the library inventory at a glance. */
 export function StatsBand() {
   return (
-    <LandingSection className="py-10 sm:py-12">
+    <LandingSection className="py-12 sm:py-12">
       <div className="grid gap-3 rounded-lg border border-border bg-surface p-3 shadow-sm sm:grid-cols-3 lg:grid-cols-6">
         {stats.map((stat) => (
-          <div key={stat.label} className="rounded-md bg-surface-sunken px-4 py-5 text-center">
+          <div key={stat.label} className="rounded-md bg-surface-sunken px-4 py-6 text-center">
             <div className="text-2xl font-bold text-content">{stat.value}</div>
             <div className="mt-1 text-xs uppercase tracking-wide text-content-muted">
               {stat.label}

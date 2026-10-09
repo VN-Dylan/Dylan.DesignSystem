@@ -91,14 +91,9 @@ const Sidebar = forwardRef<HTMLElement, AppShellSidebarProps>(function AppShellS
         bodyClass="p-0"
         aria-label={ariaLabel}
       >
-        <nav
-          ref={ref}
-          id={mobileNavId}
-          aria-label={ariaLabel}
-          className={classNames('dyl-app-shell__nav', className)}
-        >
+        <div id={mobileNavId} className={classNames('dyl-app-shell__nav', className)}>
           {children}
-        </nav>
+        </div>
       </Drawer>
     )
   }

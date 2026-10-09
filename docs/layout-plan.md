@@ -64,11 +64,11 @@ Song song được (không phụ thuộc nhau, đều chỉ dùng token Phase 1)
 - **Xong khi:** `check:spacing` = 0 vi phạm trong `packages/ui`; không còn margin ngoài; snapshot đã được duyệt.
 
 ### Phase 5 — Showcase
-- [ ] `AppLayout` → `AppShell`; `BlankLayout`, `AuthLayout`, `BookingLayout`, `GalleryLayout` dùng `Container` / `Section` / `Stack`.
-- [ ] Landing blocks (`LandingSection`, `HeroSection`, `FeatureGrid`, `StatsBand`…) và `components/marketing/*` dùng `Section` xen kẽ tone, bỏ divider giữa section.
-- [ ] Gallery (`GalleryLayout`, `sections/*`, `Demo`, `SectionShell`) và các view còn lại chuyển sang `Container` / `Stack` / `Inline` / `Grid`; chia PR theo nhóm: shell+auth → landing+marketing → booking → gallery.
-- [ ] Thay toàn bộ `max-w-*` rải rác và `flex … gap-*` / `space-y-*` lặp trong `apps/showcase/src`.
-- [ ] Bật `check:spacing` fail cho toàn bộ `apps/showcase/src` (không allow-list).
+- [x] `AppLayout` → `AppShell`; `BlankLayout`, `AuthLayout`, `BookingLayout`, `GalleryLayout` dùng `Container` / `Section` / `Stack`.
+- [x] Landing blocks (`LandingSection`, `HeroSection`, `FeatureGrid`, `StatsBand`…) và `components/marketing/*` dùng `Section` xen kẽ tone, bỏ divider giữa section.
+- [x] Gallery (`GalleryLayout`, `sections/*`, `Demo`, `SectionShell`) và các view còn lại chuyển sang `Container` / `Stack` / `Inline` / `Grid`; chia PR theo nhóm: shell+auth → landing+marketing → booking → gallery.
+- [x] Thay toàn bộ `max-w-*` rải rác và `flex … gap-*` / `space-y-*` lặp trong `apps/showcase/src`.
+- [x] Bật `check:spacing` fail cho toàn bộ `apps/showcase/src` (không allow-list).
 - **Xong khi:** mọi route showcase khớp nhịp §3; `check:spacing` = 0 vi phạm trong `apps/showcase/src`.
 
 ### Phase 6 — Docs & release

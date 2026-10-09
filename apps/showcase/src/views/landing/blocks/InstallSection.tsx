@@ -22,7 +22,7 @@ export function InstallSection() {
       title="Consume the package from GitHub Packages."
       description="Authenticate the private scope, add the UI package, then import the bundled stylesheet once at the app entry."
     >
-      <div className="grid gap-5 lg:grid-cols-2">
+      <div className="grid gap-6 lg:grid-cols-2">
         <div className="space-y-3">
           <h3 className="text-sm font-semibold text-content">.npmrc</h3>
           <CodeBlock language="ini">{npmrcSnippet}</CodeBlock>

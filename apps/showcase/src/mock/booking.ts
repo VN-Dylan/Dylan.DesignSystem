@@ -189,7 +189,13 @@ export const stays: BookingStay[] = [
     rating: 4.9,
     reviewCount: 257,
     images: gallery([1056, 1059, 1065, 1066, 1069], 'Uluwatu clifftop villa'),
-    amenities: ['Plunge pool', 'Ocean view', 'Outdoor shower', 'Breakfast service', 'Scooter parking'],
+    amenities: [
+      'Plunge pool',
+      'Ocean view',
+      'Outdoor shower',
+      'Breakfast service',
+      'Scooter parking',
+    ],
     host: { name: 'Dewa Putra', avatarSrc: 'https://i.pravatar.cc/128?img=65' },
     blockedDates: ['2026-10-20', '2026-11-14', '2026-11-15'],
     superhost: true,
@@ -200,7 +206,8 @@ export const stays: BookingStay[] = [
 
 export const bookingTestimonials = [
   {
-    quote: 'The reference flow made it obvious how cards, calendar, and checkout should feel together.',
+    quote:
+      'The reference flow made it obvious how cards, calendar, and checkout should feel together.',
     author: 'Priya Shah',
     role: 'Product lead',
     avatarSrc: 'https://i.pravatar.cc/128?img=31',

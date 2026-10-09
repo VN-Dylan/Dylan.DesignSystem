@@ -50,7 +50,7 @@ const spacing = [1, 2, 3, 4, 6, 8, 12] as const
 
 function Swatch({ className, label }: { className: string; label: string }) {
   return (
-    <div className="space-y-1.5">
+    <div className="space-y-2">
       <div className={`h-14 rounded-md border border-border ${className}`} />
       <p className="font-mono text-xs text-content-muted">{label}</p>
     </div>
@@ -67,7 +67,7 @@ function Panel({
   children: ReactNode
 }) {
   return (
-    <section className="space-y-4 rounded-lg border border-border bg-surface p-5">
+    <section className="space-y-4 rounded-lg border border-border bg-surface p-6">
       <div className="space-y-1">
         <h2 className="text-base font-semibold text-content">{title}</h2>
         {description && <p className="text-sm text-content-muted">{description}</p>}
@@ -86,7 +86,7 @@ export function FoundationsView() {
           Foundations
         </p>
         <h1 className="text-3xl font-bold tracking-tight text-content">The Dylan Design System</h1>
-        <p className="max-w-2xl text-content-muted">
+        <p className="max-w-prose text-content-muted">
           {galleryComponentCount} components across {galleryCategories.length} categories, every one
           rendered live against the theme you pick in the top bar — {themeSchemaNames.length} preset
           schemas, light / dark and RTL. Nothing here contains a literal colour: it all resolves
@@ -148,7 +148,7 @@ export function FoundationsView() {
         <Panel title="Radius">
           <div className="flex flex-wrap gap-3">
             {radii.map((radius) => (
-              <div key={radius.label} className="space-y-1.5">
+              <div key={radius.label} className="space-y-2">
                 <div
                   className={`h-14 w-14 border border-border bg-primary-subtle ${radius.class}`}
                 />

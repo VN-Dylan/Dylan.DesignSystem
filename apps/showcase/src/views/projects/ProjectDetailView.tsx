@@ -93,7 +93,9 @@ export function ProjectDetailView() {
           </Tabs.TabList>
 
           <Tabs.TabContent value="overview" className="space-y-4 pt-4">
-            <p className="max-w-3xl text-sm leading-6 text-content-muted">{project.description}</p>
+            <p className="max-w-prose text-sm leading-6 text-content-muted">
+              {project.description}
+            </p>
             <Table>
               <Table.TBody>
                 <Table.Tr>
