@@ -9,6 +9,8 @@ import { Stagger } from './Stagger'
 const meta = {
   title: 'Primitives/Motion',
   tags: ['autodocs'],
+  // Entrance animations are time-dependent; skip the pixel baseline.
+  parameters: { snapshot: { skip: true } },
 } satisfies Meta
 
 export default meta

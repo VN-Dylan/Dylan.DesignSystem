@@ -34,6 +34,9 @@ jobs:
       - name: API coverage vs Eyris crawl
         run: pnpm check:api
 
+      - name: Layout spacing guard
+        run: pnpm check:spacing --strict
+
       - name: Format check
         run: pnpm format:check
 

@@ -1,0 +1,118 @@
+import { Meta, Markdown } from '@storybook/blocks'
+
+<Meta title="Handbook/Layout" />
+
+# Layout & spacing
+
+Layout in Dylan is a small, strict system: **one spacing scale, three rhythm
+roles, a handful of primitives.** The goal is a calm, modern, minimal surface
+where the space between components and between sections is always predictable.
+
+---
+
+## Principles
+
+1. **The parent owns the gap.** Components never push their neighbours with an
+   outer margin. `Stack`, `Inline`, `Grid` and `Section` decide the spacing.
+2. **One scale.** Only the 4px-based steps below are allowed. Values such as
+   `1.5`, `2.5`, `5`, `7` are bugs (`pnpm check:spacing` fails on them).
+3. **Name the role, not the number.** Write `gap="base"` instead of `gap-4`.
+4. **Space before lines, lines before shadows.** Separate areas with white
+   space first, a hairline border second, elevation only for floating layers.
+5. **One content column.** Page width comes from `Container`, never a free
+   `max-w-*`.
+
+## The scale
+
+<Markdown>{`
+| Key | px | Use |
+| --- | --- | --- |
+| \`1\` | 4 | icon beside text, badge |
+| \`2\` | 8 | inside a component |
+| \`3\` | 12 | small control padding |
+| \`4\` | 16 | control padding, gap between components |
+| \`6\` | 24 | card padding, gap between cards |
+| \`8\` | 32 | gap between groups in a section |
+| \`12\` | 48 | section (mobile) |
+| \`16\` | 64 | section (tablet) |
+| \`24\` | 96 | section (desktop / hero) |
+`}</Markdown>
+
+## Rhythm roles
+
+<Markdown>{`
+| Token | Value | Tailwind | Meaning |
+| --- | --- | --- | --- |
+| \`--dyl-gap-tight\` | 8px | \`gap-tight\` | inside a component, icon + label, button groups |
+| \`--dyl-gap-base\` | 16px | \`gap-base\` | **between components in a block** (default of \`Stack\`) |
+| \`--dyl-gap-loose\` | 24px | \`gap-loose\` | between cards / groups in a grid |
+| \`--dyl-gap-group\` | 32px | \`gap-group\` | between large groups in a section |
+| \`--dyl-space-section\` | 48 → 96px | \`py-section\` | **between sections** (fluid) |
+| \`--dyl-inset-card\` | 24px | \`p-card\` | padding inside a card or panel |
+| \`--dyl-gutter\` | 16 → 32px | \`px-gutter\` | page side margin (fluid) |
+`}</Markdown>
+
+Quick read: **8 inside a component · 16 between components · 24 between cards ·
+32 between groups · 48–96 between sections.**
+
+## Choosing a primitive
+
+<Markdown>{`
+| Need | Use |
+| --- | --- |
+| Vertical list of things with even spacing | \`Stack\` |
+| Horizontal row (toolbar, icon + label, button group) | \`Inline\` |
+| Equal columns, responsive columns, auto-fit cards | \`Grid\` (\`columns\`, \`minChildWidth\`) |
+| Constrain page width | \`Container\` (\`size\`) |
+| A page band with vertical rhythm and optional tonal background | \`Section\` |
+| Title + description + actions at the top of a page | \`PageHeader\` |
+| The whole page frame (sidebar, header, main, footer) | \`AppShell\` |
+| Centre something / push apart / keep a ratio | \`Center\` / \`Spacer\` / \`AspectRatio\` |
+| React to the viewport | \`useBreakpoint\`, \`useMediaQuery\` |
+`}</Markdown>
+
+## Anatomy of a page
+
+```text
+AppShell
+├─ Sidebar (256 / 72)           sticky, full height
+└─ Content
+   ├─ Header (64)               sticky, z-sticky, border-b
+   ├─ Main                      px-gutter
+   │  └─ Container (default 1200)
+   │     ├─ PageHeader
+   │     ├─ Stack gap="group"    → sections of content
+   │     │   └─ Grid gap="loose" → Card (p-card)
+   │     │                           └─ Stack gap="base" → controls (gap-tight)
+   └─ Footer
+```
+
+Marketing and booking pages chain `Section`s and alternate
+`tone="default"` / `tone="subtle"` instead of placing dividers between them.
+
+## Do / don't
+
+```tsx
+// Do — the parent owns the rhythm
+<Stack gap="loose">
+  <PageHeader title="Reservations" />
+  <Grid columns={{ base: 1, md: 3 }} gap="loose">
+    <Card>…</Card>
+  </Grid>
+</Stack>
+
+// Don't — ad-hoc numbers, free widths, margins on children
+<div className="mx-auto max-w-6xl space-y-5 px-4">
+  <h1 className="mb-7">Reservations</h1>
+</div>
+```
+
+## Guardrails
+
+- `pnpm check:spacing` flags off-scale spacing, free page-width `max-w-*` in the
+  showcase and literal `z-<number>` utilities. Append `ds-allow-spacing` to a
+  line for a reviewed exception.
+- Component-internal width caps (tooltips, popovers) are allowed; page width is
+  always `Container`.
+- Layered UI uses the named z-index tokens (`z-sticky`, `z-dropdown`, …). A
+  local stacking step inside one component is written `z-[1]`.

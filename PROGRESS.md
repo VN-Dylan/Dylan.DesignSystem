@@ -306,6 +306,27 @@ Done:
   `DatePicker`/`DatePickerRange`/`DateTimepicker` unchanged. +8 tests.
   Still stubbed: `labelFormat`/`monthLabelFormat`/`yearLabelFormat`.
 
+## Layout system (post-booking)
+
+- Plan: [`docs/layout-plan.md`](docs/layout-plan.md), blueprint:
+  [`docs/layout-blueprint.md`](docs/layout-blueprint.md), handbook page
+  `docs/handbook/Layout.mdx`.
+- Tokens: spacing roles (`gap-tight|base|loose|group`, `py-section`, `p-card`,
+  `px-gutter`), content widths, sidenav/header sizes, numeric `breakpoints`.
+- Primitives: `Stack`, `Inline`, `Section`, `PageHeader`, `Center`, `Spacer`,
+  `AspectRatio`, `AppShell`, `useMediaQuery`/`useBreakpoint`; `Grid`,
+  `Container`, `Card` (`padding`), `Divider` (`spacing`, `label`) upgraded.
+- Guardrail: `pnpm check:spacing` (strict in CI) — off-scale spacing, free
+  page-width `max-w-*` (showcase), literal `z-<n>`. Baseline was 185
+  violations, now 0.
+- Showcase: `AppLayout` uses `AppShell`; page wrappers use `Container` /
+  `Section` / `Stack`.
+- Visual baselines (Windows host) regenerated: 151 updated (Card, Slider,
+  StatisticCard, MultiValueInput, DatePicker, Upload, FormControl, Checkbox,
+  Badge, Container, TimeInput, Select, Table, Segment, Button, Avatar) + 234 new
+  for the layout primitives. `Primitives/Motion` is opted out of pixel
+  snapshots (time-dependent entrance animations).
+
 ## Follow-ups
 
 - CI-gated visual regression: needs a fixed-render environment (the Playwright

@@ -12,6 +12,21 @@ for."
 
 ---
 
+## Layout
+
+<Markdown>{`
+| Component | Use it when | Not when |
+| --- | --- | --- |
+| \`Stack\` / \`Inline\` | You need even spacing between siblings in a column / row. Pick a role (\`tight\`, \`base\`, \`loose\`, \`group\`) instead of a number. | The items form a true grid with aligned columns — use \`Grid\`. |
+| \`Grid\` | Equal or responsive columns, auto-fit card lists (\`minChildWidth\`), spans via \`Grid.Item\`. | A single flow of items — \`Stack\` / \`Inline\`. |
+| \`Container\` | Constrain content to a page width (\`prose\`, \`narrow\`, \`default\`, \`wide\`). | Component-sized caps such as a tooltip or popover width. |
+| \`Section\` | A page band that owns vertical rhythm (\`py-section\`) and optional tonal background. | Spacing inside a card or a form — use \`Stack\`. |
+| \`AppShell\` | The persistent page frame: sidebar (a drawer below \`lg\`), sticky header, main, footer. | A chrome-free marketing page — use \`Section\` + \`Container\`. |
+
+`}</Markdown>
+
+---
+
 ## Overlays
 
 <Markdown>{`
