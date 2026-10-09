@@ -65,6 +65,12 @@ This page records where that is **deliberately not** true.
 | \`PageHeader\` | layout-system addition, not in the Eyris crawl | Provides standard title, description, breadcrumb, back, and action slots with a configurable heading level. |
 | \`Spacing normalization\` | layout-system deliberate deviation | Off-scale padding/gap (\`1.5\`, \`2.5\`, \`5\`, \`10\`) in Button, Input, InputGroup, Select, TimeInput, MultiValueInput, Drawer, StatisticCard, Table, Timeline, Upload and others snapped to the 4px-based scale; local \`z-10\` became \`z-[1]\`. |
 | \`AppShell\` | layout-system addition, not in the Eyris crawl | Promotes the showcase page frame into the library: persistent sidebar that becomes a \`Drawer\` below a breakpoint, sticky header, main, and footer driven by layout tokens. |
+| \`ActionGroup\` | addition, not in the Eyris crawl | Fixes action placement (primary last at the end, destructive isolated at the start, stacked on mobile); \`Button\` gains a semantic \`tone\`. |
+| \`DataTable\` toolbar & columns | deliberate extension | Search, filter slot, columns menu, column pin / reorder / hide, saved layout, right-aligned paging footer, and tree rows via \`getSubRows\`. |
+| \`Table.TreeCell\` | addition | Indented hierarchical cell with an accessible expand toggle for static tree tables. |
+| \`List\` | addition, not in the Eyris crawl | Rich rows with optional listbox selection, drag / keyboard reordering and fixed-height virtualization (no extra dependency). |
+| \`TreeList\` | addition, not in the Eyris crawl | ARIA tree with tri-state checkboxes, lazy-loaded children with retry, and search that keeps matching branches open. |
+| \`Combobox\` | addition, not in the Eyris crawl | WAI-ARIA 1.2 combobox with debounced, abortable remote search and tag-style multi-select; complements \`Select\` / \`AutoComplete\`. |
 | \`Center\` | layout-system addition, not in the Eyris crawl | Provides a minimal two-axis centering primitive. |
 | \`Spacer\` | layout-system addition, not in the Eyris crawl | Fills remaining flex space or reserves a constrained spacing-token step. |
 | \`AspectRatio\` | layout-system addition, not in the Eyris crawl | Reserves a stable native aspect-ratio box through a CSS custom property. |

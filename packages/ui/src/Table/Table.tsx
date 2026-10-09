@@ -7,6 +7,7 @@ import type {
   TableProps,
   TableRowProps,
   TableSectionProps,
+  TableTreeCellProps,
 } from './types'
 import './Table.scss'
 
@@ -81,6 +82,52 @@ const Td = forwardRef<HTMLTableCellElement, TableCellProps>(function Td(
   return <td ref={ref} className={classNames('dyl-table__td', className)} {...rest} />
 })
 
+/**
+ * A body cell for hierarchical rows: indents by `level` and renders the
+ * expand/collapse toggle. Put it in the first column; the consumer decides
+ * which child rows to render.
+ */
+const TreeCell = forwardRef<HTMLTableCellElement, TableTreeCellProps>(function TreeCell(
+  {
+    level = 0,
+    expandable = false,
+    expanded = false,
+    onToggle,
+    toggleLabel = 'row',
+    className,
+    style,
+    children,
+    ...rest
+  },
+  ref,
+) {
+  return (
+    <td
+      ref={ref}
+      className={classNames('dyl-table__td', 'dyl-table__tree-cell', className)}
+      style={{ ...style, ['--dyl-tree-level' as string]: level }}
+      {...rest}
+    >
+      <div className="dyl-table__tree">
+        {expandable ? (
+          <button
+            type="button"
+            className="dyl-table__tree-toggle"
+            aria-expanded={expanded}
+            aria-label={`${expanded ? 'Collapse' : 'Expand'} ${toggleLabel}`}
+            onClick={onToggle}
+          >
+            <Icon as={TbIcons.TbChevronRight} size={14} aria-hidden />
+          </button>
+        ) : (
+          <span className="dyl-table__tree-spacer" aria-hidden />
+        )}
+        <div className="dyl-table__tree-content">{children}</div>
+      </div>
+    </td>
+  )
+})
+
 const TableRoot = forwardRef<HTMLTableElement, TableProps>(function Table(
   { compact = false, borderless = false, hoverable = false, className, ...rest },
   ref,
@@ -103,4 +150,4 @@ const TableRoot = forwardRef<HTMLTableElement, TableProps>(function Table(
  * Styled semantic table primitives. For data-grid behaviour (client/server
  * pagination, column defs, selection) use `DataTable` instead.
  */
-export const Table = Object.assign(TableRoot, { THead, TBody, TFoot, Tr, Th, Td })
+export const Table = Object.assign(TableRoot, { THead, TBody, TFoot, Tr, Th, Td, TreeCell })

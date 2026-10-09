@@ -31,6 +31,8 @@ export interface DataTableInitialState {
   columnVisibility?: Record<string, boolean>
   /** Client-side page size. Defaults to the first `pageSizeOptions` entry. */
   pageSize?: number
+  /** Tree mode: `true` expands every row, or a map of row id → expanded. */
+  expanded?: true | Record<string, boolean>
 }
 
 export interface DataTableProps<TData> {
@@ -42,8 +44,14 @@ export interface DataTableProps<TData> {
   loading?: boolean
   /** Message shown when there are no rows. @default 'No data' */
   emptyMessage?: ReactNode
-  /** Stable row id (used by selection). Defaults to the row index. */
+  /** Stable row id (used by selection and expansion). Defaults to the row index path. */
   getRowId?: (row: TData, index: number) => string
+  /**
+   * Tree mode: return a row's children. The first visible column gets the
+   * indent + expand toggle; search keeps matching children with their
+   * ancestors, sorting applies per level and pagination counts top-level rows.
+   */
+  getSubRows?: (row: TData, index: number) => TData[] | undefined
 
   /* ---------------------------------------------------------------- toolbar */
   /** Show the search box. Client mode filters every column. @default false */

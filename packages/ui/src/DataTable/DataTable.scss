@@ -80,6 +80,17 @@
     }
   }
 
+  /* Tree header: line the expand-all chevron and the label up with the
+     body's tree cell (cell padding · 24px toggle · 4px gap · content). */
+  &__expand-all {
+    @apply ms-4;
+
+    + .dyl-data-table__sorter,
+    + .dyl-data-table__label {
+      @apply ps-0;
+    }
+  }
+
   &__pin-icon {
     @apply shrink-0 text-primary;
   }

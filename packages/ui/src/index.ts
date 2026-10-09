@@ -139,6 +139,7 @@ export type {
   TableRowProps,
   TableHeadCellProps,
   TableCellProps,
+  TableTreeCellProps,
 } from './Table'
 
 export { Calendar, RangeCalendar } from './Calendar'
@@ -436,6 +437,27 @@ export type { FileIconProps } from './FileIcon'
 
 export { Wizard } from './Wizard'
 export type { WizardProps, WizardStep } from './Wizard'
+
+export { Combobox } from './Combobox'
+export type {
+  ComboboxProps,
+  ComboboxSingleProps,
+  ComboboxMultipleProps,
+  ComboboxOption,
+  ComboboxLoadContext,
+} from './Combobox'
+
+export { TreeList } from './TreeList'
+export type { TreeListProps, TreeNode, TreeCheckState } from './TreeList'
+
+export { List } from './List'
+export type {
+  ListProps,
+  ListItemProps,
+  ListItemState,
+  ListSelectionMode,
+  ListVirtualOptions,
+} from './List'
 
 export { DataTable } from './DataTable'
 export type {

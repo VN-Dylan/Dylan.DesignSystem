@@ -5,4 +5,5 @@ export type {
   TableRowProps,
   TableHeadCellProps,
   TableCellProps,
+  TableTreeCellProps,
 } from './types'

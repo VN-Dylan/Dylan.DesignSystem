@@ -46,6 +46,35 @@
     @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary;
   }
 
+  /* ------------------------------------------------------- tree rows */
+  &__tree {
+    @apply flex items-center gap-1;
+    padding-inline-start: calc(var(--dyl-tree-level, 0) * 1.5rem);
+  }
+
+  &__tree-toggle,
+  &__tree-spacer {
+    @apply inline-flex size-6 shrink-0 items-center justify-center rounded;
+  }
+
+  &__tree-toggle {
+    @apply text-content-muted transition duration-fast ease-standard hover:bg-surface-sunken
+      hover:text-content;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary;
+
+    svg {
+      @apply transition-transform duration-fast ease-standard rtl:-scale-x-100;
+    }
+
+    &[aria-expanded='true'] svg {
+      @apply rotate-90 rtl:-rotate-90;
+    }
+  }
+
+  &__tree-content {
+    @apply min-w-0 flex-1;
+  }
+
   &__sorter-icon {
     @apply shrink-0 text-content-faint transition-colors duration-fast;
 

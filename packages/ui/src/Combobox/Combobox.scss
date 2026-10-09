@@ -1,0 +1,136 @@
+.dyl-combobox {
+  @apply relative flex min-h-10 w-full cursor-text flex-wrap items-center gap-1 rounded-md border
+    border-border bg-surface py-1 pe-2 ps-3 text-sm text-content transition duration-fast
+    ease-standard;
+
+  &:focus-within {
+    @apply border-primary ring-2 ring-primary ring-offset-1 ring-offset-surface;
+  }
+
+  &[data-invalid] {
+    @apply border-error;
+
+    &:focus-within {
+      @apply ring-error;
+    }
+  }
+
+  &[data-disabled] {
+    @apply cursor-not-allowed bg-surface-sunken opacity-70;
+  }
+
+  &[data-multiple] {
+    @apply ps-1;
+  }
+
+  &__input {
+    @apply h-8 min-w-24 flex-1 border-0 bg-transparent p-0 text-sm text-content outline-none
+      placeholder:text-content-faint disabled:cursor-not-allowed;
+  }
+
+  &[data-multiple] &__input {
+    @apply ps-2;
+  }
+
+  /* ----------------------------------------------------------------- tags */
+  &__tag {
+    @apply inline-flex h-7 max-w-full items-center gap-1 rounded bg-surface-sunken pe-1 ps-2
+      text-xs font-medium text-content;
+  }
+
+  &__tag-label {
+    @apply truncate;
+  }
+
+  &__tag-remove {
+    @apply inline-flex size-5 items-center justify-center rounded text-content-muted
+      hover:bg-surface hover:text-content;
+  }
+
+  &__more {
+    @apply inline-flex h-7 items-center rounded px-2 text-xs font-medium text-content-muted;
+  }
+
+  /* --------------------------------------------------------------- adorn */
+  &__spinner {
+    @apply text-content-muted;
+  }
+
+  &__clear {
+    @apply inline-flex size-6 items-center justify-center rounded text-content-faint
+      hover:bg-surface-sunken hover:text-content;
+  }
+
+  &__caret {
+    @apply shrink-0 text-content-faint;
+  }
+
+  &__live {
+    @apply sr-only;
+  }
+
+  /* ---------------------------------------------------------------- menu */
+  &__menu {
+    @apply z-dropdown overflow-hidden rounded-md border border-border bg-surface-raised text-sm
+      text-content shadow-lg outline-none;
+    animation: dyl-combobox-in var(--dyl-duration-fast) var(--dyl-ease-standard);
+  }
+
+  &__list {
+    @apply max-h-64 overflow-y-auto py-1 empty:hidden;
+  }
+
+  &__option {
+    @apply flex cursor-pointer items-center gap-2 px-3 py-2 transition-colors duration-fast
+      ease-standard;
+
+    &[data-active] {
+      @apply bg-surface-sunken;
+    }
+
+    &[aria-selected='true'] {
+      @apply font-medium;
+    }
+
+    &[aria-disabled='true'] {
+      @apply cursor-not-allowed opacity-50;
+    }
+  }
+
+  &__option-text {
+    @apply flex min-w-0 flex-1 flex-col;
+  }
+
+  &__option-desc {
+    @apply truncate text-xs font-normal text-content-muted;
+  }
+
+  &__check {
+    @apply shrink-0 text-primary;
+  }
+
+  &__status {
+    @apply flex items-center gap-2 px-3 py-3 text-content-muted;
+
+    &[data-tone='error'] {
+      @apply text-error;
+    }
+  }
+
+  &__retry {
+    @apply ms-auto text-xs font-medium text-primary underline-offset-2 hover:underline;
+  }
+}
+
+@keyframes dyl-combobox-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.25rem) scale(0.98);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dyl-combobox__menu {
+    animation: none;
+  }
+}

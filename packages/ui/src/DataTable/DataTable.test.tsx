@@ -186,6 +186,87 @@ describe('DataTable', () => {
     expect(bodyCells(0)).toEqual(['Grace', 'Ada'])
   })
 
+  describe('tree mode', () => {
+    interface Node {
+      name: string
+      size: number
+      children?: Node[]
+    }
+    const tree: Node[] = [
+      {
+        name: 'src',
+        size: 30,
+        children: [
+          { name: 'index.ts', size: 10 },
+          { name: 'lib', size: 20, children: [{ name: 'util.ts', size: 20 }] },
+        ],
+      },
+      { name: 'README.md', size: 5 },
+    ]
+    const treeColumns: ColumnDef<Node, unknown>[] = [
+      { accessorKey: 'name', header: 'Name' },
+      { accessorKey: 'size', header: 'Size' },
+    ]
+    const renderTree = (props: Partial<Parameters<typeof DataTable<Node>>[0]> = {}) =>
+      render(
+        <DataTable<Node>
+          columns={treeColumns}
+          data={tree}
+          getSubRows={(n) => n.children}
+          {...props}
+        />,
+      )
+
+    it('renders top-level rows collapsed and expands on toggle', async () => {
+      renderTree()
+      expect(bodyCells(0)).toEqual(['src', 'README.md'])
+      await userEvent.click(screen.getByRole('button', { name: 'Expand src' }))
+      expect(bodyCells(0)).toEqual(['src', 'index.ts', 'lib', 'README.md'])
+      expect(screen.getByRole('button', { name: 'Collapse src' })).toHaveAttribute(
+        'aria-expanded',
+        'true',
+      )
+    })
+
+    it('expands and collapses every row from the header', async () => {
+      renderTree()
+      await userEvent.click(screen.getByRole('button', { name: 'Expand all rows' }))
+      expect(bodyCells(0)).toEqual(['src', 'index.ts', 'lib', 'util.ts', 'README.md'])
+      await userEvent.click(screen.getByRole('button', { name: 'Collapse all rows' }))
+      expect(bodyCells(0)).toEqual(['src', 'README.md'])
+    })
+
+    it('indents by depth', () => {
+      renderTree({ initialState: { expanded: true } })
+      const util = screen.getByRole('cell', { name: /util\.ts/ })
+      expect(util.style.getPropertyValue('--dyl-tree-level')).toBe('2')
+    })
+
+    it('keeps ancestors of a search hit and opens their branches', async () => {
+      renderTree({ searchable: true })
+      await userEvent.type(screen.getByRole('searchbox'), 'util')
+      expect(bodyCells(0)).toEqual(['src', 'lib', 'util.ts'])
+    })
+
+    it('paginates top-level rows and keeps children with their parent', () => {
+      renderTree({ pagination: true, pageSizeOptions: [1], initialState: { expanded: true } })
+      expect(bodyCells(0)).toEqual(['src', 'index.ts', 'lib', 'util.ts'])
+      expect(screen.getByText('Page 1 of 2')).toBeInTheDocument()
+    })
+
+    it('sorts within each level', async () => {
+      renderTree({ initialState: { expanded: true } })
+      await userEvent.click(screen.getByRole('button', { name: 'Size' }))
+      await userEvent.click(screen.getByRole('button', { name: 'Size' }))
+      expect(bodyCells(0)).toEqual(['src', 'lib', 'util.ts', 'index.ts', 'README.md'])
+    })
+
+    it('has no axe violations', async () => {
+      const { container } = renderTree({ initialState: { expanded: true }, selectable: true })
+      expect(await axe(container)).toHaveNoViolations()
+    })
+  })
+
   it('has no axe violations', async () => {
     const { container } = render(
       <DataTable columns={columns} data={many} selectable searchable pagination />,

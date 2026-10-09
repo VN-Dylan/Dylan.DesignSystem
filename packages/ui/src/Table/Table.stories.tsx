@@ -121,3 +121,65 @@ export const Sortable: Story = {
     return <Demo />
   },
 }
+
+interface Folder {
+  id: string
+  name: string
+  size: string
+  children?: Folder[]
+}
+
+const FOLDERS: Folder[] = [
+  {
+    id: 'src',
+    name: 'src',
+    size: '1.2 MB',
+    children: [
+      {
+        id: 'components',
+        name: 'components',
+        size: '840 KB',
+        children: [{ id: 'button', name: 'Button.tsx', size: '6 KB' }],
+      },
+      { id: 'index', name: 'index.ts', size: '2 KB' },
+    ],
+  },
+  { id: 'readme', name: 'README.md', size: '4 KB' },
+]
+
+/** Static tree rows with `Table.TreeCell` — the consumer owns which rows are open. */
+export const Tree: Story = {
+  render: () => {
+    const Demo = () => {
+      const [open, setOpen] = useState<Record<string, boolean>>({ src: true })
+      const rowsFor = (items: Folder[], level: number): JSX.Element[] =>
+        items.flatMap((item) => [
+          <Table.Tr key={item.id}>
+            <Table.TreeCell
+              level={level}
+              expandable={Boolean(item.children?.length)}
+              expanded={Boolean(open[item.id])}
+              onToggle={() => setOpen((o) => ({ ...o, [item.id]: !o[item.id] }))}
+              toggleLabel={item.name}
+            >
+              {item.name}
+            </Table.TreeCell>
+            <Table.Td>{item.size}</Table.Td>
+          </Table.Tr>,
+          ...(item.children && open[item.id] ? rowsFor(item.children, level + 1) : []),
+        ])
+      return (
+        <Table hoverable>
+          <Table.THead>
+            <Table.Tr>
+              <Table.Th>Name</Table.Th>
+              <Table.Th>Size</Table.Th>
+            </Table.Tr>
+          </Table.THead>
+          <Table.TBody>{rowsFor(FOLDERS, 0)}</Table.TBody>
+        </Table>
+      )
+    }
+    return <Demo />
+  },
+}

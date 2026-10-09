@@ -285,3 +285,111 @@ export const ServerPaginated: Story = {
 export const Loading: Story = {
   args: { columns, data: [], loading: true },
 }
+
+/* -------------------------------------------------------------- tree mode */
+
+interface Unit {
+  id: string
+  name: string
+  owner: string
+  headcount: number
+  budget: number
+  children?: Unit[]
+}
+
+const ORG: Unit[] = [
+  {
+    id: 'eng',
+    name: 'Engineering',
+    owner: 'Emma Novak',
+    headcount: 42,
+    budget: 3_200_000,
+    children: [
+      {
+        id: 'eng-platform',
+        name: 'Platform',
+        owner: 'Ben Ortiz',
+        headcount: 18,
+        budget: 1_400_000,
+        children: [
+          {
+            id: 'eng-platform-infra',
+            name: 'Infrastructure',
+            owner: 'Aisha Rahman',
+            headcount: 8,
+            budget: 700_000,
+          },
+          {
+            id: 'eng-platform-data',
+            name: 'Data',
+            owner: 'Dylan Carter',
+            headcount: 10,
+            budget: 700_000,
+          },
+        ],
+      },
+      {
+        id: 'eng-product',
+        name: 'Product engineering',
+        owner: 'Grace Lin',
+        headcount: 24,
+        budget: 1_800_000,
+      },
+    ],
+  },
+  {
+    id: 'design',
+    name: 'Design',
+    owner: 'Lena Fischer',
+    headcount: 9,
+    budget: 640_000,
+    children: [
+      { id: 'design-brand', name: 'Brand', owner: 'Omar Haddad', headcount: 4, budget: 280_000 },
+      {
+        id: 'design-product',
+        name: 'Product design',
+        owner: 'Mia Tanaka',
+        headcount: 5,
+        budget: 360_000,
+      },
+    ],
+  },
+  { id: 'ops', name: 'Operations', owner: 'Sam Rivera', headcount: 7, budget: 410_000 },
+]
+
+const money = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+  maximumFractionDigits: 0,
+})
+
+const orgColumns: ColumnDef<Unit, unknown>[] = [
+  { accessorKey: 'name', header: 'Team', enableHiding: false },
+  { accessorKey: 'owner', header: 'Owner' },
+  { accessorKey: 'headcount', header: 'Headcount' },
+  {
+    accessorKey: 'budget',
+    header: 'Budget',
+    cell: ({ getValue }) => money.format(getValue() as number),
+  },
+]
+
+/**
+ * Tree mode (`getSubRows`): expand per row or from the header, search keeps a
+ * match's ancestors and opens their branches, sorting applies per level, and
+ * selecting a parent selects its children.
+ */
+export const TreeData: Story = {
+  render: () => (
+    <DataTable<Unit>
+      columns={orgColumns}
+      data={ORG}
+      getRowId={(u) => u.id}
+      getSubRows={(u) => u.children}
+      searchable
+      searchPlaceholder="Search teams or owners"
+      selectable
+      initialState={{ expanded: { eng: true } }}
+    />
+  ),
+}

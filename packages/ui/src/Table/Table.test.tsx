@@ -51,6 +51,27 @@ describe('Table', () => {
     expect(onSort).toHaveBeenCalledOnce()
   })
 
+  it('renders an indented tree cell with an accessible toggle', async () => {
+    const onToggle = vi.fn()
+    render(
+      <Table>
+        <Table.TBody>
+          <Table.Tr>
+            <Table.TreeCell level={1} expandable onToggle={onToggle} toggleLabel="Design">
+              Design
+            </Table.TreeCell>
+          </Table.Tr>
+        </Table.TBody>
+      </Table>,
+    )
+    const cell = screen.getByRole('cell', { name: /design/i })
+    expect(cell.style.getPropertyValue('--dyl-tree-level')).toBe('1')
+    const toggle = screen.getByRole('button', { name: 'Expand Design' })
+    expect(toggle).toHaveAttribute('aria-expanded', 'false')
+    await userEvent.click(toggle)
+    expect(onToggle).toHaveBeenCalledOnce()
+  })
+
   it('has no axe violations', async () => {
     const { container } = renderTable({ hoverable: true, compact: true })
     expect(await axe(container)).toHaveNoViolations()

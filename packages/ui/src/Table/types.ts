@@ -22,3 +22,16 @@ export interface TableHeadCellProps extends ThHTMLAttributes<HTMLTableCellElemen
 }
 
 export type TableCellProps = TdHTMLAttributes<HTMLTableCellElement>
+
+export interface TableTreeCellProps extends TableCellProps {
+  /** Nesting depth, 0 for top-level rows. Drives the indent. @default 0 */
+  level?: number
+  /** The row has children and shows an expand/collapse toggle. @default false */
+  expandable?: boolean
+  /** Whether the children are shown. @default false */
+  expanded?: boolean
+  /** Called when the toggle is activated. */
+  onToggle?: () => void
+  /** Accessible name of the toggle (row label). @default 'row' */
+  toggleLabel?: string
+}

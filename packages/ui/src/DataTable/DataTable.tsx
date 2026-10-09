@@ -10,6 +10,7 @@ import {
 import {
   flexRender,
   getCoreRowModel,
+  getExpandedRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
@@ -17,6 +18,7 @@ import {
   type Column,
   type ColumnOrderState,
   type ColumnPinningState,
+  type ExpandedState,
   type Header,
   type PaginationState,
   type RowSelectionState,
@@ -67,6 +69,7 @@ export function DataTable<TData>({
   loading = false,
   emptyMessage = 'No data',
   getRowId,
+  getSubRows,
   searchable = false,
   searchPlaceholder = 'Search…',
   onSearchChange,
@@ -106,6 +109,8 @@ export function DataTable<TData>({
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>(
     initialState?.columnVisibility ?? {},
   )
+  const [expanded, setExpanded] = useState<ExpandedState>(initialState?.expanded ?? {})
+  const isTree = Boolean(getSubRows)
   const [paginationState, setPaginationState] = useState<PaginationState>({
     pageIndex: 0,
     pageSize: initialState?.pageSize ?? pageSizeOptions[0] ?? 10,
@@ -115,7 +120,10 @@ export function DataTable<TData>({
     data,
     columns,
     getRowId,
+    getSubRows,
     state: {
+      // While searching a tree, open every branch so matches are visible.
+      expanded: isTree && globalFilter ? true : expanded,
       sorting,
       rowSelection,
       globalFilter,
@@ -124,6 +132,7 @@ export function DataTable<TData>({
       columnVisibility,
       ...(clientPaging ? { pagination: paginationState } : {}),
     },
+    onExpandedChange: setExpanded,
     onSortingChange: setSorting,
     onRowSelectionChange: setRowSelection,
     onGlobalFilterChange: setGlobalFilter,
@@ -135,6 +144,12 @@ export function DataTable<TData>({
     getSortedRowModel: onSort ? undefined : getSortedRowModel(),
     getFilteredRowModel: onSearchChange ? undefined : getFilteredRowModel(),
     getPaginationRowModel: clientPaging ? getPaginationRowModel() : undefined,
+    getExpandedRowModel: isTree ? getExpandedRowModel() : undefined,
+    // Tree: a search hit keeps its ancestors. With client paging, pages count
+    // top-level rows so a parent is never split from its children (the
+    // pagination model expands each page; without it, expansion happens here).
+    filterFromLeafRows: isTree,
+    paginateExpandedRows: !(isTree && clientPaging),
     // First click always sorts ascending, numeric columns included.
     sortDescFirst: false,
     manualSorting: Boolean(onSort),
@@ -396,8 +411,9 @@ export function DataTable<TData>({
                 />
               </Table.Th>
             )}
-            {orderedHeaders.map((header) => {
+            {orderedHeaders.map((header, headerIndex) => {
               const { column } = header
+              const treeHeader = isTree && headerIndex === 0
               const canSort = column.getCanSort()
               const dir = column.getIsSorted()
               const label = columnLabel(column)
@@ -416,6 +432,19 @@ export function DataTable<TData>({
                   {...dragProps(header)}
                 >
                   <div className="dyl-data-table__th-inner">
+                    {treeHeader && (
+                      <button
+                        type="button"
+                        className="dyl-table__tree-toggle dyl-data-table__expand-all"
+                        aria-expanded={table.getIsAllRowsExpanded()}
+                        aria-label={
+                          table.getIsAllRowsExpanded() ? 'Collapse all rows' : 'Expand all rows'
+                        }
+                        onClick={table.getToggleAllRowsExpandedHandler()}
+                      >
+                        <Icon as={TbIcons.TbChevronRight} size={14} aria-hidden />
+                      </button>
+                    )}
                     {canSort ? (
                       <button
                         type="button"
@@ -487,7 +516,11 @@ export function DataTable<TData>({
                 ...row.getRightVisibleCells(),
               ]
               return (
-                <Table.Tr key={row.id} data-selected={row.getIsSelected() || undefined}>
+                <Table.Tr
+                  key={row.id}
+                  data-selected={row.getIsSelected() || undefined}
+                  data-depth={isTree ? row.depth : undefined}
+                >
                   {selectable && (
                     <Table.Td
                       className="dyl-data-table__select-cell"
@@ -501,11 +534,25 @@ export function DataTable<TData>({
                       />
                     </Table.Td>
                   )}
-                  {cells.map((cell) => (
-                    <Table.Td key={cell.id} {...pinProps(cell.column)}>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </Table.Td>
-                  ))}
+                  {cells.map((cell, cellIndex) =>
+                    isTree && cellIndex === 0 ? (
+                      <Table.TreeCell
+                        key={cell.id}
+                        level={row.depth}
+                        expandable={row.getCanExpand()}
+                        expanded={row.getIsExpanded()}
+                        onToggle={row.getToggleExpandedHandler()}
+                        toggleLabel={String(cell.getValue() ?? `row ${row.id}`)}
+                        {...pinProps(cell.column)}
+                      >
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      </Table.TreeCell>
+                    ) : (
+                      <Table.Td key={cell.id} {...pinProps(cell.column)}>
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      </Table.Td>
+                    ),
+                  )}
                 </Table.Tr>
               )
             })

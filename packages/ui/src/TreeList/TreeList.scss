@@ -1,0 +1,73 @@
+.dyl-tree-list {
+  @apply flex flex-col gap-tight text-sm text-content;
+
+  &__tree {
+    @apply flex flex-col rounded-md;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary
+      focus-visible:ring-offset-2 focus-visible:ring-offset-surface;
+  }
+
+  &__node {
+    @apply flex h-9 cursor-pointer select-none items-center gap-2 rounded-md pe-2
+      transition-colors duration-fast ease-standard hover:bg-surface-sunken;
+    padding-inline-start: calc(var(--dyl-tree-level, 0) * 1.25rem + 0.25rem);
+
+    &[aria-selected='true'] {
+      @apply bg-primary-subtle font-medium text-primary hover:bg-primary-subtle;
+    }
+
+    &[aria-disabled='true'] {
+      @apply cursor-not-allowed opacity-50 hover:bg-transparent;
+    }
+  }
+
+  &__tree:focus-visible &__node[data-active] {
+    @apply ring-2 ring-inset ring-primary;
+  }
+
+  &__toggle {
+    @apply inline-flex size-5 shrink-0 items-center justify-center rounded text-content-muted;
+
+    &[data-expandable] {
+      @apply hover:bg-surface hover:text-content;
+    }
+
+    svg {
+      @apply transition-transform duration-fast ease-standard rtl:-scale-x-100;
+    }
+  }
+
+  &__node[aria-expanded='true'] > &__toggle svg {
+    @apply rotate-90 rtl:-rotate-90;
+  }
+
+  &__check {
+    @apply inline-flex size-4 shrink-0 items-center justify-center rounded border border-border-strong
+      bg-surface text-primary-fg transition-colors duration-fast ease-standard;
+
+    &[data-state='checked'],
+    &[data-state='mixed'] {
+      @apply border-primary bg-primary;
+    }
+  }
+
+  &__icon {
+    @apply inline-flex shrink-0 text-content-muted;
+  }
+
+  &__label {
+    @apply min-w-0 flex-1 truncate;
+  }
+
+  &__match {
+    @apply rounded-sm bg-warning-subtle px-0.5 text-content;
+  }
+
+  &__retry {
+    @apply text-xs font-medium text-error underline-offset-2 hover:underline;
+  }
+
+  &__empty {
+    @apply px-3 py-6 text-center text-content-faint;
+  }
+}
