@@ -32,7 +32,7 @@ export const StickyRegion = forwardRef<HTMLDivElement, StickyRegionProps>(functi
     triggerOffset,
     shadow = true,
     stickyClassName,
-    zIndex = 40,
+    zIndex,
     transitionDuration = 300,
     onStickyChange,
     className,
@@ -74,7 +74,7 @@ export const StickyRegion = forwardRef<HTMLDivElement, StickyRegionProps>(functi
   const stickyStyle = {
     ...style,
     top: offsetTop,
-    zIndex: isSticky ? zIndex : undefined,
+    zIndex: isSticky ? (zIndex ?? 'var(--dyl-z-sticky)') : undefined,
     transitionDuration: `${transitionDuration}ms`,
   } satisfies StickyStyle
 

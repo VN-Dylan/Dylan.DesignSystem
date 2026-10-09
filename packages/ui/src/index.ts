@@ -194,6 +194,18 @@ export type { StackProps, GapToken, LayoutAlign, LayoutJustify } from './Stack'
 export { Inline } from './Inline'
 export type { InlineProps } from './Inline'
 
+export { AppShell, useAppShell } from './AppShell'
+export type {
+  AppShellProps,
+  AppShellSidebarProps,
+  AppShellContentProps,
+  AppShellHeaderProps,
+  AppShellMainProps,
+  AppShellFooterProps,
+  AppShellMobileNavTriggerProps,
+  AppShellContextValue,
+} from './AppShell'
+
 export { Section } from './Section'
 export type { SectionProps, SectionSpacing, SectionTone } from './Section'
 

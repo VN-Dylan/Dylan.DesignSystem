@@ -52,9 +52,9 @@ Song song được (không phụ thuộc nhau, đều chỉ dùng token Phase 1)
 - **Xong khi:** mỗi component có story (mọi biến thể + RTL), test + axe, export; `check:api` xanh.
 
 ### Phase 3 — AppShell
-- [ ] `AppShell` compound (`Sidebar / Header / Main / Footer`), sidebar sticky, thu gọn 72px, dưới `lg` dùng `Drawer` sẵn có; đóng khi đổi route do consumer điều khiển qua prop.
-- [ ] Hợp nhất `StickyRegion` z-index về token `z-sticky`.
-- [ ] Story: shell đầy đủ (desktop / collapsed / mobile) + test hành vi (toggle, drawer, focus trap, axe).
+- [x] `AppShell` compound (`Sidebar / Header / Main / Footer`), sidebar sticky, thu gọn 72px, dưới `lg` dùng `Drawer` sẵn có; đóng khi đổi route do consumer điều khiển qua prop.
+- [x] Hợp nhất `StickyRegion` z-index về token `z-sticky`.
+- [x] Story: shell đầy đủ (desktop / collapsed / mobile) + test hành vi (toggle, drawer, focus trap, axe).
 - **Xong khi:** shell render đúng ở 360 / 768 / 1280, LTR + RTL, light + dark.
 
 ### Phase 4 — Chuẩn hoá component hiện có

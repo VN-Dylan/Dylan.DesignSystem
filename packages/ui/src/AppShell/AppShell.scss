@@ -1,0 +1,44 @@
+.dyl-app-shell {
+  @apply flex min-h-screen bg-bg text-content;
+
+  &__sidebar {
+    @apply sticky top-0 h-screen shrink-0 overflow-hidden border-e border-border bg-surface
+      transition-[width] duration-fast ease-standard motion-reduce:transition-none;
+    width: var(--dyl-sidenav-width);
+
+    &[data-collapsed] {
+      width: var(--dyl-sidenav-collapsed);
+    }
+  }
+
+  &__nav {
+    @apply flex h-full flex-col bg-surface;
+  }
+
+  &__content {
+    @apply flex min-w-0 flex-1 flex-col;
+  }
+
+  &__header {
+    @apply sticky top-0 z-sticky flex items-center gap-base border-b border-border bg-surface px-gutter;
+    height: var(--dyl-header-height);
+  }
+
+  &__main {
+    @apply min-w-0 flex-1 px-gutter py-group;
+
+    &[data-contained] {
+      @apply px-0;
+    }
+  }
+
+  &__footer {
+    @apply border-t border-border px-gutter py-base text-sm text-content-muted;
+  }
+
+  &__trigger {
+    @apply inline-flex size-10 items-center justify-center rounded-md text-content
+      transition-colors duration-fast ease-standard hover:bg-surface-sunken
+      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary;
+  }
+}

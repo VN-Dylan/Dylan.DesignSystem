@@ -9,8 +9,8 @@ export interface StickyRegionProps extends Omit<HTMLAttributes<HTMLDivElement>, 
   shadow?: boolean
   /** Additional CSS classes to apply when sticky. */
   stickyClassName?: string
-  /** z-index value when sticky. @default 40 */
-  zIndex?: number
+  /** z-index value when sticky. @default the `--dyl-z-sticky` token */
+  zIndex?: number | string
   /** Duration of the shadow transition in milliseconds. @default 300 */
   transitionDuration?: number
   /** Callback fired when sticky state changes. */
