@@ -66,6 +66,7 @@ Quick read: **8 inside a component · 16 between components · 24 between cards 
 | Constrain page width | \`Container\` (\`size\`) |
 | A page band with vertical rhythm and optional tonal background | \`Section\` |
 | Title + description + actions at the top of a page | \`PageHeader\` |
+| Save / Cancel / Delete placement | \`ActionGroup\` (see **Actions & buttons**) |
 | The whole page frame (sidebar, header, main, footer) | \`AppShell\` |
 | Centre something / push apart / keep a ratio | \`Center\` / \`Spacer\` / \`AspectRatio\` |
 | React to the viewport | \`useBreakpoint\`, \`useMediaQuery\` |
@@ -78,16 +79,18 @@ AppShell
 ├─ Sidebar (256 / 72)           sticky, full height
 └─ Content
    ├─ Header (64)               sticky, z-sticky, border-b
-   ├─ Main                      px-gutter
-   │  └─ Container (default 1200)
-   │     ├─ PageHeader
-   │     ├─ Stack gap="group"    → sections of content
-   │     │   └─ Grid gap="loose" → Card (p-card)
-   │     │                           └─ Stack gap="base" → controls (gap-tight)
+   ├─ Main                      p-gutter, fluid (sidebar → viewport edge)
+   │  ├─ PageHeader             actions → ActionGroup, primary last
+   │  ├─ Stack gap="group"      → sections of content
+   │  │   └─ Grid gap="loose"   → Card (p-card)
+   │  │                           └─ Stack gap="base" → controls (gap-tight)
+   │  └─ ActionGroup divided    form footer: Delete (start) · Cancel · Save (end)
    └─ Footer
 ```
 
-Marketing and booking pages chain `Section`s and alternate
+App pages are **fluid**: no centred column, just the gutter. Use
+`AppShell.Main containerSize="prose" | "narrow"` only for reading or
+single-form pages. Marketing and booking pages chain `Section`s and alternate
 `tone="default"` / `tone="subtle"` instead of placing dividers between them.
 
 ## Do / don't

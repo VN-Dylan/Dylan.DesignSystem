@@ -3,6 +3,12 @@ import type { ButtonHTMLAttributes, ReactNode } from 'react'
 export type ButtonVariant = 'default' | 'solid' | 'subtle' | 'plain' | 'link'
 export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg'
 export type ButtonShape = 'round' | 'circle' | 'none'
+/**
+ * Semantic intent of the action. `primary` = brand colour (save, create,
+ * continue); `danger` = destructive (delete, remove, revoke); `success` =
+ * positive confirmation (approve, publish).
+ */
+export type ButtonTone = 'primary' | 'danger' | 'success'
 
 /** State passed to a `className` callback. */
 export interface ButtonClassNameState {
@@ -14,6 +20,8 @@ export interface ButtonProps
   extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'className' | 'prefix'> {
   /** Visual style. @default 'default' */
   variant?: ButtonVariant
+  /** Semantic colour of the action, applied on top of `variant`. @default 'primary' */
+  tone?: ButtonTone
   /** @default 'md' */
   size?: ButtonSize
   /** Border radius treatment. @default 'round' */

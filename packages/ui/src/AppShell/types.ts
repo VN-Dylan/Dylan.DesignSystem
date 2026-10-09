@@ -27,7 +27,10 @@ export type AppShellContentProps = HTMLAttributes<HTMLDivElement>
 export type AppShellHeaderProps = HTMLAttributes<HTMLElement>
 
 export interface AppShellMainProps extends HTMLAttributes<HTMLElement> {
-  /** Wrap content in a Container of this size. Omit for full-bleed content. */
+  /**
+   * Centre content in a Container of this size. Omit (default) for the fluid
+   * app layout — content spans from the sidebar to the viewport edge.
+   */
   containerSize?: ContainerSize
 }
 

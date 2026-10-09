@@ -24,8 +24,11 @@
     height: var(--dyl-header-height);
   }
 
+  /* Fluid by default: content runs from the sidebar to the viewport edge with
+     one uniform gutter on every side. Opt into a centred column with
+     `containerSize` (reading / settings pages). */
   &__main {
-    @apply min-w-0 flex-1 px-gutter py-group;
+    @apply min-w-0 flex-1 p-gutter;
 
     &[data-contained] {
       @apply px-0;

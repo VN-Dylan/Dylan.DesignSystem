@@ -101,6 +101,47 @@
     }
   }
 
+  /* --- tone: semantic colour on top of the variant ---
+     primary is the default palette above; danger / success re-colour each
+     variant with the matching status token. */
+  @each $tone, $color in (danger: error, success: success) {
+    &[data-tone='#{$tone}'] {
+      @apply focus-visible:ring-#{$color};
+
+      &[data-variant='solid'] {
+        @apply bg-#{$color} text-primary-fg;
+        &:hover:not(:disabled),
+        &[data-active] {
+          @apply bg-#{$color} brightness-95;
+        }
+      }
+
+      &[data-variant='default'] {
+        @apply text-#{$color};
+        &:hover:not(:disabled),
+        &[data-active] {
+          @apply border-#{$color} bg-#{$color}-subtle;
+        }
+      }
+
+      &[data-variant='subtle'] {
+        @apply bg-#{$color}-subtle text-#{$color};
+      }
+
+      &[data-variant='plain'] {
+        @apply text-#{$color};
+        &:hover:not(:disabled),
+        &[data-active] {
+          @apply bg-#{$color}-subtle;
+        }
+      }
+
+      &[data-variant='link'] {
+        @apply text-#{$color};
+      }
+    }
+  }
+
   &--block {
     @apply flex w-full;
   }

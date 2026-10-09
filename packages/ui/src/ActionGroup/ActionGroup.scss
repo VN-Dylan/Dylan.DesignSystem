@@ -1,0 +1,43 @@
+.dyl-action-group {
+  @apply flex flex-wrap items-center gap-tight;
+
+  &[data-align='end'] {
+    @apply justify-end;
+  }
+
+  &[data-align='start'] {
+    @apply justify-start;
+  }
+
+  &[data-align='center'] {
+    @apply justify-center;
+  }
+
+  &[data-align='between'] {
+    @apply justify-between;
+  }
+
+  &[data-divided] {
+    @apply border-t border-border pt-base;
+  }
+
+  /* Destructive / isolated actions are pushed to the start edge. */
+  &__start {
+    @apply me-auto flex flex-wrap items-center gap-tight;
+  }
+
+  /* Mobile: full-width column, primary (last in DOM) rendered on top. */
+  &[data-stack] {
+    @apply max-sm:flex-col-reverse max-sm:items-stretch;
+
+    > .dyl-btn,
+    > .dyl-action-group__start,
+    > .dyl-action-group__start > .dyl-btn {
+      @apply max-sm:w-full;
+    }
+
+    > .dyl-action-group__start {
+      @apply max-sm:me-0 max-sm:flex-col;
+    }
+  }
+}

@@ -139,8 +139,8 @@ AppShell
 ├─ Sidebar (256 / 72)        sticky, full height
 └─ column
    ├─ Header (64)            sticky, z-sticky, border-b
-   ├─ Main                   px-gutter
-   │  └─ Container(default)
+   ├─ Main                   p-gutter, fluid (no centred column)
+   │  └─ (content directly; Container only for prose/form pages)
    │     ├─ PageHeader                       ┐ gap-group (32)
    │     ├─ Section / Stack gap=group        ┘
    │     │   ├─ Grid gap=loose (24)  →  Card (p-card 24)

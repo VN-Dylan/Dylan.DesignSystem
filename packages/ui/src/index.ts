@@ -12,6 +12,7 @@ export { Button } from './Button'
 export type {
   ButtonProps,
   ButtonVariant,
+  ButtonTone,
   ButtonSize,
   ButtonShape,
   ButtonClassNameState,
@@ -193,6 +194,9 @@ export type { StackProps, GapToken, LayoutAlign, LayoutJustify } from './Stack'
 
 export { Inline } from './Inline'
 export type { InlineProps } from './Inline'
+
+export { ActionGroup } from './ActionGroup'
+export type { ActionGroupProps, ActionGroupStartProps, ActionGroupAlign } from './ActionGroup'
 
 export { AppShell, useAppShell } from './AppShell'
 export type {

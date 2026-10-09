@@ -54,6 +54,13 @@ describe('Button', () => {
     expect(ref).toHaveBeenCalledWith(expect.any(HTMLButtonElement))
   })
 
+  it('exposes the semantic tone, omitting the default primary tone', () => {
+    const { rerender } = render(<Button tone="danger">Delete</Button>)
+    expect(screen.getByRole('button')).toHaveAttribute('data-tone', 'danger')
+    rerender(<Button>Save</Button>)
+    expect(screen.getByRole('button')).not.toHaveAttribute('data-tone')
+  })
+
   it('has no axe violations', async () => {
     const { container } = render(
       <div>

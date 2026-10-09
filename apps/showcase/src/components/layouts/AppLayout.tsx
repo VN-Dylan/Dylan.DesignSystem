@@ -36,7 +36,7 @@ export function AppLayout() {
 
       <AppShell.Content>
         <Header />
-        <AppShell.Main containerSize="wide">
+        <AppShell.Main>
           <Outlet />
         </AppShell.Main>
         <Footer />

@@ -10,6 +10,7 @@ import './Button.scss'
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
   {
     variant = 'default',
+    tone = 'primary',
     size = 'md',
     shape = 'round',
     block = false,
@@ -62,6 +63,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       disabled={unclickable}
       aria-busy={loading || undefined}
       data-variant={variant}
+      data-tone={tone === 'primary' ? undefined : tone}
       data-size={size}
       data-shape={shape}
       data-active={active || pressed || undefined}

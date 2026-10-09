@@ -1,4 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
+import { ActionGroup } from '../ActionGroup'
+import { Button } from '../Button'
 import { Card } from '../Card'
 import { Grid } from '../Grid'
 import { PageHeader } from '../PageHeader'
@@ -52,9 +54,18 @@ const Page = ({ collapsed }: { collapsed?: boolean }) => (
         <AppShell.MobileNavTrigger />
         <CollapseButton />
       </AppShell.Header>
-      <AppShell.Main containerSize="default">
+      <AppShell.Main>
         <Stack gap="group">
-          <PageHeader title="Overview" description="Everything at a glance." />
+          <PageHeader
+            title="Overview"
+            description="Everything at a glance."
+            actions={
+              <ActionGroup stackOnMobile={false} aria-label="Page actions">
+                <Button>Export</Button>
+                <Button variant="solid">New project</Button>
+              </ActionGroup>
+            }
+          />
           <Section spacing="none" contained={false}>
             <Grid columns={{ base: 1, md: 3 }} gap="loose">
               {['One', 'Two', 'Three'].map((title) => (

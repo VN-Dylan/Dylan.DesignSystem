@@ -63,6 +63,7 @@ export const ConfirmDialog = forwardRef<HTMLDivElement, ConfirmDialogProps>(func
             </Button>
             <Button
               variant="solid"
+              tone={type === 'danger' ? 'danger' : type === 'success' ? 'success' : 'primary'}
               {...confirmButtonProps}
               className={
                 typeof confirmClassName === 'function'

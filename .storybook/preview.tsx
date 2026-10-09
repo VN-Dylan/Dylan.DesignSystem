@@ -79,7 +79,12 @@ const preview: Preview = {
         'div',
         {
           dir,
-          style: { background: 'var(--dyl-bg)', color: 'var(--dyl-text)', padding: '1.5rem' },
+          style: {
+            background: 'var(--dyl-bg)',
+            color: 'var(--dyl-text)',
+            // Full-screen stories (page shells) must touch the viewport edges.
+            padding: context.parameters.layout === 'fullscreen' ? 0 : '1.5rem',
+          },
         },
         React.createElement(Story),
       )

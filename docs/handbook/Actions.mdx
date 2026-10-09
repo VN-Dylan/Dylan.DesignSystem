@@ -1,0 +1,83 @@
+import { Meta, Markdown } from '@storybook/blocks'
+
+<Meta title="Handbook/Actions & Buttons" />
+
+# Actions & buttons
+
+Every screen answers the same two questions the same way: **which button is
+the main one, and where is it?** Colour says what an action does; position
+says how important it is.
+
+---
+
+## Colour = meaning
+
+<Markdown>{`
+| Action | Example | Button |
+| --- | --- | --- |
+| **Primary** — the one thing this view is for | Save, Create, Continue, Submit, Book | \`variant="solid"\` (tone \`primary\`, the default) |
+| **Secondary** — an alternative or a way out | Cancel, Back, Export, Preview | \`variant="default"\` (outlined) |
+| **Tertiary** — low-emphasis, often repeated | Edit inline, Show more, Clear filters | \`variant="plain"\` or \`variant="link"\` |
+| **Destructive (in a form / toolbar)** — removes data, kept out of the way | Delete, Remove, Revoke | \`tone="danger" variant="plain"\` |
+| **Destructive (confirming it)** — the dialog exists to do this | Delete in a "Delete project?" dialog | \`tone="danger" variant="solid"\` |
+| **Positive confirmation** — approving someone else's work | Approve, Publish, Accept | \`tone="success" variant="solid"\` |
+`}</Markdown>
+
+Rules:
+
+- **One solid button per view** (page, dialog, drawer, card footer). Two solid
+  buttons means nothing is primary.
+- **Red only for destruction.** Never use `tone="danger"` for emphasis, and
+  never make the destructive action the default focus.
+- **Label with a verb + object** ("Save changes", "Delete project"), not
+  "OK" / "Yes".
+- Icon-only buttons need an `aria-label` and usually a `Tooltip`.
+
+## Position = importance
+
+Use `ActionGroup` so placement is never hand-rolled. Write children in reading
+order — secondary first, **primary last** — and put destructive actions in
+`ActionGroup.Start`.
+
+```tsx
+<ActionGroup divided aria-label="Form actions">
+  <ActionGroup.Start>
+    <Button tone="danger" variant="plain">
+      Delete project
+    </Button>
+  </ActionGroup.Start>
+  <Button>Cancel</Button>
+  <Button variant="solid">Save changes</Button>
+</ActionGroup>
+```
+
+```text
+Desktop                                         Mobile (< sm)
+┌────────────────────────────────────────────┐  ┌──────────────────┐
+│ Delete project          [ Cancel ] [Save]  │  │ [      Save     ]│
+└────────────────────────────────────────────┘  │ [     Cancel    ]│
+  start (isolated)          end: primary last   │  Delete project  │
+                                                └──────────────────┘
+```
+
+<Markdown>{`
+| Surface | Where actions go |
+| --- | --- |
+| **Page** | \`PageHeader actions\`, top-end. Primary last. Secondary actions beyond two go into a \`Dropdown\` ("More"). |
+| **Form** (page or card) | Bottom, \`ActionGroup divided\` (end-aligned). Long forms: wrap it in \`StickyRegion\` so Save stays visible. |
+| **Dialog / ConfirmDialog** | Footer, end-aligned: Cancel, then the confirming action. \`ConfirmDialog type="danger"\` already renders a danger confirm. |
+| **Drawer** | \`footer\`, same order as a dialog. |
+| **Card** | Card \`footer\` with \`ActionGroup\`; a single "View all" link may sit in the header \`extra\`. |
+| **Table row** | End column: \`plain\` icon buttons or a "⋯" \`Dropdown\`; destructive item last in the menu, \`tone="danger"\`. |
+| **Bulk selection** | \`ActionBar\` (floating, bottom). |
+| **Wizard** | Back at start (\`ActionGroup.Start\`), Next / Finish at end. |
+`}</Markdown>
+
+In RTL the whole group mirrors automatically — "end" is the reading end in
+both directions.
+
+## Spacing
+
+Buttons in a group are `gap-tight` (8px). A divided footer sits `gap-loose`
+(24px) below the content it belongs to and draws its own hairline + 16px top
+padding.

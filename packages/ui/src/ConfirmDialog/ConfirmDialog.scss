@@ -41,15 +41,7 @@
     @apply mt-6 flex justify-end gap-2;
   }
 
-  &[data-type='success'] &__confirm {
-    @apply border-success bg-success text-primary-fg hover:brightness-95;
-  }
-
   &[data-type='warning'] &__confirm {
     @apply border-warning bg-warning text-primary-fg hover:brightness-95;
-  }
-
-  &[data-type='danger'] &__confirm {
-    @apply border-error bg-error text-primary-fg hover:brightness-95;
   }
 }

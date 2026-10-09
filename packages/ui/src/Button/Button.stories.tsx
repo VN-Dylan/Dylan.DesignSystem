@@ -33,6 +33,31 @@ export const Variants: Story = {
   ),
 }
 
+/** Semantic tone: primary (save/create), danger (delete), success (approve). */
+export const Tones: Story = {
+  render: () => (
+    <div className="flex flex-col gap-4">
+      {(['primary', 'danger', 'success'] as const).map((tone) => (
+        <div key={tone} className="flex flex-wrap gap-2">
+          <Button tone={tone} variant="solid">
+            Solid
+          </Button>
+          <Button tone={tone}>Default</Button>
+          <Button tone={tone} variant="subtle">
+            Subtle
+          </Button>
+          <Button tone={tone} variant="plain">
+            Plain
+          </Button>
+          <Button tone={tone} variant="link">
+            Link
+          </Button>
+        </div>
+      ))}
+    </div>
+  ),
+}
+
 export const Sizes: Story = {
   render: () => (
     <div className="flex flex-wrap items-center gap-2">

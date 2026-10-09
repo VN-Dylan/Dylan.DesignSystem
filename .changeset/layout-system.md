@@ -11,3 +11,9 @@ and `useMediaQuery`/`useBreakpoint`; `Grid` (`columns`, `minChildWidth`,
 (`spacing`, `label`) upgraded. Visual change: component padding/gap snapped to
 the 4px scale (Button, Input, Select, Drawer, StatisticCard, Table, Upload, …)
 and Card padding is now 24px by default (`padding="compact"` = 16px).
+
+Actions: `Button` gains `tone` (`primary` | `danger` | `success`) on top of
+`variant`; new `ActionGroup` (+ `ActionGroup.Start`) fixes button placement —
+primary last at the end, destructive isolated at the start, stacked full-width
+with primary on top below `sm`. `ConfirmDialog` confirm button now uses `tone`.
+`AppShell.Main` is fluid by default with a uniform `p-gutter`.
