@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react'
 import {
   ActionBar,
+  ActionGroup,
   Alert,
   Button,
   ClockProgress,
@@ -108,9 +109,18 @@ export function FeedbackSection() {
 
       <Demo
         title="Dialog - basic"
-        description="A controlled modal with labelled content and action footer."
-        code={`<Dialog isOpen={open} onClose={() => setOpen(false)} aria-labelledby="dialog-title">
-  <h2 id="dialog-title">Delete project</h2>
+        description="Title and footer stay pinned; only the body scrolls, and the panel never exceeds the device height."
+        code={`<Dialog
+  isOpen={open}
+  onClose={() => setOpen(false)}
+  title="Delete project"
+  footer={
+    <ActionGroup>
+      <Button>Cancel</Button>
+      <Button variant="solid" tone="danger">Delete</Button>
+    </ActionGroup>
+  }
+>
   ...
 </Dialog>`}
       >
@@ -121,24 +131,19 @@ export function FeedbackSection() {
           <Dialog
             isOpen={dialogOpen}
             onClose={() => setDialogOpen(false)}
-            aria-labelledby="gallery-dialog-title"
+            title="Delete project"
+            footer={
+              <ActionGroup>
+                <Button onClick={() => setDialogOpen(false)}>Cancel</Button>
+                <Button variant="solid" tone="danger" onClick={() => setDialogOpen(false)}>
+                  Delete
+                </Button>
+              </ActionGroup>
+            }
           >
-            <h2 id="gallery-dialog-title" className="text-lg font-semibold text-content">
-              Delete project
-            </h2>
-            <p className="mt-2 text-content-muted">
+            <p className="text-content-muted">
               This permanently removes the project and its history.
             </p>
-            <div className="mt-6 flex justify-end gap-2">
-              <Button onClick={() => setDialogOpen(false)}>Cancel</Button>
-              <Button
-                variant="solid"
-                className="!border-error !bg-error hover:!brightness-95"
-                onClick={() => setDialogOpen(false)}
-              >
-                Delete
-              </Button>
-            </div>
           </Dialog>
         </Demo.Row>
       </Demo>
@@ -161,13 +166,15 @@ export function FeedbackSection() {
             shouldCloseOnEsc={false}
             shouldCloseOnOverlayClick={false}
             aria-label="Confirm"
+            footer={
+              <ActionGroup>
+                <Button variant="solid" onClick={() => setLockedDialogOpen(false)}>
+                  Got it
+                </Button>
+              </ActionGroup>
+            }
           >
             <p className="text-content">Choose an option to continue.</p>
-            <div className="mt-4 flex justify-end">
-              <Button variant="solid" onClick={() => setLockedDialogOpen(false)}>
-                Got it
-              </Button>
-            </div>
           </Dialog>
         </Demo.Row>
       </Demo>
@@ -224,12 +231,12 @@ export function FeedbackSection() {
             onClose={() => setDrawerOpen(false)}
             title="Filters"
             footer={
-              <div className="flex justify-end gap-2">
+              <ActionGroup>
                 <Button onClick={() => setDrawerOpen(false)}>Reset</Button>
                 <Button variant="solid" onClick={() => setDrawerOpen(false)}>
                   Apply
                 </Button>
-              </div>
+              </ActionGroup>
             }
           >
             <p className="text-content-muted">Drawer body content goes here.</p>

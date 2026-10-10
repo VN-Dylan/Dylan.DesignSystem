@@ -5,6 +5,7 @@ import { Icon } from '@vn-dylan/icons'
 import { navigationConfig, type NavItem } from '@/configs/navigation.config'
 import { useMenuActive } from '@/utils/hooks/useMenuActive'
 import { useAuth } from '@/utils/hooks/useAuth'
+import { useTranslation } from '@/i18n'
 import { Logo } from './Logo'
 
 export interface SideNavProps {
@@ -16,6 +17,7 @@ export interface SideNavProps {
 export function SideNav({ collapsed = false }: SideNavProps) {
   const navigate = useNavigate()
   const { can } = useAuth()
+  const { navTitle } = useTranslation()
   const { activeKey, parentKey } = useMenuActive()
   // Single-open accordion: the group holding the active route, or a group the
   // user opened. Follows the route when it changes.
@@ -25,7 +27,7 @@ export function SideNav({ collapsed = false }: SideNavProps) {
     if (parentKey) setOpenKey(parentKey)
   }, [parentKey])
 
-  const visible = (item: NavItem) => can(item.authority)
+  const visible = (item: NavItem) => can(item.permission)
 
   const go = (path?: string) => {
     if (path) navigate(path)
@@ -58,7 +60,7 @@ export function SideNav({ collapsed = false }: SideNavProps) {
                   {group.icon && (
                     <Icon as={group.icon} size={18} className="me-2 inline shrink-0" />
                   )}
-                  {group.title}
+                  {navTitle(group.key, group.title)}
                 </Menu.MenuItem>
               )
             }
@@ -70,7 +72,7 @@ export function SideNav({ collapsed = false }: SideNavProps) {
                 label={
                   <span className="flex items-center gap-2">
                     {group.icon && <Icon as={group.icon} size={18} className="shrink-0" />}
-                    {!collapsed && group.title}
+                    {!collapsed && navTitle(group.key, group.title)}
                   </span>
                 }
                 expanded={openKey === group.key}
@@ -83,7 +85,7 @@ export function SideNav({ collapsed = false }: SideNavProps) {
                     isActive={activeKey === child.key}
                     onSelect={() => go(child.path)}
                   >
-                    {child.title}
+                    {navTitle(child.key, child.title)}
                   </Menu.MenuItem>
                 ))}
               </Menu.MenuCollapse>

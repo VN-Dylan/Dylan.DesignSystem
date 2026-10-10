@@ -17,7 +17,7 @@ export const accountsRoutes: RouteObject[] = [
   {
     path: '/accounts/users',
     element: (
-      <ProtectedRoute authority={['admin']}>
+      <ProtectedRoute permission="users.manage">
         <TeamUsersView />
       </ProtectedRoute>
     ),

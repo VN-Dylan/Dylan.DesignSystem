@@ -2,12 +2,15 @@ import { AppShell, Button, Inline } from '@vn-dylan/ui'
 import { Icon, TbIcons } from '@vn-dylan/icons'
 import { useThemeStore } from '@/store/themeStore'
 import { useLayout } from '@/utils/hooks/useLayout'
+import { useTranslation } from '@/i18n'
+import { LanguageSwitcher } from './LanguageSwitcher'
 import { UserDropdown } from './UserDropdown'
 
 /** Top bar: nav toggle, search, quick actions, user menu. */
 export function Header() {
   const { toggleNav, mode, toggleMode } = useLayout()
   const setConfigOpen = useThemeStore((s) => s.setConfigOpen)
+  const { t } = useTranslation()
 
   return (
     <AppShell.Header>
@@ -15,7 +18,7 @@ export function Header() {
         size="sm"
         shape="circle"
         variant="plain"
-        aria-label="Toggle navigation"
+        aria-label={t('header.toggleNav')}
         icon={<Icon as={TbIcons.TbMenu2} size={20} />}
         onClick={toggleNav}
       />
@@ -25,18 +28,19 @@ export function Header() {
         <input
           type="search"
           name="app-search"
-          placeholder="Search…"
+          placeholder={t('header.search')}
           className="w-40 bg-transparent outline-none placeholder:text-content-faint"
-          aria-label="Search"
+          aria-label={t('header.search')}
         />
       </label>
 
       <Inline gap={1} className="ms-auto">
+        <LanguageSwitcher />
         <Button
           size="sm"
           shape="circle"
           variant="plain"
-          aria-label={mode === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+          aria-label={mode === 'dark' ? t('header.lightMode') : t('header.darkMode')}
           icon={<Icon as={mode === 'dark' ? TbIcons.TbSun : TbIcons.TbMoon} size={18} />}
           onClick={toggleMode}
         />
@@ -44,14 +48,14 @@ export function Header() {
           size="sm"
           shape="circle"
           variant="plain"
-          aria-label="Notifications"
+          aria-label={t('header.notifications')}
           icon={<Icon as={TbIcons.TbBell} size={18} />}
         />
         <Button
           size="sm"
           shape="circle"
           variant="plain"
-          aria-label="Theme settings"
+          aria-label={t('header.themeSettings')}
           icon={<Icon as={TbIcons.TbSettings} size={18} />}
           onClick={() => setConfigOpen(true)}
         />

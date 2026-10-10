@@ -1,7 +1,7 @@
 {
   "name": "@vn-dylan/showcase",
   "version": "0.0.0",
-  "description": "Reference application — rebuilds the Eyris example screens on the Dylan Design System.",
+  "description": "Reference application — example screens built on the Dylan Design System.",
   "type": "module",
   "license": "UNLICENSED",
   "private": true,

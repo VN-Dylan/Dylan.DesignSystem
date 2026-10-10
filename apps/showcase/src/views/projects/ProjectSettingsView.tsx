@@ -290,7 +290,7 @@ export function ProjectSettingsView() {
           </div>
         </Card>
 
-        <ActionGroup aria-label="Settings actions">
+        <ActionGroup sticky aria-label="Settings actions">
           <Button onClick={() => navigate('/projects/list')}>Cancel</Button>
           <Button type="submit" variant="solid" icon={<Icon as={TbIcons.TbDeviceFloppy} />}>
             Save changes

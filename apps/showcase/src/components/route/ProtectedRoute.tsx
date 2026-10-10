@@ -1,19 +1,22 @@
 import type { ReactNode } from 'react'
 import { Navigate, useLocation } from 'react-router-dom'
+import type { AccessMode, Permission } from '@vn-dylan/ui'
 import { useAuth } from '@/utils/hooks/useAuth'
 
 export interface ProtectedRouteProps {
-  /** Authority tags required for the wrapped route. */
-  authority?: string[]
+  /** Permission(s) required for the wrapped route. */
+  permission?: Permission | Permission[]
+  /** How several permissions combine. @default 'any' */
+  mode?: AccessMode
   children: ReactNode
 }
 
 /**
- * Gate for authenticated areas. Unauthenticated users are sent to sign-in
- * (with a `redirect` back); authenticated users missing the required authority
+ * Gate for authenticated areas. Unauthenticated (or expired) users are sent to
+ * sign-in with a `redirect` back; authenticated users missing the permission
  * get the access-denied screen.
  */
-export function ProtectedRoute({ authority, children }: ProtectedRouteProps) {
+export function ProtectedRoute({ permission, mode, children }: ProtectedRouteProps) {
   const { authenticated, can } = useAuth()
   const location = useLocation()
 
@@ -22,7 +25,7 @@ export function ProtectedRoute({ authority, children }: ProtectedRouteProps) {
     return <Navigate to={`/auth/sign-in?redirect=${redirect}`} replace />
   }
 
-  if (!can(authority)) {
+  if (!can(permission, mode)) {
     return <Navigate to="/others/access-denied" replace />
   }
 

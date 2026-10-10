@@ -14,7 +14,7 @@ const Aside = () => (
     <Logo className="text-primary-fg [&_span]:text-primary-fg" />
     <Stack gap={3}>
       <p className="text-2xl font-semibold leading-snug">
-        The Dylan Design System, rebuilt from the Eyris admin template.
+        The Dylan Design System for admin and booking products.
       </p>
       <p className="text-primary-fg/80">
         84 components, 32 utilities, runtime theming — exercised by this showcase.
@@ -29,7 +29,7 @@ const Aside = () => (
 )
 
 /**
- * Layout for authentication screens. Three presentations from the Eyris demo:
+ * Layout for authentication screens, in three presentations:
  * - `simple` — centred card on a plain background
  * - `side`   — card left, brand panel right
  * - `split`  — brand panel left, card right

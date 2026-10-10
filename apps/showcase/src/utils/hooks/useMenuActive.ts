@@ -16,8 +16,8 @@ const scorePath = (routePath: string, itemPath: string): number => {
 }
 
 /**
- * Resolves which side-nav item is active for the current route (Eyris
- * `useMenuActive`). Uses a longest-prefix match so `/sales/orders/42` still
+ * Resolves which side-nav item is active for the current route. Uses a
+ * longest-prefix match so `/sales/orders/42` still
  * lights up the `Orders` item.
  */
 export function useMenuActive(items: NavItem[] = navigationConfig): MenuActive {

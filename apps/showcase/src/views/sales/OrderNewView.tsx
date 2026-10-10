@@ -1,6 +1,6 @@
 import { useMemo, useState, type FormEvent, type ReactNode } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Button, Card, Input, Segment, Select } from '@vn-dylan/ui'
+import { ActionGroup, Button, Card, Input, Segment, Select } from '@vn-dylan/ui'
 import { Icon, TbIcons } from '@vn-dylan/icons'
 import { formatCurrency } from '@vn-dylan/utils'
 import { PageHeader } from '@/components/shared/PageHeader'
@@ -209,12 +209,12 @@ export function OrderNewView() {
           </Card>
         </div>
 
-        <div className="flex justify-end gap-2 border-t border-border pt-4">
+        <ActionGroup sticky aria-label="Order form actions">
           <Button onClick={() => navigate('/sales/orders')}>Cancel</Button>
           <Button type="submit" variant="solid" icon={<Icon as={TbIcons.TbDeviceFloppy} />}>
             Save order
           </Button>
-        </div>
+        </ActionGroup>
       </form>
     </div>
   )

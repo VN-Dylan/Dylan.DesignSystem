@@ -36,7 +36,7 @@ export function AppLayout() {
 
       <AppShell.Content>
         <Header />
-        <AppShell.Main>
+        <AppShell.Main transitionKey={pathname}>
           <Outlet />
         </AppShell.Main>
         <Footer />

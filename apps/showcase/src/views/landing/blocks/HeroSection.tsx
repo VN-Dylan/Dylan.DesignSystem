@@ -62,8 +62,8 @@ export function HeroSection() {
             A complete admin design system, rebuilt in the open
           </h1>
           <p className="max-w-prose text-lg text-content-muted">
-            84 React components, 32 utilities and a token layer that reproduces the Eyris admin
-            template — Tailwind, SCSS and TypeScript, themed entirely through CSS variables.
+            84 React components, 32 utilities and a token layer — Tailwind, SCSS and TypeScript,
+            themed entirely through CSS variables.
           </p>
           <div className="flex flex-wrap gap-3">
             <Button size="lg" variant="solid" onClick={() => navigate('/gallery')}>

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { Avatar, Button, Card, DataTable, Dialog, Input, Select } from '@vn-dylan/ui'
+import { ActionGroup, Avatar, Button, Card, DataTable, Dialog, Input, Select } from '@vn-dylan/ui'
 import type { ColumnDef, DataTableSort, SelectOption } from '@vn-dylan/ui'
 import { Icon, TbIcons } from '@vn-dylan/icons'
 import { formatRelativeTime } from '@vn-dylan/utils'
@@ -174,12 +174,17 @@ export function TeamUsersView() {
       <Dialog
         isOpen={inviteOpen}
         onClose={() => setInviteOpen(false)}
-        aria-labelledby="invite-title"
+        title="Invite member"
+        footer={
+          <ActionGroup aria-label="Invite actions">
+            <Button onClick={() => setInviteOpen(false)}>Cancel</Button>
+            <Button variant="solid" disabled icon={<Icon as={TbIcons.TbSend} size={16} />}>
+              Send invite
+            </Button>
+          </ActionGroup>
+        }
       >
-        <h2 id="invite-title" className="text-lg font-semibold text-content">
-          Invite member
-        </h2>
-        <div className="mt-4 space-y-4">
+        <div className="space-y-4">
           <label className="block space-y-2">
             <span className="text-sm font-medium text-content">Email</span>
             <Input
@@ -200,12 +205,6 @@ export function TeamUsersView() {
               aria-label="Invite role"
             />
           </label>
-        </div>
-        <div className="mt-6 flex justify-end gap-2">
-          <Button onClick={() => setInviteOpen(false)}>Cancel</Button>
-          <Button variant="solid" disabled icon={<Icon as={TbIcons.TbSend} size={16} />}>
-            Send invite
-          </Button>
         </div>
       </Dialog>
     </div>

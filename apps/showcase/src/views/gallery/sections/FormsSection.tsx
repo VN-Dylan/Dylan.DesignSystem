@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import {
+  ActionGroup,
   AutoComplete,
   Button,
   Checkbox,
@@ -571,9 +572,13 @@ export function FormsSection() {
         title="Form"
         description="Form.Item labels, errors, helper text and submit layout."
         code={`<Form onSubmit={(event) => event.preventDefault()}>
-  <Form.Item label="Name" htmlFor="name" asterisk>
-    <Input id="name" />
+  <Form.Item label="Name" asterisk>
+    <Input />
   </Form.Item>
+  <ActionGroup divided>
+    <Button>Cancel</Button>
+    <Button variant="solid" type="submit">Save</Button>
+  </ActionGroup>
 </Form>`}
       >
         <Demo.Stack>
@@ -598,9 +603,12 @@ export function FormsSection() {
                 aria-label="Role"
               />
             </Form.Item>
-            <Button variant="solid" type="submit">
-              Save
-            </Button>
+            <ActionGroup divided aria-label="Form actions">
+              <Button>Cancel</Button>
+              <Button variant="solid" type="submit">
+                Save
+              </Button>
+            </ActionGroup>
           </Form>
         </Demo.Stack>
       </Demo>

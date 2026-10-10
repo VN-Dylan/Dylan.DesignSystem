@@ -1,4 +1,5 @@
 import type { IconType } from '@vn-dylan/icons'
+import type { Permission } from '@vn-dylan/ui'
 import { TbIcons } from '@vn-dylan/icons'
 
 export interface NavItem {
@@ -8,19 +9,20 @@ export interface NavItem {
   /** Route path. Groups (with `children`) usually omit it. */
   path?: string
   icon?: IconType
-  /** Authority tags; item hidden when the user holds none of them. */
-  authority?: string[]
+  /** Permission(s) needed to see the item (any of them). Groups hide when no child is visible. */
+  permission?: Permission | Permission[]
   children?: NavItem[]
 }
 
 /**
- * Side-navigation tree for the showcase app. Mirrors the Eyris demo areas
+ * Side-navigation tree for the showcase app, one group per demo area
  * (sales, customers, projects, analytics, ai, crypto, hrm, accounts). Detail
  * routes reached by URL param are not listed here.
  */
 export const navigationConfig: NavItem[] = [
   {
     key: 'dashboards',
+    permission: 'dashboard.read',
     title: 'Dashboards',
     icon: TbIcons.TbLayoutDashboard,
     children: [
@@ -33,7 +35,21 @@ export const navigationConfig: NavItem[] = [
     ],
   },
   {
+    key: 'examples',
+    permission: 'customers.read',
+    title: 'Examples',
+    icon: TbIcons.TbLayoutGrid,
+    children: [
+      {
+        key: 'examples.customer-workspace',
+        title: 'Customer workspace',
+        path: '/examples/customer-workspace',
+      },
+    ],
+  },
+  {
     key: 'sales',
+    permission: 'sales.read',
     title: 'Sales',
     icon: TbIcons.TbShoppingCart,
     children: [
@@ -45,6 +61,7 @@ export const navigationConfig: NavItem[] = [
   },
   {
     key: 'customers',
+    permission: 'customers.read',
     title: 'Customers',
     icon: TbIcons.TbUsers,
     children: [
@@ -55,6 +72,7 @@ export const navigationConfig: NavItem[] = [
   },
   {
     key: 'projects',
+    permission: 'projects.read',
     title: 'Projects',
     icon: TbIcons.TbFolders,
     children: [
@@ -67,6 +85,7 @@ export const navigationConfig: NavItem[] = [
   },
   {
     key: 'analytics',
+    permission: 'analytics.read',
     title: 'Analytics',
     icon: TbIcons.TbChartHistogram,
     children: [
@@ -78,6 +97,7 @@ export const navigationConfig: NavItem[] = [
   },
   {
     key: 'ai',
+    permission: 'ai.read',
     title: 'AI',
     icon: TbIcons.TbSparkles,
     children: [
@@ -88,6 +108,7 @@ export const navigationConfig: NavItem[] = [
   },
   {
     key: 'crypto',
+    permission: 'crypto.read',
     title: 'Crypto',
     icon: TbIcons.TbCurrencyBitcoin,
     children: [
@@ -99,6 +120,7 @@ export const navigationConfig: NavItem[] = [
   },
   {
     key: 'hrm',
+    permission: 'hrm.read',
     title: 'HRM',
     icon: TbIcons.TbBriefcase,
     children: [
@@ -111,6 +133,7 @@ export const navigationConfig: NavItem[] = [
   },
   {
     key: 'accounts',
+    permission: 'account.read',
     title: 'Account',
     icon: TbIcons.TbUserCog,
     children: [
@@ -119,7 +142,12 @@ export const navigationConfig: NavItem[] = [
       { key: 'accounts.referrals', title: 'Referrals', path: '/accounts/referrals' },
       { key: 'accounts.pricing', title: 'Pricing', path: '/accounts/pricing' },
       { key: 'accounts.invoice', title: 'Invoice', path: '/accounts/invoice' },
-      { key: 'accounts.users', title: 'Users', path: '/accounts/users', authority: ['admin'] },
+      {
+        key: 'accounts.users',
+        title: 'Users',
+        path: '/accounts/users',
+        permission: 'users.manage',
+      },
     ],
   },
   {

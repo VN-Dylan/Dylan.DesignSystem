@@ -1,6 +1,9 @@
 import { useState, type ComponentProps, type FormEvent, type ReactNode } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { Button, Checkbox, Input } from '@vn-dylan/ui'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
+import { Alert, Button, Checkbox, Input } from '@vn-dylan/ui'
+import { DEMO_PASSWORD, demoUsers } from '@/auth'
+import { useTranslation } from '@/i18n'
+import { useAuth } from '@/utils/hooks/useAuth'
 
 /** Card heading + optional subtitle shared by every auth screen. */
 function AuthHead({ title, subtitle }: { title: string; subtitle?: ReactNode }) {
@@ -31,30 +34,104 @@ const useMockSubmit = (to: string) => {
 }
 
 export function SignInView() {
-  const onSubmit = useMockSubmit('/sales/dashboard')
+  const navigate = useNavigate()
+  const [params] = useSearchParams()
+  const { signIn, pending, error, clearError } = useAuth()
+  const { t } = useTranslation()
+  const [email, setEmail] = useState(demoUsers[0]!.email)
+  const [password, setPassword] = useState(DEMO_PASSWORD)
+  const [remember, setRemember] = useState(true)
+  const [missing, setMissing] = useState(false)
+
+  // Only same-app paths are honoured, never an external URL.
+  const redirectParam = params.get('redirect')
+  const redirect =
+    redirectParam?.startsWith('/') && !redirectParam.startsWith('//')
+      ? redirectParam
+      : '/sales/dashboard'
+
+  const onSubmit = async (event: FormEvent) => {
+    event.preventDefault()
+    if (!email.trim() || !password) {
+      setMissing(true)
+      return
+    }
+    setMissing(false)
+    if (await signIn({ email, password, remember })) navigate(redirect, { replace: true })
+  }
+
+  const message = missing ? t('auth.errors.required') : error ? t(`auth.errors.${error}`) : null
+
   return (
-    <form className="space-y-6" onSubmit={onSubmit}>
-      <AuthHead title="Welcome back" subtitle="Sign in to continue to your workspace." />
-      <Field label="Email" type="email" defaultValue="dylan@vn-dylan.dev" autoComplete="email" />
+    <form className="space-y-6" onSubmit={onSubmit} noValidate>
+      <AuthHead title={t('auth.signIn.title')} subtitle={t('auth.signIn.subtitle')} />
+      {message && (
+        <Alert type={error === 'expired' && !missing ? 'warning' : 'danger'} showIcon>
+          {message}
+        </Alert>
+      )}
       <Field
-        label="Password"
+        label={t('auth.signIn.email')}
+        name="email"
+        type="email"
+        value={email}
+        onChange={(event) => {
+          setEmail(event.target.value)
+          clearError()
+        }}
+        invalid={error === 'invalid_credentials' || (missing && !email.trim())}
+        autoComplete="email"
+      />
+      <Field
+        label={t('auth.signIn.password')}
+        name="password"
         type="password"
-        defaultValue="password"
+        value={password}
+        onChange={(event) => {
+          setPassword(event.target.value)
+          clearError()
+        }}
+        invalid={error === 'invalid_credentials' || (missing && !password)}
         autoComplete="current-password"
       />
-      <div className="flex items-center justify-between">
-        <Checkbox defaultChecked>Remember me</Checkbox>
+      <div className="flex items-center justify-between gap-4">
+        <Checkbox checked={remember} onChange={(checked) => setRemember(checked)}>
+          {t('auth.signIn.remember')}
+        </Checkbox>
         <Link to="/auth/forgot-password" className="text-sm text-primary hover:underline">
-          Forgot password?
+          {t('auth.signIn.forgot')}
         </Link>
       </div>
-      <Button type="submit" variant="solid" block>
-        Sign in
+      <Button type="submit" variant="solid" block loading={pending}>
+        {pending ? t('auth.signIn.pending') : t('auth.signIn.submit')}
       </Button>
+
+      <div className="space-y-2 rounded-md border border-border p-4">
+        <p className="text-sm font-medium text-content">{t('auth.signIn.demoTitle')}</p>
+        <p className="text-xs text-content-muted">
+          {t('auth.signIn.demoHint', { password: DEMO_PASSWORD })}
+        </p>
+        <div className="flex flex-wrap gap-2 pt-1">
+          {demoUsers.map((user) => (
+            <Button
+              key={user.id}
+              size="sm"
+              onClick={() => {
+                setEmail(user.email)
+                setPassword(DEMO_PASSWORD)
+                clearError()
+              }}
+            >
+              {t(`roles.${user.roles[0]!}`)}
+            </Button>
+          ))}
+        </div>
+      </div>
+
       <p className="text-center text-sm text-content-muted">
-        New here?{' '}
+        {t('auth.signIn.newHere')}{' '}
         <Link to="/auth/sign-up" className="text-primary hover:underline">
-          Create an account
+          {t('auth.signIn.createAccount')}
         </Link>
       </p>
     </form>

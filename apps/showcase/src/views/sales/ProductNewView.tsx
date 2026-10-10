@@ -1,6 +1,6 @@
 import { useState, type FormEvent, type ReactNode } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Button, Card, Input, Segment, Select } from '@vn-dylan/ui'
+import { ActionGroup, Button, Card, Input, Segment, Select } from '@vn-dylan/ui'
 import { Icon, TbIcons } from '@vn-dylan/icons'
 import { PageHeader } from '@/components/shared/PageHeader'
 import type { Product } from '@/mock/sales'
@@ -151,12 +151,12 @@ export function ProductNewView() {
           </Card>
         </div>
 
-        <div className="flex justify-end gap-2 border-t border-border pt-4">
+        <ActionGroup sticky aria-label="Product form actions">
           <Button onClick={() => navigate('/sales/products')}>Cancel</Button>
           <Button type="submit" variant="solid" icon={<Icon as={TbIcons.TbDeviceFloppy} />}>
             Save product
           </Button>
-        </div>
+        </ActionGroup>
       </form>
     </div>
   )

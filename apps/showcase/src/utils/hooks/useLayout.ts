@@ -17,7 +17,7 @@ export interface UseLayoutResult {
 }
 
 /**
- * App-coupled layout accessor (Eyris `useLayout`). Combines the persisted
+ * App-coupled layout accessor. Combines the persisted
  * layout flags from `themeStore` with the current breakpoint.
  */
 export function useLayout(): UseLayoutResult {

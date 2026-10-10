@@ -6,7 +6,7 @@ export function Footer() {
     <AppShell.Footer>
       <Inline wrap justify="between" gap="tight">
         <span>© {new Date().getFullYear()} Dylan Design System — showcase</span>
-        <span>Rebuilt from the Eyris admin template · internal reference</span>
+        <span>Internal reference</span>
       </Inline>
     </AppShell.Footer>
   )

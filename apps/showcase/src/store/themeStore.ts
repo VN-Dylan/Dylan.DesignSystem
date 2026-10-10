@@ -8,8 +8,7 @@ export type Direction = 'ltr' | 'rtl'
 /**
  * App-wide theme + layout preferences, mirrored to `localStorage`.
  *
- * The Eyris template keeps the same shape in a Zustand `themeStore`
- * (`mode` / `schema` / `direction` / layout flags). Applying these values to
+ * Shape: `mode` / `schema` / `direction` / layout flags. Applying these values to
  * the DOM is done by `useThemeBootstrap`, not here — the store is pure state.
  */
 export interface ThemeState {
