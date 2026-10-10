@@ -18,3 +18,4 @@ pnpm-debug.log*
 !.vscode/extensions.json
 !.vscode/settings.json
 ssh
+.storybook/__snapshots__
