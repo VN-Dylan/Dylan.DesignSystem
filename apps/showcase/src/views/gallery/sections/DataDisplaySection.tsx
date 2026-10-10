@@ -27,6 +27,11 @@ import { HiIcons, Icon, TbIcons } from '@vn-dylan/icons'
 import { Demo } from '@/views/gallery/components/Demo'
 import { SectionShell } from '@/views/gallery/sections/SectionShell'
 import {
+  DataTableAdvancedDemos,
+  ListDemos,
+  TreeListDemos,
+} from '@/views/gallery/sections/demos/DataDemos'
+import {
   galleryActivity,
   galleryProducts,
   gallerySelectOptions,
@@ -598,6 +603,9 @@ export function DataDisplaySection() {
           <SyntaxHighlighter language="bash">{bashSnippet}</SyntaxHighlighter>
         </Demo.Grid>
       </Demo>
+      <DataTableAdvancedDemos />
+      <ListDemos />
+      <TreeListDemos />
     </SectionShell>
   )
 }

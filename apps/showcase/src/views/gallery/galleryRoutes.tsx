@@ -2,6 +2,7 @@ import { Navigate, type RouteObject } from 'react-router-dom'
 import { GalleryLayout } from '@/views/gallery/GalleryLayout'
 import { FoundationsView } from '@/views/gallery/FoundationsView'
 import { CommonSection } from '@/views/gallery/sections/CommonSection'
+import { LayoutSection } from '@/views/gallery/sections/LayoutSection'
 import { FormsSection } from '@/views/gallery/sections/FormsSection'
 import { FeedbackSection } from '@/views/gallery/sections/FeedbackSection'
 import { NavigationSection } from '@/views/gallery/sections/NavigationSection'
@@ -21,6 +22,7 @@ export const galleryRoutes: RouteObject[] = [
     children: [
       { index: true, element: <FoundationsView /> },
       { path: 'common', element: <CommonSection /> },
+      { path: 'layout', element: <LayoutSection /> },
       { path: 'forms', element: <FormsSection /> },
       { path: 'feedback', element: <FeedbackSection /> },
       { path: 'navigation', element: <NavigationSection /> },

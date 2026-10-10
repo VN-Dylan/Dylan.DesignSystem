@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { Avatar, Card, Table } from '@vn-dylan/ui'
+import { Avatar, Card, List, Table } from '@vn-dylan/ui'
 import { Icon, TbIcons } from '@vn-dylan/icons'
 import { formatRelativeTime } from '@vn-dylan/utils'
 import { PageHeader } from '@/components/shared/PageHeader'
@@ -155,23 +155,20 @@ export function HrmDashboardView() {
         </Card>
 
         <div className="space-y-4">
-          <Card
-            bordered
-            header={{ content: 'New joiners', bordered: true }}
-            bodyClass="divide-y divide-border p-0"
-          >
-            {newJoiners.map((e) => (
-              <div key={e.id} className="flex items-center gap-3 px-4 py-3">
-                <Avatar size={30} shape="circle" src={e.avatar} alt={e.name} />
-                <div className="min-w-0">
-                  <p className="truncate text-sm font-medium text-content">{e.name}</p>
-                  <p className="text-xs text-content-muted">
-                    {e.role} · {formatRelativeTime(e.joined)}
-                  </p>
-                </div>
-                <StatusTag tone={employeeStatusTone[e.status]}>{e.status}</StatusTag>
-              </div>
-            ))}
+          <Card bordered header={{ content: 'New joiners', bordered: true }} bodyClass="p-0">
+            <List
+              aria-label="New joiners"
+              items={newJoiners}
+              getKey={(e) => e.id}
+              renderItem={(e) => (
+                <List.Item
+                  prefix={<Avatar size={30} shape="circle" src={e.avatar} alt="" />}
+                  title={e.name}
+                  description={`${e.role} · ${formatRelativeTime(e.joined)}`}
+                  meta={<StatusTag tone={employeeStatusTone[e.status]}>{e.status}</StatusTag>}
+                />
+              )}
+            />
           </Card>
           <Card bordered header={{ content: 'Announcement', bordered: true }} bodyClass="p-4">
             <p className="text-sm font-medium text-content">{pinned.title}</p>

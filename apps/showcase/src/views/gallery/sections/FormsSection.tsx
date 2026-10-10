@@ -36,6 +36,7 @@ import {
 import { HiIcons, Icon, TbIcons } from '@vn-dylan/icons'
 import { Demo } from '@/views/gallery/components/Demo'
 import { SectionShell } from '@/views/gallery/sections/SectionShell'
+import { ComboboxDemos } from '@/views/gallery/sections/demos/DataDemos'
 import { gallerySelectOptions, galleryTreeCountries } from '@/mock/gallery'
 
 const cardDate = new Date(2026, 8, 9)
@@ -657,6 +658,7 @@ export function FormsSection() {
           </Button>
         </Demo.Stack>
       </Demo>
+      <ComboboxDemos />
     </SectionShell>
   )
 }

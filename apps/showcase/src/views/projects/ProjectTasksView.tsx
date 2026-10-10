@@ -1,28 +1,15 @@
-import { useCallback, useEffect, useMemo, useState, type MouseEvent } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { Avatar, Card, DataTable, Input, Progress, Select } from '@vn-dylan/ui'
-import type { ColumnDef, DataTableSort, SelectOption } from '@vn-dylan/ui'
-import { Icon, TbIcons } from '@vn-dylan/icons'
+import { useMemo, useState } from 'react'
+import { Link } from 'react-router-dom'
+import { Avatar, Card, Combobox, DataTable, Progress, Select } from '@vn-dylan/ui'
+import type { ColumnDef, ComboboxOption, SelectOption } from '@vn-dylan/ui'
 import { formatRelativeTime } from '@vn-dylan/utils'
 import { PageHeader } from '@/components/shared/PageHeader'
 import { StatusTag } from '@/components/shared/StatusTag'
-import {
-  getMember,
-  getProject,
-  projects,
-  tasks,
-  taskStatusColumns,
-  type Task,
-} from '@/mock/projects'
+import { getMember, projects, taskStatusColumns, tasks, team, type Task } from '@/mock/projects'
 import { taskPriorityTone, taskStatusLabel, taskStatusTone } from './projectsConstants'
 
-const allProjectOption = { label: 'All projects', value: 'all' }
 const allStatusOption = { label: 'All statuses', value: 'all' }
 const allPriorityOption = { label: 'All priorities', value: 'all' }
-const projectOptions: SelectOption[] = [
-  allProjectOption,
-  ...projects.map((project) => ({ label: project.name, value: project.id })),
-]
 const statusOptions: SelectOption[] = [
   allStatusOption,
   ...taskStatusColumns.map((column) => ({ label: column.label, value: column.status })),
@@ -34,212 +21,212 @@ const priorityOptions: SelectOption[] = [
   { label: 'High', value: 'high' },
   { label: 'Urgent', value: 'urgent' },
 ]
-const defaultPageSize = 8
+const assigneeOptions: ComboboxOption[] = team.map((member) => ({
+  value: member.id,
+  label: member.name,
+  description: member.role,
+}))
 
-const compareTasks = (sort: DataTableSort) => (a: Task, b: Task) => {
-  const direction = sort.order === 'desc' ? -1 : 1
-  if (sort.key === 'due') return a.due.localeCompare(b.due) * direction
-  return 0
-}
+/** A project groups its tasks; a task is a leaf. Both share the table's columns. */
+type Row =
+  | {
+      kind: 'project'
+      id: string
+      title: string
+      due: string
+      checklist: [number, number]
+      children: Row[]
+    }
+  | ({ kind: 'task' } & Task)
 
-/** Searchable task table with project, status, priority and due-date controls. */
+const percentOf = ([done, total]: [number, number]) =>
+  total ? Math.round((done / total) * 100) : 0
+
+/** Tasks grouped by project in a tree table, with search, filters and assignee picking. */
 export function ProjectTasksView() {
-  const navigate = useNavigate()
-  const [query, setQuery] = useState('')
-  const [projectFilter, setProjectFilter] = useState<SelectOption>(allProjectOption)
   const [statusFilter, setStatusFilter] = useState<SelectOption>(allStatusOption)
   const [priorityFilter, setPriorityFilter] = useState<SelectOption>(allPriorityOption)
-  const [sort, setSort] = useState<DataTableSort>({ key: '', order: '' })
-  const [pageIndex, setPageIndex] = useState(1)
-  const [pageSize, setPageSize] = useState(defaultPageSize)
+  const [assignees, setAssignees] = useState<ComboboxOption[]>([])
 
-  useEffect(() => {
-    setPageIndex(1)
-  }, [pageSize, priorityFilter.value, projectFilter.value, query, statusFilter.value])
+  // Select / Combobox filters narrow the tasks; DataTable owns search and sort.
+  const rows = useMemo<Row[]>(() => {
+    const wanted = new Set(assignees.map((a) => a.value))
+    const visible = tasks.filter(
+      (task) =>
+        (statusFilter.value === 'all' || task.status === statusFilter.value) &&
+        (priorityFilter.value === 'all' || task.priority === priorityFilter.value) &&
+        (wanted.size === 0 || wanted.has(task.assignee)),
+    )
+    return projects
+      .map((project): Row => {
+        const children = visible.filter((t) => t.projectId === project.id)
+        const checklist = children.reduce<[number, number]>(
+          ([done, total], t) => [done + t.checklist[0], total + t.checklist[1]],
+          [0, 0],
+        )
+        return {
+          kind: 'project',
+          id: project.id,
+          title: project.name,
+          due: project.due,
+          checklist,
+          children: children.map((task) => ({ kind: 'task', ...task })),
+        }
+      })
+      .filter((row) => row.kind === 'project' && row.children.length > 0)
+  }, [assignees, priorityFilter.value, statusFilter.value])
 
-  const filteredTasks = useMemo(() => {
-    const lowered = query.trim().toLowerCase()
-    return tasks.filter((task) => {
-      const matchesQuery = lowered.length === 0 || task.title.toLowerCase().includes(lowered)
-      const matchesProject = projectFilter.value === 'all' || task.projectId === projectFilter.value
-      const matchesStatus = statusFilter.value === 'all' || task.status === statusFilter.value
-      const matchesPriority =
-        priorityFilter.value === 'all' || task.priority === priorityFilter.value
-      return matchesQuery && matchesProject && matchesStatus && matchesPriority
-    })
-  }, [priorityFilter.value, projectFilter.value, query, statusFilter.value])
-
-  const sortedTasks = useMemo(() => {
-    if (!sort.key || !sort.order) return filteredTasks
-    return [...filteredTasks].sort(compareTasks(sort))
-  }, [filteredTasks, sort])
-
-  const pageRows = useMemo(
-    () => sortedTasks.slice((pageIndex - 1) * pageSize, pageIndex * pageSize),
-    [pageIndex, pageSize, sortedTasks],
-  )
-
-  const columns = useMemo<ColumnDef<Task, unknown>[]>(
+  const columns = useMemo<ColumnDef<Row, unknown>[]>(
     () => [
       {
-        id: 'task',
+        id: 'title',
         header: 'Task',
-        enableSorting: false,
-        cell: ({ row }) => (
-          <div className="min-w-64 space-y-2">
-            <p className="font-medium text-content">{row.original.title}</p>
-            <div className="flex flex-wrap gap-2">
-              {row.original.labels.map((label) => (
-                <span
-                  key={label}
-                  className="rounded-md bg-surface-sunken px-2 py-1 text-xs font-medium text-content-muted"
-                >
-                  {label}
+        enableHiding: false,
+        accessorFn: (row) => row.title,
+        cell: ({ row }) => {
+          const item = row.original
+          if (item.kind === 'project') {
+            return (
+              <Link
+                to={`/projects/${item.id}`}
+                className="font-semibold text-content hover:text-primary"
+              >
+                {item.title}
+                <span className="ms-2 text-xs font-normal text-content-muted">
+                  {item.children.length} tasks
                 </span>
-              ))}
+              </Link>
+            )
+          }
+          return (
+            <div className="min-w-56 space-y-1">
+              <p className="font-medium text-content">{item.title}</p>
+              <div className="flex flex-wrap gap-1">
+                {item.labels.map((label) => (
+                  <span
+                    key={label}
+                    className="rounded bg-surface-sunken px-2 py-0.5 text-xs font-medium text-content-muted"
+                  >
+                    {label}
+                  </span>
+                ))}
+              </div>
             </div>
-          </div>
-        ),
-      },
-      {
-        id: 'project',
-        header: 'Project',
-        enableSorting: false,
-        cell: ({ row }) => getProject(row.original.projectId)?.name ?? row.original.projectId,
+          )
+        },
       },
       {
         id: 'assignee',
         header: 'Assignee',
-        enableSorting: false,
+        accessorFn: (row) =>
+          row.kind === 'task' ? (getMember(row.assignee)?.name ?? row.assignee) : '',
         cell: ({ row }) => {
-          const member = getMember(row.original.assignee)
+          const item = row.original
+          if (item.kind !== 'task') return null
+          const member = getMember(item.assignee)
           return (
             <div className="flex items-center gap-2">
               <Avatar
                 size={24}
                 shape="circle"
                 src={member?.avatar}
-                alt={member?.name ?? row.original.assignee}
+                alt={member?.name ?? item.assignee}
               />
-              <span className="text-sm text-content">{member?.name ?? row.original.assignee}</span>
+              <span className="text-sm text-content">{member?.name ?? item.assignee}</span>
             </div>
           )
         },
       },
       {
-        accessorKey: 'priority',
+        id: 'priority',
         header: 'Priority',
-        enableSorting: false,
-        cell: ({ row }) => (
-          <StatusTag tone={taskPriorityTone[row.original.priority]}>
-            {row.original.priority}
-          </StatusTag>
-        ),
+        accessorFn: (row) => (row.kind === 'task' ? row.priority : ''),
+        cell: ({ row }) =>
+          row.original.kind === 'task' ? (
+            <StatusTag tone={taskPriorityTone[row.original.priority]}>
+              {row.original.priority}
+            </StatusTag>
+          ) : null,
       },
       {
-        accessorKey: 'status',
+        id: 'status',
         header: 'Status',
-        enableSorting: false,
-        cell: ({ row }) => (
-          <StatusTag tone={taskStatusTone[row.original.status]}>
-            {taskStatusLabel[row.original.status]}
-          </StatusTag>
-        ),
+        accessorFn: (row) => (row.kind === 'task' ? row.status : ''),
+        cell: ({ row }) =>
+          row.original.kind === 'task' ? (
+            <StatusTag tone={taskStatusTone[row.original.status]}>
+              {taskStatusLabel[row.original.status]}
+            </StatusTag>
+          ) : null,
       },
       {
-        accessorKey: 'due',
+        id: 'due',
         header: 'Due',
+        accessorFn: (row) => row.due,
         cell: ({ row }) => formatRelativeTime(row.original.due),
       },
       {
         id: 'checklist',
         header: 'Checklist',
-        enableSorting: false,
-        cell: ({ row }) => {
-          const percent = Math.round((row.original.checklist[0] / row.original.checklist[1]) * 100)
-          return (
-            <div className="w-28 space-y-1">
-              <span className="text-xs text-content-muted">
-                {row.original.checklist[0]} / {row.original.checklist[1]}
-              </span>
-              <Progress percent={percent} size="sm" showInfo={false} />
-            </div>
-          )
-        },
+        accessorFn: (row) => percentOf(row.checklist),
+        cell: ({ row }) => (
+          <div className="w-28 space-y-1">
+            <span className="text-xs text-content-muted">
+              {row.original.checklist[0]} / {row.original.checklist[1]}
+            </span>
+            <Progress percent={percentOf(row.original.checklist)} size="sm" showInfo={false} />
+          </div>
+        ),
       },
     ],
     [],
   )
 
-  const handleSort = useCallback((nextSort: DataTableSort) => {
-    setSort(nextSort)
-  }, [])
-
-  const handleTableClick = useCallback(
-    (event: MouseEvent<HTMLDivElement>) => {
-      const target = event.target as HTMLElement
-      if (target.closest('button,input,select,a,[role="button"],.dyl-data-table__select-cell')) {
-        return
-      }
-      const row = target.closest('tbody tr')
-      const rowGroup = row?.parentElement
-      if (!row || !rowGroup) return
-      const index = Array.from(rowGroup.children).indexOf(row)
-      const task = pageRows[index]
-      if (task) navigate(`/projects/${task.projectId}`)
-    },
-    [navigate, pageRows],
-  )
-
   return (
     <div className="space-y-6">
-      <PageHeader title="Tasks" description="Search and triage delivery work across projects." />
+      <PageHeader
+        title="Tasks"
+        description="Delivery work grouped by project — search, filter and triage."
+      />
 
-      <Card bordered bodyClass="space-y-4 p-4">
-        <div className="grid gap-3 lg:grid-cols-[minmax(16rem,1fr)_14rem_12rem_12rem]">
-          <Input
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            name="task-search"
-            placeholder="Search task title"
-            prefix={<Icon as={TbIcons.TbSearch} size={16} />}
-            aria-label="Search tasks"
-          />
-          <Select
-            options={projectOptions}
-            value={projectFilter}
-            onChange={(option) => setProjectFilter(option ?? allProjectOption)}
-            isClearable={false}
-            aria-label="Project"
-          />
-          <Select
-            options={statusOptions}
-            value={statusFilter}
-            onChange={(option) => setStatusFilter(option ?? allStatusOption)}
-            isClearable={false}
-            aria-label="Status"
-          />
-          <Select
-            options={priorityOptions}
-            value={priorityFilter}
-            onChange={(option) => setPriorityFilter(option ?? allPriorityOption)}
-            isClearable={false}
-            aria-label="Priority"
-          />
-        </div>
-
-        <div onClick={handleTableClick}>
-          <DataTable<Task>
-            columns={columns}
-            data={pageRows}
-            pagingData={{ pageIndex, pageSize, total: sortedTasks.length }}
-            pageSizeOptions={[8, 16, 24]}
-            onPaginationChange={setPageIndex}
-            onPageSizeChange={setPageSize}
-            onSort={handleSort}
-            emptyMessage="No tasks match the current filters."
-          />
-        </div>
+      <Card bordered>
+        <DataTable<Row>
+          columns={columns}
+          data={rows}
+          getRowId={(row) => row.id}
+          getSubRows={(row) => (row.kind === 'project' ? row.children : undefined)}
+          initialState={{ expanded: true, columnPinning: { left: ['title'] } }}
+          searchable
+          searchPlaceholder="Search tasks"
+          filters={
+            <>
+              <Combobox
+                multiple
+                maxTags={2}
+                aria-label="Assignees"
+                placeholder="Assignees"
+                options={assigneeOptions}
+                value={assignees}
+                onChange={setAssignees}
+              />
+              <Select
+                options={statusOptions}
+                value={statusFilter}
+                onChange={(option) => setStatusFilter(option ?? allStatusOption)}
+                isClearable={false}
+                aria-label="Status"
+              />
+              <Select
+                options={priorityOptions}
+                value={priorityFilter}
+                onChange={(option) => setPriorityFilter(option ?? allPriorityOption)}
+                isClearable={false}
+                aria-label="Priority"
+              />
+            </>
+          }
+          emptyMessage="No tasks match the current filters."
+        />
       </Card>
     </div>
   )
