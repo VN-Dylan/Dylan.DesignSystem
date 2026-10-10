@@ -1,7 +1,7 @@
 # Dylan Design System
 
 A self-contained React design system — component library, design tokens, and a
-handbook — reverse-engineered from the Eyris admin template and rebuilt on
+handbook — for admin and booking products, built on
 **React + Tailwind CSS v3 + SCSS + TypeScript**.
 
 ## Packages
@@ -11,8 +11,8 @@ handbook — reverse-engineered from the Eyris admin template and rebuilt on
 | `@vn-dylan/tokens` | Design tokens — SCSS source, generated CSS variables, Tailwind preset, 8 preset theme schemas. |
 | `@vn-dylan/utils` | Framework hooks and helpers (`classNames`, `useResponsive`, `formatCurrency`, …). |
 | `@vn-dylan/icons` | Icon layer — a thin wrapper over `react-icons` (Tabler as the house set). |
-| `@vn-dylan/ui` | The React component library — 42 base + 42 composite components. |
-| `apps/showcase` | Reference app that rebuilds the Eyris example screens on the system. |
+| `@vn-dylan/ui` | The React component library — 42 base + 42 composite components, plus forms, overlays, motion, permissions (`AccessProvider` / `Can`) and localization (`LocaleProvider`). |
+| `apps/showcase` | Reference app — ~62 example screens, auth with a pluggable adapter, role-based permissions and vi / en translation. |
 
 ## Getting started
 
@@ -42,8 +42,8 @@ pnpm add @vn-dylan/ui
 - [`DESIGN.md`](./DESIGN.md) — principles, token anatomy, theming, accessibility.
 - [`CONSUMING.md`](./CONSUMING.md) — installing and using the packages downstream.
 - [`docs/`](./docs) — getting started, theming guide, the build plan.
-- [`docs/reference/`](./docs/reference) — the Eyris exploration report and the raw
-  crawl of all 84 component docs + 32 utilities (the implementation spec source).
+- [`docs/reference/api-spec/`](./docs/reference/api-spec) — the reference API spec
+  for all 84 components + 32 utilities (demos + prop tables; checked by `pnpm check:api`).
 - [`PROGRESS.md`](./PROGRESS.md) — per-component build status.
 - [`RECIPE.md`](./RECIPE.md) — the contract every component follows.
 

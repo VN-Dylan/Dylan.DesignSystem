@@ -23,7 +23,7 @@ new `packages/ui` component still follows `RECIPE.md` exactly.
 - Anchored overlays use `@floating-ui/react`; modal overlays use `_internal/Portal` + `useFocusTrap`.
 - Every test ends with `expect(await axe(container)).toHaveNoViolations()`.
 - Designed for light + dark + RTL together.
-- New components are **deliberate deviations** from Eyris → record in `docs/handbook/DesignDecisions.mdx`.
+- New components are **deliberate additions** → record in `docs/handbook/DesignDecisions.mdx`.
 - Marketing / motion presentation code does **not** enter `packages/ui`.
 
 ## Phases
@@ -70,7 +70,7 @@ Rough total ~18–25 person-days; ~12–15 with the parallel branches.
 
 Each `packages/ui` task is dispatched with `codex exec --skip-git-repo-check
 --dangerously-bypass-approvals-and-sandbox -C <root>`, prompt = `RECIPE.md` +
-a hand-written SPEC block (these components are not in the Eyris crawl, so
+a hand-written SPEC block (these components are not in the API spec, so
 `scripts/ds-spec.mjs` has nothing for them). Verify gate per component:
 
 ```

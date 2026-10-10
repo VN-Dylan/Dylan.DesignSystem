@@ -1,6 +1,6 @@
 # SHOWCASE-RECIPE.md — the P4 app-screen contract
 
-The showcase app (`apps/showcase`) rebuilds the Eyris example screens on the
+The showcase app (`apps/showcase`) builds the example screens on the
 Dylan Design System. P4 C1 built the shell; the area batches (C2+) fill in the
 screens. This file is the prompt contract handed to codex for those batches.
 

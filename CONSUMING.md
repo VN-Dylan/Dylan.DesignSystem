@@ -87,7 +87,7 @@ compiled utilities the components rely on.
 
 ```tsx
 import { useState } from 'react'
-import { Button, Input, Dialog } from '@vn-dylan/ui'
+import { ActionGroup, Button, Dialog, Form, Input } from '@vn-dylan/ui'
 
 export function Example() {
   const [open, setOpen] = useState(false)
@@ -96,13 +96,32 @@ export function Example() {
       <Button variant="solid" onClick={() => setOpen(true)}>
         Open
       </Button>
-      <Dialog isOpen={open} onClose={() => setOpen(false)} aria-label="Example">
-        <Input placeholder="Your name" />
+      <Dialog
+        isOpen={open}
+        onClose={() => setOpen(false)}
+        title="Your profile"
+        footer={
+          <ActionGroup>
+            <Button onClick={() => setOpen(false)}>Cancel</Button>
+            <Button type="submit" form="profile-form" variant="solid">
+              Save
+            </Button>
+          </ActionGroup>
+        }
+      >
+        <Form id="profile-form" onSubmit={(e) => e.preventDefault()}>
+          <Form.Item label="Name">
+            <Input placeholder="Your name" />
+          </Form.Item>
+        </Form>
       </Dialog>
     </>
   )
 }
 ```
+
+`Dialog` / `Drawer` pin `title` and `footer`; only the body scrolls. On a page,
+put form actions in `<ActionGroup sticky>` so they stay on screen.
 
 Button `variant`: `default` · `solid` · `subtle` · `plain` · `link`.
 
@@ -132,7 +151,44 @@ Available schema names come from `themeSchemaNames` in `@vn-dylan/tokens`
 Make sure your Tailwind config (if any) has `darkMode: 'class'` so the `.dark`
 class toggled by `useDarkMode` takes effect.
 
-## 7. Upgrading
+## 7. Language & permissions
+
+Wrap the app once. `LocaleProvider` translates the strings components render
+themselves (English and Vietnamese bundled; pass `messages` to override or add
+a language). `AccessProvider` feeds `<Can>` / `useAccess` with the signed-in
+user's permissions — resolve roles to permissions in your app.
+
+```tsx
+import { AccessProvider, LocaleProvider, resolvePermissions } from '@vn-dylan/ui'
+
+const rolePermissions = {
+  viewer: ['customers.read'],
+  editor: ['customers.read', 'customers.create', 'customers.update'],
+  admin: ['*'],
+}
+
+export function Providers({ user, children }) {
+  return (
+    <LocaleProvider locale="vi-VN">
+      <AccessProvider permissions={resolvePermissions(user?.roles ?? [], rolePermissions)}>
+        {children}
+      </AccessProvider>
+    </LocaleProvider>
+  )
+}
+
+// anywhere below
+<Can permission="customers.delete">
+  <Button tone="danger">Delete</Button>
+</Can>
+```
+
+UI gating only — enforce the same permissions in your API. Authentication is
+app code; `apps/showcase/src/auth` is a reference implementation behind an
+`AuthAdapter` interface. Details: Storybook **Handbook → Permissions & Auth**
+and **Handbook → Localization**.
+
+## 8. Upgrading
 
 ```bash
 pnpm up '@vn-dylan/*' --latest

@@ -9,13 +9,13 @@
 
 ## 1. What this is
 
-Dylan DS is a production-oriented React component system. It reproduces the
-component surface of the Eyris admin template (42 base components, 42 composite
-components, 32 utilities) as an independent, self-contained library — no external
-UI-kit dependency — built on React 18, Tailwind CSS v3, SCSS and TypeScript.
+Dylan DS is a production-oriented React component system for admin and booking
+products (42 base components, 42 composite components, 32 utilities): an
+independent, self-contained library — no external UI-kit dependency — built on
+React 18, Tailwind CSS v3, SCSS and TypeScript.
 
-It is an **internal** system. Component and prop names mirror Eyris for API
-familiarity; all brand assets, copy and visual identity are Dylan's own.
+It is an **internal** system. Component and prop names follow familiar
+conventions; all brand assets, copy and visual identity are Dylan's own.
 
 ## 2. Principles
 
@@ -183,7 +183,7 @@ both. Apps that use the display stack must load the **Sora** webfont themselves.
 
 ### Preset theme schemas
 
-Nine schemas ship: the eight ported from Eyris — `default, dark, green, purple,
+Nine schemas ship: eight general presets — `default, dark, green, purple,
 orange, cyan, gold, pink` — plus `booking` for booking-readiness surfaces. Each
 overrides the primary family. Applied at runtime by writing CSS variables onto
 `<html>`: `useThemeSchema(name, mode)` from `@vn-dylan/utils`, or
@@ -234,13 +234,19 @@ overrides the primary family. Applied at runtime by writing CSS variables onto
 
 Full details and the file layout: [`RECIPE.md`](./RECIPE.md).
 
-## 8. Eyris ↔ Dylan mapping
+## 8. Design decisions
 
-The system reproduces the Eyris component surface 1:1 by name; the import alias
-is the only expected change. The **Handbook → Eyris Mapping** page in Storybook
-(`docs/handbook/DesignDecisions.mdx`) records coverage and every deliberate
-deviation — `Button` has no `asChild`, `FullCalendar`/`GanttChart` are
-dependency-free, 3 app-coupled utilities live in the showcase, etc.
+The component API follows conventional names (`variant`, `size`, `shape`,
+`disabled`, `loading`…) and the reference API spec in `docs/reference/api-spec`
+(`pnpm check:api` keeps the two in sync). The **Handbook → Design Decisions**
+page in Storybook (`docs/handbook/DesignDecisions.mdx`) records coverage, every
+deliberate deviation — `Button` has no `asChild`, `FullCalendar`/`GanttChart`
+are dependency-free, 3 app-coupled utilities live in the showcase — and every
+addition (layout primitives, `ActionGroup`, `Form.Group`, `AccessProvider` /
+`Can`, `LocaleProvider`, …).
+
+Related handbook pages: **Actions & Buttons**, **Forms**, **Motion**,
+**Permissions & Auth**, **Localization**.
 
 ## 9. Versioning & publishing
 

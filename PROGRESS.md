@@ -155,9 +155,9 @@ Legend: ☐ todo · ◑ in progress · ☑ done · — n/a. Columns: spec · imp
 | C4 | `analytics` (dashboard, forecast, revenue, subscriptions, reports) + `crypto` (dashboard, market, coin/:sym, spot, assets, kyc); + `mock/analytics.ts`, `mock/crypto.ts` | ☑ |
 | C5 | `customers` (dashboard, list, :id/overview, leads, lead/:id/overview, helpdesk) + `hrm` (dashboard, employees, attendance, payroll, leaves, announcements); + `mock/customers.ts`, `mock/hrm.ts` | ☑ |
 | C6 | `ai` (chat, image, writer) + `accounts` (settings/profile, activity, referrals, pricing, invoice, users) ; + `mock/ai.ts`, `mock/account.ts`. All `APP_AREAS` placeholders now gone. | ☑ |
-| C7 | mock data consolidation, polish pass, Eyris visual diff | ☑ visual sweep of all ~62 screens + 13 auth + landing/404/gallery + dark mode vs Eyris; 30 fixes across 3 commits; mock consolidation (order totals post-tax, analytics MRR/ARPU derived, crypto portfolio derived, `mock/team.ts` canonical roster, customer↔staff avatar de-dup, "Grace Mensah" customer→"Kwame Boateng"). |
+| C7 | mock data consolidation, polish pass, reference visual diff | ☑ visual sweep of all ~62 screens + 13 auth + landing/404/gallery + dark mode vs the reference template; 30 fixes across 3 commits; mock consolidation (order totals post-tax, analytics MRR/ARPU derived, crypto portfolio derived, `mock/team.ts` canonical roster, customer↔staff avatar de-dup, "Grace Mensah" customer→"Kwame Boateng"). |
 
-C7 follow-ups (deferred, not blocking): nav keeps Dylan's "Dashboards" super-group + per-area groups (chose not to match Eyris's Dashboard-per-area nesting); string-name people refs (report owner / image author / task assignee label) use literals not `personName(key)`.
+C7 follow-ups (deferred, not blocking): nav keeps Dylan's "Dashboards" super-group + per-area groups (chose not to match the reference template's Dashboard-per-area nesting); string-name people refs (report owner / image author / task assignee label) use literals not `personName(key)`.
 
 Unbuilt areas are routed via `PagePlaceholder` (`APP_AREAS` in `routes.config.tsx`); each area batch replaces them with a real `<area>Routes` module + views + `mock/<area>.ts`. Execution: Claude wrote C1 + the C2 dashboard/infra + `SHOWCASE-RECIPE.md`; codex builds the per-area screens from a spec, Claude reviews/fixes/verifies.
 
@@ -165,7 +165,7 @@ P4 follow-ups: ~~`mock` `order.total` vs detail's subtotal+tax is inconsistent~~
 
 fix(ui) shipped during P4: Chart got a token-derived multi-colour palette (C2); Progress circle variant rotated its `<g>` via CSS transform around the SVG origin → ring flew off / oversized — now `rotate(deg 50 50)` SVG attr (C3); Select's filter `<input>` got `name`/`type`/`autoComplete` (C3); VectorMap choropleth was black — jsvectormap 1.6 only has an ordinal (lookup) scale, not numeric, so the ramp is now interpolated in-component (border→primary per normalised value) and fed as a code→hex map (C4).
 
-fix(ui) shipped during C7 (Eyris visual sweep): `Table`/`DataTable` sort indicator was literal `▲▼` text → `TbArrowsSort`/`TbArrowUp`/`TbArrowDown` icons; `Chart` reworked to Eyris style (faint horizontal-only gridlines, no axis border/ticks, light area-fill gradient), **now re-reads its token colours on runtime theme change** via a `MutationObserver` on `<html>` (was baking in light-mode grid/text colours → bright gridlines in dark mode), thins dense category axes (`tickAmount` when >12 categories), interleaved the categorical palette so donuts/multi-line aren't three blues, theme-aware tooltip. Showcase: sticky `Header` used `bg-surface/95` (opacity modifier on a themed var = invalid colour → transparent header, charts bled through) → solid `bg-surface`.
+fix(ui) shipped during C7 (reference visual sweep): `Table`/`DataTable` sort indicator was literal `▲▼` text → `TbArrowsSort`/`TbArrowUp`/`TbArrowDown` icons; `Chart` reworked to the house style (faint horizontal-only gridlines, no axis border/ticks, light area-fill gradient), **now re-reads its token colours on runtime theme change** via a `MutationObserver` on `<html>` (was baking in light-mode grid/text colours → bright gridlines in dark mode), thins dense category axes (`tickAmount` when >12 categories), interleaved the categorical palette so donuts/multi-line aren't three blues, theme-aware tooltip. Showcase: sticky `Header` used `bg-surface/95` (opacity modifier on a themed var = invalid colour → transparent header, charts bled through) → solid `bg-surface`.
 
 C7 mock consolidation: sales order totals (above); analytics MRR/active-accounts/ARPU derived from `subscriptions` (were hardcoded + disagreed between Revenue and Subscriptions screens); crypto `portfolioValue`/`portfolioCost`/`allocation` derived from `holdings` (dashboard $128,940 hardcode disagreed with Assets $164,445); **`mock/team.ts` = canonical 10-person staff roster** — `account.teamMembers` / `hrm.employees` / `projects.team` / `account.profile` now spread `personFields(key)` instead of re-listing name/email/avatar; 6 customer avatars that collided with staff avatars given distinct ids; the customer named "Grace Mensah" (also an internal new-hire — confusing) renamed to "Kwame Boateng". Still open: string-name refs (report owner / image author / task-assignee label) use literals rather than `personName(key)`.
 
@@ -174,7 +174,7 @@ C7 mock consolidation: sales order totals (above); analytics MRR/active-accounts
 Browsable "why" docs, wired into Storybook (`Handbook/*`, ordered via
 `preview.tsx` `storySort`). 8 pages: Introduction · Principles · Design Tokens
 (live `--dyl-*` swatches that follow the theme toolbar) · Theming & Modes ·
-Accessibility · Component API · Contributing · Eyris Mapping. Drawn from
+Accessibility · Component API · Contributing · Design Decisions. Drawn from
 `DESIGN.md` + `RECIPE.md`; `DESIGN.md` §8 now points here.
 
 Notes: `remark-gfm` is not in Storybook 8.4's addon-docs MDX pipeline and the
@@ -327,7 +327,37 @@ Done:
   for the layout primitives. `Primitives/Motion` is opted out of pixel
   snapshots (time-dependent entrance animations).
 
+## Forms, overlays, motion, access & i18n (2026-10-10)
+
+- Overlays: `Dialog` gains `title` / `footer`; `Dialog` and `Drawer` pin both,
+  scroll only the body and cap height at `100dvh`. `ConfirmDialog` actions live
+  in the pinned footer. Portalled menus (`Select`, `Combobox`, `AutoComplete`,
+  `Dropdown`) moved to the popover layer so they open inside overlays.
+- Actions: `ActionGroup sticky` keeps page-form actions on screen.
+- Forms: `Form.Group` (fieldset, `columns`, `divided`, `disabled`);
+  `Form.Item` `hint`, `span`, automatic `id` / `aria-describedby`; horizontal
+  layout stacks on mobile; `Select` trigger takes `id` / `aria-describedby`.
+- Motion (CSS, reduced-motion aware): Tabs, Collapsible, Menu submenus,
+  Checkbox tick, table rows, `AppShell.Main transitionKey` page transitions.
+- `LocaleProvider` (en / vi) for built-in strings in 15 components;
+  Storybook **Locale** toolbar.
+- `AccessProvider` / `Can` / `useAccess` / `hasPermission` /
+  `resolvePermissions` (wildcards, hide or disable).
+- Showcase: `AuthAdapter` + mock adapter (admin / editor / viewer demo
+  accounts, session expiry, redirect back), role → permission config gating
+  nav / routes / actions, typed vi / en i18n with a header switcher,
+  **Examples → Customer workspace** reference screen.
+- Handbook: Forms, Motion, Permissions & Auth, Localization; "Design
+  Decisions" replaces the vendor mapping page; `docs/reference/api-spec` is
+  the renamed reference spec.
+
 ## Follow-ups
+
+- Visual baselines: regenerate and review after the overlay / form / motion
+  changes (`pnpm test:storybook:visual:update`) — new stories and the changed
+  Dialog, ConfirmDialog, Drawer and FormControl stories are not yet baselined.
+- Showcase i18n covers the app chrome, sign-in, access denied and the
+  customer workspace; the remaining demo screens are still English-only.
 
 - CI-gated visual regression: needs a fixed-render environment (the Playwright
   Docker image, or Chromatic). Today's pixel baselines are Windows-local; CI runs

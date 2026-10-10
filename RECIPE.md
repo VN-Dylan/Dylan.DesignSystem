@@ -16,7 +16,7 @@ Each component lives in `packages/ui/src/<Name>/`:
   <Name>.scss         semantic styling (see "Styling" below)
   types.ts            public prop types — exported, named <Name>Props etc.
   context.ts          only if compound (createContext + a use<Name>Context hook)
-  <Name>.stories.tsx  one story per documented Eyris demo; meta.tags: ['autodocs']
+  <Name>.stories.tsx  one story per documented use case; meta.tags: ['autodocs']
   <Name>.test.tsx     behaviour + one axe() assertion
   index.ts            re-exports component + types
 ```
@@ -60,7 +60,7 @@ Rules:
 3. **`className` merge** with `classNames` from `@vn-dylan/utils`. Support the
    callback form `(state) => string` where the component exposes interaction
    state (see `Button`).
-4. **Prop names & defaults** follow Eyris (`docs/reference/api-spec/<name>.json`
+4. **Prop names & defaults** follow the API spec (`docs/reference/api-spec/<name>.json`
    → the API table). Types are `<Name>Props`, `<Name>Variant`, etc. — exported
    from `types.ts` and re-exported from the package root.
 5. **Controlled / uncontrolled** state uses `useControllableState` from
@@ -103,10 +103,10 @@ Rules:
 
 ## Stories
 
-- `title: '<Group>/<Name>'` — group is the Eyris category (Common, Data Display,
+- `title: '<Group>/<Name>'` — group is the component category (Common, Data Display,
   Forms, Feedback, Navigation) or Primitives.
 - `tags: ['autodocs']` on meta. Prop table comes from TSDoc on `types.ts`.
-- One story per demo section in the Eyris reference. A `Playground` story with
+- One story per demo section in the API spec. A `Playground` story with
   `argTypes` controls is encouraged for prop-heavy components.
 - Interactive demos: wrap in a local `Demo` component, not hooks in `render`.
 

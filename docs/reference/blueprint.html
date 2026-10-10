@@ -1,5 +1,5 @@
 <title>Dylan Design System Blueprint</title>
-<meta name="description" content="Kế hoạch dựng lại Eyris admin template thành bộ design system React + Tailwind + SCSS có handbook." />
+<meta name="description" content="Kế hoạch dựng bộ design system React + Tailwind + SCSS có handbook." />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" />
 <style>
@@ -219,7 +219,7 @@
   <div class="wrap top-inner">
     <div class="eyebrow">Kế hoạch triển khai · v0.2 · 2026-08-31</div>
     <h1>Dylan Design System Blueprint</h1>
-    <p class="lede">Dựng lại toàn bộ Eyris React Admin Template thành một bộ design system độc lập chạy trên <strong>React + Tailwind CSS v3 + SCSS + TypeScript</strong>, kèm handbook Storybook và <code>DESIGN.md</code>.</p>
+    <p class="lede">Dựng một bộ design system độc lập cho sản phẩm admin chạy trên <strong>React + Tailwind CSS v3 + SCSS + TypeScript</strong>, kèm handbook Storybook và <code>DESIGN.md</code>.</p>
     <div class="toc">
       <a href="#goal">01 Mục tiêu</a>
       <a href="#decisions">02 Quyết định</a>
@@ -247,7 +247,7 @@
 
   <section class="section" id="goal">
     <div class="kicker"><span class="n">01</span><h2>Mục tiêu &amp; định nghĩa "hoàn thành"</h2></div>
-    <p>Sản phẩm cuối là một bộ design system hoàn chỉnh, tự chứa, không phụ thuộc thư viện UI bên ngoài — tái hiện đầy đủ kho component của site mẫu <a href="https://eyris-react.themenate.net">eyris-react.themenate.net</a> và có tài liệu hướng dẫn dùng.</p>
+    <p>Sản phẩm cuối là một bộ design system hoàn chỉnh, tự chứa, không phụ thuộc thư viện UI bên ngoài — bao phủ đầy đủ kho component của một admin template tham chiếu và có tài liệu hướng dẫn dùng.</p>
     <div class="grid2">
       <div class="card">
         <h3 style="margin-top:0">Bàn giao</h3>
@@ -263,7 +263,7 @@
       <div class="card">
         <h3 style="margin-top:0">Tiêu chí nghiệm thu</h3>
         <ul>
-          <li>Mỗi component: khớp API (prop / type / default) với tài liệu Eyris, có story cho mọi biến thể chính, pass test, pass <code>axe</code> a11y.</li>
+          <li>Mỗi component: khớp API (prop / type / default) với API spec tham chiếu, có story cho mọi biến thể chính, pass test, pass <code>axe</code> a11y.</li>
           <li>Light + dark + RTL hoạt động qua token, không màu hard-code.</li>
           <li>8 preset theme schema đổi được lúc chạy.</li>
           <li>Tree-shakeable, mỗi component import lẻ được; bundle base &lt; ngưỡng đặt ra.</li>
@@ -277,7 +277,7 @@
   <section class="section" id="decisions">
     <div class="kicker"><span class="n">02</span><h2>Quyết định đã chốt</h2></div>
     <dl>
-      <div class="decision"><dt>Ngôn ngữ &amp; CSS <span class="pick">TypeScript · Tailwind v3 · SCSS</span></dt><dd>Giống nền tảng Eyris (ổn định, hợp <code>@apply</code>). SCSS thay lớp <code>src/assets/styles</code> vốn là PostCSS/CSS thuần của Eyris. Tailwind lo utility &amp; layout; SCSS lo token, mixin, style component có ngữ nghĩa.</dd></div>
+      <div class="decision"><dt>Ngôn ngữ &amp; CSS <span class="pick">TypeScript · Tailwind v3 · SCSS</span></dt><dd>Nền tảng phổ biến (ổn định, hợp <code>@apply</code>). SCSS thay cho lớp style PostCSS/CSS thuần. Tailwind lo utility &amp; layout; SCSS lo token, mixin, style component có ngữ nghĩa.</dd></div>
       <div class="decision"><dt>Phạm vi <span class="pick">Full — component + trang mẫu</span></dt><dd>84 component + 32 util + handbook + dựng lại các trang app mẫu (sales, customers, projects, analytics, ai, crypto, hrm, accounts) và 13 layout auth.</dd></div>
       <div class="decision"><dt>Handbook <span class="pick">Storybook 8 + DESIGN.md</span></dt><dd>Storybook cho playground tương tác, controls, autodocs từ TSDoc/props, addon a11y + theme + viewport. <code>DESIGN.md</code> và <code>docs/</code> cho phần triết lý &amp; guideline không thuộc về từng component.</dd></div>
       <div class="decision"><dt>Thực thi <span class="pick">Claude điều phối · codex làm hàng loạt</span></dt><dd>Claude viết token, hạ tầng, và "5 component vàng" làm chuẩn; sau đó sinh spec cho từng nhóm và chạy <code>codex exec --dangerously-bypass-approvals-and-sandbox</code> theo batch; Claude review, sửa, gộp.</dd></div>
@@ -286,9 +286,9 @@
       <div class="decision"><dt>i18n <span class="pick">Làm sau</span></dt><dd>Bản đầu dùng <code>useTranslation</code> stub + text tiếng Anh. Thêm <code>react-i18next</code> + locale (en/vi) ở pha sau.</dd></div>
       <div class="decision"><dt>Storybook <span class="pick">Chạy local</span></dt><dd><code>pnpm storybook</code> ở máy, chưa deploy. CI vẫn build để chặn hồi quy.</dd></div>
       <div class="decision"><dt>Icons <span class="pick">Wrap react-icons</span></dt><dd><code>@vn-dylan/icons</code> re-export react-icons + component <code>&lt;Icon&gt;</code>. Không tự vẽ bộ linear riêng.</dd></div>
-      <div class="decision"><dt>Nguồn tham chiếu <span class="pick">Bản crawl đã lưu</span></dt><dd>Đã crawl đầy đủ 84 trang doc component (demo source + bảng API) + 32 trang util + docs theming/folder-structure vào <code>eyris-crawl/</code>. Đây là spec đầu vào, không cần vào lại site cho phần lớn công việc.</dd></div>
+      <div class="decision"><dt>Nguồn tham chiếu <span class="pick">Bản crawl đã lưu</span></dt><dd>Đã crawl đầy đủ 84 trang doc component (demo source + bảng API) + 32 trang util + docs theming/folder-structure vào <code>api-spec/</code>. Đây là spec đầu vào, không cần vào lại site cho phần lớn công việc.</dd></div>
     </dl>
-    <div class="note"><b>Lưu ý bản quyền.</b> Eyris là template thương mại của ThemeNate. Kế hoạch này tái hiện lại (re-implement) component từ tài liệu công khai cho mục đích nội bộ của bạn, đặt trong thư mục riêng tư — <strong>không sao chép nguyên văn</strong> source của nhà cung cấp và không phân phối lại. Tên component/prop trùng để tương thích API là chấp nhận được; asset thương hiệu (logo "eyris", ảnh) sẽ thay bằng của Dylan.</div>
+    <div class="note"><b>Lưu ý bản quyền.</b> Component được viết mới (re-implement) từ API spec cho mục đích nội bộ — <strong>không sao chép nguyên văn</strong> source của bên thứ ba và không phân phối lại. Tên component/prop theo quy ước phổ biến; toàn bộ asset thương hiệu (logo, ảnh) là của Dylan.</div>
   </section>
 
   <section class="section" id="arch">
@@ -303,7 +303,7 @@
 <tr><td><code>packages/icons/</code></td><td>Wrapper <code>react-icons</code> + bộ icon "linear" riêng dạng component SVG.</td></tr>
 <tr><td><code>apps/showcase/</code></td><td>Vite + react-router. <code>components/layouts</code>, <code>components/template</code> (Header, SideNav, Footer), <code>views/</code> theo từng khu (sales, crypto…), <code>mock/</code> dữ liệu giả, <code>configs/</code> (navigation, routes, theme).</td></tr>
 <tr><td><code>apps/storybook/</code> hoặc <code>.storybook/</code></td><td>Cấu hình Storybook, theme switcher toolbar, dark-mode, a11y, docs MDX.</td></tr>
-<tr><td><code>docs/</code> + <code>DESIGN.md</code></td><td>Triết lý, anatomy hệ token, guideline dùng, bảng đối chiếu Eyris↔Dylan, hướng dẫn đóng góp.</td></tr>
+<tr><td><code>docs/</code> + <code>DESIGN.md</code></td><td>Triết lý, anatomy hệ token, guideline dùng, các quyết định thiết kế, hướng dẫn đóng góp.</td></tr>
 <tr><td><code>.claude/skills/</code>, <code>.claude/agents/</code></td><td>Skill &amp; agent riêng cho quy trình (xem mục 06).</td></tr>
 </table>
     </div>
@@ -311,7 +311,7 @@
     <ul>
       <li><strong>Ranh giới package:</strong> <code>ui</code> phụ thuộc <code>tokens</code> + <code>utils</code> + <code>icons</code>; <code>utils</code> không phụ thuộc <code>ui</code>.</li>
       <li><strong>Styling:</strong> Tailwind cho bố cục &amp; utility trong JSX; SCSS module (<code>Component.scss</code>) cho state phức tạp, animation, selector đặc thù — dùng <code>@apply</code> + <code>@use "@dylan/tokens"</code>. Class có ngữ nghĩa dạng <code>.dyl-btn</code>.</li>
-      <li><strong>Prop convention</strong> theo Eyris: <code>variant</code>, <code>size</code> (<code>xs|sm|md|lg</code>), <code>shape</code>, <code>disabled</code>, <code>loading</code>, <code>block</code>, <code>icon</code>, <code>className</code> nhận cả <code>string</code> lẫn <code>(state) =&gt; string</code>.</li>
+      <li><strong>Prop convention</strong> phổ biến: <code>variant</code>, <code>size</code> (<code>xs|sm|md|lg</code>), <code>shape</code>, <code>disabled</code>, <code>loading</code>, <code>block</code>, <code>icon</code>, <code>className</code> nhận cả <code>string</code> lẫn <code>(state) =&gt; string</code>.</li>
       <li><strong>Compound component</strong> qua context: <code>Avatar.Group</code>, <code>Tabs.TabList/TabNav/TabContent</code>, <code>Menu.MenuItem</code>, <code>Steps.Item</code>, <code>Carousel.Item</code>…</li>
       <li><strong>Forwarding ref</strong> + spread props gốc cho mọi primitive.</li>
     </ul>
@@ -319,10 +319,10 @@
 
   <section class="section" id="tokens">
     <div class="kicker"><span class="n">04</span><h2>Design token &amp; theming</h2></div>
-    <p>Chuyển hệ biến CSS của Eyris thành nguồn SCSS, rồi generate ra 3 đầu ra: CSS custom properties (runtime theming), Tailwind preset (utility), JSON (tài liệu + test).</p>
+    <p>Chuyển hệ biến CSS tham chiếu thành nguồn SCSS, rồi generate ra 3 đầu ra: CSS custom properties (runtime theming), Tailwind preset (utility), JSON (tài liệu + test).</p>
     <div class="grid2">
       <div class="card">
-        <h3 style="margin-top:0">Token nền (từ Eyris)</h3>
+        <h3 style="margin-top:0">Token nền</h3>
         <div class="toklist">
           <span class="sw" style="background:#286cf0"></span>--primary #286cf0<br/>
           <span class="sw" style="background:#1f56c0"></span>--primary-deep #1f56c0<br/>
@@ -346,7 +346,7 @@
       </div>
     </div>
     <h3>Token bổ sung cần chuẩn hoá</h3>
-    <p>Spacing scale, radius (<code>none / sm / DEFAULT / lg / xl / full</code> — Eyris card ~12px), shadow, typography scale (heading/body/label + weight), z-index layer (dropdown, sticky, drawer, dialog, popover, toast), motion (duration + easing), breakpoint. Ghi hết vào <code>DESIGN.md</code> kèm bảng.</p>
+    <p>Spacing scale, radius (<code>none / sm / DEFAULT / lg / xl / full</code> — card ~12px), shadow, typography scale (heading/body/label + weight), z-index layer (dropdown, sticky, drawer, dialog, popover, toast), motion (duration + easing), breakpoint. Ghi hết vào <code>DESIGN.md</code> kèm bảng.</p>
   </section>
 
   <section class="section" id="phases">
@@ -362,7 +362,7 @@
           <li>Vite library mode cho <code>@dylan/ui</code>; Tailwind v3 + preset; pipeline SCSS (<code>sass</code>, <code>postcss</code>, <code>autoprefixer</code>).</li>
           <li>Storybook 8 (Vite builder) + addon <code>a11y</code>, <code>themes</code>, <code>viewport</code>, autodocs.</li>
           <li>Vitest + Testing Library + <code>jest-axe</code>; ESLint + Prettier; Changesets; GitHub Actions CI.</li>
-          <li><code>DESIGN.md</code> khung + <code>docs/</code> + copy bản crawl <code>eyris-crawl/</code> vào <code>docs/reference/</code>.</li>
+          <li><code>DESIGN.md</code> khung + <code>docs/</code> + API spec <code>api-spec/</code> trong <code>docs/reference/</code>.</li>
         </ul>
       </div>
     </div>
@@ -387,7 +387,7 @@
         <h3>Base UI component (37 còn lại)</h3>
         <div class="meta">codex batch · Claude review từng nhóm</div>
         <ul>
-          <li>Chia 5 nhóm theo phân loại Eyris: Common, Data Display, Forms, Feedback, Navigation.</li>
+          <li>Chia 5 nhóm component: Common, Data Display, Forms, Feedback, Navigation.</li>
           <li>Mỗi component: Claude sinh 1 spec (API table + danh sách demo + ghi chú hành vi từ crawl) → codex implement theo recipe → Claude review khớp API, sửa, chạy test/story.</li>
           <li>Ưu tiên phụ thuộc: primitive trước (Typography, Grid, Icons) → form-control (<code>FormControl</code>, validation) → overlay (<code>Popover</code>, <code>Drawer</code>, <code>Toast</code>) → compound (<code>Tabs</code>, <code>Menu</code>, <code>Steps</code>).</li>
         </ul>
@@ -427,9 +427,9 @@
         <h3>Handbook</h3>
         <div class="meta">Claude chủ đạo</div>
         <ul>
-          <li><code>DESIGN.md</code> hoàn chỉnh: triết lý, nguyên tắc, anatomy token (bảng đầy đủ), thang type/space/radius, quy tắc a11y, dark/RTL, đối chiếu Eyris↔Dylan, versioning.</li>
+          <li><code>DESIGN.md</code> hoàn chỉnh: triết lý, nguyên tắc, anatomy token (bảng đầy đủ), thang type/space/radius, quy tắc a11y, dark/RTL, quyết định thiết kế, versioning.</li>
           <li>Storybook: mỗi component có 1 trang autodocs (mô tả + props + demo mọi biến thể + "khi nào dùng / không dùng" + a11y notes), MDX foundation pages (Color, Typography, Spacing, Icons, Theming, Motion).</li>
-          <li><code>docs/</code>: Getting started, Installation, Contribution guide, "Anatomy of a component", Migration/mapping từ Eyris.</li>
+          <li><code>docs/</code>: Getting started, Installation, Contribution guide, "Anatomy of a component", Design decisions.</li>
           <li>Deploy Storybook (GitHub Pages / static).</li>
         </ul>
       </div>
@@ -445,7 +445,7 @@
           <li>Visual regression (Storybook + ảnh chụp) light/dark/RTL.</li>
           <li>Kiểm tra tree-shaking, kích thước bundle, không rò màu hard-code (script grep token).</li>
           <li>Đối chiếu từng API table với crawl; điền bảng coverage trong <code>DESIGN.md</code>.</li>
-          <li>Dùng chrome-devtools MCP đối chiếu trực quan trang mẫu Dylan vs Eyris.</li>
+          <li>Dùng chrome-devtools MCP đối chiếu trực quan các trang mẫu của Dylan với thiết kế tham chiếu.</li>
         </ul>
       </div>
     </div>
@@ -457,7 +457,7 @@
 <table>
 <tr><th>Tên</th><th>Loại</th><th>Việc</th></tr>
 <tr><td><code>ds-component</code></td><td>skill</td><td>Sinh 1 component mới từ recipe + spec: tạo đủ file (tsx/scss/types/index/stories/test), theo prop convention, đăng ký export. Dùng khi làm thủ công hoặc chuẩn hoá output codex.</td></tr>
-<tr><td><code>ds-spec</code></td><td>skill</td><td>Đọc <code>eyris-crawl/&lt;name&gt;.json</code> → xuất spec Markdown chuẩn (API table, danh sách demo, hành vi, dependency, a11y) làm prompt cho codex.</td></tr>
+<tr><td><code>ds-spec</code></td><td>skill</td><td>Đọc <code>api-spec/&lt;name&gt;.json</code> → xuất spec Markdown chuẩn (API table, danh sách demo, hành vi, dependency, a11y) làm prompt cho codex.</td></tr>
 <tr><td><code>ds-review</code></td><td>skill</td><td>Đối chiếu component đã implement với spec: khớp prop/type/default, story đủ biến thể, test pass, axe pass, không màu hard-code. Trả checklist đạt/không.</td></tr>
 <tr><td><code>ds-codex-batch</code></td><td>skill</td><td>Chạy một nhóm: với mỗi component → ds-spec → gọi <code>codex exec</code> → ds-review → ghi trạng thái vào <code>PROGRESS.md</code>.</td></tr>
 <tr><td><code>ds-tokens</code></td><td>skill</td><td>Sync token: sửa SCSS nguồn → regenerate CSS vars + Tailwind preset + JSON + cập nhật bảng trong <code>DESIGN.md</code>.</td></tr>
@@ -523,7 +523,7 @@
 <tr><th>Vấn đề</th><th>Hướng xử lý</th></tr>
 <tr><td>Bản quyền template thương mại</td><td>Re-implement từ doc công khai, nội bộ, không phân phối lại, thay asset thương hiệu. Xác nhận với bạn trước khi public bất kỳ phần nào.</td></tr>
 <tr><td>Component nặng (DataTable, Chart, RichText, VectorMap, Gantt)</td><td>Chốt dependency cụ thể (TanStack Table, ApexCharts, Tiptap, jsvectormap…) trước. Chấp nhận API xấp xỉ, không 1:1 từng prop hiếm.</td></tr>
-<tr><td>Độ chính xác API so với Eyris</td><td>Một số prop hiếm không lộ hết trong doc. Coverage mục tiêu: 100% prop có trong bảng API đã crawl; prop nội bộ thì suy luận hợp lý.</td></tr>
+<tr><td>Độ chính xác API so với spec tham chiếu</td><td>Một số prop hiếm không lộ hết trong doc. Coverage mục tiêu: 100% prop có trong bảng API đã crawl; prop nội bộ thì suy luận hợp lý.</td></tr>
 <tr><td>Codex tạo lệch chuẩn</td><td>Recipe cứng + <code>ds-review</code> gác cổng + Claude sửa tay. Không merge khi chưa pass checklist.</td></tr>
 <tr><td>SCSS ↔ Tailwind v3 <code>@apply</code></td><td>Quy ước: <code>@apply</code> chỉ trong <code>@layer components</code>; token qua <code>@use</code>; tránh phụ thuộc thứ tự import.</td></tr>
 <tr><td>Khối lượng (84 component + 50 trang)</td><td>Batch hoá, ưu tiên theo dependency, <code>PROGRESS.md</code> theo dõi. Có thể cắt trang app mẫu nếu bạn muốn giao sớm phần library.</td></tr>
@@ -552,5 +552,5 @@
 </main>
 
 <footer class="wrap">
-  Dylan Design System Blueprint · soạn từ khảo sát trực tiếp eyris-react.themenate.net qua Chrome DevTools MCP · 2026-08-31
+  Dylan Design System Blueprint · soạn qua khảo sát bằng Chrome DevTools MCP · 2026-08-31
 </footer>

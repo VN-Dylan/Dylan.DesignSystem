@@ -31,7 +31,7 @@ jobs:
       - name: Token guard (no literal colours)
         run: pnpm check:tokens
 
-      - name: API coverage vs Eyris crawl
+      - name: API coverage vs reference spec
         run: pnpm check:api
 
       - name: Layout spacing guard
