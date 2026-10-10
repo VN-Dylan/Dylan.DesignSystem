@@ -1,5 +1,6 @@
 .dyl-confirm-dialog {
-  @apply flex items-start gap-4;
+  /* The dialog body padding is reset below, so the confirm layout owns it. */
+  @apply flex items-start gap-4 p-6;
 
   &__panel .dyl-dialog__body {
     @apply p-0;
