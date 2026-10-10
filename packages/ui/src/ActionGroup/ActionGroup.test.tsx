@@ -41,6 +41,13 @@ describe('ActionGroup', () => {
     expect(group).not.toHaveAttribute('data-stack')
   })
 
+  it('sticky pins the group and implies divided', () => {
+    render(<Footer sticky />)
+    const group = screen.getByRole('group')
+    expect(group).toHaveAttribute('data-sticky', 'true')
+    expect(group).toHaveAttribute('data-divided', 'true')
+  })
+
   it('puts isolated actions in the start slot', () => {
     render(<Footer />)
     expect(screen.getByRole('button', { name: 'Delete' }).parentElement).toHaveClass(

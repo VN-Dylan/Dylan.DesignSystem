@@ -11,7 +11,7 @@ import type { NumericInputProps } from './types'
 import './NumericInput.scss'
 
 /**
- * Numeric input wrapper compatible with the Eyris NumericInput API.
+ * Numeric input wrapper with thousand separators, prefix / suffix and decimal control.
  */
 export const NumericInput = forwardRef<HTMLInputElement, NumericInputProps>(function NumericInput(
   {

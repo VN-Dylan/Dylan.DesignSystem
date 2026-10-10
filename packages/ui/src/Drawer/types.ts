@@ -13,7 +13,7 @@ export interface DrawerProps {
   height?: string | number
   /** Header title. */
   title?: ReactNode
-  /** Footer content. */
+  /** Footer actions, pinned below the scrolling body so they are always visible. */
   footer?: ReactNode
   /** Show the close (×) button. @default true */
   closable?: boolean

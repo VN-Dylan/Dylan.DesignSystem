@@ -98,6 +98,23 @@ describe('AppShell', () => {
     expect(screen.queryByText('Dashboard')).not.toBeInTheDocument()
   })
 
+  it('remounts the page wrapper when transitionKey changes', () => {
+    setViewport(1280)
+    const page = (key: string) => (
+      <AppShell>
+        <AppShell.Content>
+          <AppShell.Main transitionKey={key}>Body</AppShell.Main>
+        </AppShell.Content>
+      </AppShell>
+    )
+    const { container, rerender } = render(page('/a'))
+    const first = container.querySelector('.dyl-app-shell__page')
+    expect(first).toHaveTextContent('Body')
+    rerender(page('/b'))
+    const second = container.querySelector('.dyl-app-shell__page')
+    expect(second).not.toBe(first)
+  })
+
   it('throws when parts are used outside AppShell', () => {
     vi.spyOn(console, 'error').mockImplementation(() => undefined)
     expect(() => render(<AppShell.Sidebar>x</AppShell.Sidebar>)).toThrow(/inside <AppShell>/)

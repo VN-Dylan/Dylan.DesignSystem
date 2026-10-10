@@ -71,7 +71,7 @@
 
   /* ---------------------------------------------------------------- menu */
   &__menu {
-    @apply z-dropdown overflow-hidden rounded-md border border-border bg-surface-raised text-sm
+    @apply z-popover overflow-hidden rounded-md border border-border bg-surface-raised text-sm
       text-content shadow-lg outline-none;
     animation: dyl-combobox-in var(--dyl-duration-fast) var(--dyl-ease-standard);
   }

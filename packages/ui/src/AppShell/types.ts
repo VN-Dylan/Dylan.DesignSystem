@@ -32,6 +32,11 @@ export interface AppShellMainProps extends HTMLAttributes<HTMLElement> {
    * app layout — content spans from the sidebar to the viewport edge.
    */
   containerSize?: ContainerSize
+  /**
+   * Animate the content in whenever this changes — pass the route pathname
+   * for a page transition. Omit for no transition.
+   */
+  transitionKey?: string | number
 }
 
 export type AppShellFooterProps = HTMLAttributes<HTMLElement>

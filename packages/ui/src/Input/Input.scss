@@ -22,7 +22,9 @@
     @apply border-error focus-within:border-error focus-within:ring-error;
   }
 
-  &[data-disabled] {
+  /* Also covers a field disabled by an ancestor `<fieldset disabled>`. */
+  &[data-disabled],
+  &:has(> .dyl-input__field:disabled) {
     @apply cursor-not-allowed bg-surface-sunken opacity-70;
   }
 

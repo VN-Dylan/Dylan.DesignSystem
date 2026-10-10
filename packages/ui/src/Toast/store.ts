@@ -22,7 +22,7 @@ export const toastStore = {
   getSnapshot: () => entries,
 }
 
-/** Imperative toast API — mirrors the Eyris `toast` helper. */
+/** Imperative toast API: `toast.push`, `toast.remove`, `toast.removeAll`. */
 export const toast = {
   push(content: ReactNode, options: ToastOptions = {}): string {
     const id = `toast-${(seq += 1)}`

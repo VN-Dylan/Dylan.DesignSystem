@@ -32,6 +32,7 @@ import { Input } from '../Input'
 import { Pagination } from '../Pagination'
 import { Spinner } from '../Spinner'
 import { Table } from '../Table'
+import { useUiMessages } from '../LocaleProvider'
 import { ColumnMenu } from './ColumnMenu'
 import type { DataTableLayout, DataTableProps } from './types'
 import './DataTable.scss'
@@ -67,11 +68,11 @@ export function DataTable<TData>({
   columns,
   data,
   loading = false,
-  emptyMessage = 'No data',
+  emptyMessage: emptyMessageProp,
   getRowId,
   getSubRows,
   searchable = false,
-  searchPlaceholder = 'Search…',
+  searchPlaceholder: searchPlaceholderProp,
   onSearchChange,
   filters,
   toolbarEnd,
@@ -92,6 +93,9 @@ export function DataTable<TData>({
 }: DataTableProps<TData>) {
   const serverPaging = Boolean(pagingData)
   const clientPaging = pagination && !serverPaging
+  const t = useUiMessages('dataTable')
+  const emptyMessage = emptyMessageProp ?? t.empty
+  const searchPlaceholder = searchPlaceholderProp ?? t.search
   const initialSort = initialState?.sorting
 
   const [sorting, setSorting] = useState<SortingState>(
@@ -332,7 +336,7 @@ export function DataTable<TData>({
   return (
     <div className="dyl-data-table" data-loading={loading || undefined}>
       {showToolbar && (
-        <div className="dyl-data-table__toolbar" role="toolbar" aria-label="Table controls">
+        <div className="dyl-data-table__toolbar" role="toolbar" aria-label={t.controls}>
           {searchable && (
             <Input
               type="search"
@@ -357,7 +361,7 @@ export function DataTable<TData>({
                   renderTitle={
                     <button type="button" className="dyl-data-table__columns-btn">
                       <Icon as={TbIcons.TbColumns3} size={16} aria-hidden />
-                      Columns
+                      {t.columns}
                     </button>
                   }
                 >
@@ -384,7 +388,7 @@ export function DataTable<TData>({
                       className="dyl-data-table__menu-icon"
                       aria-hidden
                     />
-                    Reset columns
+                    {t.resetColumns}
                   </Dropdown.Item>
                 </Dropdown>
               )}
@@ -407,7 +411,7 @@ export function DataTable<TData>({
                   checked={table.getIsAllRowsSelected()}
                   indeterminate={table.getIsSomeRowsSelected()}
                   onChange={(checked) => table.toggleAllRowsSelected(checked)}
-                  aria-label="Select all rows"
+                  aria-label={t.selectAll}
                 />
               </Table.Th>
             )}
@@ -437,9 +441,7 @@ export function DataTable<TData>({
                         type="button"
                         className="dyl-table__tree-toggle dyl-data-table__expand-all"
                         aria-expanded={table.getIsAllRowsExpanded()}
-                        aria-label={
-                          table.getIsAllRowsExpanded() ? 'Collapse all rows' : 'Expand all rows'
-                        }
+                        aria-label={table.getIsAllRowsExpanded() ? t.collapseAll : t.expandAll}
                         onClick={table.getToggleAllRowsExpandedHandler()}
                       >
                         <Icon as={TbIcons.TbChevronRight} size={14} aria-hidden />
@@ -482,7 +484,7 @@ export function DataTable<TData>({
                         as={TbIcons.TbPinnedFilled}
                         size={12}
                         className="dyl-data-table__pin-icon"
-                        aria-label="Pinned"
+                        aria-label={t.pinned}
                       />
                     )}
                     {columnMenu && (
@@ -530,7 +532,7 @@ export function DataTable<TData>({
                       <Checkbox
                         checked={row.getIsSelected()}
                         onChange={(checked) => row.toggleSelected(checked)}
-                        aria-label={`Select row ${row.index + 1}`}
+                        aria-label={t.selectRow(row.index + 1)}
                       />
                     </Table.Td>
                   )}
@@ -569,13 +571,13 @@ export function DataTable<TData>({
       {showFooter && (
         <div className="dyl-data-table__footer">
           <span className="dyl-data-table__range" aria-live="polite">
-            {total === 0 ? 'No results' : `Showing ${rangeStart}–${rangeEnd} of ${total}`}
+            {total === 0 ? t.noResults : t.range(rangeStart, rangeEnd, total)}
           </span>
           <div className="dyl-data-table__footer-end">
             <label className="dyl-data-table__page-size">
-              Rows per page
+              {t.rowsPerPage}
               <select
-                aria-label="Rows per page"
+                aria-label={t.rowsPerPage}
                 value={pageSize}
                 onChange={(e) => changePageSize(Number(e.target.value))}
               >
@@ -586,9 +588,7 @@ export function DataTable<TData>({
                 ))}
               </select>
             </label>
-            <span className="dyl-data-table__count">
-              Page {pageIndex} of {totalPages}
-            </span>
+            <span className="dyl-data-table__count">{t.page(pageIndex, totalPages)}</span>
             <Pagination
               currentPage={pageIndex}
               pageSize={pageSize}

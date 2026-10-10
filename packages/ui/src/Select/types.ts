@@ -29,7 +29,10 @@ interface SelectBaseProps {
   noOptionsMessage?: ReactNode
   /** Accessible label for the control. */
   'aria-label'?: string
+  /** Ids of elements describing the control (hint / error); `Form.Item` sets it. */
+  'aria-describedby'?: string
   className?: string
+  /** Id of the trigger button, so a `<label htmlFor>` can point at it. */
   id?: string
   /**
    * Form field name. When set, the selected `value`(s) are mirrored into hidden

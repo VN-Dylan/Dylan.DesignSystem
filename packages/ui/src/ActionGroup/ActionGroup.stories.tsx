@@ -11,7 +11,7 @@ const meta = {
   argTypes: {
     align: { control: 'inline-radio', options: ['end', 'start', 'between', 'center'] },
   },
-  args: { align: 'end', stackOnMobile: true, divided: false },
+  args: { align: 'end', stackOnMobile: true, divided: false, sticky: false },
 } satisfies Meta<typeof ActionGroup>
 
 export default meta
@@ -51,6 +51,27 @@ export const FormFooter: Story = {
         </ActionGroup>
       </Stack>
     </Card>
+  ),
+}
+
+/** Long page form: `sticky` keeps Save / Cancel at the bottom of the viewport until the form ends. */
+export const StickyFormFooter: Story = {
+  render: () => (
+    <div className="h-96 max-w-2xl overflow-y-auto rounded-md border border-border bg-bg">
+      <form className="space-y-4 p-4" onSubmit={(event) => event.preventDefault()}>
+        {Array.from({ length: 12 }, (_, index) => (
+          <p key={index} className="rounded-md bg-surface-sunken p-4 text-sm text-content">
+            Field {index + 1}
+          </p>
+        ))}
+        <ActionGroup sticky aria-label="Form actions">
+          <Button>Cancel</Button>
+          <Button type="submit" variant="solid">
+            Save
+          </Button>
+        </ActionGroup>
+      </form>
+    </div>
   ),
 }
 

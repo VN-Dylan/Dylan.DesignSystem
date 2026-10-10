@@ -38,11 +38,13 @@
     @apply mt-2 text-sm text-content-muted;
   }
 
-  &__actions {
-    @apply mt-6 flex justify-end gap-2;
+  /* Actions live in the dialog's pinned footer, so a long message scrolls
+     while Cancel / Confirm stay visible. */
+  &__panel &__footer {
+    @apply border-t-0 pt-0;
   }
 
-  &[data-type='warning'] &__confirm {
+  &__actions[data-type='warning'] &__confirm {
     @apply border-warning bg-warning text-primary-fg hover:brightness-95;
   }
 }

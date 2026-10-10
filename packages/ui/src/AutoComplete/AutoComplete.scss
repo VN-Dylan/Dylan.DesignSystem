@@ -6,7 +6,7 @@
   }
 
   &__menu {
-    @apply z-dropdown min-w-56 overflow-hidden rounded-md border border-border bg-surface-raised
+    @apply z-popover min-w-56 overflow-hidden rounded-md border border-border bg-surface-raised
       text-sm text-content shadow-lg outline-none;
     animation: dyl-autocomplete-in var(--dyl-duration-fast) var(--dyl-ease-standard);
   }

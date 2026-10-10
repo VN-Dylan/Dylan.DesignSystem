@@ -17,6 +17,7 @@ import { composeRefs } from '../_internal/composeRefs'
 import { floatingAutoUpdate, getFloatingMiddleware } from '../_internal/floatingRuntime'
 import { Spinner } from '../Spinner'
 import type { ComboboxOption, ComboboxProps } from './types'
+import { useUiMessages } from '../LocaleProvider'
 import './Combobox.scss'
 
 type Status = 'idle' | 'loading' | 'error'
@@ -37,9 +38,9 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(function Com
     renderOption,
     clearable = true,
     invalid = false,
-    emptyMessage = 'No results',
-    loadingMessage = 'Loading…',
-    errorMessage = 'Could not load options',
+    emptyMessage: emptyMessageProp,
+    loadingMessage: loadingMessageProp,
+    errorMessage: errorMessageProp,
     className,
     disabled = false,
     placeholder,
@@ -55,6 +56,10 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(function Com
     ...rest
   } = props as ComboboxProps & { maxTags?: number }
 
+  const t = useUiMessages('combobox')
+  const emptyMessage = emptyMessageProp ?? t.empty
+  const loadingMessage = loadingMessageProp ?? t.loading
+  const errorMessage = errorMessageProp ?? t.error
   const baseId = useId()
   const listboxId = `${baseId}-listbox`
   const optionId = (i: number) => `${baseId}-option-${i}`
@@ -331,7 +336,7 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(function Com
           type="button"
           tabIndex={-1}
           className="dyl-combobox__clear"
-          aria-label="Clear selection"
+          aria-label={t.clear}
           onMouseDown={(e) => e.stopPropagation()}
           onClick={clear}
         >

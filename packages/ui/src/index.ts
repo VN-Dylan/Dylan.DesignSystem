@@ -386,8 +386,26 @@ export type {
 export { Timeline } from './Timeline'
 export type { TimelineProps, TimelineItemProps } from './Timeline'
 
+export { AccessProvider, Can, useAccess, hasPermission, resolvePermissions } from './Access'
+export type { AccessMode, AccessProviderProps, CanProps, Permission } from './Access'
+export {
+  LocaleProvider,
+  getUiMessages,
+  useLocale,
+  useUiMessages,
+  uiMessagesEn,
+  uiMessagesVi,
+} from './LocaleProvider'
+export type { LocaleProviderProps, UiMessages, UiMessagesOverride } from './LocaleProvider'
 export { Form } from './FormControl'
-export type { FormProps, FormItemProps, FormLayout, FormSize } from './FormControl'
+export type {
+  FormProps,
+  FormItemProps,
+  FormGroupProps,
+  FormGroupColumns,
+  FormLayout,
+  FormSize,
+} from './FormControl'
 
 export { Carousel } from './Carousel'
 export type {

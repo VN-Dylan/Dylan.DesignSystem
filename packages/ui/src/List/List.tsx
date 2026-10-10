@@ -17,6 +17,7 @@ import { classNames, useControllableState } from '@vn-dylan/utils'
 import { Icon, TbIcons } from '@vn-dylan/icons'
 import { composeRefs } from '../_internal/composeRefs'
 import type { ListItemProps, ListProps } from './types'
+import { useUiMessages } from '../LocaleProvider'
 import './List.scss'
 
 const EMPTY: string[] = []
@@ -45,7 +46,7 @@ function ListInner<T>(
     bordered = false,
     loading = false,
     loadingRows = 3,
-    emptyMessage = 'No items',
+    emptyMessage: emptyMessageProp,
     className,
     style,
     onKeyDown,
@@ -53,6 +54,8 @@ function ListInner<T>(
   }: ListProps<T>,
   ref: ForwardedRef<HTMLDivElement>,
 ) {
+  const t = useUiMessages('list')
+  const emptyMessage = emptyMessageProp ?? t.empty
   const baseId = useId()
   const viewportRef = useRef<HTMLDivElement>(null)
   const selectable = selectionMode !== 'none'

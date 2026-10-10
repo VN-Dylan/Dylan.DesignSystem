@@ -30,7 +30,7 @@
   }
 
   &__menu {
-    @apply z-dropdown min-w-40 rounded-md border border-border bg-surface-raised p-1 text-sm
+    @apply z-popover min-w-40 rounded-md border border-border bg-surface-raised p-1 text-sm
       text-content shadow-lg outline-none;
     animation: dyl-dropdown-in var(--dyl-duration-fast) var(--dyl-ease-standard);
   }

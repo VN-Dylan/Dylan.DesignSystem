@@ -2,6 +2,7 @@ import { forwardRef, useEffect, useMemo, useState } from 'react'
 import { classNames } from '@vn-dylan/utils'
 import { Icon, TbIcons } from '@vn-dylan/icons'
 import type { PaginationProps } from './types'
+import { useUiMessages } from '../LocaleProvider'
 import './Pagination.scss'
 
 type PageToken = number | 'start-ellipsis' | 'end-ellipsis'
@@ -30,6 +31,7 @@ export const Pagination = forwardRef<HTMLDivElement, PaginationProps>(function P
   { currentPage, displayTotal = false, onChange, pageSize = 1, total = 5, className, ...rest },
   ref,
 ) {
+  const t = useUiMessages('pagination')
   const isControlled = currentPage !== undefined
   const [internalPage, setInternalPage] = useState(currentPage ?? 1)
   const pageCount = Math.max(1, Math.ceil(total / Math.max(1, pageSize)))
@@ -50,16 +52,16 @@ export const Pagination = forwardRef<HTMLDivElement, PaginationProps>(function P
   return (
     <nav
       ref={ref}
-      aria-label="Pagination"
+      aria-label={t.label}
       className={classNames('dyl-pagination', className)}
       {...rest}
     >
-      {displayTotal && <span className="dyl-pagination__total">Total {total} items</span>}
+      {displayTotal && <span className="dyl-pagination__total">{t.total(total)}</span>}
       <div className="dyl-pagination__pages">
         <button
           type="button"
           className="dyl-pagination__control"
-          aria-label="Previous page"
+          aria-label={t.previous}
           disabled={page === 1}
           onClick={() => commit(page - 1)}
         >
@@ -87,7 +89,7 @@ export const Pagination = forwardRef<HTMLDivElement, PaginationProps>(function P
         <button
           type="button"
           className="dyl-pagination__control"
-          aria-label="Next page"
+          aria-label={t.next}
           disabled={page === pageCount}
           onClick={() => commit(page + 1)}
         >

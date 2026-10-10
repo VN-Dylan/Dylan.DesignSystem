@@ -82,6 +82,25 @@ describe('Dialog', () => {
     expect(opener).toHaveFocus()
   })
 
+  it('labels the dialog by its title and renders the footer outside the scrolling body', () => {
+    render(
+      <Dialog isOpen title="Edit member" footer={<button>Save</button>}>
+        <p>Form</p>
+      </Dialog>,
+    )
+    const dialog = screen.getByRole('dialog', { name: 'Edit member' })
+    const body = dialog.querySelector('.dyl-dialog__body')
+    const footer = dialog.querySelector('.dyl-dialog__footer')
+    expect(body).toHaveTextContent('Form')
+    expect(footer).toContainElement(screen.getByRole('button', { name: 'Save' }))
+    expect(body).not.toContainElement(footer as HTMLElement)
+  })
+
+  it('prefers an explicit aria-label over the title', () => {
+    render(<Dialog isOpen title="Title" aria-label="Custom" />)
+    expect(screen.getByRole('dialog', { name: 'Custom' })).toBeInTheDocument()
+  })
+
   it('has no axe violations', async () => {
     const { baseElement } = render(
       <Dialog isOpen aria-labelledby="t">

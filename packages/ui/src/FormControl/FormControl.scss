@@ -1,25 +1,98 @@
 .dyl-form {
-  &[data-layout='vertical'] {
-    @apply flex flex-col gap-4;
-  }
+  &[data-layout='vertical'],
   &[data-layout='horizontal'] {
     @apply flex flex-col gap-4;
+  }
+
+  /* A bare button child keeps its natural width (end-aligned, like ActionGroup)
+     instead of stretching across the column. Prefer an ActionGroup for actions. */
+  &[data-layout='vertical'],
+  &[data-layout='horizontal'] {
+    > .dyl-btn:not(.dyl-btn--block) {
+      @apply self-end;
+    }
+  }
+
+  /* Groups read as sections: extra room between consecutive groups. */
+  > .dyl-form-group + .dyl-form-group {
+    @apply mt-4;
   }
   &[data-layout='inline'] {
     @apply flex flex-wrap items-start gap-4;
   }
 }
 
-.dyl-form-item {
-  @apply flex flex-col gap-2;
+/* A titled cluster of related fields on a responsive column grid. */
+.dyl-form-group {
+  @apply relative m-0 min-w-0 border-0 p-0;
 
+  &[data-divided] {
+    @apply border-t border-border pt-6;
+  }
+
+  /* Floated, so it is not the browser's "rendered legend" that sits on the
+     fieldset border; it lays out as a plain heading yet still names the group. */
+  &__title {
+    @apply float-left mb-1 w-full p-0 text-base font-semibold text-content;
+  }
+
+  /* Leave room for the header-row `extra` pinned to the end edge. */
+  &[data-has-extra] &__title {
+    @apply pe-24;
+  }
+
+  &__extra {
+    @apply absolute end-0 top-0 text-sm text-content-muted;
+  }
+
+  &[data-divided] &__extra {
+    @apply top-6;
+  }
+
+  &__description {
+    @apply clear-both text-sm text-content-muted;
+  }
+
+  &__body {
+    @apply clear-both grid grid-cols-1 gap-4 pt-4;
+  }
+
+  &[data-columns='2'] &__body {
+    @apply sm:grid-cols-2;
+  }
+  &[data-columns='3'] &__body {
+    @apply sm:grid-cols-2 lg:grid-cols-3;
+  }
+  &[data-columns='4'] &__body {
+    @apply sm:grid-cols-2 lg:grid-cols-4;
+  }
+}
+
+.dyl-form-item {
+  @apply flex min-w-0 flex-col gap-2;
+
+  &[data-span='2'] {
+    @apply sm:col-span-2;
+  }
+  &[data-span='3'] {
+    @apply sm:col-span-2 lg:col-span-3;
+  }
+  &[data-span='4'] {
+    @apply sm:col-span-2 lg:col-span-4;
+  }
+  &[data-span='full'] {
+    @apply col-span-full;
+  }
+
+  /* Label column beside the control from `sm`; stacked like `vertical` on mobile. */
   &[data-layout='horizontal'] {
-    @apply grid gap-x-4;
-    grid-template-columns: var(--dyl-form-label-width, 100px) 1fr;
+    @apply sm:grid sm:gap-x-4;
+    grid-template-columns: var(--dyl-form-label-width, 100px) minmax(0, 1fr);
 
     .dyl-form-item__label-row {
-      @apply pt-2 text-end;
+      @apply sm:pt-2 sm:text-end;
     }
+    .dyl-form-item__hint,
     .dyl-form-item__error {
       grid-column: 2;
     }
@@ -38,6 +111,10 @@
   }
 
   &__extra {
+    @apply text-xs text-content-muted;
+  }
+
+  &__hint {
     @apply text-xs text-content-muted;
   }
 

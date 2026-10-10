@@ -18,6 +18,7 @@ import { composeRefs } from '../_internal/composeRefs'
 import { Input } from '../Input'
 import { Spinner } from '../Spinner'
 import type { TreeCheckState, TreeListProps, TreeNode } from './types'
+import { useUiMessages } from '../LocaleProvider'
 import './TreeList.scss'
 
 const EMPTY: string[] = []
@@ -69,14 +70,17 @@ function TreeListInner<TData>(
     onSelect,
     loadChildren,
     searchable = false,
-    searchPlaceholder = 'Search…',
-    emptyMessage = 'No matches',
+    searchPlaceholder: searchPlaceholderProp,
+    emptyMessage: emptyMessageProp,
     className,
     onKeyDown,
     ...rest
   }: TreeListProps<TData>,
   ref: ForwardedRef<HTMLDivElement>,
 ) {
+  const t = useUiMessages('treeList')
+  const searchPlaceholder = searchPlaceholderProp ?? t.search
+  const emptyMessage = emptyMessageProp ?? t.empty
   const baseId = useId()
   const treeRef = useRef<HTMLDivElement>(null)
   const itemId = (id: string) => `${baseId}-node-${id}`

@@ -9,8 +9,7 @@ export type ClassValue =
 
 /**
  * Conditionally join class names. Accepts strings, arrays, and
- * `{ 'class': condition }` objects. Mirrors the `classNames` helper used
- * across the Eyris template.
+ * `{ 'class': condition }` objects.
  */
 export function classNames(...args: ClassValue[]): string {
   const out: string[] = []

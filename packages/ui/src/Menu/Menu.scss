@@ -86,6 +86,10 @@
   &__collapse-content {
     @apply flex flex-col gap-1;
 
+    &:not([hidden]) {
+      animation: dyl-menu-expand var(--dyl-duration-base) var(--dyl-ease-emphasized);
+    }
+
     // Collapsed state — `hidden` attr alone loses to the `display:flex` above.
     &[hidden] {
       @apply hidden;
@@ -116,5 +120,18 @@
   &[data-side-collapsed] &__group-label,
   &[data-side-collapsed] &__caret {
     @apply hidden;
+  }
+}
+
+@keyframes dyl-menu-expand {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dyl-menu__collapse-content:not([hidden]) {
+    animation: none;
   }
 }

@@ -1,13 +1,17 @@
 .dyl-dialog {
   &__overlay {
     @apply fixed inset-0 flex items-center justify-center bg-overlay p-4;
+    height: 100dvh;
     z-index: var(--dyl-z-dialog);
     animation: dyl-dialog-fade var(--dyl-duration-fast) var(--dyl-ease-standard);
   }
 
   &__panel {
+    /* `dvh` tracks the visible viewport on mobile (browser chrome shown);
+       `vh` is the fallback. The panel never overflows the device height. */
     @apply relative flex max-h-[calc(100vh-2rem)] w-full max-w-[calc(100vw-2rem)] flex-col
       overflow-hidden rounded-lg bg-surface text-content shadow-lg;
+    max-height: calc(100dvh - 2rem);
     animation: dyl-dialog-pop var(--dyl-duration-base) var(--dyl-ease-emphasized);
   }
 
@@ -17,8 +21,21 @@
     @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary;
   }
 
+  &__header {
+    @apply shrink-0 border-b border-border py-4 pe-12 ps-6;
+  }
+
+  &__title {
+    @apply text-lg font-semibold text-content;
+  }
+
   &__body {
-    @apply overflow-y-auto p-6;
+    @apply min-h-0 flex-1 overflow-y-auto p-6;
+  }
+
+  &__footer {
+    @apply shrink-0 border-t border-border px-6 py-4;
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
   }
 }
 

@@ -97,7 +97,7 @@ export function Chart({
       },
       colors: palette,
       stroke: { curve: 'smooth', width: type === 'line' || type === 'area' ? 2 : 1 },
-      // Eyris-style: faint, horizontal-only gridlines; no axis borders or ticks.
+      // House style: faint, horizontal-only gridlines; no axis borders or ticks.
       grid: {
         borderColor: grid,
         strokeDashArray: 0,

@@ -35,6 +35,11 @@
 
   &__content {
     @apply p-4 text-sm leading-normal text-content;
+
+    /* Re-runs whenever a panel is shown (`hidden` removed). */
+    &:not([hidden]) {
+      animation: dyl-tabs-panel-in var(--dyl-duration-base) var(--dyl-ease-standard);
+    }
   }
 
   &[data-variant='pill'] &__list {
@@ -47,5 +52,18 @@
     &[data-active] {
       @apply bg-primary text-primary-fg;
     }
+  }
+}
+
+@keyframes dyl-tabs-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dyl-tabs__content:not([hidden]) {
+    animation: none;
   }
 }

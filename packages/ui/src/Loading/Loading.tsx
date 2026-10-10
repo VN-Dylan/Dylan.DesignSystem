@@ -2,6 +2,7 @@ import { forwardRef } from 'react'
 import { classNames } from '@vn-dylan/utils'
 import { Spinner } from '../Spinner'
 import type { LoadingProps } from './types'
+import { useUiMessages } from '../LocaleProvider'
 import './Loading.scss'
 
 /**
@@ -19,6 +20,7 @@ export const Loading = forwardRef<HTMLElement, LoadingProps>(function Loading(
   },
   ref,
 ) {
+  const t = useUiMessages('loading')
   return (
     <Element
       ref={ref}
@@ -29,7 +31,7 @@ export const Loading = forwardRef<HTMLElement, LoadingProps>(function Loading(
     >
       {children}
       {loading && (
-        <span className="dyl-loading__indicator" role="status" aria-label="Loading">
+        <span className="dyl-loading__indicator" role="status" aria-label={t.label}>
           {customLoader ?? <Spinner aria-hidden role="presentation" className={spinnerClass} />}
         </span>
       )}

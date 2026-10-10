@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
 import { Dialog } from './Dialog'
+import { ActionGroup } from '../ActionGroup'
 import { Button } from '../Button'
 
 const meta = {
@@ -22,23 +23,22 @@ export const Basic: Story = {
           <Button variant="solid" onClick={() => setOpen(true)}>
             Open dialog
           </Button>
-          <Dialog isOpen={open} onClose={() => setOpen(false)} aria-labelledby="dlg-title">
-            <h2 id="dlg-title" className="text-lg font-semibold">
-              Delete project
-            </h2>
-            <p className="mt-2 text-content-muted">
+          <Dialog
+            isOpen={open}
+            onClose={() => setOpen(false)}
+            title="Delete project"
+            footer={
+              <ActionGroup>
+                <Button onClick={() => setOpen(false)}>Cancel</Button>
+                <Button variant="solid" tone="danger" onClick={() => setOpen(false)}>
+                  Delete
+                </Button>
+              </ActionGroup>
+            }
+          >
+            <p className="text-content-muted">
               This permanently removes the project and its history. This action cannot be undone.
             </p>
-            <div className="mt-6 flex justify-end gap-2">
-              <Button onClick={() => setOpen(false)}>Cancel</Button>
-              <Button
-                variant="solid"
-                className="!border-error !bg-error hover:!brightness-95"
-                onClick={() => setOpen(false)}
-              >
-                Delete
-              </Button>
-            </div>
           </Dialog>
         </>
       )
@@ -61,12 +61,53 @@ export const NonDismissable: Story = {
             shouldCloseOnEsc={false}
             shouldCloseOnOverlayClick={false}
             aria-label="Confirm"
+            footer={
+              <ActionGroup>
+                <Button variant="solid" onClick={() => setOpen(false)}>
+                  Got it
+                </Button>
+              </ActionGroup>
+            }
           >
             <p>You must choose an option to continue.</p>
-            <div className="mt-4 flex justify-end">
-              <Button variant="solid" onClick={() => setOpen(false)}>
-                Got it
-              </Button>
+          </Dialog>
+        </>
+      )
+    }
+    return <Demo />
+  },
+}
+
+/** Content taller than the device: the panel stops at the viewport, the body scrolls, and the footer stays visible. */
+export const LongContent: Story = {
+  render: () => {
+    const Demo = () => {
+      const [open, setOpen] = useState(false)
+      return (
+        <>
+          <Button variant="solid" onClick={() => setOpen(true)}>
+            Open long dialog
+          </Button>
+          <Dialog
+            isOpen={open}
+            onClose={() => setOpen(false)}
+            title="Terms of service"
+            footer={
+              <ActionGroup>
+                <Button onClick={() => setOpen(false)}>Cancel</Button>
+                <Button variant="solid" onClick={() => setOpen(false)}>
+                  Accept
+                </Button>
+              </ActionGroup>
+            }
+          >
+            <div className="space-y-4 text-sm text-content-muted">
+              {Array.from({ length: 30 }, (_, index) => (
+                <p key={index}>
+                  {index + 1}. The service is provided as is. Usage is subject to the policies
+                  published by the workspace owner and may change without notice.
+                </p>
+              ))}
             </div>
           </Dialog>
         </>

@@ -35,7 +35,7 @@ export interface CalendarSharedProps
   defaultView?: CalendarView
   /** Specify the date that cannot be selected. */
   disabledDate?: (date: Date) => boolean
-  /** Eyris compatibility alias for disabledDate. */
+  /** Alias for `disabledDate`. */
   disableDate?: (date: Date) => boolean
   /** Whether to disable days that out of given month. @default false */
   disableOutOfMonth?: boolean

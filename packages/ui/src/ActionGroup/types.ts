@@ -15,6 +15,13 @@ export interface ActionGroupProps extends HTMLAttributes<HTMLDivElement> {
   stackOnMobile?: boolean
   /** Draw a top hairline and top padding (form / panel footer). @default false */
   divided?: boolean
+  /**
+   * Pin the group to the bottom of the scrolling viewport while its form is on
+   * screen, so Save / Cancel never need a scroll to reach. Implies `divided`.
+   * Not needed inside `Dialog` / `Drawer` footers, which are already fixed.
+   * @default false
+   */
+  sticky?: boolean
 }
 
 /**

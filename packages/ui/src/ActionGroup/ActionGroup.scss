@@ -21,6 +21,13 @@
     @apply border-t border-border pt-base;
   }
 
+  /* Form footer pinned to the viewport bottom: stays reachable on long forms
+     and releases once the end of its form scrolls into view. */
+  &[data-sticky] {
+    @apply sticky bottom-0 z-sticky bg-bg;
+    padding-bottom: max(var(--dyl-gap-base), env(safe-area-inset-bottom));
+  }
+
   /* Destructive / isolated actions are pushed to the start edge. */
   &__start {
     @apply me-auto flex flex-wrap items-center gap-tight;

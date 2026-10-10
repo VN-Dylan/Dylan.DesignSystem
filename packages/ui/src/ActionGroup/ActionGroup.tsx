@@ -4,7 +4,7 @@ import type { ActionGroupProps, ActionGroupStartProps } from './types'
 import './ActionGroup.scss'
 
 const ActionGroupRoot = forwardRef<HTMLDivElement, ActionGroupProps>(function ActionGroup(
-  { align = 'end', stackOnMobile = true, divided = false, className, ...rest },
+  { align = 'end', stackOnMobile = true, divided = false, sticky = false, className, ...rest },
   ref,
 ) {
   return (
@@ -13,7 +13,8 @@ const ActionGroupRoot = forwardRef<HTMLDivElement, ActionGroupProps>(function Ac
       role="group"
       data-align={align}
       data-stack={stackOnMobile || undefined}
-      data-divided={divided || undefined}
+      data-divided={divided || sticky || undefined}
+      data-sticky={sticky || undefined}
       className={classNames('dyl-action-group', className)}
       {...rest}
     />

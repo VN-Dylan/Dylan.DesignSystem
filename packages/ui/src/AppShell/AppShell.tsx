@@ -126,9 +126,18 @@ const Header = forwardRef<HTMLElement, AppShellHeaderProps>(function AppShellHea
 })
 
 const Main = forwardRef<HTMLElement, AppShellMainProps>(function AppShellMain(
-  { containerSize, className, children, ...rest },
+  { containerSize, transitionKey, className, children, ...rest },
   ref,
 ) {
+  const content =
+    transitionKey == null ? (
+      children
+    ) : (
+      // Remounts on every key change, which replays the entrance animation.
+      <div key={transitionKey} className="dyl-app-shell__page">
+        {children}
+      </div>
+    )
   return (
     <main
       ref={ref}
@@ -136,7 +145,7 @@ const Main = forwardRef<HTMLElement, AppShellMainProps>(function AppShellMain(
       className={classNames('dyl-app-shell__main', className)}
       {...rest}
     >
-      {containerSize ? <Container size={containerSize}>{children}</Container> : children}
+      {containerSize ? <Container size={containerSize}>{content}</Container> : content}
     </main>
   )
 })

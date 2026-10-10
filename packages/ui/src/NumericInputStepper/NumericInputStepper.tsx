@@ -2,6 +2,7 @@ import { forwardRef } from 'react'
 import { Icon, TbIcons } from '@vn-dylan/icons'
 import { classNames } from '@vn-dylan/utils'
 import type { NumericInputStepperProps } from './types'
+import { useUiMessages } from '../LocaleProvider'
 import './NumericInputStepper.scss'
 
 const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max)
@@ -23,6 +24,7 @@ export const NumericInputStepper = forwardRef<HTMLDivElement, NumericInputSteppe
     },
     ref,
   ) {
+    const t = useUiMessages('numericInputStepper')
     const decrementDisabled = disabled || value <= min
     const incrementDisabled = disabled || value >= max
 
@@ -36,7 +38,7 @@ export const NumericInputStepper = forwardRef<HTMLDivElement, NumericInputSteppe
         <button
           type="button"
           className="dyl-numeric-input-stepper__button"
-          aria-label="Increase value"
+          aria-label={t.increase}
           disabled={incrementDisabled}
           onClick={() => onChange?.(clamp(value + step, min, max))}
         >
@@ -45,7 +47,7 @@ export const NumericInputStepper = forwardRef<HTMLDivElement, NumericInputSteppe
         <button
           type="button"
           className="dyl-numeric-input-stepper__button"
-          aria-label="Decrease value"
+          aria-label={t.decrease}
           disabled={decrementDisabled}
           onClick={() => onChange?.(clamp(value - step, min, max))}
         >

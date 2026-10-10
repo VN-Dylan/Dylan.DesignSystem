@@ -3,6 +3,7 @@ import { classNames } from '@vn-dylan/utils'
 import { Portal } from '../_internal/Portal'
 import { useFocusTrap } from '../_internal/useFocusTrap'
 import type { DrawerProps } from './types'
+import { useUiMessages } from '../LocaleProvider'
 import './Drawer.scss'
 
 const toCssSize = (v: string | number | undefined) => (typeof v === 'number' ? `${v}px` : v)
@@ -34,6 +35,7 @@ export function Drawer({
   const panelRef = useRef<HTMLDivElement>(null)
   const openedRef = useRef(false)
   const titleId = useId()
+  const t = useUiMessages('drawer')
 
   useFocusTrap(panelRef, isOpen)
 
@@ -96,7 +98,7 @@ export function Drawer({
                 <button
                   type="button"
                   className="dyl-drawer__close"
-                  aria-label="Close drawer"
+                  aria-label={t.close}
                   onClick={() => onClose?.('button')}
                 >
                   <svg viewBox="0 0 24 24" width="16" height="16" fill="none" aria-hidden>

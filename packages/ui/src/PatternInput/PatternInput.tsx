@@ -11,7 +11,7 @@ import type { PatternInputProps } from './types'
 import './PatternInput.scss'
 
 /**
- * Pattern formatted input wrapper compatible with the Eyris PatternInput API.
+ * Input that formats its value against a fixed pattern (phone, card, date…).
  */
 export const PatternInput = forwardRef<HTMLInputElement, PatternInputProps>(function PatternInput(
   {

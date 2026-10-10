@@ -2,6 +2,7 @@ import { forwardRef } from 'react'
 import { TbIcons } from '@vn-dylan/icons'
 import { classNames } from '@vn-dylan/utils'
 import type { NotificationProps, NotificationType } from './types'
+import { useUiMessages } from '../LocaleProvider'
 
 const icons: Record<NotificationType, React.ReactNode> = {
   info: <TbIcons.TbInfoCircle />,
@@ -17,6 +18,7 @@ export const Notification = forwardRef<HTMLDivElement, NotificationProps>(functi
   { type = 'info', title, customIcon, closable = true, width, onClose, children },
   ref,
 ) {
+  const t = useUiMessages('notification')
   return (
     <div
       ref={ref}
@@ -36,7 +38,7 @@ export const Notification = forwardRef<HTMLDivElement, NotificationProps>(functi
         <button
           type="button"
           className={classNames('dyl-notification__close')}
-          aria-label="Dismiss notification"
+          aria-label={t.dismiss}
           onClick={onClose}
         >
           <TbIcons.TbX aria-hidden />

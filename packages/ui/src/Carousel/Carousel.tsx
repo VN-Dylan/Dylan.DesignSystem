@@ -16,6 +16,7 @@ import type {
   CarouselItemProps,
   CarouselProps,
 } from './types'
+import { useUiMessages } from '../LocaleProvider'
 import './Carousel.scss'
 
 const CarouselRoot = forwardRef<HTMLDivElement, CarouselProps>(function Carousel(
@@ -144,6 +145,7 @@ const Previous = forwardRef<HTMLButtonElement, CarouselControlProps>(function Ca
   ref,
 ) {
   const { scrollPrev, canScrollPrev } = useCarousel('Carousel.Previous')
+  const t = useUiMessages('carousel')
   return (
     <Button
       ref={ref}
@@ -152,7 +154,7 @@ const Previous = forwardRef<HTMLButtonElement, CarouselControlProps>(function Ca
       shape={shape}
       className={className}
       disabled={!canScrollPrev}
-      aria-label="Previous slide"
+      aria-label={t.previous}
       onClick={scrollPrev}
       {...rest}
     >
@@ -166,6 +168,7 @@ const Next = forwardRef<HTMLButtonElement, CarouselControlProps>(function Carous
   ref,
 ) {
   const { scrollNext, canScrollNext } = useCarousel('Carousel.Next')
+  const t = useUiMessages('carousel')
   return (
     <Button
       ref={ref}
@@ -174,7 +177,7 @@ const Next = forwardRef<HTMLButtonElement, CarouselControlProps>(function Carous
       shape={shape}
       className={className}
       disabled={!canScrollNext}
-      aria-label="Next slide"
+      aria-label={t.next}
       onClick={scrollNext}
       {...rest}
     >

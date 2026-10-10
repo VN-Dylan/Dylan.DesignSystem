@@ -1,8 +1,9 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useId, useRef } from 'react'
 import { classNames } from '@vn-dylan/utils'
 import { Portal } from '../_internal/Portal'
 import { useFocusTrap } from '../_internal/useFocusTrap'
 import type { DialogProps } from './types'
+import { useUiMessages } from '../LocaleProvider'
 import './Dialog.scss'
 
 const toCssSize = (value: string | number | undefined) =>
@@ -11,7 +12,8 @@ const toCssSize = (value: string | number | undefined) =>
 /**
  * A modal overlay that forces the user to interact before returning to the
  * page. Renders through a portal, traps focus, and closes on Esc / backdrop
- * click (both configurable).
+ * click (both configurable). The panel never grows past the visible viewport:
+ * `title` and `footer` stay pinned while only the body scrolls.
  */
 export function Dialog({
   isOpen,
@@ -19,17 +21,24 @@ export function Dialog({
   onOpen,
   width = 520,
   height,
+  title,
+  footer,
   closable = true,
   lockScroll = true,
   shouldCloseOnOverlayClick = true,
   shouldCloseOnEsc = true,
   contentClassName,
+  headerClass,
+  bodyClass,
+  footerClass,
   overlayClassName,
   children,
   ...aria
 }: DialogProps) {
   const panelRef = useRef<HTMLDivElement>(null)
   const openedRef = useRef(false)
+  const titleId = useId()
+  const t = useUiMessages('dialog')
 
   useFocusTrap(panelRef, isOpen)
 
@@ -73,6 +82,7 @@ export function Dialog({
           ref={panelRef}
           role="dialog"
           aria-modal="true"
+          aria-labelledby={title != null && aria['aria-label'] == null ? titleId : undefined}
           tabIndex={-1}
           className={classNames('dyl-dialog__panel', contentClassName)}
           style={{ width: toCssSize(width), height: toCssSize(height) }}
@@ -82,7 +92,7 @@ export function Dialog({
             <button
               type="button"
               className="dyl-dialog__close"
-              aria-label="Close dialog"
+              aria-label={t.close}
               onClick={() => onClose?.('button')}
             >
               <svg viewBox="0 0 24 24" width="16" height="16" fill="none" aria-hidden>
@@ -95,7 +105,17 @@ export function Dialog({
               </svg>
             </button>
           )}
-          <div className="dyl-dialog__body">{children}</div>
+          {title != null && (
+            <header className={classNames('dyl-dialog__header', headerClass)}>
+              <h2 id={titleId} className="dyl-dialog__title">
+                {title}
+              </h2>
+            </header>
+          )}
+          <div className={classNames('dyl-dialog__body', bodyClass)}>{children}</div>
+          {footer != null && (
+            <footer className={classNames('dyl-dialog__footer', footerClass)}>{footer}</footer>
+          )}
         </div>
       </div>
     </Portal>

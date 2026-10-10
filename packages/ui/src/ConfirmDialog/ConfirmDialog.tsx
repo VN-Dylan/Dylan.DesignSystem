@@ -1,9 +1,11 @@
 import { forwardRef, useId } from 'react'
 import { HiIcons, Icon } from '@vn-dylan/icons'
 import { classNames } from '@vn-dylan/utils'
+import { ActionGroup } from '../ActionGroup'
 import { Button } from '../Button'
 import { Dialog } from '../Dialog'
 import type { ConfirmDialogProps, ConfirmDialogType } from './types'
+import { useUiMessages } from '../LocaleProvider'
 import './ConfirmDialog.scss'
 
 const iconByType: Record<ConfirmDialogType, keyof typeof HiIcons> = {
@@ -18,10 +20,10 @@ const iconByType: Record<ConfirmDialogType, keyof typeof HiIcons> = {
  */
 export const ConfirmDialog = forwardRef<HTMLDivElement, ConfirmDialogProps>(function ConfirmDialog(
   {
-    cancelText = 'Cancel',
+    cancelText: cancelTextProp,
     cancelButtonProps,
     confirmButtonProps,
-    confirmText = 'Confirm',
+    confirmText: confirmTextProp,
     onCancel,
     onConfirm,
     title = 'info',
@@ -34,13 +36,39 @@ export const ConfirmDialog = forwardRef<HTMLDivElement, ConfirmDialogProps>(func
   },
   ref,
 ) {
+  const t = useUiMessages('confirmDialog')
+  const cancelText = cancelTextProp ?? t.cancel
+  const confirmText = confirmTextProp ?? t.confirm
   const generatedTitleId = useId()
   const titleId = ariaLabelledBy ?? generatedTitleId
   const confirmClassName = confirmButtonProps?.className
 
+  const footer = (
+    <ActionGroup className="dyl-confirm-dialog__actions" data-type={type}>
+      <Button {...cancelButtonProps} onClick={onCancel}>
+        {cancelButtonProps?.children ?? cancelText}
+      </Button>
+      <Button
+        variant="solid"
+        tone={type === 'danger' ? 'danger' : type === 'success' ? 'success' : 'primary'}
+        {...confirmButtonProps}
+        className={
+          typeof confirmClassName === 'function'
+            ? (state) => classNames('dyl-confirm-dialog__confirm', confirmClassName(state))
+            : classNames('dyl-confirm-dialog__confirm', confirmClassName)
+        }
+        onClick={onConfirm}
+      >
+        {confirmButtonProps?.children ?? confirmText}
+      </Button>
+    </ActionGroup>
+  )
+
   return (
     <Dialog
       contentClassName={classNames('dyl-confirm-dialog__panel', contentClassName)}
+      footer={footer}
+      footerClass="dyl-confirm-dialog__footer"
       aria-label={ariaLabel}
       aria-labelledby={ariaLabel == null ? titleId : undefined}
       {...dialogProps}
@@ -57,24 +85,6 @@ export const ConfirmDialog = forwardRef<HTMLDivElement, ConfirmDialogProps>(func
             {title}
           </h2>
           {children != null && <div className="dyl-confirm-dialog__body">{children}</div>}
-          <div className="dyl-confirm-dialog__actions">
-            <Button {...cancelButtonProps} onClick={onCancel}>
-              {cancelButtonProps?.children ?? cancelText}
-            </Button>
-            <Button
-              variant="solid"
-              tone={type === 'danger' ? 'danger' : type === 'success' ? 'success' : 'primary'}
-              {...confirmButtonProps}
-              className={
-                typeof confirmClassName === 'function'
-                  ? (state) => classNames('dyl-confirm-dialog__confirm', confirmClassName(state))
-                  : classNames('dyl-confirm-dialog__confirm', confirmClassName)
-              }
-              onClick={onConfirm}
-            >
-              {confirmButtonProps?.children ?? confirmText}
-            </Button>
-          </div>
         </div>
       </div>
     </Dialog>

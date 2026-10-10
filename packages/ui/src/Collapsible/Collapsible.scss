@@ -11,6 +11,10 @@
   &__content {
     @apply text-sm text-content-muted;
 
+    &:not([hidden]) {
+      animation: dyl-collapsible-in var(--dyl-duration-base) var(--dyl-ease-emphasized);
+    }
+
     &[data-overflow-hidden] {
       @apply overflow-hidden;
     }
@@ -18,5 +22,18 @@
 
   &__inner {
     @apply pb-3;
+  }
+}
+
+@keyframes dyl-collapsible-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dyl-collapsible__content:not([hidden]) {
+    animation: none;
   }
 }

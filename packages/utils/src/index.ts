@@ -1,13 +1,12 @@
 // @vn-dylan/utils — framework hooks and helpers.
 //
-// Ported from the Eyris `@/utils` surface. Three app-coupled hooks
+// Three app-coupled hooks
 // (useAuth, useLayout, useMenuActive) are intentionally NOT here — they depend
 // on the app's auth store / layout config / navigation tree and live in the
 // showcase app. See PROGRESS.md.
 //
-// The table / URL hooks below are Eyris-coupled to react-router in the vendor
-// template; ours drive the History API directly so they carry no router
-// dependency.
+// The table / URL hooks below drive the History API directly so they carry no
+// router dependency.
 
 // --- functions ---
 export { classNames, type ClassValue } from './functions/classNames'

@@ -35,6 +35,10 @@
     }
   }
 
+  &__page {
+    animation: dyl-app-shell-page-in var(--dyl-duration-slow) var(--dyl-ease-emphasized);
+  }
+
   &__footer {
     @apply border-t border-border px-gutter py-base text-sm text-content-muted;
   }
@@ -43,5 +47,18 @@
     @apply inline-flex size-10 items-center justify-center rounded-md text-content
       transition-colors duration-fast ease-standard hover:bg-surface-sunken
       focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary;
+  }
+}
+
+@keyframes dyl-app-shell-page-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dyl-app-shell__page {
+    animation: none;
   }
 }

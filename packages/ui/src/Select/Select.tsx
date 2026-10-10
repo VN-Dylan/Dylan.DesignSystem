@@ -9,6 +9,7 @@ import { classNames, useControllableState } from '@vn-dylan/utils'
 import { Portal } from '../_internal/Portal'
 import { floatingAutoUpdate, getFloatingMiddleware } from '../_internal/floatingRuntime'
 import type { SelectMultiProps, SelectOption, SelectProps } from './types'
+import { useUiMessages } from '../LocaleProvider'
 import './Select.scss'
 
 interface InternalProps {
@@ -32,6 +33,7 @@ interface InternalProps {
   id?: string
   name?: string
   'aria-label'?: string
+  'aria-describedby'?: string
 }
 
 const asArray = (v: unknown): SelectOption[] =>
@@ -45,20 +47,24 @@ const SelectBase = forwardRef<HTMLDivElement, InternalProps>(function SelectBase
     onChange,
     options,
     size = 'md',
-    placeholder = 'Select…',
+    placeholder: placeholderProp,
     disabled = false,
     invalid = false,
     isSearchable = false,
     isClearable = true,
     isLoading = false,
-    noOptionsMessage = 'No options',
+    noOptionsMessage: noOptionsMessageProp,
     className,
     id,
     name,
     'aria-label': ariaLabel,
+    'aria-describedby': ariaDescribedBy,
   },
   ref,
 ) {
+  const t = useUiMessages('select')
+  const placeholder = placeholderProp ?? t.placeholder
+  const noOptionsMessage = noOptionsMessageProp ?? t.noOptions
   const reactId = useId()
   const listboxId = `${id ?? reactId}-listbox`
 
@@ -170,12 +176,14 @@ const SelectBase = forwardRef<HTMLDivElement, InternalProps>(function SelectBase
         ))}
       <button
         ref={refs.setReference}
+        id={id}
         type="button"
         className="dyl-select__trigger"
         aria-haspopup="listbox"
         aria-expanded={open}
         aria-controls={open ? listboxId : undefined}
         aria-label={ariaLabel}
+        aria-describedby={ariaDescribedBy}
         aria-invalid={invalid || undefined}
         disabled={disabled}
         onClick={() => setOpen((o) => !o)}
@@ -193,7 +201,7 @@ const SelectBase = forwardRef<HTMLDivElement, InternalProps>(function SelectBase
           <span
             role="button"
             tabIndex={-1}
-            aria-label="Clear selection"
+            aria-label={t.clear}
             className="dyl-select__clear"
             onClick={(e) => {
               e.stopPropagation()
@@ -225,7 +233,7 @@ const SelectBase = forwardRef<HTMLDivElement, InternalProps>(function SelectBase
                 autoComplete="off"
                 className="dyl-select__search"
                 placeholder="Search…"
-                aria-label="Filter options"
+                aria-label={t.filter}
                 value={query}
                 onChange={(e) => {
                   setQuery(e.target.value)
@@ -242,7 +250,7 @@ const SelectBase = forwardRef<HTMLDivElement, InternalProps>(function SelectBase
               className="dyl-select__list"
             >
               {isLoading ? (
-                <li className="dyl-select__empty">Loading…</li>
+                <li className="dyl-select__empty">{t.loading}</li>
               ) : filtered.length === 0 ? (
                 <li className="dyl-select__empty">{noOptionsMessage}</li>
               ) : (
