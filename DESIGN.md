@@ -238,7 +238,7 @@ Full details and the file layout: [`RECIPE.md`](./RECIPE.md).
 
 The system reproduces the Eyris component surface 1:1 by name; the import alias
 is the only expected change. The **Handbook → Eyris Mapping** page in Storybook
-(`docs/handbook/EyrisMapping.mdx`) records coverage and every deliberate
+(`docs/handbook/DesignDecisions.mdx`) records coverage and every deliberate
 deviation — `Button` has no `asChild`, `FullCalendar`/`GanttChart` are
 dependency-free, 3 app-coupled utilities live in the showcase, etc.
 

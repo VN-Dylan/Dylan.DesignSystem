@@ -24,7 +24,7 @@ Mọi component mới tuân [`RECIPE.md`](../RECIPE.md); token theo
 - `forwardRef`, biến thể qua `data-*`, `classNames`; test kết thúc bằng `expect(await axe(container)).toHaveNoViolations()`.
 - `check:tokens`: không literal màu / px / duration trong `src`.
 - Thiết kế cho light + dark + RTL cùng lúc; kiểm ở 360px.
-- Thay đổi hiển thị của component có sẵn là **có chủ đích** → ghi vào `docs/handbook/EyrisMapping.mdx`.
+- Thay đổi hiển thị của component có sẵn là **có chủ đích** → ghi vào `docs/handbook/DesignDecisions.mdx`.
 
 ## Phases
 
@@ -60,7 +60,7 @@ Song song được (không phụ thuộc nhau, đều chỉ dùng token Phase 1)
 ### Phase 4 — Chuẩn hoá component hiện có
 - [x] Chạy `check-spacing --strict` cho `packages/ui`; sửa vi phạm (ưu tiên các `gap-1.5`, `p-2.5`, `py-3.5`…).
 - [x] Bỏ margin ngoài còn sót trong component (parent sở hữu gap).
-- [x] Cập nhật visual snapshot (`pnpm test:storybook:visual:update`) và review diff từng ảnh; ghi thay đổi vào `EyrisMapping.mdx`.
+- [x] Cập nhật visual snapshot (`pnpm test:storybook:visual:update`) và review diff từng ảnh; ghi thay đổi vào `DesignDecisions.mdx`.
 - **Xong khi:** `check:spacing` = 0 vi phạm trong `packages/ui`; không còn margin ngoài; snapshot đã được duyệt.
 
 ### Phase 5 — Showcase

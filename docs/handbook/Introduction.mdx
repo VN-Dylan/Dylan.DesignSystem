@@ -4,14 +4,13 @@ import { Meta, Markdown } from '@storybook/blocks'
 
 # Dylan Design System
 
-A production-oriented React component system. It reproduces the **component
-surface of the Eyris admin template** — 42 base components, 42 composite
-components, 32 utilities — as an independent, self-contained library with **no
-external UI-kit dependency**, built on React 18, Tailwind CSS v3, SCSS and
-TypeScript.
+A production-oriented React component system for admin and booking products —
+42 base components, 42 composite components, 32 utilities — built as an
+independent, self-contained library with **no external UI-kit dependency**, on
+React 18, Tailwind CSS v3, SCSS and TypeScript.
 
-It is an **internal** system. Component and prop names mirror Eyris for API
-familiarity; all brand assets, copy and visual identity are Dylan's own.
+It is an **internal** system. Component and prop names follow familiar
+conventions; all brand assets, copy and visual identity are Dylan's own.
 
 ---
 
@@ -21,10 +20,10 @@ familiarity; all brand assets, copy and visual identity are Dylan's own.
 | Package | Depends on | What it is |
 | --- | --- | --- |
 | \`@vn-dylan/tokens\` | — | CSS custom properties, a Tailwind preset, and TS constants. The runtime contract. |
-| \`@vn-dylan/utils\` | React (peer only) | 24 framework hooks + formatting helpers ported from the Eyris utility surface. |
+| \`@vn-dylan/utils\` | React (peer only) | 24 framework hooks + formatting helpers. |
 | \`@vn-dylan/icons\` | \`react-icons\` | A single entry point for the house icon set (Tabler — thin, geometric). |
 | \`@vn-dylan/ui\` | tokens · utils · icons | 84 components, each with types, tests, a Storybook story and an autodoc page. |
-| \`apps/showcase\` | ui · tokens · utils · icons | ~62 example screens rebuilding the Eyris demo app on the system. Not published. |
+| \`apps/showcase\` | ui · tokens · utils · icons | ~62 example screens built on the system. Not published. |
 `}</Markdown>
 
 ```
@@ -36,10 +35,10 @@ familiarity; all brand assets, copy and visual identity are Dylan's own.
 ## Where documentation lives
 
 - **This handbook** (`Handbook/*`) — the _why_: principles, tokens, theming,
-  accessibility, API conventions, the Eyris mapping.
+  accessibility, API conventions, design decisions.
 - **Component pages** (`Common/*`, `Data Display/*`, `Forms/*`, `Feedback/*`,
   `Navigation/*`, `Primitives/*`, `Composite/*`) — the _how_: one autodoc page
-  per component, a story per Eyris demo, a prop table generated from TSDoc.
+  per component, a story per use case, a prop table generated from TSDoc.
 - `DESIGN.md` (repo root) — the single source of truth this handbook is drawn
   from. `RECIPE.md` — the contract every component is built to.
 
@@ -53,4 +52,4 @@ familiarity; all brand assets, copy and visual identity are Dylan's own.
 6. **Component API** — the shapes you'll see on every component.
 7. **When to Use What** — picking between components that solve similar problems.
 8. **Contributing** — how a new component gets built.
-9. **Eyris Mapping** — the Eyris ↔ Dylan map, including the deliberate deviations.
+9. **Design Decisions** — deliberate API choices and additions, and why.

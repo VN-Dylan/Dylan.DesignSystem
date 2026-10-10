@@ -1,0 +1,58 @@
+import { Meta, Markdown } from '@storybook/blocks'
+
+<Meta title="Handbook/Localization" />
+
+# Localization
+
+Two layers: the library translates **its own strings**; the app translates
+**its content**. Switch the **Locale** toolbar above to see every story in
+Vietnamese.
+
+---
+
+## Library strings — `LocaleProvider`
+
+Components render a few strings on their own: close buttons, empty states,
+table footers, select placeholders, pagination labels. `LocaleProvider`
+translates them. English and Vietnamese are bundled; region tags fall back to
+their language (`vi-VN` → `vi`), anything unknown to English.
+
+```tsx
+<LocaleProvider locale="vi-VN">
+  <App />
+</LocaleProvider>
+
+// Adjust a few strings…
+<LocaleProvider locale="vi" messages={{ dataTable: { empty: 'Chưa có dữ liệu' } }}>
+
+// …or add a language: pass a complete set based on `uiMessagesEn`.
+<LocaleProvider locale="fr" messages={fr}>
+```
+
+A prop always wins over the translation — `emptyMessage`, `confirmText`,
+`placeholder`, `searchPlaceholder` and friends still work as before.
+`useLocale()` returns `{ locale, messages }` for your own components.
+
+## App strings
+
+The showcase app keeps its messages in `src/i18n/messages/{en,vi}.ts`:
+
+- `useTranslation()` → `t(key, values)`, `locale`, `setLocale`, `intl` (BCP 47
+  tag), `formatCurrency`, `formatDate`, `navTitle`.
+- Keys are type-checked (`t('customers.form.name')`); a missing translation
+  falls back to English, then to the key.
+- Placeholders use `{name}`: `t('customers.toast.added', { name })`.
+- The choice is persisted, defaults to the browser language, sets
+  `<html lang>` and feeds `LocaleProvider`.
+
+## Rules
+
+<Markdown>{`
+| Do | Don't |
+| --- | --- |
+| Translate whole sentences with placeholders | Concatenate fragments (\`'Delete ' + name\`) |
+| Store message **keys** in state (validation errors) | Store translated strings — they won't follow a language switch |
+| Format numbers, money and dates with \`Intl\` for the locale | Hard-code \`$\`, \`,\` or date order |
+| Give translated text room — Vietnamese runs ~30% longer | Fix widths around English labels |
+| Translate \`aria-label\`s and tooltips too | Leave accessible names in English |
+`}</Markdown>

@@ -23,7 +23,7 @@ pnpm install
 
 Follow [`RECIPE.md`](./RECIPE.md) exactly. In short:
 
-1. Read the reference: `docs/reference/eyris-crawl/<name>.json`.
+1. Read the reference: `docs/reference/api-spec/<name>.json`.
 2. Create `packages/ui/src/<Name>/` with the standard file set.
 3. One story per documented demo; tests cover each variant + `axe`.
 4. Export from `packages/ui/src/index.ts`.

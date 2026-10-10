@@ -1,98 +1,92 @@
 import { Meta, Markdown } from '@storybook/blocks'
 
-<Meta title="Handbook/Eyris Mapping" />
+<Meta title="Handbook/Design Decisions" />
 
-# Eyris ↔ Dylan
+# Design decisions
 
-The system reproduces the Eyris component surface **1:1 by name**. An Eyris
-`<Button variant="solid" />` is a Dylan `<Button variant="solid" />`. The import
-alias changes from `@/components/ui/<Name>` to `@vn-dylan/ui`; everything else is
-meant to feel identical.
-
-This page records where that is **deliberately not** true.
+The library aims for a familiar, conventional component API. This page records
+the places where a component **deliberately** does something its common
+counterpart in other admin kits does not — and why.
 
 ---
 
 ## Coverage
 
 <Markdown>{`
-| Eyris group | Count | Dylan |
-| --- | --- | --- |
-| Base UI components | 42 | 41 built + \`icons\` → the separate \`@vn-dylan/icons\` package |
-| Composite / shared components | 42 | 42 built |
-| Utilities | 32 | 28 built + 1 stub + 3 app-coupled (in \`apps/showcase\`) |
-| Preset theme schemas | 8 | 9 (\`default, dark, green, purple, orange, cyan, gold, pink\` + booking) |
-| Example app screens | ~62 | ~62 rebuilt in \`apps/showcase\` |
+| Area | Dylan |
+| --- | --- |
+| Base UI components | 41 + \`icons\` in the separate \`@vn-dylan/icons\` package |
+| Composite / shared components | 42 |
+| Utilities | 28 + 1 stub + 3 app-coupled (in \`apps/showcase\`) |
+| Preset theme schemas | 9 (\`default, dark, green, purple, orange, cyan, gold, pink\` + booking) |
+| Example app screens | ~62 in \`apps/showcase\` |
 `}</Markdown>
 
-## Deliberate deviations
-
-### Components
+## Components
 
 <Markdown>{`
-| Component | Deviation | Why |
+| Component | Decision | Why |
 | --- | --- | --- |
 | \`Button\` | no \`asChild\` / polymorphic \`as\` | Keeps the ref + \`data-*\` contract simple. Navigate with an \`onClick\` handler that calls \`navigate\`. |
 | \`Calendar\` · \`DatePicker\` | \`labelFormat\`/\`monthLabelFormat\`/\`yearLabelFormat\` are stubbed | Day/month/year grids all have a roving tab stop + arrow/Home/End keyboard nav; the header label cycles date → month → year (\`enableHeaderLabel\`, \`defaultView\`). Custom label-format strings are out of scope for the internal use cases. |
 | \`FullCalendar\` | dependency-free **month view only** — no week/day/list views, no drag | Avoids a heavy calendar dependency. |
-| \`GanttChart\` | dependency-free re-implementation | Same reason. Bars, progress fill, a shared date axis. |
+| \`GanttChart\` | dependency-free implementation | Same reason. Bars, progress fill, a shared date axis. |
 | \`VectorMap\` | choropleth ramp is interpolated **in-component** and fed as a code→hex map | jsvectormap 1.6 only ships an ordinal (lookup) scale, not a numeric one. |
 | \`DataTable\` | no \`onRowClick\` prop | Views delegate a click on a wrapping element; a first-class prop is a follow-up. |
 | \`Select\` · \`Segment\` | width must be constrained by a wrapper element | The component sets \`width: 100%\`, which beats a utility class on the component itself. |
-| \`Select\` | lean custom control — no \`creatable\`/\`isCreatable\`, \`customOption\`/\`customLabel\`/\`customInputDisplay\`, \`formatGroupLabel\`, \`onMenuOpen\`/\`onInputChange\`, \`searchInputProps\`, \`showClearAllButton\`, \`isDisabled\` (use \`disabled\`) | Eyris wraps \`react-select\`; Dylan ships a dependency-free control covering the shapes the showcase needs. |
+| \`Select\` | lean custom control — no \`creatable\`, custom option/label renderers, group labels, \`onMenuOpen\`/\`onInputChange\`; \`disabled\` instead of \`isDisabled\` | A dependency-free control covering the shapes the showcase needs, instead of wrapping \`react-select\`. |
 | \`Table\` | \`borderless\` (inverted) instead of \`bordered\`; no \`asElement\`, \`overflow\`/\`overflowClass\`, \`verticalDivider\` | Overflow/scroll is the caller's container concern; column dividers weren't used. |
-| \`Toast\` | single \`placement\` prop instead of \`offsetX\`/\`offsetY\`/\`block\`/\`transitionType\` | Nine fixed placements cover the need; offset/transition tuning removed. |
+| \`Toast\` | single \`placement\` prop instead of offset / transition tuning | Nine fixed placements cover the need. |
 | \`Upload\` | no \`fileListClass\` / \`fileItemClass\` | Style the composed list element via its \`className\`. |
 | \`Input\` | \`onChange\` / \`onFocus\` / \`onBlur\` aren't in the prop table — they pass straight through | Every primitive spreads native props/events onto its main node. |
-| \`Chart\` | grid / palette / tooltip are Eyris-styled and theme-reactive rather than ApexCharts defaults | Faint horizontal-only gridlines, an interleaved categorical palette, and a \`MutationObserver\` that re-reads tokens on theme change. |
+| \`Chart\` | grid / palette / tooltip are house-styled and theme-reactive rather than ApexCharts defaults | Faint horizontal-only gridlines, an interleaved categorical palette, and a \`MutationObserver\` that re-reads tokens on theme change. |
+| \`Dialog\` · \`Drawer\` | \`title\` and \`footer\` are pinned; only the body scrolls; height capped at the visible viewport (\`dvh\`) | Save / Cancel must never need a scroll, on any device. |
+| Floating menus | \`Select\`, \`Combobox\`, \`AutoComplete\`, \`Dropdown\` render on the popover layer | They open inside dialogs and drawers. |
 `}</Markdown>
 
-### Beyond Eyris
+## Additions
 
 <Markdown>{`
-| Component | Deviation | Why |
+| Component | Kind | Why |
 | --- | --- | --- |
-| \`Rating\` | booking-readiness addition, not in the Eyris crawl | Booking detail pages need an accessible star score and input primitive. |
-| \`PriceTag\` | booking-readiness addition, not in the Eyris crawl | Booking cards and detail pages need locale-aware price formatting with discount and unit text. |
-| \`ImageGallery\` | booking-readiness addition, not in the Eyris crawl | Booking detail pages need responsive media grids with an accessible lightbox viewer. |
-| \`MapView\` | booking-readiness addition, not in the Eyris crawl; adds optional \`maplibre-gl\` peer dependency | Booking search and detail pages need an accessible live map wrapper that remains safe without a tile URL. |
-| \`motion/\` | booking-readiness addition, not in the Eyris crawl; adds optional \`framer-motion\` peer dependency | Marketing and booking surfaces need tree-shakeable entrance, stagger, parallax and route-transition primitives that no-op under reduced motion. |
-| \`AvailabilityCalendar\` | booking-readiness addition, not in the Eyris crawl | Lodging detail pages need range selection with availability, stay-length, and nightly-price affordances. |
-| \`GuestSelector\` | booking-readiness addition, not in the Eyris crawl | Booking search and checkout forms need category-based guest and room counts in a compact popover. |
-| \`Stack\` | layout-system addition, not in the Eyris crawl | Owns vertical rhythm through semantic or constrained numeric gap tokens and can insert dividers between children. |
-| \`Inline\` | layout-system addition, not in the Eyris crawl | Owns horizontal rhythm, alignment, wrapping, and optional dividers through the same gap contract as \`Stack\`. |
-| \`Section\` | layout-system addition, not in the Eyris crawl | Standardizes section spacing, tonal surfaces, and optional \`Container\` containment. |
-| \`PageHeader\` | layout-system addition, not in the Eyris crawl | Provides standard title, description, breadcrumb, back, and action slots with a configurable heading level. |
-| \`Spacing normalization\` | layout-system deliberate deviation | Off-scale padding/gap (\`1.5\`, \`2.5\`, \`5\`, \`10\`) in Button, Input, InputGroup, Select, TimeInput, MultiValueInput, Drawer, StatisticCard, Table, Timeline, Upload and others snapped to the 4px-based scale; local \`z-10\` became \`z-[1]\`. |
-| \`AppShell\` | layout-system addition, not in the Eyris crawl | Promotes the showcase page frame into the library: persistent sidebar that becomes a \`Drawer\` below a breakpoint, sticky header, main, and footer driven by layout tokens. |
-| \`ActionGroup\` | addition, not in the Eyris crawl | Fixes action placement (primary last at the end, destructive isolated at the start, stacked on mobile); \`Button\` gains a semantic \`tone\`. |
-| \`DataTable\` toolbar & columns | deliberate extension | Search, filter slot, columns menu, column pin / reorder / hide, saved layout, right-aligned paging footer, and tree rows via \`getSubRows\`. |
-| \`Table.TreeCell\` | addition | Indented hierarchical cell with an accessible expand toggle for static tree tables. |
-| \`List\` | addition, not in the Eyris crawl | Rich rows with optional listbox selection, drag / keyboard reordering and fixed-height virtualization (no extra dependency). |
-| \`TreeList\` | addition, not in the Eyris crawl | ARIA tree with tri-state checkboxes, lazy-loaded children with retry, and search that keeps matching branches open. |
-| \`Combobox\` | addition, not in the Eyris crawl | WAI-ARIA 1.2 combobox with debounced, abortable remote search and tag-style multi-select; complements \`Select\` / \`AutoComplete\`. |
-| \`Center\` | layout-system addition, not in the Eyris crawl | Provides a minimal two-axis centering primitive. |
-| \`Spacer\` | layout-system addition, not in the Eyris crawl | Fills remaining flex space or reserves a constrained spacing-token step. |
-| \`AspectRatio\` | layout-system addition, not in the Eyris crawl | Reserves a stable native aspect-ratio box through a CSS custom property. |
-| \`Grid\` | upgraded beyond the Eyris demo-only wrapper | Adds token gaps, responsive CSS-variable columns, auto-fit minimum widths, and \`Grid.Item\` spans while retaining utility-class usage. |
-| \`Container\` | upgraded beyond the Eyris breakpoint wrapper | Uses named content-width tokens and an optional responsive gutter; the default content width is 1200px. |
-| \`Card\` | default inner padding deliberately changed from mixed 20/16px values to 24px | \`padding="default"\` now uses \`p-card\`; \`padding="compact"\` uses 16px for dense content. |
-| \`Divider\` | spacing is now explicit and labels are supported | \`spacing="base"\` preserves the former 16px default; \`tight\`/\`none\` remove hard-coded margins and horizontal labels render between two lines. |
+| \`Rating\` | booking | Booking detail pages need an accessible star score and input primitive. |
+| \`PriceTag\` | booking | Booking cards and detail pages need locale-aware price formatting with discount and unit text. |
+| \`ImageGallery\` | booking | Responsive media grids with an accessible lightbox viewer. |
+| \`MapView\` | booking; optional \`maplibre-gl\` peer dependency | An accessible live map wrapper that remains safe without a tile URL. |
+| \`motion/\` | booking; optional \`framer-motion\` peer dependency | Tree-shakeable entrance, stagger, parallax and route-transition primitives that no-op under reduced motion. |
+| \`AvailabilityCalendar\` | booking | Range selection with availability, stay-length, and nightly-price affordances. |
+| \`GuestSelector\` | booking | Category-based guest and room counts in a compact popover. |
+| \`Stack\` · \`Inline\` | layout | Own vertical / horizontal rhythm through semantic gap tokens, with optional dividers. |
+| \`Section\` | layout | Standardizes section spacing, tonal surfaces, and optional \`Container\` containment. |
+| \`PageHeader\` | layout | Standard title, description, breadcrumb, back, and action slots. |
+| \`AppShell\` | layout | Persistent sidebar that becomes a \`Drawer\` below a breakpoint, sticky header, main (with page transitions via \`transitionKey\`), and footer. |
+| \`ActionGroup\` | actions | Fixes action placement (primary last at the end, destructive isolated at the start, stacked on mobile); \`sticky\` pins form actions to the viewport bottom. \`Button\` gains a semantic \`tone\`. |
+| \`Form.Group\` | forms | Titled fieldset on a responsive column grid; \`Form.Item\` gains \`hint\`, \`span\` and automatic label / description wiring. |
+| \`DataTable\` toolbar & columns | data | Search, filter slot, columns menu, column pin / reorder / hide, saved layout, right-aligned paging footer, and tree rows via \`getSubRows\`. |
+| \`Table.TreeCell\` | data | Indented hierarchical cell with an accessible expand toggle for static tree tables. |
+| \`List\` | data | Rich rows with optional listbox selection, drag / keyboard reordering and fixed-height virtualization. |
+| \`TreeList\` | data | ARIA tree with tri-state checkboxes, lazy-loaded children with retry, and search that keeps matching branches open. |
+| \`Combobox\` | forms | WAI-ARIA 1.2 combobox with debounced, abortable remote search and tag-style multi-select. |
+| \`AccessProvider\` · \`Can\` · \`useAccess\` | permissions | Role → permission gating with wildcards; hide or disable. See **Permissions & Auth**. |
+| \`LocaleProvider\` | i18n | Translates built-in component strings (English, Vietnamese bundled). See **Localization**. |
+| \`Center\` · \`Spacer\` · \`AspectRatio\` | layout | Minimal centering, flex filling and aspect-ratio primitives. |
+| \`Grid\` · \`Container\` | layout | Token gaps, responsive columns, \`Grid.Item\` spans; named content widths with an optional gutter (default 1200px). |
+| \`Card\` | spacing | Default inner padding is 24px (\`p-card\`); \`padding="compact"\` uses 16px. |
+| \`Divider\` | spacing | Explicit \`spacing\`; horizontal labels render between two lines. |
+| Spacing normalization | spacing | Off-scale padding/gap values snapped to the 4px-based scale across inputs, tables, drawers and cards. |
 `}</Markdown>
 
-Reconciliation is enforced: \`pnpm check:api\` (in CI) diffs every documented prop
-in the \`docs/reference/eyris-crawl\` JSON against the component source and fails
-on an unlisted gap. 38 base components, 433 props.
+The documented API is reconciled in CI: `pnpm check:api` diffs every documented
+prop against the component source and fails on an unlisted gap.
 
-### Utilities
+## Utilities
 
 3 utilities are **app-coupled** and live in `apps/showcase/src/utils` rather
 than `@vn-dylan/utils`, because they depend on the auth store / layout config /
 navigation tree: `useAuth` · `useLayout` · `useMenuActive`.
 
-The table / URL hooks **are** in `@vn-dylan/utils`, re-implemented against the
-History API so they carry no router dependency (Eyris binds them to
-react-router):
+The table / URL hooks **are** in `@vn-dylan/utils`, implemented against the
+History API so they carry no router dependency:
 
 <Markdown>{`
 | Hook | Purpose |
@@ -103,22 +97,22 @@ react-router):
 | \`withHeaderItem\` | HOC — wrap a component as a \`role="button"\`, keyboard-operable header-bar item. |
 `}</Markdown>
 
-`useTranslation` ships as a **stub** (returns the key) — i18n wiring is the
-consuming app's job.
+`useTranslation` in `@vn-dylan/utils` is a **stub** (returns the key). Component
+strings are translated by `LocaleProvider`; app strings belong to the app (the
+showcase ships a typed `useTranslation` in `src/i18n`).
 
-### Styling
+## Styling
 
 <Markdown>{`
-| Eyris | Dylan | Note |
-| --- | --- | --- |
-| \`bg-primary/40\` opacity modifier | supported on \`primary\` / \`success\` / \`error\` / \`info\` / \`warning\` / \`content\` / \`gray\` | Those colours ship a \`--dyl-*-channel\` R G B triplet and resolve through \`rgb(var(...) / <alpha-value>)\`. \`surface\` / \`border\` / \`bg\` / \`overlay\` stay solid-only — use \`-subtle\`, \`overlay\`, or \`brightness-*\` there. |
-| brand identity, copy, logo | Dylan's own | The system mirrors the API, not the visual identity. |
+| Pattern | Support |
+| --- | --- |
+| \`bg-primary/40\` opacity modifier | supported on \`primary\` / \`success\` / \`error\` / \`info\` / \`warning\` / \`content\` / \`gray\` — those colours ship a \`--dyl-*-channel\` R G B triplet. \`surface\` / \`border\` / \`bg\` / \`overlay\` stay solid-only — use \`-subtle\`, \`overlay\`, or \`brightness-*\` there. |
+| brand identity, copy, logo | Dylan's own. |
 `}</Markdown>
 
 ## Bundle
 
-`@vn-dylan/ui` ships as **per-module chunks** (`preserveModules`, ~227 kB total,
-largest chunk ~12 kB) so a consuming app only bundles what it imports. Vendor
-libraries are kept **external** (ApexCharts, TanStack Table, Tiptap, jsvectormap,
-react-syntax-highlighter are peer deps of the consuming app), as is every
-`react-icons` subpath.
+`@vn-dylan/ui` ships as **per-module chunks** (`preserveModules`) so a consuming
+app only bundles what it imports. Vendor libraries are kept **external**
+(ApexCharts, TanStack Table, Tiptap, jsvectormap, react-syntax-highlighter are
+peer deps of the consuming app), as is every `react-icons` subpath.

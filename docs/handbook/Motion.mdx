@@ -1,0 +1,53 @@
+import { Meta, Markdown } from '@storybook/blocks'
+
+<Meta title="Handbook/Motion" />
+
+# Motion
+
+Motion explains **where something came from and what changed** — it never
+decorates. Every built-in animation is CSS, uses the duration and easing
+tokens, and switches off under `prefers-reduced-motion: reduce`.
+
+---
+
+## Tokens
+
+<Markdown>{`
+| Token | Value | Use |
+| --- | --- | --- |
+| \`--dyl-duration-fast\` | 120ms | hover, press, check marks, menus fading |
+| \`--dyl-duration-base\` | 200ms | panels, dialogs, rows, tabs |
+| \`--dyl-duration-slow\` | 320ms | page transitions, large surfaces |
+| \`--dyl-ease-standard\` | — | colour / opacity changes |
+| \`--dyl-ease-emphasized\` | — | things that move or grow into view |
+`}</Markdown>
+
+## What animates out of the box
+
+<Markdown>{`
+| Area | Component | Motion |
+| --- | --- | --- |
+| Floating menus | Select, Combobox, AutoComplete, Dropdown, Popover, Tooltip | fade + scale from the trigger |
+| Overlays | Dialog, Drawer, ConfirmDialog | backdrop fade; panel pops / slides in from its edge |
+| Page | \`AppShell.Main transitionKey={pathname}\` | content fades and rises on route change |
+| Content | Tabs, Collapsible, Menu submenus | panel fades in / slides open |
+| Feedback | Button (press), Switcher, Checkbox (tick), Radio (dot), Toast, Skeleton, Progress | short state transitions |
+| Data | Table / DataTable rows | fade in on load, paging and filtering, staggered over the first 10 rows (opacity only, so pinned columns stay put) |
+| Navigation | AppShell sidebar | width transition when collapsing |
+`}</Markdown>
+
+## Rules
+
+- **Under 320ms.** Anything slower feels like waiting.
+- **Enter, don't exit.** Disappearing content leaves immediately; only arrivals
+  animate.
+- **Opacity and transform only** — never animate layout properties (width,
+  height, top) on content.
+- **One thing at a time.** Don't stack a page transition, a row stagger and a
+  toast in the same moment if you can avoid it.
+- **Respect the user.** Custom motion must add the same
+  `@media (prefers-reduced-motion: reduce)` override as the built-ins.
+
+For scroll-driven entrances (marketing pages), use the `Reveal`, `Stagger`,
+`Parallax` and `PageTransition` primitives (**Primitives/Motion**), which need
+the optional `framer-motion` peer dependency.

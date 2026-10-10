@@ -1,0 +1,67 @@
+import { Meta, Markdown } from '@storybook/blocks'
+
+<Meta title="Handbook/Forms" />
+
+# Forms
+
+`Form` sets layout and size; `Form.Group` clusters related fields; `Form.Item`
+renders the label, required marker, hint and error, and wires them to the
+control. Values stay in your form library (react-hook-form, plain state…).
+
+---
+
+## Anatomy
+
+```tsx
+<Form id="customer-form" onSubmit={save}>
+  <Form.Group title="Contact" description="Who we talk to." columns={2}>
+    <Form.Item label="Full name" asterisk errorMessage={errors.name}>
+      <Input invalid={!!errors.name} />
+    </Form.Item>
+    <Form.Item label="Phone" hint="Include the country code.">
+      <Input type="tel" />
+    </Form.Item>
+    <Form.Item label="Notes" span="full" extra="Optional">
+      <Input textArea />
+    </Form.Item>
+  </Form.Group>
+
+  <Form.Group title="Account" columns={2} divided>
+    …
+  </Form.Group>
+
+  <ActionGroup sticky>
+    <Button>Cancel</Button>
+    <Button type="submit" variant="solid">
+      Save
+    </Button>
+  </ActionGroup>
+</Form>
+```
+
+<Markdown>{`
+| Part | Does |
+| --- | --- |
+| \`Form layout\` | \`vertical\` (default), \`horizontal\` (label column — stacks on mobile), \`inline\`. |
+| \`Form.Group\` | A \`fieldset\` with a \`legend\` title and optional \`description\` / \`extra\`. \`columns\` 1–4: one column on mobile, 2 from \`sm\`, 3–4 from \`lg\`. \`divided\` draws a hairline above. \`disabled\` locks every field inside (read-only views). |
+| \`Form.Item\` | Label, \`asterisk\`, \`hint\` (replaced by \`errorMessage\` while invalid), \`span\` (2/3/4/\`full\`) inside a group. A single control child receives \`id\` and \`aria-describedby\` automatically. |
+`}</Markdown>
+
+## Rules
+
+- **Group by meaning, not by size.** Two to six fields per group; title it
+  with a noun ("Contact", "Billing").
+- **Columns only for short, related fields** (first / last name, city / zip).
+  Long text, addresses and notes take `span="full"`.
+- **Required fields get `asterisk`;** don't mark optional ones except with
+  `extra="Optional"` when most fields are required.
+- **Validate on submit, clear on edit.** Show the error under the field and
+  move focus to the first invalid one.
+- **Actions** follow **Handbook/Actions & Buttons**: `ActionGroup sticky` on a
+  page; the `footer` prop of `Dialog` / `Drawer` (with `form="<id>"` on the
+  submit button) in an overlay.
+- **Read-only access:** render the same form with `Form.Group disabled` and
+  replace Save with a "Read-only access" note — don't build a second view.
+
+See **Examples → Customer workspace** in the showcase app for all of this
+together with `DataTable`, a create dialog, an edit drawer and permissions.

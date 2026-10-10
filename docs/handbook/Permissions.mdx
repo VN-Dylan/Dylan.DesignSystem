@@ -1,0 +1,93 @@
+import { Meta, Markdown } from '@storybook/blocks'
+
+<Meta title="Handbook/Permissions & Auth" />
+
+# Permissions & authentication
+
+The library gates **UI**; your API enforces **rules**. Hiding a button is a
+courtesy, not security — every permission checked here must be checked again
+on the server.
+
+---
+
+## Model: roles → permissions
+
+Permissions are `resource.action` strings. Roles are just named sets of them,
+resolved in the app and handed to `AccessProvider`.
+
+```ts
+const rolePermissions = {
+  viewer: ['customers.read'],
+  editor: ['customers.read', 'customers.create', 'customers.update'],
+  admin: ['*'], // everything
+}
+
+const permissions = resolvePermissions(user.roles, rolePermissions)
+```
+
+<Markdown>{`
+| Grant | Matches |
+| --- | --- |
+| \`customers.read\` | exactly that permission |
+| \`customers.*\` | every \`customers.\` permission |
+| \`*\` | everything |
+`}</Markdown>
+
+## API
+
+```tsx
+<AccessProvider permissions={permissions}>
+  <App />
+</AccessProvider>
+
+// Declarative
+<Can permission="customers.delete">
+  <Button tone="danger">Delete</Button>
+</Can>
+
+<Can permission="customers.create" behavior="disable" reason="Requires the Editor role">
+  <Button variant="solid">Add customer</Button>
+</Can>
+
+<Can permission={['reports.read', 'reports.export']} mode="all" fallback={<Upsell />}>
+  …
+</Can>
+
+// Imperative
+const { can } = useAccess()
+if (can('customers.update')) …
+
+// Outside React (route guards, menus)
+hasPermission(permissions, 'users.manage')
+```
+
+## Hide or disable?
+
+<Markdown>{`
+| Situation | Do |
+| --- | --- |
+| Destructive or admin-only action (Delete, Manage users) | **Hide** — default \`behavior\` |
+| Primary action the user should know exists (Add, Export) | **Disable** with a \`reason\` |
+| Whole page or route | Guard the route; redirect to the access-denied screen |
+| Navigation item | Filter it out with the same permission as its route |
+| Form the user can read but not edit | Same form, \`Form.Group disabled\`, no Save |
+`}</Markdown>
+
+## Authentication
+
+Authentication is app code, not library code. The showcase app is the
+reference implementation:
+
+- **`AuthAdapter`** (`src/auth/types.ts`) — `signIn`, `signOut`, optional
+  `refresh`. The mock adapter ships demo accounts; replace it with one backed by
+  your API in `src/auth/index.ts`, nothing else changes.
+- **Session** — user, token, `expiresAt`; persisted, ended automatically when it
+  expires (timer + tab focus), after which sign-in shows a "session expired"
+  notice.
+- **`ProtectedRoute permission="…"`** — sends signed-out users to sign-in with a
+  `redirect` back (same-origin paths only) and users without the permission to
+  the access-denied screen.
+- **`useAuth()`** — `authenticated`, `user`, `roles`, `permissions`, `can`,
+  `signIn`, `signOut`.
+
+Demo accounts: `admin@`, `editor@`, `viewer@vn-dylan.dev`, password `demo1234`.

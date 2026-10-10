@@ -69,7 +69,7 @@ typecheck → lint → check:tokens → check:api → format:check → test → 
 `check:tokens` (`scripts/check-tokens.mjs`) and `check:api`
 (`scripts/api-coverage.mjs`) are this repo's own drift gates — the first
 scans for literal colours, the second diffs every component's props against
-the crawled Eyris reference (`docs/reference/eyris-crawl`) and fails on an
+the reference API spec (`docs/reference/api-spec`) and fails on an
 unlisted gap. Pixel visual-regression (`pnpm test:storybook:visual`,
 Playwright + `jest-image-snapshot`) stays local-only — see `PROGRESS.md` for
 why (the baselines are host-OS/Chromium rendered, not portable to CI).

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// api-coverage — reconcile each component's props against the Eyris doc crawl.
+// api-coverage — reconcile each component's props against the reference API spec.
 //
 //   node scripts/api-coverage.mjs            # summary + any gaps
 //   node scripts/api-coverage.mjs --json     # machine-readable
@@ -7,7 +7,7 @@
 // For every crawl file with a PROP/DESCRIPTION/TYPE/DEFAULT table, checks that
 // each documented prop name appears as an identifier somewhere in the matching
 // packages/ui/src/<Pascal> source (types + implementation). A miss is either a
-// real gap or a deliberate deviation — see docs/handbook/EyrisMapping.mdx.
+// real gap or a deliberate deviation — see docs/handbook/DesignDecisions.mdx.
 
 import { readFileSync, readdirSync, existsSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
@@ -15,7 +15,7 @@ import { dirname, join } from 'node:path'
 
 const here = dirname(fileURLToPath(import.meta.url))
 const repoRoot = join(here, '..')
-const crawlDir = join(repoRoot, 'docs/reference/eyris-crawl')
+const crawlDir = join(repoRoot, 'docs/reference/api-spec')
 const uiSrc = join(repoRoot, 'packages/ui/src')
 const json = process.argv.includes('--json')
 
@@ -25,12 +25,12 @@ const SKIP = new Set(['changelog', 'icons', 'timeline'])
 
 // Verified deviations — the prop is intentionally absent (or renamed). Keeping
 // them here makes this script a drift gate: a NEW unmatched prop fails CI.
-// Rationale for each set is in docs/handbook/EyrisMapping.mdx.
+// Rationale for each set is in docs/handbook/DesignDecisions.mdx.
 const ALLOW = {
   Button: ['clickFeedback'],
   // Input/textarea forward every native event via {...rest}.
   Input: ['onChange', 'onFocus', 'onBlur'],
-  // Lean custom Select — not the react-select surface Eyris wraps.
+  // Lean custom Select — not the react-select surface.
   Select: [
     'creatable',
     'isCreatable',
@@ -114,7 +114,7 @@ if (json) {
   const noFolder = results.filter((r) => r.status === 'no-folder')
   const propCount = results.reduce((n, r) => n + r.total, 0)
 
-  console.log(`API coverage vs Eyris crawl — ${results.length} components, ${propCount} props\n`)
+  console.log(`API coverage vs reference spec — ${results.length} components, ${propCount} props\n`)
   console.log(`  ${ok.length} fully covered`)
   if (noFolder.length)
     console.log(
@@ -124,7 +124,7 @@ if (json) {
     console.log(`  ${gaps.length} with unmatched prop names:\n`)
     for (const g of gaps) console.log(`    ${g.name}: ${g.missing.join(', ')}`)
     console.log(
-      '\n  (each is a real gap or a documented deviation — verify against EyrisMapping.mdx)',
+      '\n  (each is a real gap or a documented deviation — verify against DesignDecisions.mdx)',
     )
   } else {
     console.log('\n  no unmatched props.')

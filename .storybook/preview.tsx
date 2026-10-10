@@ -4,6 +4,7 @@
 import React, { useEffect } from 'react'
 import type { Preview } from '@storybook/react'
 import { withThemeByClassName } from '@storybook/addon-themes'
+import { LocaleProvider } from '../packages/ui/src/LocaleProvider'
 import '../packages/ui/src/styles/index.scss'
 
 const preview: Preview = {
@@ -27,8 +28,12 @@ const preview: Preview = {
             'Accessibility',
             'Component API',
             'When to Use What',
+            'Forms',
+            'Motion',
+            'Permissions & Auth',
+            'Localization',
             'Contributing',
-            'Eyris Mapping',
+            'Design Decisions',
           ],
           'Common',
           'Data Display',
@@ -43,6 +48,7 @@ const preview: Preview = {
   },
   initialGlobals: {
     direction: 'ltr',
+    locale: 'en',
   },
   globalTypes: {
     direction: {
@@ -53,6 +59,18 @@ const preview: Preview = {
         items: [
           { value: 'ltr', title: 'LTR' },
           { value: 'rtl', title: 'RTL' },
+        ],
+        dynamicTitle: true,
+      },
+    },
+    locale: {
+      description: 'Language of built-in component strings (LocaleProvider)',
+      toolbar: {
+        title: 'Locale',
+        icon: 'globe',
+        items: [
+          { value: 'en', title: 'English' },
+          { value: 'vi', title: 'Tiếng Việt' },
         ],
         dynamicTitle: true,
       },
@@ -86,7 +104,11 @@ const preview: Preview = {
             padding: context.parameters.layout === 'fullscreen' ? 0 : '1.5rem',
           },
         },
-        React.createElement(Story),
+        React.createElement(
+          LocaleProvider,
+          { locale: context.globals.locale === 'vi' ? 'vi' : 'en' },
+          React.createElement(Story),
+        ),
       )
     },
   ],

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// ds-spec — turn an Eyris component doc crawl into a lean implementation spec.
+// ds-spec — turn a reference component spec into a lean implementation spec.
 //
 //   node scripts/ds-spec.mjs button          # lean (default)
 //   node scripts/ds-spec.mjs button --full    # include demo source
@@ -22,7 +22,7 @@ if (!name) {
 }
 
 const repoRoot = join(here, '..')
-const file = join(repoRoot, 'docs', 'reference', 'eyris-crawl', `${name}.json`)
+const file = join(repoRoot, 'docs', 'reference', 'api-spec', `${name}.json`)
 let data
 try {
   data = JSON.parse(readFileSync(file, 'utf8'))
@@ -37,13 +37,13 @@ const out = []
 out.push(`# SPEC — ${pascal}`)
 out.push('')
 out.push(`Purpose: ${data.intro || '(none captured)'}`)
-out.push(`Crawl (open for demo source): docs/reference/eyris-crawl/${name}.json`)
+out.push(`Crawl (open for demo source): docs/reference/api-spec/${name}.json`)
 out.push('')
 
 const demoSections = (data.sections || []).filter(
   (s) => !/^(API|Dependencies|TABLE OF CONTENT)$/i.test(s) && !/^[A-Z]\w+\.\w/.test(s),
 )
-out.push(`Stories to cover (from Eyris demos): ${demoSections.join(' · ')}`)
+out.push(`Stories to cover (from reference demos): ${demoSections.join(' · ')}`)
 out.push('')
 
 const compoundParts = (data.sections || []).filter((s) => /^[A-Z]\w+\.\w/.test(s))

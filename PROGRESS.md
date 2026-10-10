@@ -237,11 +237,11 @@ Done:
   `bg-white/10` in AuthLayout kept — a Tailwind primitive for translucency where
   `var(--dyl-*)` tokens can't do an alpha channel.
 - **API reconciliation vs crawl.** `scripts/api-coverage.mjs` + `pnpm check:api`
-  (CI, after `check:tokens`) diffs every prop in the `docs/reference/eyris-crawl`
+  (CI, after `check:tokens`) diffs every prop in the `docs/reference/api-spec`
   JSON against each component's source. 38 base components, 433 props — all
   matched or listed as a verified deviation in the script's `ALLOW` map (which
   makes it a drift gate: a new unlisted gap fails CI). Deviations now spelled out
-  in EyrisMapping: `Select` (no react-select surface — `creatable`,
+  in DesignDecisions: `Select` (no react-select surface — `creatable`,
   `customOption`, `onMenuOpen`, …), `Table` (`borderless` vs `bordered`, no
   `overflow`/`verticalDivider`/`asElement`), `Toast` (`placement` only, no
   offset/transition knobs), `Upload` (no `fileListClass`/`fileItemClass`),

@@ -60,7 +60,7 @@ Rules:
 3. **`className` merge** with `classNames` from `@vn-dylan/utils`. Support the
    callback form `(state) => string` where the component exposes interaction
    state (see `Button`).
-4. **Prop names & defaults** follow Eyris (`docs/reference/eyris-crawl/<name>.json`
+4. **Prop names & defaults** follow Eyris (`docs/reference/api-spec/<name>.json`
    → the API table). Types are `<Name>Props`, `<Name>Variant`, etc. — exported
    from `types.ts` and re-exported from the package root.
 5. **Controlled / uncontrolled** state uses `useControllableState` from

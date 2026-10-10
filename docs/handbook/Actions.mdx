@@ -64,14 +64,43 @@ Desktop                                         Mobile (< sm)
 | Surface | Where actions go |
 | --- | --- |
 | **Page** | \`PageHeader actions\`, top-end. Primary last. Secondary actions beyond two go into a \`Dropdown\` ("More"). |
-| **Form** (page or card) | Bottom, \`ActionGroup divided\` (end-aligned). Long forms: wrap it in \`StickyRegion\` so Save stays visible. |
-| **Dialog / ConfirmDialog** | Footer, end-aligned: Cancel, then the confirming action. \`ConfirmDialog type="danger"\` already renders a danger confirm. |
-| **Drawer** | \`footer\`, same order as a dialog. |
+| **Form** (page or card) | Bottom, \`ActionGroup divided\` (end-aligned). Page forms taller than the screen: \`ActionGroup sticky\` pins Save / Cancel to the viewport bottom until the form ends. |
+| **Dialog / ConfirmDialog** | \`footer\` prop, end-aligned: Cancel, then the confirming action. The footer is pinned — only the body scrolls and the dialog never exceeds the screen height. \`ConfirmDialog type="danger"\` already renders a danger confirm. |
+| **Drawer** | \`footer\` prop (pinned), same order as a dialog. |
 | **Card** | Card \`footer\` with \`ActionGroup\`; a single "View all" link may sit in the header \`extra\`. |
 | **Table row** | End column: \`plain\` icon buttons or a "⋯" \`Dropdown\`; destructive item last in the menu, \`tone="danger"\`. |
 | **Bulk selection** | \`ActionBar\` (floating, bottom). |
 | **Wizard** | Back at start (\`ActionGroup.Start\`), Next / Finish at end. |
 `}</Markdown>
+
+### Forms in a dialog or drawer
+
+The footer sits outside the `<form>`, so link the submit button to the form by
+id. Enter in a field still submits.
+
+```tsx
+<Dialog
+  title="Add customer"
+  footer={
+    <ActionGroup>
+      <Button onClick={close}>Cancel</Button>
+      <Button type="submit" form="customer-form" variant="solid">
+        Create customer
+      </Button>
+    </ActionGroup>
+  }
+>
+  <Form id="customer-form" onSubmit={save}>
+    …
+  </Form>
+</Dialog>
+```
+
+### Actions the user may not perform
+
+Wrap them in `<Can>` (see **Handbook/Permissions**): hide destructive actions
+the role cannot use; disable — with a `reason` tooltip — actions worth
+discovering, such as "Add customer" for a viewer.
 
 In RTL the whole group mirrors automatically — "end" is the reading end in
 both directions.

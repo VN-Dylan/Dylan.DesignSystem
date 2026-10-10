@@ -23,7 +23,7 @@ new `packages/ui` component still follows `RECIPE.md` exactly.
 - Anchored overlays use `@floating-ui/react`; modal overlays use `_internal/Portal` + `useFocusTrap`.
 - Every test ends with `expect(await axe(container)).toHaveNoViolations()`.
 - Designed for light + dark + RTL together.
-- New components are **deliberate deviations** from Eyris → record in `docs/handbook/EyrisMapping.mdx`.
+- New components are **deliberate deviations** from Eyris → record in `docs/handbook/DesignDecisions.mdx`.
 - Marketing / motion presentation code does **not** enter `packages/ui`.
 
 ## Phases
@@ -49,7 +49,7 @@ Landed in `feat(tokens,ui): booking brand pack + Rating + PriceTag`. Full suite 
 
 ### Phase 5 — Reference + release
 - [x] **`apps/showcase` › `/booking`** — end-to-end: search bar → results (cards + `MapView`) → detail (`ImageGallery` + `AvailabilityCalendar` + `Rating` + `PriceTag`) → checkout `Wizard` → confirmation. Uses the `brand-booking` pack + `booking` schema.
-- [x] **Docs** — `EyrisMapping.mdx` deviations for every new component; Storybook handbook page "Booking patterns".
+- [x] **Docs** — `DesignDecisions.mdx` deviations for every new component; Storybook handbook page "Booking patterns".
 - [x] **Release** — changeset (minor); `pnpm release`.
 
 Status: complete. The release changeset is prepared; publishing remains with the normal release workflow.
