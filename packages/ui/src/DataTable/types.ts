@@ -95,6 +95,13 @@ export interface DataTableProps<TData> {
   /** Server-side sorting: receives the sort and disables client sorting. */
   onSort?: (sort: DataTableSort) => void
 
+  /* ---------------------------------------------------------------- density */
+  /**
+   * Tighter header and rows (`px-3 py-2` instead of `px-4 py-3`) for dense
+   * data or tables with inline editors. @default false
+   */
+  compact?: boolean
+
   /* -------------------------------------------------------------- selection */
   /** Enable a leading selection-checkbox column. */
   selectable?: boolean

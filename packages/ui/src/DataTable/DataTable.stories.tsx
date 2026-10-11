@@ -200,6 +200,21 @@ export const PinnedColumns: Story = {
   ),
 }
 
+/** `compact`: tighter header and rows for dense data or inline editors. */
+export const Compact: Story = {
+  render: () => (
+    <DataTable<Ticket>
+      columns={ticketColumns}
+      data={TICKETS}
+      compact
+      searchable
+      pagination
+      pageSizeOptions={[5, 10]}
+      initialState={{ pageSize: 5 }}
+    />
+  ),
+}
+
 /** Start from a saved layout: custom order, a hidden column and a default sort. */
 export const SavedLayout: Story = {
   render: () => (

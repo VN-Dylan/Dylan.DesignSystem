@@ -40,6 +40,10 @@
   }
 
   /* -------------------------------------------------------------- header */
+  /* The sorter / label inside owns the padding. The extra selectors outrank
+     the base `.dyl-table .dyl-table__th` (and its compact variant) padding,
+     which would otherwise be added on top and double the header height. */
+  .dyl-table .dyl-table__th.dyl-data-table__th,
   &__th {
     @apply p-0;
 
@@ -64,6 +68,16 @@
   &__label {
     @apply flex min-w-0 flex-1 items-center gap-1 px-4 py-3 text-start text-xs font-semibold
       uppercase tracking-wide text-content-muted;
+  }
+
+  /* Compact density mirrors `Table compact` (px-3 py-2). */
+  &[data-compact] &__sorter,
+  &[data-compact] &__label {
+    @apply px-3 py-2;
+  }
+
+  &[data-compact] &__expand-all {
+    @apply ms-3;
   }
 
   &__sorter {

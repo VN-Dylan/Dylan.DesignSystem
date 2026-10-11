@@ -40,6 +40,12 @@ describe('DataTable', () => {
     expect(screen.getByRole('cell', { name: 'Grace' })).toBeInTheDocument()
   })
 
+  it('passes compact density to the table', () => {
+    const { container } = render(<DataTable columns={columns} data={data} compact />)
+    expect(container.querySelector('.dyl-data-table')).toHaveAttribute('data-compact', 'true')
+    expect(container.querySelector('.dyl-table')).toHaveAttribute('data-compact')
+  })
+
   it('shows the empty message', () => {
     render(<DataTable columns={columns} data={[]} emptyMessage="Nothing here" />)
     expect(screen.getByText('Nothing here')).toBeInTheDocument()

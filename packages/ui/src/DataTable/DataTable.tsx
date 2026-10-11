@@ -90,6 +90,7 @@ export function DataTable<TData>({
   onSort,
   selectable = false,
   onSelectChange,
+  compact = false,
 }: DataTableProps<TData>) {
   const serverPaging = Boolean(pagingData)
   const clientPaging = pagination && !serverPaging
@@ -334,7 +335,11 @@ export function DataTable<TData>({
   const rows = table.getRowModel().rows
 
   return (
-    <div className="dyl-data-table" data-loading={loading || undefined}>
+    <div
+      className="dyl-data-table"
+      data-loading={loading || undefined}
+      data-compact={compact || undefined}
+    >
       {showToolbar && (
         <div className="dyl-data-table__toolbar" role="toolbar" aria-label={t.controls}>
           {searchable && (
@@ -397,7 +402,7 @@ export function DataTable<TData>({
         </div>
       )}
 
-      <Table hoverable ref={tableRef}>
+      <Table hoverable compact={compact} ref={tableRef}>
         <Table.THead>
           <Table.Tr>
             {selectable && (
