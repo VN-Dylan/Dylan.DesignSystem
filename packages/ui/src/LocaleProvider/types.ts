@@ -42,6 +42,7 @@ export interface UiMessages {
     collapseAll: string
     pinned: string
     columnOptions: (column: string) => string
+    resizeColumn: (column: string) => string
     sortAscending: string
     sortDescending: string
     clearSort: string

@@ -6,6 +6,8 @@ import {
   useState,
   type CSSProperties,
   type DragEvent,
+  type KeyboardEvent,
+  type PointerEvent,
 } from 'react'
 import {
   flexRender,
@@ -18,6 +20,7 @@ import {
   type Column,
   type ColumnOrderState,
   type ColumnPinningState,
+  type ColumnSizingState,
   type ExpandedState,
   type Header,
   type PaginationState,
@@ -38,6 +41,25 @@ import type { DataTableLayout, DataTableProps } from './types'
 import './DataTable.scss'
 
 type PinOffsets = Record<string, number>
+
+/** Keyboard step for a focused resize handle (Shift = large step), in px. */
+const RESIZE_STEP = 10
+const RESIZE_STEP_LARGE = 40
+/** Width of the leading selection column (CSS var set by the stylesheet); not user-resizable. */
+const SELECT_COLUMN_WIDTH = 'var(--dyl-select-col)'
+/** Floor for any resizable column unless its `minSize` says otherwise. */
+const DEFAULT_MIN_SIZE = 56
+const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max)
+
+interface ResizeDrag {
+  id: string
+  startX: number
+  startWidth: number
+  sign: 1 | -1
+  min: number
+  max: number
+  base: ColumnSizingState
+}
 
 const columnLabel = <TData,>(column: Column<TData, unknown>) => {
   const header = column.columnDef.header
@@ -79,6 +101,7 @@ export function DataTable<TData>({
   columnsToggle,
   columnMenu = true,
   reorderable = true,
+  resizable = false,
   pinnable = true,
   initialState,
   onLayoutChange,
@@ -114,6 +137,14 @@ export function DataTable<TData>({
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>(
     initialState?.columnVisibility ?? {},
   )
+  // `columnSizing` is the committed widths; `dragSizing` is the live value while a
+  // handle is being dragged, so `onLayoutChange` fires once per resize, not per move.
+  const [columnSizing, setColumnSizing] = useState<ColumnSizingState>(
+    initialState?.columnSizing ?? {},
+  )
+  const [dragSizing, setDragSizing] = useState<ColumnSizingState | null>(null)
+  const activeSizing = dragSizing ?? columnSizing
+  const sized = resizable && Object.keys(activeSizing).length > 0
   const [expanded, setExpanded] = useState<ExpandedState>(initialState?.expanded ?? {})
   const isTree = Boolean(getSubRows)
   const [paginationState, setPaginationState] = useState<PaginationState>({
@@ -135,6 +166,7 @@ export function DataTable<TData>({
       columnOrder,
       columnPinning,
       columnVisibility,
+      columnSizing: activeSizing,
       ...(clientPaging ? { pagination: paginationState } : {}),
     },
     onExpandedChange: setExpanded,
@@ -144,6 +176,7 @@ export function DataTable<TData>({
     onColumnOrderChange: setColumnOrder,
     onColumnPinningChange: setColumnPinning,
     onColumnVisibilityChange: setColumnVisibility,
+    onColumnSizingChange: setColumnSizing,
     onPaginationChange: setPaginationState,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: onSort ? undefined : getSortedRowModel(),
@@ -162,6 +195,8 @@ export function DataTable<TData>({
     manualPagination: !clientPaging,
     enableRowSelection: selectable,
     enableColumnPinning: pinnable,
+    enableColumnResizing: resizable,
+    defaultColumn: { minSize: DEFAULT_MIN_SIZE },
   })
 
   /* ------------------------------------------------------------ callbacks */
@@ -186,10 +221,11 @@ export function DataTable<TData>({
       columnOrder: table.getAllLeafColumns().map((c) => c.id),
       columnPinning: { left: columnPinning.left ?? [], right: columnPinning.right ?? [] },
       columnVisibility,
+      columnSizing,
     }
     onLayoutChange?.(layout)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [columnOrder, columnPinning, columnVisibility])
+  }, [columnOrder, columnPinning, columnVisibility, columnSizing])
 
   /* -------------------------------------------------------------- columns */
   const leftHeaders = table.getLeftFlatHeaders()
@@ -250,7 +286,7 @@ export function DataTable<TData>({
     observer.observe(tableRef.current)
     return () => observer.disconnect()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pinKey, selectable, data])
+  }, [pinKey, selectable, data, sized, activeSizing])
 
   const pinProps = (column: Column<TData, unknown>) => {
     const side = column.getIsPinned()
@@ -273,7 +309,7 @@ export function DataTable<TData>({
   const [dropId, setDropId] = useState<string | null>(null)
 
   const dragProps = (header: Header<TData, unknown>) => {
-    if (!reorderable || header.column.getIsPinned()) return {}
+    if (!reorderable || header.column.getIsPinned() || resizingId) return {}
     const id = header.column.id
     return {
       draggable: true,
@@ -299,6 +335,108 @@ export function DataTable<TData>({
       onDragEnd: () => {
         setDragId(null)
         setDropId(null)
+      },
+    }
+  }
+
+  /* ------------------------------------------------------------- resizing */
+  const [resizingId, setResizingId] = useState<string | null>(null)
+  const dragRef = useRef<ResizeDrag | null>(null)
+  const liveSizingRef = useRef<ColumnSizingState | null>(null)
+
+  /** Current widths of every visible column — measured when still automatic. */
+  const snapshotSizing = (): ColumnSizingState => {
+    if (sized) {
+      const next: ColumnSizingState = {}
+      for (const h of orderedHeaders) next[h.column.id] = h.column.getSize()
+      return next
+    }
+    const next: ColumnSizingState = {}
+    for (const h of orderedHeaders) {
+      const measured = Math.round(
+        thRefs.current.get(h.column.id)?.getBoundingClientRect().width ?? 0,
+      )
+      next[h.column.id] = measured || h.column.getSize()
+    }
+    return next
+  }
+
+  const bounds = (column: Column<TData, unknown>) => ({
+    min: column.columnDef.minSize ?? DEFAULT_MIN_SIZE,
+    max: column.columnDef.maxSize ?? Number.MAX_SAFE_INTEGER,
+  })
+
+  const resizeProps = (header: Header<TData, unknown>) => {
+    const { column } = header
+    const { min, max } = bounds(column)
+    const directionOf = () =>
+      getComputedStyle(thRefs.current.get(column.id) ?? document.body).direction === 'rtl' ? -1 : 1
+
+    const commit = (next: ColumnSizingState) => {
+      liveSizingRef.current = null
+      dragRef.current = null
+      setDragSizing(null)
+      setResizingId(null)
+      setColumnSizing(next)
+    }
+
+    return {
+      onPointerDown: (e: PointerEvent<HTMLDivElement>) => {
+        if (e.button !== 0) return
+        e.preventDefault()
+        e.stopPropagation()
+        e.currentTarget.setPointerCapture?.(e.pointerId)
+        const base = snapshotSizing()
+        dragRef.current = {
+          id: column.id,
+          startX: e.clientX,
+          startWidth: base[column.id] ?? column.getSize(),
+          sign: directionOf() as 1 | -1,
+          min,
+          max,
+          base,
+        }
+        liveSizingRef.current = base
+        setResizingId(column.id)
+        setDragSizing(base)
+      },
+      onPointerMove: (e: PointerEvent<HTMLDivElement>) => {
+        const drag = dragRef.current
+        if (!drag || drag.id !== column.id) return
+        const width = clamp(
+          drag.startWidth + (e.clientX - drag.startX) * drag.sign,
+          drag.min,
+          drag.max,
+        )
+        const next = { ...drag.base, [drag.id]: Math.round(width) }
+        liveSizingRef.current = next
+        setDragSizing(next)
+      },
+      onPointerUp: (e: PointerEvent<HTMLDivElement>) => {
+        if (!dragRef.current) return
+        e.currentTarget.releasePointerCapture?.(e.pointerId)
+        commit(liveSizingRef.current ?? dragRef.current.base)
+      },
+      onPointerCancel: () => {
+        if (dragRef.current) commit(dragRef.current.base)
+      },
+      onMouseDown: (e: React.MouseEvent) => e.preventDefault(),
+      onClick: (e: React.MouseEvent) => e.stopPropagation(),
+      onDoubleClick: () => setColumnSizing({}),
+      onKeyDown: (e: KeyboardEvent<HTMLDivElement>) => {
+        const grow =
+          e.key === 'ArrowRight' ? directionOf() : e.key === 'ArrowLeft' ? -directionOf() : 0
+        if (e.key === 'Enter') {
+          e.preventDefault()
+          setColumnSizing({})
+          return
+        }
+        if (!grow) return
+        e.preventDefault()
+        const base = snapshotSizing()
+        const step = e.shiftKey ? RESIZE_STEP_LARGE : RESIZE_STEP
+        const width = clamp((base[column.id] ?? column.getSize()) + grow * step, min, max)
+        setColumnSizing({ ...base, [column.id]: width })
       },
     }
   }
@@ -330,6 +468,7 @@ export function DataTable<TData>({
     setColumnOrder([])
     setColumnPinning({ left: [], right: [] })
     setColumnVisibility({})
+    setColumnSizing({})
   }
 
   const rows = table.getRowModel().rows
@@ -339,6 +478,8 @@ export function DataTable<TData>({
       className="dyl-data-table"
       data-loading={loading || undefined}
       data-compact={compact || undefined}
+      data-resized={sized || undefined}
+      data-resizing={resizingId ? true : undefined}
     >
       {showToolbar && (
         <div className="dyl-data-table__toolbar" role="toolbar" aria-label={t.controls}>
@@ -402,7 +543,21 @@ export function DataTable<TData>({
         </div>
       )}
 
-      <Table hoverable compact={compact} ref={tableRef}>
+      <Table
+        hoverable
+        compact={compact}
+        ref={tableRef}
+        data-resized={sized || undefined}
+        style={
+          sized
+            ? {
+                width: `calc(${orderedHeaders.reduce((sum, h) => sum + h.column.getSize(), 0)}px${
+                  selectable ? ` + ${SELECT_COLUMN_WIDTH}` : ''
+                })`,
+              }
+            : undefined
+        }
+      >
         <Table.THead>
           <Table.Tr>
             {selectable && (
@@ -428,6 +583,8 @@ export function DataTable<TData>({
               const label = columnLabel(column)
               const centerIds = centerHeaders.map((h) => h.column.id)
               const centerIndex = centerIds.indexOf(column.id)
+              const pin = pinProps(column)
+              const canResize = resizable && column.getCanResize() && !header.isPlaceholder
               return (
                 <Table.Th
                   key={header.id}
@@ -437,7 +594,14 @@ export function DataTable<TData>({
                   }}
                   aria-sort={canSort ? (dir ? `${dir}ending` : 'none') : undefined}
                   className="dyl-data-table__th"
-                  {...pinProps(column)}
+                  {...pin}
+                  style={
+                    sized
+                      ? { ...('style' in pin ? pin.style : null), width: column.getSize() }
+                      : 'style' in pin
+                        ? pin.style
+                        : undefined
+                  }
                   {...dragProps(header)}
                 >
                   <div className="dyl-data-table__th-inner">
@@ -503,6 +667,26 @@ export function DataTable<TData>({
                       />
                     )}
                   </div>
+                  {canResize && (
+                    <div
+                      role="separator"
+                      aria-orientation="vertical"
+                      aria-label={t.resizeColumn(label)}
+                      aria-valuenow={
+                        sized
+                          ? column.getSize()
+                          : Math.round(
+                              thRefs.current.get(column.id)?.offsetWidth ?? column.getSize(),
+                            )
+                      }
+                      aria-valuemin={bounds(column).min}
+                      aria-valuemax={Math.min(bounds(column).max, 4000)}
+                      tabIndex={0}
+                      className="dyl-data-table__resizer"
+                      data-active={resizingId === column.id || undefined}
+                      {...resizeProps(header)}
+                    />
+                  )}
                 </Table.Th>
               )
             })}

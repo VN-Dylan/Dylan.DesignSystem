@@ -4,6 +4,7 @@ import type { ColumnDef } from '@tanstack/react-table'
 import { Button } from '../Button'
 import { Select, type SelectOption } from '../Select'
 import { DataTable } from './DataTable'
+import type { DataTableLayout } from './types'
 
 const meta = {
   title: 'Data Display/DataTable',
@@ -198,6 +199,39 @@ export const PinnedColumns: Story = {
       />
     </div>
   ),
+}
+
+/**
+ * `resizable`: drag a header's end edge — or focus it and use ←/→ (Shift for big
+ * steps) — to change a column width. Double-click or Enter returns to automatic
+ * widths. `onLayoutChange` reports `columnSizing` once per resize, ready to save.
+ */
+export const ResizableColumns: Story = {
+  render: () => {
+    const Demo = () => {
+      const [layout, setLayout] = useState<DataTableLayout | null>(null)
+      return (
+        <div className="space-y-3">
+          <DataTable<Ticket>
+            columns={ticketColumns.map((column) =>
+              column.id === 'ticket' || ('accessorKey' in column && column.accessorKey === 'ticket')
+                ? { ...column, minSize: 160 }
+                : column,
+            )}
+            data={TICKETS.slice(0, 6)}
+            resizable
+            selectable
+            onLayoutChange={setLayout}
+            initialState={{ columnPinning: { left: ['ticket'] } }}
+          />
+          <pre className="rounded-md bg-surface-sunken p-3 text-xs text-content-muted">
+            {JSON.stringify(layout?.columnSizing ?? {}, null, 2)}
+          </pre>
+        </div>
+      )
+    }
+    return <Demo />
+  },
 }
 
 /** `compact`: tighter header and rows for dense data or inline editors. */

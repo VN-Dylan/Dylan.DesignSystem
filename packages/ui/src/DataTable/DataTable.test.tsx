@@ -40,6 +40,101 @@ describe('DataTable', () => {
     expect(screen.getByRole('cell', { name: 'Grace' })).toBeInTheDocument()
   })
 
+  describe('resizable columns', () => {
+    const handle = (name: string) =>
+      screen.getByRole('separator', { name: `Resize ${name} column` })
+    const th = (name: string) =>
+      screen.getAllByRole('columnheader').find((el) => el.textContent?.includes(name))!
+
+    it('adds no handles and keeps automatic layout by default', () => {
+      const { container } = render(<DataTable columns={columns} data={data} />)
+      expect(screen.queryByRole('separator')).not.toBeInTheDocument()
+      expect(container.querySelector('.dyl-data-table')).not.toHaveAttribute('data-resized')
+    })
+
+    it('renders a focusable handle per resizable column and honours enableResizing', () => {
+      const cols: ColumnDef<Row, unknown>[] = [
+        { accessorKey: 'name', header: 'Name' },
+        { accessorKey: 'age', header: 'Age', enableResizing: false },
+      ]
+      render(<DataTable columns={cols} data={data} resizable />)
+      expect(handle('Name')).toHaveAttribute('tabindex', '0')
+      expect(handle('Name')).toHaveAttribute('aria-orientation', 'vertical')
+      expect(screen.getAllByRole('separator')).toHaveLength(1)
+    })
+
+    it('resizes with the keyboard, clamps to minSize and resets on Enter', async () => {
+      const user = userEvent.setup()
+      const onLayoutChange = vi.fn()
+      const cols: ColumnDef<Row, unknown>[] = [
+        { accessorKey: 'name', header: 'Name', size: 200, minSize: 180 },
+        { accessorKey: 'age', header: 'Age', size: 100 },
+      ]
+      const { container } = render(
+        <DataTable columns={cols} data={data} resizable onLayoutChange={onLayoutChange} />,
+      )
+      handle('Name').focus()
+      await user.keyboard('{ArrowRight}')
+      expect(th('Name')).toHaveStyle({ width: '210px' })
+      expect(th('Age')).toHaveStyle({ width: '100px' })
+      expect(container.querySelector('.dyl-data-table')).toHaveAttribute('data-resized', 'true')
+      expect(container.querySelector('table')).toHaveStyle({ width: 'calc(310px)' })
+
+      await user.keyboard('{Shift>}{ArrowLeft}{ArrowLeft}{/Shift}')
+      expect(th('Name')).toHaveStyle({ width: '180px' })
+
+      expect(onLayoutChange).toHaveBeenLastCalledWith(
+        expect.objectContaining({ columnSizing: { name: 180, age: 100 } }),
+      )
+
+      await user.keyboard('{Enter}')
+      expect(container.querySelector('.dyl-data-table')).not.toHaveAttribute('data-resized')
+    })
+
+    it('resizes by dragging and commits once on release', () => {
+      const onLayoutChange = vi.fn()
+      const cols: ColumnDef<Row, unknown>[] = [
+        { accessorKey: 'name', header: 'Name', size: 200 },
+        { accessorKey: 'age', header: 'Age', size: 100 },
+      ]
+      render(<DataTable columns={cols} data={data} resizable onLayoutChange={onLayoutChange} />)
+      const h = handle('Name')
+      // jsdom drops clientX on PointerEvent, so dispatch mouse events under the pointer names.
+      const pointer = (type: string, clientX: number) =>
+        fireEvent(h, new MouseEvent(type, { bubbles: true, cancelable: true, button: 0, clientX }))
+      pointer('pointerdown', 500)
+      pointer('pointermove', 540)
+      expect(th('Name')).toHaveStyle({ width: '240px' })
+      pointer('pointermove', 560)
+      expect(onLayoutChange).not.toHaveBeenCalled()
+      pointer('pointerup', 560)
+      expect(th('Name')).toHaveStyle({ width: '260px' })
+      expect(onLayoutChange).toHaveBeenCalledTimes(1)
+      expect(onLayoutChange).toHaveBeenLastCalledWith(
+        expect.objectContaining({ columnSizing: { name: 260, age: 100 } }),
+      )
+    })
+
+    it('restores saved widths and resets on double-click', () => {
+      const { container } = render(
+        <DataTable
+          columns={columns}
+          data={data}
+          resizable
+          initialState={{ columnSizing: { name: 220, age: 90 } }}
+        />,
+      )
+      expect(th('Name')).toHaveStyle({ width: '220px' })
+      fireEvent.doubleClick(handle('Name'))
+      expect(container.querySelector('.dyl-data-table')).not.toHaveAttribute('data-resized')
+    })
+
+    it('has no axe violations', async () => {
+      const { container } = render(<DataTable columns={columns} data={data} resizable />)
+      expect(await axe(container)).toHaveNoViolations()
+    })
+  })
+
   it('passes compact density to the table', () => {
     const { container } = render(<DataTable columns={columns} data={data} compact />)
     expect(container.querySelector('.dyl-data-table')).toHaveAttribute('data-compact', 'true')

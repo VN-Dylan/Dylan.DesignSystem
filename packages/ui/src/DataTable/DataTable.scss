@@ -1,5 +1,10 @@
 .dyl-data-table {
   @apply relative flex flex-col gap-base;
+  --dyl-select-col: 3rem;
+
+  &[data-compact] {
+    --dyl-select-col: 2.5rem;
+  }
 
   &[data-loading] {
     @apply pointer-events-none;
@@ -43,9 +48,14 @@
   /* The sorter / label inside owns the padding. The extra selectors outrank
      the base `.dyl-table .dyl-table__th` (and its compact variant) padding,
      which would otherwise be added on top and double the header height. */
-  .dyl-table .dyl-table__th.dyl-data-table__th,
-  &__th {
+  .dyl-table .dyl-table__th.dyl-data-table__th {
     @apply p-0;
+  }
+
+  /* `relative` anchors the resize handle. It stays at low specificity so a
+     pinned header's `position: sticky` (see `[data-pinned]`) still wins. */
+  &__th {
+    @apply relative;
 
     &[draggable='true'] {
       @apply cursor-grab;
@@ -84,6 +94,48 @@
     @apply cursor-pointer hover:text-content;
     @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset
       focus-visible:ring-primary;
+  }
+
+  /* Column resize handle on the header's end edge — a wide hit area with a
+     thin visible line that appears on hover, focus and while dragging. */
+  &__resizer {
+    @apply absolute inset-y-0 end-0 z-[1] w-2 cursor-col-resize select-none;
+    touch-action: none;
+
+    &::after {
+      @apply absolute inset-y-2 end-0 w-0.5 rounded-full bg-transparent transition-colors
+        duration-fast;
+      content: '';
+    }
+
+    &:hover::after,
+    &:focus-visible::after,
+    &[data-active]::after {
+      @apply bg-primary;
+    }
+
+    &:focus-visible {
+      @apply outline-none;
+    }
+  }
+
+  /* After the first resize the table has explicit widths: cells clip instead of
+     pushing their neighbours, and headers truncate. */
+  &[data-resized] .dyl-table {
+    table-layout: fixed;
+  }
+
+  &[data-resized] .dyl-table__td {
+    @apply overflow-hidden text-ellipsis;
+  }
+
+  &[data-resized] &__label,
+  &[data-resized] &__sorter > span {
+    @apply overflow-hidden text-ellipsis whitespace-nowrap;
+  }
+
+  &[data-resizing] {
+    @apply cursor-col-resize select-none;
   }
 
   &__sort-icon {
@@ -142,8 +194,10 @@
   }
 
   /* ---------------------------------------------------------------- body */
+  /* Checkbox (16px) + the cell's horizontal padding; matches what automatic
+     layout produces, so switching to fixed widths never clips the checkbox. */
   &__select-cell {
-    @apply w-10;
+    width: var(--dyl-select-col);
   }
 
   &__empty {

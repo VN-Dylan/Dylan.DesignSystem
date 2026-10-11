@@ -46,6 +46,7 @@ export const vi: UiMessages = {
     collapseAll: 'Thu gọn tất cả',
     pinned: 'Đã ghim',
     columnOptions: (column) => `Tuỳ chọn cột ${column}`,
+    resizeColumn: (column) => `Đổi độ rộng cột ${column}`,
     sortAscending: 'Sắp xếp tăng dần',
     sortDescending: 'Sắp xếp giảm dần',
     clearSort: 'Bỏ sắp xếp',

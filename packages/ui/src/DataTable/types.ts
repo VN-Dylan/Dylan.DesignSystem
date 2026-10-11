@@ -22,6 +22,8 @@ export interface DataTableLayout {
   columnOrder: string[]
   columnPinning: { left: string[]; right: string[] }
   columnVisibility: Record<string, boolean>
+  /** Column id → width in px. Empty while widths are automatic. */
+  columnSizing: Record<string, number>
 }
 
 export interface DataTableInitialState {
@@ -29,6 +31,8 @@ export interface DataTableInitialState {
   columnOrder?: string[]
   columnPinning?: DataTableColumnPinning
   columnVisibility?: Record<string, boolean>
+  /** Column id → width in px (a saved `layout.columnSizing`). Turns fixed widths on. */
+  columnSizing?: Record<string, number>
   /** Client-side page size. Defaults to the first `pageSizeOptions` entry. */
   pageSize?: number
   /** Tree mode: `true` expands every row, or a map of row id → expanded. */
@@ -72,6 +76,14 @@ export interface DataTableProps<TData> {
   columnMenu?: boolean
   /** Drag column headers to reorder. @default true */
   reorderable?: boolean
+  /**
+   * Drag the end edge of a header (or focus it and use the arrow keys) to change
+   * a column's width; double-click it to return to automatic widths. The first
+   * resize freezes every column at its current width. Opt a column out with
+   * `enableResizing: false`; bound it with `minSize` / `maxSize` (px).
+   * @default false
+   */
+  resizable?: boolean
   /** Allow pinning columns to the start/end edge. @default true */
   pinnable?: boolean
   /** Initial sorting / layout / page size. */

@@ -46,6 +46,7 @@ export const en: UiMessages = {
     collapseAll: 'Collapse all rows',
     pinned: 'Pinned',
     columnOptions: (column) => `${column} options`,
+    resizeColumn: (column) => `Resize ${column} column`,
     sortAscending: 'Sort ascending',
     sortDescending: 'Sort descending',
     clearSort: 'Clear sort',
