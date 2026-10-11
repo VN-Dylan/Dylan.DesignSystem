@@ -1,5 +1,25 @@
 # @vn-dylan/ui
 
+## 0.3.0
+
+### Minor Changes
+
+- fe16ee9: `DataTable` gains `resizable`: drag a header's end edge (or focus it and use the
+  arrow keys, Shift for big steps) to change a column's width; double-click or Enter
+  returns to automatic widths. Bound a column with `minSize` / `maxSize`, opt out with
+  `enableResizing: false`. The first resize freezes every column at its current width;
+  `onLayoutChange` now reports `columnSizing` (once per resize) and
+  `initialState.columnSizing` restores it. Works in RTL and with pinned columns.
+
+### Patch Changes
+
+- 9f13577: `DataTable` header no longer doubles its padding (it was ~64px tall, now ~44px)
+  and gains `compact` (header ~32px, rows `px-3 py-2`) for dense tables or inline
+  editors.
+  - @vn-dylan/icons@0.3.0
+  - @vn-dylan/tokens@0.3.0
+  - @vn-dylan/utils@0.3.0
+
 ## 0.2.0
 
 ### Minor Changes
